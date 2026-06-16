@@ -672,75 +672,146 @@ img {
 /* ==========================================================================
    7. INDUSTRIES SECTION
    ========================================================================== */
+.industries .container {
+    max-width: 1500px;
+}
+
 .industry-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    gap: 24px;
 }
 
 .industry-card {
     background: var(--white);
-    padding: 30px 20px;
-    border-radius: 8px;
+    border-radius: 16px;
     border: 1px solid var(--border-grey);
-    text-align: center;
-    transition: var(--transition-smooth);
+    text-align: left;
+    transition: all 0.4s ease-out;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.industry-card:hover {
+    background: var(--white);
+    color: var(--exec-black);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-premium);
+    border-color: var(--primary-green);
+}
+
+.industry-img-container {
+    width: 100%;
+    height: 140px;
     position: relative;
     overflow: hidden;
 }
 
-.industry-card:hover {
-    background: var(--primary-green);
-    color: var(--white);
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
+.industry-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease-out;
 }
 
-.industry-icon {
-    font-size: 32px;
-    color: var(--primary-green);
-    margin-bottom: 16px;
-    transition: var(--transition-fast);
+.industry-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.3);
 }
 
-.industry-card:hover .industry-icon,
-.industry-card:hover h4,
-.industry-card:hover p {
-    color: var(--white);
+.industry-card:hover .industry-img {
+    transform: scale(1.05);
+}
+
+.industry-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .industry-card h4 {
-    font-size: 1rem;
-    margin-bottom: 8px;
-    transition: var(--transition-fast);
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+    color: var(--exec-black);
 }
 
-.industry-card p {
-    font-size: 0.875rem;
-    color: var(--text-grey);
-    margin-bottom: 16px;
-    transition: var(--transition-fast);
-}
-
-.industry-link {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--light-grey);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
+.industry-sub {
+    font-size: 0.7rem;
     color: var(--primary-green);
-    opacity: 0;
-    transform: translateY(10px);
+    font-weight: 600;
+    margin-bottom: 12px;
 }
 
-.industry-card:hover .industry-link {
-    background: rgba(255, 255, 255, 0.2);
-    color: var(--white);
-    opacity: 1;
-    transform: translateY(0);
+.industry-desc {
+    font-size: 0.8rem;
+    color: var(--text-grey);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.industry-lists {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-grow: 1;
+}
+
+.industry-list-col strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--exec-black);
+    margin-bottom: 8px;
+}
+
+.industry-list-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.industry-list-col li {
+    font-size: 0.8rem;
+    color: var(--text-grey);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.text-green {
+    color: var(--success-green);
+    font-size: 0.75rem;
+    margin-top: 2px;
+    transition: transform 0.3s ease-out;
+}
+
+.industry-card:hover .text-green {
+    transform: scale(1.1);
+}
+
+.industry-content .btn-link {
+    margin-top: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-green);
+}
+
+.industry-content .btn-link i {
+    transition: transform 0.3s ease-out;
+}
+
+.industry-card:hover .btn-link i {
+    transform: translateX(4px);
 }
 
 /* ==========================================================================
