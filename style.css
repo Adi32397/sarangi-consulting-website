@@ -219,6 +219,78 @@ img {
 }
 
 /* ==========================================================================
+   PAGE LOADER
+   ========================================================================== */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    background-color: var(--white);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.page-loader.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.loader-logo {
+    color: var(--primary-green);
+    animation: loader-pulse 1.5s infinite ease-in-out;
+}
+
+.loader-counter {
+    font-family: var(--font-stats);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--exec-black);
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.loader-suffix {
+    font-size: 1.25rem;
+    color: var(--text-grey);
+}
+
+@keyframes loader-pulse {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.loader-laser-track {
+    width: 250px;
+    height: 3px;
+    background-color: var(--light-grey);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loader-laser {
+    height: 100%;
+    width: 10%; /* Initial width for count=1 */
+    background-color: var(--success-green);
+    box-shadow: 0 0 8px var(--success-green), 0 0 16px var(--success-green);
+    border-radius: 3px;
+    transition: width 0.15s ease-out;
+}
+
+/* ==========================================================================
    1. TOP ANNOUNCEMENT BAR
    ========================================================================== */
 .announcement-bar {

@@ -103,6 +103,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. SPA Routing Logic
+    let isNavigating = false;
+
+    const runWithLoader = (callback) => {
+        if (isNavigating) return;
+
+        const loader = document.getElementById('page-loader');
+        const counter = document.getElementById('loader-count');
+        const laser = document.getElementById('loader-laser');
+        
+        if (!loader || !counter) {
+            callback();
+            return;
+        }
+
+        isNavigating = true;
+        loader.classList.add('active');
+        
+        let count = 1;
+        counter.innerText = count;
+        if (laser) laser.style.width = '10%';
+        
+        const countInterval = setInterval(() => {
+            count += 1;
+            counter.innerText = count;
+            if (laser) laser.style.width = (count * 10) + '%';
+            
+            if (count >= 10) {
+                clearInterval(countInterval);
+                
+                // Execute the actual page switch
+                callback();
+                
+                // Hide loader
+                setTimeout(() => {
+                    loader.classList.remove('active');
+                    setTimeout(() => {
+                        isNavigating = false;
+                    }, 400); // Wait for CSS transition
+                }, 200);
+            }
+        }, 120); // 10 steps * 120ms = 1.2s total loading time
+    };
+
     const handleRoute = () => {
         let hash = window.location.hash;
         if (!hash || hash === '#') {
@@ -113,62 +156,88 @@ document.addEventListener('DOMContentLoaded', () => {
         const pageSections = document.querySelectorAll(`.page-section[data-page="${pageId}"]`);
         
         if (pageSections.length > 0) {
-            // It's a top-level page route
-            document.querySelectorAll('.page-section').forEach(sec => {
-                sec.classList.remove('active-page');
+            // Check if we are already on this page
+            const activePage = document.querySelector('.page-section.active-page');
+            if (activePage && activePage.getAttribute('data-page') === pageId) {
+                // We're already on the requested page, just scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            runWithLoader(() => {
+                // It's a top-level page route
+                document.querySelectorAll('.page-section').forEach(sec => {
+                    sec.classList.remove('active-page');
+                });
+                
+                pageSections.forEach(sec => {
+                    sec.classList.add('active-page');
+                    // Reset animations then trigger them
+                    sec.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.remove('active'));
+                    setTimeout(() => {
+                        sec.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.add('active'));
+                    }, 100);
+                });
+                
+                // Update active state in navigation
+                document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === hash) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Scroll to top when changing pages
+                window.scrollTo(0, 0);
             });
-            
-            pageSections.forEach(sec => {
-                sec.classList.add('active-page');
-                // Trigger reveal animations for newly shown sections
-                setTimeout(() => {
-                    sec.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.add('active'));
-                }, 100);
-            });
-            
-            // Update active state in navigation
-            document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === hash) {
-                    link.classList.add('active');
-                }
-            });
-            
-            // Scroll to top when changing pages
-            window.scrollTo(0, 0);
             
         } else {
-            // Might be an anchor link to a section inside a page (e.g. from a button)
+            // Might be an anchor link to a section inside a page
             const targetElement = document.getElementById(pageId);
             if (targetElement) {
-                // Find parent page
                 const parentPage = targetElement.closest('.page-section');
                 
                 if (parentPage) {
                     const parentPageId = parentPage.getAttribute('data-page');
+                    const activePage = document.querySelector('.page-section.active-page');
                     
-                    // Switch to that page first
-                    document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
-                    document.querySelectorAll(`.page-section[data-page="${parentPageId}"]`).forEach(sec => sec.classList.add('active-page'));
-                    
-                    // Update active nav link to the parent page
-                    document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${parentPageId}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                    
-                    // Scroll to the specific section
-                    setTimeout(() => {
-                        const headerOffset = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
+                    const executeScroll = () => {
+                        // Update active nav link to the parent page
+                        document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${parentPageId}`) {
+                                link.classList.add('active');
+                            }
                         });
-                    }, 50);
+                        
+                        setTimeout(() => {
+                            const headerOffset = 80;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }, 50);
+                    };
+
+                    if (activePage && activePage.getAttribute('data-page') === parentPageId) {
+                        // Already on the right page, just scroll smoothly
+                        executeScroll();
+                    } else {
+                        // Need to switch pages, use loader
+                        runWithLoader(() => {
+                            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
+                            document.querySelectorAll(`.page-section[data-page="${parentPageId}"]`).forEach(sec => {
+                                sec.classList.add('active-page');
+                                sec.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.remove('active'));
+                                setTimeout(() => {
+                                    sec.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.add('active'));
+                                }, 100);
+                            });
+                            executeScroll();
+                        });
+                    }
                 }
             }
         }
