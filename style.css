@@ -689,6 +689,70 @@ img {
     color: var(--success-green);
 }
 
+/* Testimonials */
+.testimonials-section {
+    width: 100%;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: var(--light-grey);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border-grey);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition-smooth);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-green);
+}
+
+.testimonial-content {
+    margin-bottom: 24px;
+}
+
+.quote-icon {
+    font-size: 2rem;
+    color: var(--primary-green);
+    opacity: 0.3;
+    margin-bottom: 16px;
+}
+
+.testimonial-content p {
+    font-style: italic;
+    color: var(--exec-black);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border-grey);
+    padding-top: 20px;
+}
+
+.author-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.author-info p {
+    font-size: 0.875rem;
+    color: var(--text-grey);
+    margin: 0;
+}
+
 /* ==========================================================================
    6. SERVICES SECTION
    ========================================================================== */
