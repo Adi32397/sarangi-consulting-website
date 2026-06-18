@@ -1722,14 +1722,14 @@ section.hero.page-section.active-page {
    ========================================================================== */
 
 :root {
-    --contact-primary: var(--exec-black);
+    --contact-primary: #f8fcf9; /* Very light green-white */
     --contact-secondary: var(--primary-green);
     --contact-accent: var(--primary-green);
-    --contact-text: var(--white);
-    --contact-text-muted: #ccc;
-    --contact-border: rgba(255, 255, 255, 0.1);
-    --glass-bg: rgba(26, 26, 26, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --contact-text: var(--exec-black);
+    --contact-text-muted: var(--text-grey);
+    --contact-border: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.05);
 }
 
 .contact-section {
@@ -1747,7 +1747,7 @@ section.hero.page-section.active-page {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle fill="rgba(255,255,255,0.03)" cx="2" cy="2" r="1"></circle></pattern><rect x="0" y="0" width="100%" height="100%" fill="url(%23dots)"></rect></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle fill="rgba(0,255,136,0.15)" cx="2" cy="2" r="1"></circle></pattern><rect x="0" y="0" width="100%" height="100%" fill="url(%23dots)"></rect></svg>');
     background-size: cover;
     z-index: 1;
     pointer-events: none;
@@ -1765,7 +1765,7 @@ section.hero.page-section.active-page {
 .contact-stat-item {
     text-align: center;
     padding: 20px 30px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.8);
     border: 1px solid var(--contact-border);
     border-radius: 16px;
     backdrop-filter: blur(5px);
@@ -1920,13 +1920,13 @@ section.hero.page-section.active-page {
 
 /* Right Panel Form */
 .glass-form {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.8);
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 50px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
 }
 
 .form-title {
@@ -1950,7 +1950,7 @@ section.hero.page-section.active-page {
 
 .form-control {
     width: 100%;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.03);
     border: 1px solid var(--contact-border);
     border-radius: 12px;
     padding: 16px 20px;
@@ -1963,7 +1963,7 @@ section.hero.page-section.active-page {
 .form-control:focus {
     outline: none;
     border-color: var(--contact-accent);
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.05);
     box-shadow: 0 0 0 4px rgba(0, 255, 136, 0.1);
 }
 
@@ -2245,7 +2245,7 @@ textarea.form-control {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     z-index: 9999;
     display: flex;
