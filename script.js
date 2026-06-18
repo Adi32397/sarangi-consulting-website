@@ -247,4 +247,90 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('hashchange', handleRoute);
     handleRoute();
 
+
+
+    // 6. Contact Form Logic
+    const contactForm = document.getElementById('mainContactForm');
+    const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+    const successPopup = document.getElementById('successPopup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const fileInput = document.getElementById('contactFile');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+    if (contactForm) {
+        // Floating label value check
+        const floatingInputs = document.querySelectorAll('.floating-group .form-control');
+        
+        const checkValue = (input) => {
+            if (input.value.trim() !== '') {
+                input.classList.add('has-value');
+            } else {
+                input.classList.remove('has-value');
+            }
+        };
+
+        floatingInputs.forEach(input => {
+            // Initial check
+            checkValue(input);
+            // On input
+            input.addEventListener('input', () => checkValue(input));
+            // On blur (for autocomplete cases)
+            input.addEventListener('blur', () => checkValue(input));
+        });
+
+        // File upload display
+        if (fileInput && fileNameDisplay) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    fileNameDisplay.textContent = "Selected: " + this.files[0].name;
+                } else {
+                    fileNameDisplay.textContent = "";
+                }
+            });
+        }
+
+        // Form Submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Basic HTML5 validation trigger
+            if (!contactForm.checkValidity()) {
+                contactForm.reportValidity();
+                return;
+            }
+
+            // Simulate loading
+            const btnText = contactSubmitBtn.querySelector('.btn-text');
+            const btnLoader = contactSubmitBtn.querySelector('.btn-loader');
+            
+            contactSubmitBtn.disabled = true;
+            btnText.classList.add('hidden');
+            btnLoader.classList.remove('hidden');
+
+            setTimeout(() => {
+                // Reset button
+                contactSubmitBtn.disabled = false;
+                btnText.classList.remove('hidden');
+                btnLoader.classList.add('hidden');
+                
+                // Show success popup
+                if (successPopup) {
+                    successPopup.classList.add('show');
+                }
+                
+                // Reset form
+                contactForm.reset();
+                floatingInputs.forEach(input => checkValue(input));
+                if(fileNameDisplay) fileNameDisplay.textContent = "";
+                
+            }, 1500); // 1.5s simulated network request
+        });
+    }
+
+    if (closePopupBtn && successPopup) {
+        closePopupBtn.addEventListener('click', () => {
+            successPopup.classList.remove('show');
+        });
+    }
+
 });
