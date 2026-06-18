@@ -1722,13 +1722,13 @@ section.hero.page-section.active-page {
    ========================================================================== */
 
 :root {
-    --contact-primary: #0F172A; /* Dark Navy */
-    --contact-secondary: #2563EB; /* Professional Blue */
-    --contact-accent: #06B6D4; /* Cyan */
-    --contact-text: #F8FAFC;
-    --contact-text-muted: #94A3B8;
+    --contact-primary: var(--exec-black);
+    --contact-secondary: var(--primary-green);
+    --contact-accent: var(--primary-green);
+    --contact-text: var(--white);
+    --contact-text-muted: #ccc;
     --contact-border: rgba(255, 255, 255, 0.1);
-    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-bg: rgba(26, 26, 26, 0.6);
     --glass-border: rgba(255, 255, 255, 0.08);
 }
 
@@ -1829,7 +1829,7 @@ section.hero.page-section.active-page {
     width: 50px;
     height: 50px;
     border-radius: 12px;
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(0, 255, 136, 0.1);
     color: var(--contact-secondary);
     display: flex;
     align-items: center;
@@ -1857,8 +1857,8 @@ section.hero.page-section.active-page {
 }
 
 .why-choose-card {
-    background: linear-gradient(145deg, rgba(37, 99, 235, 0.1), rgba(6, 182, 212, 0.05));
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    background: linear-gradient(145deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+    border: 1px solid rgba(0, 255, 136, 0.2);
     border-radius: 16px;
     padding: 30px;
 }
@@ -1964,7 +1964,7 @@ section.hero.page-section.active-page {
     outline: none;
     border-color: var(--contact-accent);
     background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1);
+    box-shadow: 0 0 0 4px rgba(0, 255, 136, 0.1);
 }
 
 /* Floating Labels */
@@ -2133,8 +2133,8 @@ textarea.form-control {
     justify-content: center;
     gap: 10px;
     padding: 20px;
-    background: rgba(37, 99, 235, 0.05);
-    border: 2px dashed rgba(37, 99, 235, 0.3);
+    background: rgba(0, 255, 136, 0.05);
+    border: 2px dashed rgba(0, 255, 136, 0.3);
     border-radius: 12px;
     color: var(--contact-secondary);
     cursor: pointer;
@@ -2143,7 +2143,7 @@ textarea.form-control {
 }
 
 .file-upload-label:hover {
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(0, 255, 136, 0.1);
     border-color: var(--contact-secondary);
 }
 
@@ -2212,7 +2212,7 @@ textarea.form-control {
 .btn-submit-massive {
     width: 100%;
     padding: 20px;
-    background: linear-gradient(135deg, var(--contact-secondary), #1d4ed8);
+    background: linear-gradient(135deg, var(--primary-green), #00cc6a);
     color: white;
     border: none;
     border-radius: 12px;
@@ -2231,7 +2231,7 @@ textarea.form-control {
 
 .btn-submit-massive:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+    box-shadow: 0 10px 25px -5px rgba(0, 255, 136, 0.5);
 }
 
 .btn-submit-massive:active {
