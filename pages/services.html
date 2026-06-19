@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarangi Consulting | Growth & Management Consulting</title>
+    <meta name="description" content="Helping startups, MSMEs, SMEs, and growth-stage organizations achieve sustainable growth through strategy, transformation, operational excellence, and execution-focused advisory services.">
+    
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css?v=8">
+</head>
+<body>
+    <!-- PAGE LOADER -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-content">
+            <svg class="loader-logo" width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+                <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
+                <line x1="10" y1="30" x2="90" y2="70" />
+            </svg>
+            <div class="loader-counter">Loading... <span id="loader-count">1</span><span class="loader-suffix">/10</span></div>
+            <div class="loader-laser-track">
+                <div id="loader-laser" class="loader-laser"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. TOP ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <div class="container announcement-content">
+            <p>Now Booking Startup Growth Advisory Sessions with RC Sarangi | ₹999 for 60 Minutes</p>
+            <a href="startup-advisory.html" class="btn btn-success btn-small">Book Now</a>
+        </div>
+    </div>
+
+    <!-- 2. STICKY HEADER -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <a href="#" class="logo-container">
+                <svg class="logo-mark" width="32" height="32" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+                    <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
+                    <line x1="10" y1="30" x2="90" y2="70" />
+                </svg>
+                <div class="logo-text">SARANGI<span>CONSULTING</span></div>
+            </a>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="industries.html">Industries</a></li>
+                    <li><a href="insights.html">Insights</a></li>
+                    <li><a href="startup-advisory.html">Startup Advisory</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="startup-advisory.html" class="btn btn-primary d-none-mobile">Book Advisory Session</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <ul class="mobile-nav-links">
+                <li><a href="../index.html" class="mobile-link">Home</a></li>
+                <li><a href="about.html" class="mobile-link">About</a></li>
+                <li><a href="services.html" class="mobile-link">Services</a></li>
+                <li><a href="industries.html" class="mobile-link">Industries</a></li>
+                <li><a href="insights.html" class="mobile-link">Insights</a></li>
+                <li><a href="startup-advisory.html" class="mobile-link">Startup Advisory</a></li>
+                <li><a href="contact.html" class="mobile-link">Contact</a></li>
+            </ul>
+            <a href="startup-advisory.html" class="btn btn-primary mobile-btn">Book Advisory Session</a>
+        </div>
+    </header>
+
+    <!-- 6. SERVICES SECTION -->
+    <section class="services section-padding bg-light page-section" data-page="services" id="services">
+        <div class="container">
+            <div class="section-header text-center reveal-up">
+                <h2 class="section-title">Our Consulting Services</h2>
+                <p class="section-description mx-auto">Comprehensive advisory solutions designed to solve your most complex business challenges.</p>
+            </div>
+            
+            <div class="services-grid"><!-- 1. Strategy & Growth Consulting -->
+                <a href="#service-strategy-growth-consulting" class="service-card reveal-up"  style="transition-delay: 0.1s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" alt="Strategy & Growth Consulting" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Strategy & Growth Consulting</h4>
+                        <p class="service-desc">Helping businesses identify growth opportunities, improve competitive positioning, and build scalable strategies.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 2. Startup Advisory -->
+                <a href="#service-startup-advisory" class="service-card reveal-up"  style="transition-delay: 0.2s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800" alt="Startup Advisory" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Startup Advisory</h4>
+                        <p class="service-desc">Supporting founders from idea validation through scaling with practical strategic and operational guidance.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 3. Operations Consulting -->
+                <a href="#service-operations-consulting" class="service-card reveal-up"  style="transition-delay: 0.3s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="Operations Consulting" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Operations Consulting</h4>
+                        <p class="service-desc">Improving efficiency, reducing costs, and optimizing workflows across business functions.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 4. Marketing & Growth Consulting -->
+                <a href="#service-marketing-growth-consulting" class="service-card reveal-up"  style="transition-delay: 0.4s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Marketing & Growth Consulting" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Marketing & Growth Consulting</h4>
+                        <p class="service-desc">Driving customer acquisition, brand visibility, and revenue growth through data-driven marketing strategies.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 5. Digital Transformation Consulting -->
+                <a href="#service-digital-transformation-consulting" class="service-card reveal-up"  style="transition-delay: 0.5s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" alt="Digital Transformation Consulting" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Digital Transformation</h4>
+                        <p class="service-desc">Helping organizations modernize systems, leverage technology, and accelerate digital adoption.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 6. Organization & Leadership Consulting -->
+                <a href="#service-organization-leadership-consulting" class="service-card reveal-up"  style="transition-delay: 0.6s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800" alt="Organization & Leadership Consulting" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Organization & Leadership</h4>
+                        <p class="service-desc">Building strong leadership teams and organizational structures that support long-term growth.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 7. Financial Advisory -->
+                <a href="#service-financial-advisory" class="service-card reveal-up"  style="transition-delay: 0.7s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800" alt="Financial Advisory" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Financial Advisory</h4>
+                        <p class="service-desc">Delivering robust financial planning and investment strategies to secure and scale your enterprise.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 8. Change Management -->
+                <a href="#service-change-management" class="service-card reveal-up"  style="transition-delay: 0.8s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&q=80&w=800" alt="Change Management" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Change Management</h4>
+                        <p class="service-desc">Guiding organizations through complex transitions with structured frameworks that ensure seamless adoption.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 9. Customer Experience Consulting -->
+                <a href="#service-customer-experience-consulting" class="service-card reveal-up"  style="transition-delay: 0.9s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?auto=format&fit=crop&q=80&w=800" alt="Customer Experience Consulting" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Customer Experience Consulting</h4>
+                        <p class="service-desc">Mapping and enhancing the end-to-end customer journey to build loyalty and drive retention.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 10. ESG & Sustainability Consulting -->
+                <a href="#service-esg-sustainability-consulting" class="service-card reveal-up"  style="transition-delay: 1.0s" style="text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&q=80&w=800" alt="ESG & Sustainability Consulting" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>ESG & Sustainability</h4>
+                        <p class="service-desc">Integrating sustainable practices and green operations into core corporate strategies.</p>
+                        
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Service Page: Strategy & Growth Consulting -->
+    <section class="page-section" data-page="service-strategy-growth-consulting" id="service-strategy-growth-consulting">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Strategy & Growth Consulting</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Helping businesses identify growth opportunities, improve competitive positioning, and build scalable strategies.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> Market Entry Strategy</li>
+                                    <li><i class="fas fa-check text-green"></i> Business Model Innovation</li>
+                                    <li><i class="fas fa-check text-green"></i> Growth Roadmapping</li>
+                                    <li><i class="fas fa-check text-green"></i> Competitive Analysis</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Revenue Growth</li>
+                                    <li>Market Expansion</li>
+                                    <li>Sustainable Competitive Advantage</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Page: Operations Consulting -->
+    <section class="page-section" data-page="service-operations-consulting" id="service-operations-consulting">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Operations Consulting</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Improving efficiency, reducing costs, and optimizing workflows across business functions.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> Process Optimization</li>
+                                    <li><i class="fas fa-check text-green"></i> Supply Chain Strategy</li>
+                                    <li><i class="fas fa-check text-green"></i> Cost Reduction</li>
+                                    <li><i class="fas fa-check text-green"></i> Operational Excellence</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Increased Productivity</li>
+                                    <li>Lower Operating Costs</li>
+                                    <li>Higher Profit Margins</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Page: Marketing & Growth Consulting -->
+    <section class="page-section" data-page="service-marketing-growth-consulting" id="service-marketing-growth-consulting">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Marketing & Growth Consulting</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Driving customer acquisition, brand visibility, and revenue growth through data-driven marketing strategies.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> Go-To-Market Strategy</li>
+                                    <li><i class="fas fa-check text-green"></i> Digital Marketing</li>
+                                    <li><i class="fas fa-check text-green"></i> Customer Acquisition</li>
+                                    <li><i class="fas fa-check text-green"></i> Brand Positioning</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Increased Leads</li>
+                                    <li>Higher Conversion Rates</li>
+                                    <li>Stronger Brand Equity</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Page: Digital Transformation Consulting -->
+    <section class="page-section" data-page="service-digital-transformation-consulting" id="service-digital-transformation-consulting">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Digital Transformation Consulting</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Helping organizations modernize systems, leverage technology, and accelerate digital adoption.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> AI & Automation</li>
+                                    <li><i class="fas fa-check text-green"></i> Technology Roadmaps</li>
+                                    <li><i class="fas fa-check text-green"></i> Digital Process Design</li>
+                                    <li><i class="fas fa-check text-green"></i> Change Enablement</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Greater Efficiency</li>
+                                    <li>Faster Decision-Making</li>
+                                    <li>Improved Customer Experience</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Page: Organization & Leadership Consulting -->
+    <section class="page-section" data-page="service-organization-leadership-consulting" id="service-organization-leadership-consulting">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Organization & Leadership Consulting</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Building strong leadership teams and organizational structures that support long-term growth.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> Leadership Development</li>
+                                    <li><i class="fas fa-check text-green"></i> Organizational Design</li>
+                                    <li><i class="fas fa-check text-green"></i> Succession Planning</li>
+                                    <li><i class="fas fa-check text-green"></i> Performance Management</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Stronger Leadership</li>
+                                    <li>Better Team Alignment</li>
+                                    <li>Improved Organizational Agility</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Page: Financial Advisory -->
+    <section class="page-section" data-page="service-financial-advisory" id="service-financial-advisory">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Financial Advisory</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Delivering robust financial planning and investment strategies to secure and scale your enterprise.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> Financial Planning</li>
+                                    <li><i class="fas fa-check text-green"></i> Budget Optimization</li>
+                                    <li><i class="fas fa-check text-green"></i> Cash Flow Management</li>
+                                    <li><i class="fas fa-check text-green"></i> Investment Readiness</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Improved Profitability</li>
+                                    <li>Financial Resilience</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Page: Change Management -->
+    <section class="page-section" data-page="service-change-management" id="service-change-management">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Change Management</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Guiding organizations through complex transitions with structured frameworks that ensure seamless adoption.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> Transformation Programs</li>
+                                    <li><i class="fas fa-check text-green"></i> Stakeholder Engagement</li>
+                                    <li><i class="fas fa-check text-green"></i> Culture Alignment</li>
+                                    <li><i class="fas fa-check text-green"></i> Adoption Strategy</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Faster Implementation</li>
+                                    <li>Reduced Resistance</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Page: Customer Experience Consulting -->
+    <section class="page-section" data-page="service-customer-experience-consulting" id="service-customer-experience-consulting">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1556745753-b2904692b3cd?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Customer Experience Consulting</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Mapping and enhancing the end-to-end customer journey to build loyalty and drive retention.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> Customer Journey Mapping</li>
+                                    <li><i class="fas fa-check text-green"></i> Service Design</li>
+                                    <li><i class="fas fa-check text-green"></i> Retention Strategy</li>
+                                    <li><i class="fas fa-check text-green"></i> Loyalty Programs</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Higher Satisfaction</li>
+                                    <li>Increased Retention Rates</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Page: ESG & Sustainability Consulting -->
+    <section class="page-section" data-page="service-esg-sustainability-consulting" id="service-esg-sustainability-consulting">
+        <!-- Hero -->
+        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+            <div class="container text-center text-white reveal-up">
+                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">ESG & Sustainability Consulting</h1>
+                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Integrating sustainable practices and green operations into core corporate strategies.</p>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="service-detail-content section-padding bg-light">
+            <div class="container" style="max-width: 1200px;">
+                <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    
+                    <!-- Left Col: Details -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Core Focus Areas</h3>
+                        <div class="service-detail-lists" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="service-lists" style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="service-list-col">
+                                <strong>Key Areas</strong>
+                                <ul>
+                                    <li><i class="fas fa-check text-green"></i> Sustainability Strategy</li>
+                                    <li><i class="fas fa-check text-green"></i> ESG Reporting</li>
+                                    <li><i class="fas fa-check text-green"></i> Green Operations</li>
+                                    <li><i class="fas fa-check text-green"></i> Compliance Support</li>
+                                </ul>
+                            </div>
+                            <div class="service-list-col">
+                                <strong>Business Impact</strong>
+                                <ul>
+                                    <li>Long-term Value Creation</li>
+                                    <li>Risk Reduction</li>
+                                </ul>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Process -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 25px; color: var(--exec-black);">Our Methodology</h3>
+                        <div class="process-flow" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                            <div class="process-step">
+                                <div class="step-num">1</div>
+                                <div class="step-text">
+                                    <h4>Discovery & Assessment</h4>
+                                    <p>We analyze your current state, identify gaps, and understand your core objectives.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">2</div>
+                                <div class="step-text">
+                                    <h4>Strategic Planning</h4>
+                                    <p>We develop a customized, data-driven roadmap to address challenges and capture opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">3</div>
+                                <div class="step-text">
+                                    <h4>Execution & Integration</h4>
+                                    <p>We work alongside your team to implement solutions seamlessly into your operations.</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-num">4</div>
+                                <div class="step-text">
+                                    <h4>Optimization & Growth</h4>
+                                    <p>We continuously monitor performance and optimize processes for sustainable success.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 pt-4">
+                    <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Book an Advisory Session <i class="fas fa-arrow-right"></i></a>
+                    <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo-container">
+                        <svg class="logo-mark" width="32" height="32" viewBox="0 0 100 100" fill="none" stroke="var(--primary-green)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+                            <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
+                            <line x1="10" y1="30" x2="90" y2="70" />
+                        </svg>
+                        <div class="logo-text text-white">SARANGI<span style="color:var(--primary-green)">CONSULTING</span></div>
+                    </a>
+                    <p class="mt-3 text-grey">A Growth & Management Consulting Firm driving transformation and operational excellence.</p>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Services & Industries</h4>
+                    <ul>
+                        <li><a href="services.html">Consulting Services</a></li>
+                        <li><a href="industries.html">Industries Served</a></li>
+                        <li><a href="startup-advisory.html">Startup Advisory</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Insights</h4>
+                    <ul>
+                        <li><a href="insights.html">Latest Articles</a></li>
+                        <li><a href="#">Whitepapers</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © 2026 Sarangi Consulting. A Sarangi Group Initiative.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- Scripts -->
+    <script src="../js/script.js"></script>
+</body>
+</html>
