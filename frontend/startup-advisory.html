@@ -40,10 +40,54 @@
     </div>
 
     <!-- 1. TOP ANNOUNCEMENT BAR -->
-    <div class="announcement-bar">
-        <div class="container announcement-content">
-            <p>Now Booking Startup Growth Advisory Sessions with RC Sarangi | ₹999 for 60 Minutes</p>
-            <a href="startup-advisory.html" class="btn btn-success btn-small">Book Now</a>
+    <div class="announcement-bar"
+        style="background-color: #0D0D0D; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.15);">
+        <div class="container"
+            style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; text-align: center;">
+
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;">
+
+                <!-- Urgency Badges -->
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <span
+                        style="background-color: #22C55E; color: #FFFFFF; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px;">50%
+                        OFF</span>
+                    <span style="color: #D4AF37; font-weight: 600; font-size: 13px;"><i class="fas fa-fire"
+                            style="margin-right: 4px;"></i>Only 5 Slots Left</span>
+                </div>
+
+                <!-- Main Text -->
+                <p style="margin: 0; font-weight: 500; font-size: 14px; color: #FFFFFF;">
+                    Quickly Register for Startup Advisory Session with RC Sarangi |
+                    <span
+                        style="text-decoration: line-through; text-decoration-color: #DC2626; color: #A1A1AA; margin: 0 4px;">₹1,999</span>
+                    <span style="color: #22C55E; font-weight: 700;">₹999</span>
+                </p>
+
+                <!-- Compact Timer -->
+                <div class="countdown-wrapper"
+                    style="margin: 0; padding: 4px 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 8px; border-radius: 6px;">
+                    <span style="font-size: 11px; color: #A1A1AA; font-weight: 600; text-transform: uppercase;">Ends
+                        in:</span>
+
+                    <!-- Forced White Text Color for Dark Background -->
+                    <div class="timer-display"
+                        style="display: flex; gap: 4px; color: #FFFFFF !important; font-weight: 700; font-size: 14px; margin: 0;">
+                        <span class="t-hours" style="color: #FFFFFF !important;">00</span><span
+                            style="color: #FFFFFF !important;">:</span>
+                        <span class="t-mins" style="color: #FFFFFF !important;">00</span><span
+                            style="color: #FFFFFF !important;">:</span>
+                        <span class="t-secs" style="color: #FFFFFF !important;">00</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA Button -->
+            <a href="contact.html" class="btn btn-success btn-small"
+                style="background-color: #22C55E; color: #FFFFFF; height: 34px; line-height: 34px; font-size: 13px; padding: 0 16px; margin: 0; border-radius: 6px; text-decoration: none; font-weight: 600;">Register
+                Now</a>
+
         </div>
     </div>
 
@@ -72,7 +116,7 @@
             </nav>
 
             <div class="header-actions">
-                <a href="startup-advisory.html" class="btn btn-primary d-none-mobile">Book Advisory Session</a>
+                <a href="startup-advisory.html" class="btn btn-primary d-none-mobile">Register for Advisory Session</a>
                 <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -90,7 +134,7 @@
                 <li><a href="startup-advisory.html" class="mobile-link">Startup Advisory</a></li>
                 <li><a href="contact.html" class="mobile-link">Contact</a></li>
             </ul>
-            <a href="startup-advisory.html" class="btn btn-primary mobile-btn">Book Advisory Session</a>
+            <a href="startup-advisory.html" class="btn btn-primary mobile-btn">Register for Advisory Session</a>
         </div>
     </header>
 
@@ -237,11 +281,12 @@
         }
 
         .price-active {
-            font-size: 48px;
+            font-size: 32px;
             color: var(--executive-black);
             font-family: var(--font-stats);
             line-height: 1;
             margin-top: 4px;
+            white-space: nowrap;
         }
 
         .featured .price-active {
@@ -448,11 +493,20 @@
             font-size: 20px;
             font-weight: 600;
             color: var(--executive-black);
+            /* Added transition for smooth color and lift effects */
+            transition: all 0.3s ease;
         }
 
         .faq-question i {
             color: var(--primary-green);
             transition: transform 0.4s ease;
+        }
+
+        /* NEW: Hover effect for the FAQ item */
+        .faq-item:hover .faq-question {
+            color: var(--primary-green);
+            transform: translateY(-3px);
+            /* Subtle lift */
         }
 
         .faq-answer {
@@ -491,6 +545,44 @@
             color: var(--white);
             box-shadow: 0 8px 20px rgba(20, 83, 45, 0.2);
             transform: translateY(-2px);
+        }
+
+        /* Premium Countdown Timer Styles */
+        .countdown-wrapper {
+            background: rgba(20, 83, 45, 0.05);
+            border: 1px solid rgba(20, 83, 45, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+            font-family: var(--font-stats);
+            color: var(--primary-green);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .time-box small {
+            font-family: var(--font-body);
+            font-size: 10px;
+            color: var(--text-grey);
+            margin-top: 4px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         @keyframes pulse-shadow {
@@ -561,19 +653,34 @@
 
     <section class="section-padding bg-light" id="booking">
         <div class="container">
-            <div class="text-center reveal-up mb-8">
-                <h2 style="font-family: var(--font-heading); color: var(--executive-black);">Startup Growth &
-                    Registration Packages</h2>
+            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
+            <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
+                <!-- Subtle bump: margin-bottom 1rem (20px) -->
+                <h2 style="font-family: var(--font-heading); color: var(--executive-black); margin-bottom: 1rem;">
+                    Startup Growth & Registration Packages</h2>
                 <p>Choose the advisory or registration service that fits your current business stage.</p>
             </div>
 
             <div class="pricing-grid">
+                <!-- Card 1: Brand Registration -->
                 <div class="pricing-card reveal-up delay-1">
                     <h3>Brand Registration</h3>
                     <p class="desc">Protect your intellectual property with comprehensive trademark and brand
                         registration.</p>
                     <div class="price-box">
+                        <div class="price-strike" style="text-decoration: line-through red;">₹2,999</div>
                         <div class="price-active">₹1,999</div>
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span
+                                style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer
+                                expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
                     </div>
                     <ul class="pricing-list">
                         <li><i class="fas fa-check-circle"></i> Trademark Filing</li>
@@ -581,17 +688,30 @@
                         <li><i class="fas fa-check-circle"></i> Legal Documentation Prep</li>
                         <li><i class="fas fa-check-circle"></i> Govt. Process Handling</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery Call</a>
+                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery
+                        Call</a>
                 </div>
 
+                <!-- Card 2: Startup Advisory (Featured) -->
                 <div class="pricing-card featured reveal-up delay-2">
                     <div class="badge-pulse">50% Off - Only 5 Slots/Day!</div>
                     <h3>One-on-One Advisory</h3>
                     <p class="desc">60-minute Google Meet session with RC Sarangi to solve growth challenges and build a
                         roadmap.</p>
                     <div class="price-box">
-                        <div class="price-strike">₹1,999</div>
+                        <div class="price-strike" style="text-decoration: line-through red;">₹1,999</div>
                         <div class="price-active">₹999</div>
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span
+                                style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer
+                                expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
                     </div>
                     <ul class="pricing-list">
                         <li><i class="fas fa-check-circle"></i> Business & Strategy Review</li>
@@ -599,15 +719,28 @@
                         <li><i class="fas fa-check-circle"></i> Custom Growth Roadmap</li>
                         <li><i class="fas fa-check-circle"></i> Direct Founder Q&A</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-primary" style="width: 100%;">Book My Advisory Session</a>
+                    <a href="contact.html" class="btn btn-primary" style="width: 100%;">Register My Advisory Session</a>
                 </div>
 
+                <!-- Card 3: Firm Registration -->
                 <div class="pricing-card reveal-up delay-3">
                     <h3>Firm Registration</h3>
-                    <p class="desc">Complete legal structuring, company incorporation, and compliance setup.</p>
+                    <p class="desc">Complete legal structuring, company incorporation, and scalable compliance setup.
+                    </p>
                     <div class="price-box">
-                        <div style="font-size: 16px; color: var(--text-grey); font-weight: 500;">Actual Price</div>
-                        <div class="price-active" style="font-size: 32px;">₹2,999 - ₹3,999</div>
+                        <div class="price-strike" style="text-decoration: line-through red;">₹5,999</div>
+                        <div class="price-active">₹2,999 - ₹3,999</div>
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span
+                                style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer
+                                expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
                     </div>
                     <ul class="pricing-list">
                         <li><i class="fas fa-check-circle"></i> Company Incorporation</li>
@@ -615,7 +748,8 @@
                         <li><i class="fas fa-check-circle"></i> GST & Tax Setup Support</li>
                         <li><i class="fas fa-check-circle"></i> Director Identification Number</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery Call</a>
+                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery
+                        Call</a>
                 </div>
             </div>
         </div>
@@ -623,7 +757,9 @@
 
     <section class="section-padding section-white">
         <div class="container text-center">
-            <h2 class="mb-8 reveal-up" style="color: var(--executive-black);">Designed for Ambitious Founders</h2>
+            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
+            <h2 class="reveal-up" style="color: var(--executive-black); margin-bottom: 1.5rem;">Designed for Ambitious
+                Founders</h2>
             <div class="grid-3 text-left">
                 <div class="feature-card reveal-up delay-1">
                     <i class="fas fa-rocket"></i>
@@ -650,8 +786,10 @@
 
     <section class="section-padding bg-light">
         <div class="container">
-            <div class="text-center mb-8 reveal-up">
-                <h2 style="color: var(--executive-black);">Common Founder Challenges</h2>
+            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
+            <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
+                <!-- Subtle bump: margin-bottom 1rem (20px) -->
+                <h2 style="color: var(--executive-black); margin-bottom: 1rem;">Common Founder Challenges</h2>
                 <p>We help you navigate the toughest questions in your business journey.</p>
             </div>
             <div class="grid-2">
@@ -669,8 +807,10 @@
 
     <section class="section-padding section-white">
         <div class="container">
-            <div class="text-center mb-8 reveal-up">
-                <h2 style="color: var(--executive-black);">Advisory Session Deliverables</h2>
+            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
+            <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
+                <!-- Subtle bump: margin-bottom 1rem (20px) -->
+                <h2 style="color: var(--executive-black); margin-bottom: 1rem;">Advisory Session Deliverables</h2>
                 <p>What you will walk away with after your 60-minute strategy session.</p>
             </div>
             <div class="deliverables-list">
@@ -697,8 +837,9 @@
 
                 <!-- Right Column: Text -->
                 <div class="reveal-up delay-1">
-                    <span class="small-label" style="margin-bottom: 12px;">Your Strategic Partner</span>
-                    <h2 style="color: var(--executive-black); font-size: 40px; margin-bottom: 24px;">Meet Your Advisor
+                    <span class="small-label" style="margin-bottom: 14px;">Your Strategic Partner</span>
+                    <!-- Subtle bump: margin-bottom 28px -->
+                    <h2 style="color: var(--executive-black); font-size: 40px; margin-bottom: 28px;">Meet Your Advisor
                     </h2>
 
                     <p
@@ -730,8 +871,11 @@
 
     <section class="section-padding section-white">
         <div class="container">
-            <div class="text-center mb-8 reveal-up">
-                <h2 style="color: var(--executive-black);">Simple Booking & Registration Process</h2>
+            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
+            <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
+                <!-- Subtle bump: margin-bottom 1rem (20px) -->
+                <h2 style="color: var(--executive-black); margin-bottom: 1rem;">Simple Registration Process
+                </h2>
                 <p>Secure your advisory slot or start your registration in a few clicks.</p>
             </div>
             <div class="process-steps">
@@ -761,12 +905,14 @@
 
     <section class="section-padding bg-light">
         <div class="container">
-            <div class="text-center mb-8 reveal-up">
+            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
+            <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
                 <h2 style="color: var(--executive-black);">Frequently Asked Questions</h2>
             </div>
             <div style="max-width: 800px; margin: 0 auto;" class="reveal-up delay-1">
                 <div class="faq-item">
-                    <div class="faq-question">Who should book this session? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-question">Who should register for this session? <i class="fas fa-chevron-down"></i>
+                    </div>
                     <div class="faq-answer">
                         <p>Startup founders, entrepreneurs, MSME owners, and business leaders seeking strategic
                             guidance.</p>
@@ -781,13 +927,14 @@
                 <div class="faq-item">
                     <div class="faq-question">Will I receive an action plan? <i class="fas fa-chevron-down"></i></div>
                     <div class="faq-answer">
-                        <p>Yes. Actionable recommendations will be discussed during the session.</p>
+                        <p>Yes, actionable recommendations will be discussed during the session.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Can I book multiple sessions? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-question">Can I register for multiple sessions? <i class="fas fa-chevron-down"></i>
+                    </div>
                     <div class="faq-answer">
-                        <p>Yes. Additional sessions may be booked depending on business requirements.</p>
+                        <p>Yes, you can register for additional sessions depending on business requirements.</p>
                     </div>
                 </div>
             </div>
@@ -809,6 +956,36 @@
                     item.classList.toggle('active');
                 });
             });
+            // Daily Countdown Timer Logic (Multiple Timers)
+            function updateTimers() {
+                const now = new Date();
+                // Calculate time until 23:59:59 tonight
+                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+                const diff = endOfDay - now;
+
+                if (diff <= 0) return;
+
+                // Format numbers to always have two digits (e.g., '09' instead of '9')
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+                const mins = Math.floor((diff / 1000 / 60) % 60).toString().padStart(2, '0');
+                const secs = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+
+                // Find all countdown wrappers and update them
+                const wrappers = document.querySelectorAll('.countdown-wrapper');
+                wrappers.forEach(wrapper => {
+                    const hSpan = wrapper.querySelector('.t-hours');
+                    const mSpan = wrapper.querySelector('.t-mins');
+                    const sSpan = wrapper.querySelector('.t-secs');
+
+                    if (hSpan) hSpan.textContent = hours;
+                    if (mSpan) mSpan.textContent = mins;
+                    if (sSpan) sSpan.textContent = secs;
+                });
+            }
+
+            // Initialize immediately, then update every second
+            updateTimers();
+            setInterval(updateTimers, 1000);
         });
     </script>
 
