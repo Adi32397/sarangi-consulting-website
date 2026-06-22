@@ -1122,9 +1122,12 @@ img {
 
 .industry-list-col strong {
     display: block;
-    font-size: 0.8rem;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: var(--exec-black);
-    margin-bottom: 8px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    gap: 6px;
 }
 
 .industry-list-col ul {
@@ -1134,7 +1137,8 @@ img {
 }
 
 .industry-list-col li {
-    font-size: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--text-grey);
     margin-bottom: 6px;
     display: flex;
@@ -1144,7 +1148,7 @@ img {
 
 .text-green {
     color: var(--success-green);
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     margin-top: 2px;
     transition: transform 0.3s ease-out;
 }
