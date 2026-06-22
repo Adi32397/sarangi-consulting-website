@@ -93,9 +93,17 @@
                 <h2 class="section-title">Our Consulting Services</h2>
                 <p class="section-description mx-auto">Comprehensive advisory solutions designed to solve your most complex business challenges.</p>
             </div>
+
+            <!-- Fix: make every card a flex column so Explore Service always aligns at the bottom -->
+            <style>
+                .service-card { display: flex; flex-direction: column; text-decoration: none; }
+                .service-content { display: flex; flex-direction: column; flex: 1; }
+                .service-desc { flex: 1; }
+                .explore-btn { margin-top: auto !important; padding-top: 15px; }
+            </style>
             
             <div class="services-grid"><!-- 1. Strategy & Growth Consulting -->
-                <a href="service-strategy-growth-consulting.html" class="service-card reveal-up"  style="transition-delay: 0.1s" style="text-decoration: none;">
+                <a href="service-strategy-growth-consulting.html" class="service-card reveal-up" style="transition-delay: 0.1s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" alt="Strategy & Growth Consulting" class="service-img">
                         <div class="service-overlay"></div>
@@ -103,13 +111,12 @@
                     <div class="service-content">
                         <h4>Strategy & Growth Consulting</h4>
                         <p class="service-desc">Helping businesses identify growth opportunities, improve competitive positioning, and build scalable strategies.</p>
-                        
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 2. Startup Advisory -->
-                <a href="startup-advisory.html" class="service-card reveal-up"  style="transition-delay: 0.2s" style="text-decoration: none;">
+                <a href="startup-advisory.html" class="service-card reveal-up" style="transition-delay: 0.2s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800" alt="Startup Advisory" class="service-img">
                         <div class="service-overlay"></div>
@@ -118,12 +125,12 @@
                         <h4>Startup Advisory</h4>
                         <p class="service-desc">Supporting founders from idea validation through scaling with practical strategic and operational guidance.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 3. Operations Consulting -->
-                <a href="service-operations-consulting.html" class="service-card reveal-up"  style="transition-delay: 0.3s" style="text-decoration: none;">
+                <a href="service-operations-consulting.html" class="service-card reveal-up" style="transition-delay: 0.3s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="Operations Consulting" class="service-img">
                         <div class="service-overlay"></div>
@@ -132,12 +139,12 @@
                         <h4>Operations Consulting</h4>
                         <p class="service-desc">Improving efficiency, reducing costs, and optimizing workflows across business functions.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 4. Marketing & Growth Consulting -->
-                <a href="service-marketing-growth-consulting.html" class="service-card reveal-up"  style="transition-delay: 0.4s" style="text-decoration: none;">
+                <a href="service-marketing-growth-consulting.html" class="service-card reveal-up" style="transition-delay: 0.4s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Marketing & Growth Consulting" class="service-img">
                         <div class="service-overlay"></div>
@@ -146,12 +153,12 @@
                         <h4>Marketing & Growth Consulting</h4>
                         <p class="service-desc">Driving customer acquisition, brand visibility, and revenue growth through data-driven marketing strategies.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 5. Digital Transformation Consulting -->
-                <a href="service-digital-transformation-consulting.html" class="service-card reveal-up"  style="transition-delay: 0.5s" style="text-decoration: none;">
+                <a href="service-digital-transformation-consulting.html" class="service-card reveal-up" style="transition-delay: 0.5s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" alt="Digital Transformation Consulting" class="service-img">
                         <div class="service-overlay"></div>
@@ -160,12 +167,12 @@
                         <h4>Digital Transformation</h4>
                         <p class="service-desc">Helping organizations modernize systems, leverage technology, and accelerate digital adoption.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 6. Organization & Leadership Consulting -->
-                <a href="service-organization-leadership-consulting.html" class="service-card reveal-up"  style="transition-delay: 0.6s" style="text-decoration: none;">
+                <a href="service-organization-leadership-consulting.html" class="service-card reveal-up" style="transition-delay: 0.6s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800" alt="Organization & Leadership Consulting" class="service-img">
                         <div class="service-overlay"></div>
@@ -174,12 +181,12 @@
                         <h4>Organization & Leadership</h4>
                         <p class="service-desc">Building strong leadership teams and organizational structures that support long-term growth.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 7. Financial Advisory -->
-                <a href="service-financial-advisory.html" class="service-card reveal-up"  style="transition-delay: 0.7s" style="text-decoration: none;">
+                <a href="service-financial-advisory.html" class="service-card reveal-up" style="transition-delay: 0.7s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800" alt="Financial Advisory" class="service-img">
                         <div class="service-overlay"></div>
@@ -188,12 +195,12 @@
                         <h4>Financial Advisory</h4>
                         <p class="service-desc">Delivering robust financial planning and investment strategies to secure and scale your enterprise.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 8. Change Management -->
-                <a href="service-change-management.html" class="service-card reveal-up"  style="transition-delay: 0.8s" style="text-decoration: none;">
+                <a href="service-change-management.html" class="service-card reveal-up" style="transition-delay: 0.8s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&q=80&w=800" alt="Change Management" class="service-img">
                         <div class="service-overlay"></div>
@@ -202,12 +209,12 @@
                         <h4>Change Management</h4>
                         <p class="service-desc">Guiding organizations through complex transitions with structured frameworks that ensure seamless adoption.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 9. Customer Experience Consulting -->
-                <a href="service-customer-experience-consulting.html" class="service-card reveal-up"  style="transition-delay: 0.9s" style="text-decoration: none;">
+                <a href="service-customer-experience-consulting.html" class="service-card reveal-up" style="transition-delay: 0.9s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?auto=format&fit=crop&q=80&w=800" alt="Customer Experience Consulting" class="service-img">
                         <div class="service-overlay"></div>
@@ -216,12 +223,12 @@
                         <h4>Customer Experience Consulting</h4>
                         <p class="service-desc">Mapping and enhancing the end-to-end customer journey to build loyalty and drive retention.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 
                 <!-- 10. ESG & Sustainability Consulting -->
-                <a href="service-esg-sustainability-consulting.html" class="service-card reveal-up"  style="transition-delay: 1.0s" style="text-decoration: none;">
+                <a href="service-esg-sustainability-consulting.html" class="service-card reveal-up" style="transition-delay: 1.0s;">
                     <div class="service-img-container">
                         <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&q=80&w=800" alt="ESG & Sustainability Consulting" class="service-img">
                         <div class="service-overlay"></div>
@@ -230,7 +237,75 @@
                         <h4>ESG & Sustainability</h4>
                         <p class="service-desc">Integrating sustainable practices and green operations into core corporate strategies.</p>
                         
-                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; margin-top: 15px; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 11. License and Certificate -->
+                <a href="contact.html" class="service-card reveal-up" style="transition-delay: 1.1s; text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800" alt="License and Certificate" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>License and Certificate</h4>
+                        <p class="service-desc">Helping businesses obtain and manage the licenses, registrations, and certificates required for compliant operations.</p>
+
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 12. Policy Making -->
+                <a href="contact.html" class="service-card reveal-up" style="transition-delay: 1.2s; text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&q=80&w=800" alt="Policy Making" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Policy Making</h4>
+                        <p class="service-desc">Designing clear, practical organizational policies that strengthen governance, consistency, and accountability.</p>
+
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 13. Human Resources -->
+                <a href="contact.html" class="service-card reveal-up" style="transition-delay: 1.3s; text-decoration: none;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=800" alt="Human Resources" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Human Resources</h4>
+                        <p class="service-desc">Building effective people practices across recruitment, performance, employee engagement, and workforce development.</p>
+
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 14. Funding -->
+                <a href="contact.html" class="service-card reveal-up" style="transition-delay: 1.4s;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=800" alt="Funding" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Funding</h4>
+                        <p class="service-desc">Preparing businesses for investment and connecting funding strategy with sustainable growth objectives.</p>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- 15. Essential Startup Documents -->
+                <a href="service-startup-documents.html" class="service-card reveal-up" style="transition-delay: 1.5s;">
+                    <div class="service-img-container">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800" alt="Essential Startup Documents" class="service-img">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <h4>Essential Startup Documents</h4>
+                        <p class="service-desc">The 18 critical documents every startup must have — from founder agreements and cap tables to pitch decks and term sheets.</p>
+                        <div class="explore-btn" style="color: var(--primary-green); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; transition: 0.3s;">Explore Service <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
 

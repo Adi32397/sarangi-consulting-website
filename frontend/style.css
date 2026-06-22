@@ -1049,6 +1049,7 @@ img {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    height: 100%;
     padding: 0;
     box-shadow: var(--shadow-sm);
 }
@@ -1090,6 +1091,15 @@ img {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    height: 100%;
+}
+
+.explore-btn {
+    margin-top: auto !important;
+}
+
+.industry-content a {
+    margin-top: auto;
 }
 
 .industry-card h4 {
@@ -1110,6 +1120,7 @@ img {
     color: var(--text-grey);
     margin-bottom: 20px;
     line-height: 1.5;
+    min-height: 120px;
 }
 
 .industry-lists {

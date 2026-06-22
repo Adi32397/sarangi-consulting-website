@@ -3,19 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarangi Consulting | Growth & Management Consulting</title>
-    <meta name="description" content="Helping startups, MSMEs, SMEs, and growth-stage organizations achieve sustainable growth through strategy, transformation, operational excellence, and execution-focused advisory services.">
+    <title>Digital Transformation Consulting | Sarangi Consulting</title>
+    <meta name="description" content="Accelerate evolution, modernise systems, and deploy industry-grade automation. Sarangi Consulting guides mid-market enterprises and growth-stage companies through impactful digital transformation.">
     
     <!-- Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
     <link rel="stylesheet" href="style.css?v=8">
+    <style>
+        :root {
+            --primary-dark: #0b132b;
+            --secondary-dark: #1c2541;
+            --accent-green: #00ff88;
+            --accent-green-hover: #00cc6a;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .service-hero-enhanced {
+            position: relative;
+            padding: 160px 0 120px;
+            background: linear-gradient(135deg, rgba(11, 19, 43, 0.96), rgba(28, 37, 65, 0.88)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200') center/cover fixed;
+            overflow: hidden;
+        }
+        .service-hero-enhanced::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-light), transparent);
+        }
+        .pill-badge {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--accent-green);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+        }
+        .capability-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            transition: var(--transition-smooth);
+        }
+        .capability-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+            border-color: rgba(0, 255, 136, 0.4);
+        }
+        .step-card-enhanced {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid #0f172a;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            transition: var(--transition-smooth);
+        }
+        .step-card-enhanced:hover {
+            border-left-color: var(--accent-green);
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .btn-premium {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+            color: #ffffff !important;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px -5px rgba(11, 19, 43, 0.3);
+        }
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 35px -5px rgba(11, 19, 43, 0.4);
+            background: linear-gradient(135deg, var(--accent-green-hover), #00ff88);
+            color: var(--primary-dark) !important;
+        }
+    </style>
 </head>
 <body>
     <!-- PAGE LOADER -->
@@ -32,7 +119,7 @@
         </div>
     </div>
 
-    <!-- 1. TOP ANNOUNCEMENT BAR -->
+    <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
         <div class="container announcement-content">
             <p>Now Booking Startup Growth Advisory Sessions with RC Sarangi | ₹999 for 60 Minutes</p>
@@ -40,7 +127,7 @@
         </div>
     </div>
 
-    <!-- 2. STICKY HEADER -->
+    <!-- HEADER -->
     <header class="header" id="header">
         <div class="container header-container">
             <a href="#" class="logo-container">
@@ -71,7 +158,6 @@
             </div>
         </div>
         
-        <!-- Mobile Navigation -->
         <div class="mobile-nav" id="mobile-nav">
             <ul class="mobile-nav-links">
                 <li><a href="../index.html" class="mobile-link">Home</a></li>
@@ -86,20 +172,21 @@
         </div>
     </header>
 
-    <!-- Service Page: Digital Transformation Consulting -->
-    <section class="page-section" data-page="service-digital-transformation-consulting" id="service-digital-transformation-consulting">
-        <!-- Hero -->
-        <div class="service-hero" style="position: relative; padding: 120px 0 80px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800') center/cover fixed;">
+    <!-- Service Page Content -->
+    <main class="page-section" data-page="service-digital-transformation-consulting" id="service-digital-transformation-consulting">
+        <!-- Hero Section -->
+        <section class="service-hero-enhanced">
             <div class="container text-center text-white reveal-up">
-                <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: rgba(0,255,136,0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CONSULTING SERVICE</div>
-                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px;">Digital Transformation Consulting</h1>
-                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #ccc;">Helping organizations modernize systems, leverage technology, and accelerate digital adoption.</p>
+                <div class="pill-badge mb-3">Technology & Strategy Practice</div>
+                <h1 style="font-size: 3.8rem; font-weight: 700; margin-bottom: 24px; color: #ffffff; letter-spacing: -1px; line-height: 1.2;">Digital Transformation <br>Consulting</h1>
+                <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto; color: #e2e8f0; line-height: 1.6; font-weight: 300;">Modernising legacy workflows, architecting intelligent automation roadmaps, and managing enterprise-wide change enablement to unlock elite market scale.</p>
             </div>
-        </div>
+        </section>
 
-        <!-- Content -->
-        <div class="service-detail-content section-padding bg-light">
+        <!-- Strategy Briefing -->
+        <section style="background: var(--bg-light); padding: 80px 0 40px;">
             <div class="container" style="max-width: 1200px;">
+<<<<<<< HEAD
                 <div class="row" style="display: flex; gap: 40px; flex-wrap: wrap;">
                     
                     <!-- Left Col: Details -->
@@ -170,13 +257,98 @@
                 <div class="text-center mt-5 pt-4">
                     <a href="contact.html" class="btn btn-primary" style="margin-right: 15px; padding: 12px 30px;">Register an Advisory Session <i class="fas fa-arrow-right"></i></a>
                     <a href="services.html" class="btn btn-outline" style="background: transparent; border: 1px solid var(--border-grey); color: var(--exec-black); padding: 12px 30px; font-weight: 600;">Back to Services</a>
+=======
+                <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                    <h2 style="font-size: 2.4rem; color: var(--primary-dark); margin-bottom: 24px; font-weight: 700; letter-spacing: -0.5px;">Bridge the Gap Between Legacy Assets and Next-Gen Performance</h2>
+                    <p style="font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 0; font-weight: 400;">True digital transformation is an operational restructure, not a software purchase. At Sarangi Consulting, we help growth-stage businesses and established SMEs carefully transition through technical bottlenecks. We re-engineer systemic processes, design predictive architectures, and securely align your cultural infrastructure with automation values.</p>
+>>>>>>> 0e0c25a4ddb4710d61902b05189669e0fc9bfb96
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    
-    <!-- 15. FOOTER -->
+        <!-- Interactive Content Matrix -->
+        <section class="section-padding" style="padding: 80px 0; background: #ffffff;">
+            <div class="container" style="max-width: 1200px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; align-items: start;">
+                    
+                    <!-- Left: Capabilities -->
+                    <div style="display: flex; flex-direction: column; gap: 30px;">
+                        <h3 style="font-size: 1.8rem; color: var(--text-main); font-weight: 700; margin-bottom: 10px; border-left: 4px solid var(--accent-green); padding-left: 16px;">Core Practice Capabilities</h3>
+                        <div class="capability-card">
+                            <strong style="font-size: 1.1rem; color: var(--primary-dark); display: block; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">Key Delivery Segments</strong>
+                            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px;">
+                                <li style="display: flex; gap: 16px; color: var(--text-muted); line-height: 1.6;">
+                                    <i class="fas fa-arrow-right" style="color: var(--accent-green-hover); margin-top: 5px;"></i>
+                                    <div><strong style="color: var(--text-main);">AI & Process Automation:</strong> Auditing manually repetitive operations and deploying hyper-automation tools to drive massive overhead relief.</div>
+                                </li>
+                                <li style="display: flex; gap: 16px; color: var(--text-muted); line-height: 1.6;">
+                                    <i class="fas fa-arrow-right" style="color: var(--accent-green-hover); margin-top: 5px;"></i>
+                                    <div><strong style="color: var(--text-main);">Future-Ready Tech Roadmaps:</strong> Designing capital-efficient software stacks, clean cloud integrations, and scalable data models tailored for future expansion.</div>
+                                </li>
+                                <li style="display: flex; gap: 16px; color: var(--text-muted); line-height: 1.6;">
+                                    <i class="fas fa-arrow-right" style="color: var(--accent-green-hover); margin-top: 5px;"></i>
+                                    <div><strong style="color: var(--text-main);">Digital Process Blueprinting:</strong> Mapping and removing structural operational friction to clear visibility pathways for executive leadership teams.</div>
+                                </li>
+                                <li style="display: flex; gap: 16px; color: var(--text-muted); line-height: 1.6;">
+                                    <i class="fas fa-arrow-right" style="color: var(--accent-green-hover); margin-top: 5px;"></i>
+                                    <div><strong style="color: var(--text-main);">Change Enablement Playbooks:</strong> Structuring upskilling systems, setting governance guardrails, and building organizational habits to lower adoption resistance.</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right: Modernised Roadmap Accordion -->
+                    <div style="display: flex; flex-direction: column; gap: 30px;">
+                        <h3 style="font-size: 1.8rem; color: var(--text-main); font-weight: 700; margin-bottom: 10px; border-left: 4px solid var(--accent-green); padding-left: 16px;">Transformation Framework</h3>
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="step-card-enhanced">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                                    <h4 style="font-size: 1.2rem; color: var(--text-main); font-weight: 600; margin: 0;">1. Discovery & Infrastructure Audit</h4>
+                                    <span style="font-size: 0.8rem; font-weight: 700; background: #f1f5f9; padding: 4px 10px; border-radius: 4px; color: var(--text-muted);">Phase I</span>
+                                </div>
+                                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">We break down existing architecture stacks, run workflow stress diagnostics, and discover structural process logic flaws.</p>
+                            </div>
+
+                            <div class="step-card-enhanced">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                                    <h4 style="font-size: 1.2rem; color: var(--text-main); font-weight: 600; margin: 0;">2. Target Architecture Strategy</h4>
+                                    <span style="font-size: 0.8rem; font-weight: 700; background: #f1f5f9; padding: 4px 10px; border-radius: 4px; color: var(--text-muted);">Phase II</span>
+                                </div>
+                                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Formulating a high-ROI tool roadmap, identifying critical platform options, and sequencing step-by-step rollout risks.</p>
+                            </div>
+
+                            <div class="step-card-enhanced">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                                    <h4 style="font-size: 1.2rem; color: var(--text-main); font-weight: 600; margin: 0;">3. System Deployment & Migration</h4>
+                                    <span style="font-size: 0.8rem; font-weight: 700; background: #f1f5f9; padding: 4px 10px; border-radius: 4px; color: var(--text-muted);">Phase III</span>
+                                </div>
+                                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Managing software vendor handoffs, configuring API data models, and cleanly routing live information channels with zero downtime.</p>
+                            </div>
+
+                            <div class="step-card-enhanced">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                                    <h4 style="font-size: 1.2rem; color: var(--text-main); font-weight: 600; margin: 0;">4. Optimization & Cultural Mastery</h4>
+                                    <span style="font-size: 0.8rem; font-weight: 700; background: #f1f5f9; padding: 4px 10px; border-radius: 4px; color: var(--text-muted);">Phase IV</span>
+                                </div>
+                                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Running internal team training frameworks, configuring reporting interfaces, and polishing process automation parameters for permanent scale.</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Action Hub -->
+                <div class="text-center" style="margin-top: 60px;">
+                    <a href="contact.html" class="btn-premium">Book an Advisory Session <i class="fas fa-chevron-right"></i></a>
+                    <a href="services.html" style="margin-left: 20px; font-weight: 600; color: var(--primary-dark); text-decoration: none; border-bottom: 2px solid transparent; transition: var(--transition-smooth);" onmouseover="this.style.borderBottomColor='var(--primary-dark)'" onmouseout="this.style.borderBottomColor='transparent'">Back to Services</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -239,8 +411,6 @@
         </div>
     </footer>
 
-    
-    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
