@@ -58,7 +58,7 @@
 
                 <!-- Main Text -->
                 <p style="margin: 0; font-weight: 500; font-size: 14px; color: #FFFFFF;">
-                    Quickly Register for Startup Advisory Session with RC Sarangi |
+                    Quickly Register for Startup Advisory Session with Our Business Consultant |
                     <span
                         style="text-decoration: line-through; text-decoration-color: #DC2626; color: #A1A1AA; margin: 0 4px;">₹1,999</span>
                     <span style="color: #22C55E; font-weight: 700;">₹999</span>
@@ -204,17 +204,19 @@
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: 32px;    /* Space between top and bottom rows */
+            column-gap: 56px; /* INCREASED: Space between cards on the same row */
             align-items: stretch;
-            margin-top: 48px;
+            margin: 48px auto 0; 
+            max-width: 1000px; /* Slightly widened to accommodate the new gap */
         }
 
         .pricing-card {
             background: var(--white);
             border: 1px solid var(--border-grey);
             border-radius: var(--radius-card);
-            padding: 40px;
+            padding: 32px; /* Reduced from 40px */
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
@@ -254,7 +256,7 @@
         }
 
         .pricing-card h3 {
-            font-size: 24px;
+            font-size: 22px; /* Reduced from 24px */
             color: var(--executive-black);
             margin-bottom: 8px;
         }
@@ -281,7 +283,7 @@
         }
 
         .price-active {
-            font-size: 32px;
+            font-size: 28px; /* Reduced from 32px for uniform sizing */
             color: var(--executive-black);
             font-family: var(--font-stats);
             line-height: 1;
@@ -645,9 +647,8 @@
         <div class="hero-bg-graphic"></div>
         <div class="container hero-content reveal-up">
             <span class="small-label hero-label">FOUNDER ADVISORY & SETUP PROGRAM</span>
-            <h1>Launch, Register, and Scale Your Startup</h1>
-            <p class="subheadline">Direct access to RC Sarangi for strategic advisory, combined with expert-led firm and
-                brand registration services. Everything you need to legitimize and scale your business.</p>
+            <h1>Take Your Startup from Idea to Execution</h1>
+            <p class="subheadline">Executive-level strategic advisory, combined with expert-led firm and brand registration services. Everything you need to legitimize and scale your business.</p>
         </div>
     </section>
 
@@ -662,41 +663,12 @@
             </div>
 
             <div class="pricing-grid">
-                <!-- Card 1: Brand Registration -->
-                <div class="pricing-card reveal-up delay-1">
-                    <h3>Brand Registration</h3>
-                    <p class="desc">Protect your intellectual property with comprehensive trademark and brand
-                        registration.</p>
-                    <div class="price-box">
-                        <div class="price-strike" style="text-decoration: line-through red;">₹2,999</div>
-                        <div class="price-active">₹1,999</div>
-                        <!-- Countdown Timer -->
-                        <div class="countdown-wrapper">
-                            <span
-                                style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer
-                                expires in:</span>
-                            <div class="timer-display">
-                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
-                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
-                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="pricing-list">
-                        <li><i class="fas fa-check-circle"></i> Trademark Filing</li>
-                        <li><i class="fas fa-check-circle"></i> Brand Identity Protection</li>
-                        <li><i class="fas fa-check-circle"></i> Legal Documentation Prep</li>
-                        <li><i class="fas fa-check-circle"></i> Govt. Process Handling</li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery
-                        Call</a>
-                </div>
-
-                <!-- Card 2: Startup Advisory (Featured) -->
+                <!-- Card 1: Startup Advisory (Featured) -->
                 <div class="pricing-card featured reveal-up delay-2">
                     <div class="badge-pulse">50% Off - Only 5 Slots/Day!</div>
                     <h3>One-on-One Advisory</h3>
-                    <p class="desc">60-minute Google Meet session with RC Sarangi to solve growth challenges and build a
+                    <p class="desc">60-minute Google Meet session with Industry Expert Business Consultant to solve
+                        growth challenges and build a
                         roadmap.</p>
                     <div class="price-box">
                         <div class="price-strike" style="text-decoration: line-through red;">₹1,999</div>
@@ -717,19 +689,18 @@
                         <li><i class="fas fa-check-circle"></i> Business & Strategy Review</li>
                         <li><i class="fas fa-check-circle"></i> Market Positioning Advice</li>
                         <li><i class="fas fa-check-circle"></i> Custom Growth Roadmap</li>
-                        <li><i class="fas fa-check-circle"></i> Direct Founder Q&A</li>
+                        <li><i class="fas fa-check-circle"></i> Founder Q&A</li>
                     </ul>
                     <a href="contact.html" class="btn btn-primary" style="width: 100%;">Register My Advisory Session</a>
                 </div>
 
-                <!-- Card 3: Firm Registration -->
-                <div class="pricing-card reveal-up delay-3">
-                    <h3>Firm Registration</h3>
-                    <p class="desc">Complete legal structuring, company incorporation, and scalable compliance setup.
-                    </p>
+                <!-- Card 2: IP Registration -->
+                <div class="pricing-card reveal-up delay-1">
+                    <h3>IP Registration</h3>
+                    <p class="desc">Safeguard and protect your intellectual property with comprehensive registration of trademarks, copyrights and patents.</p>
                     <div class="price-box">
-                        <div class="price-strike" style="text-decoration: line-through red;">₹5,999</div>
-                        <div class="price-active">₹2,999 - ₹3,999</div>
+                        <div class="price-strike" style="text-decoration: line-through red;">₹19,999</div>
+                        <div class="price-active">Starts from ₹9,999</div>
                         <!-- Countdown Timer -->
                         <div class="countdown-wrapper">
                             <span
@@ -743,13 +714,74 @@
                         </div>
                     </div>
                     <ul class="pricing-list">
-                        <li><i class="fas fa-check-circle"></i> Company Incorporation</li>
-                        <li><i class="fas fa-check-circle"></i> Legal Structuring Advisory</li>
-                        <li><i class="fas fa-check-circle"></i> GST & Tax Setup Support</li>
-                        <li><i class="fas fa-check-circle"></i> Director Identification Number</li>
+                        <li><i class="fas fa-check-circle"></i> Strategic IP Planning</li>
+                        <li><i class="fas fa-check-circle"></i> Trademark Search & Registration</li>
+                        <li><i class="fas fa-check-circle"></i> Copyright Registration Filing</li>
+                        <li><i class="fas fa-check-circle"></i> Patent Draft & Filing Support</li>
+                        <li><i class="fas fa-check-circle"></i> Govt. Documentation handling</li>
                     </ul>
                     <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery
                         Call</a>
+                </div>
+
+                <!-- Card 3: Firm Registration -->
+                <div class="pricing-card reveal-up delay-3">
+                    <h3>Firm Registration</h3>
+                    <p class="desc">End-to-end incorporation services for Private Limited, LLP, and Partnership entities with scalable legal and regulatory compliance.</p>
+                    <div class="price-box">
+                        <div class="price-strike" style="text-decoration: line-through red;">₹49,999</div>
+                        <div class="price-active">Starts from ₹29,999</div>
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span
+                                style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer
+                                expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pricing-list">
+                        <li><i class="fas fa-check-circle"></i> Entity Structuring Advisory</li>
+                        <li><i class="fas fa-check-circle"></i> Pvt Ltd, LLP & Firm Registration</li>
+                        <li><i class="fas fa-check-circle"></i> MOA, AOA & Deed Drafting</li>
+                        <li><i class="fas fa-check-circle"></i> Core Compliance (GST, PAN, TAN)</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery
+                        Call</a>
+                </div>
+
+                <!-- Card 4: Licenses & Certifications -->
+                <div class="pricing-card reveal-up delay-4">
+                    <h3>Licenses & Certifications</h3>
+                    <p class="desc">Essential operational licenses and compliance certifications to ensure your business is legally cleared to scale.</p>
+                    <div class="price-box">
+                        <div class="price-strike" style="text-decoration: line-through red;">₹5,999</div>
+                        <div class="price-active" style="font-size: 28px; white-space: nowrap;">Starts from ₹2,999</div>
+
+                        <div style="font-size: 13px; color: var(--executive-black); margin-top: 10px; margin-bottom: 16px; font-weight: 600;">
+                            <i class="fas fa-tag" style="color: var(--primary-green); margin-right: 6px;"></i>Register now to get the best discounted price
+                        </div>
+
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pricing-list">
+                        <li><i class="fas fa-check-circle"></i> Startup India (DPIIT) Recognition</li>
+                        <li><i class="fas fa-check-circle"></i> MSME (Udyam) Registration</li>
+                        <li><i class="fas fa-check-circle"></i> FSSAI, ISO & Trade Licenses</li>
+                        <li><i class="fas fa-check-circle"></i> Industry-Specific Compliance</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery Call</a>
                 </div>
             </div>
         </div>
@@ -820,51 +852,6 @@
                 <div class="deliverable-item reveal-up delay-2">Market Positioning Suggestions</div>
                 <div class="deliverable-item reveal-up delay-1">Action Plan</div>
                 <div class="deliverable-item reveal-up delay-2">Founder Q&A</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MEET YOUR ADVISOR -->
-    <section class="section-padding bg-light">
-        <div class="container">
-            <div class="grid-2" style="align-items: center; gap: 64px;">
-
-                <!-- Left Column: Image -->
-                <div class="text-center reveal-up" style="position: relative;">
-                    <img src="founder.jpg" alt="RC Sarangi - Consulting Advisor"
-                        style="position: relative; z-index: 1; border-radius: var(--radius-card); width: 75%; max-width: 75%; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);">
-                </div>
-
-                <!-- Right Column: Text -->
-                <div class="reveal-up delay-1">
-                    <span class="small-label" style="margin-bottom: 14px;">Your Strategic Partner</span>
-                    <!-- Subtle bump: margin-bottom 28px -->
-                    <h2 style="color: var(--executive-black); font-size: 40px; margin-bottom: 28px;">Meet Your Advisor
-                    </h2>
-
-                    <p
-                        style="font-size: 20px; font-weight: 600; color: var(--primary-green); margin-bottom: 20px; line-height: 1.5;">
-                        RC Sarangi is the Founder & Group CEO of Sarangi Group and the visionary behind Sarangi
-                        Consulting.
-                    </p>
-
-                    <p style="margin-bottom: 16px;">His focus is helping founders, startups, and growing businesses
-                        navigate the complex waters of strategy, growth, legal execution, and business transformation.
-                    </p>
-
-                    <p style="margin-bottom: 40px;">Through Sarangi Consulting, he works with ambitious entrepreneurs
-                        looking to scale sustainably, legitimize their brands, and create long-term market impact.</p>
-
-                    <div
-                        style="display: flex; gap: 20px; align-items: center; border-top: 1px solid var(--border-grey); padding-top: 32px; flex-wrap: wrap;">
-                        <a href="https://www.linkedin.com/in/rcsarangi" target="_blank" class="btn btn-outline-dark"
-                            style="height: 44px; padding: 0 24px; font-size: 15px;">
-                            <i class="fab fa-linkedin-in" style="margin-right: 8px; color: var(--primary-green);"></i>
-                            Connect on LinkedIn
-                        </a>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
