@@ -943,36 +943,6 @@
                     item.classList.toggle('active');
                 });
             });
-            // Daily Countdown Timer Logic (Multiple Timers)
-            function updateTimers() {
-                const now = new Date();
-                // Calculate time until 23:59:59 tonight
-                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
-                const diff = endOfDay - now;
-
-                if (diff <= 0) return;
-
-                // Format numbers to always have two digits (e.g., '09' instead of '9')
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
-                const mins = Math.floor((diff / 1000 / 60) % 60).toString().padStart(2, '0');
-                const secs = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-
-                // Find all countdown wrappers and update them
-                const wrappers = document.querySelectorAll('.countdown-wrapper');
-                wrappers.forEach(wrapper => {
-                    const hSpan = wrapper.querySelector('.t-hours');
-                    const mSpan = wrapper.querySelector('.t-mins');
-                    const sSpan = wrapper.querySelector('.t-secs');
-
-                    if (hSpan) hSpan.textContent = hours;
-                    if (mSpan) mSpan.textContent = mins;
-                    if (sSpan) sSpan.textContent = secs;
-                });
-            }
-
-            // Initialize immediately, then update every second
-            updateTimers();
-            setInterval(updateTimers, 1000);
         });
     </script>
 

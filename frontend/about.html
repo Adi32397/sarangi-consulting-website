@@ -33,10 +33,54 @@
     </div>
 
     <!-- 1. TOP ANNOUNCEMENT BAR -->
-    <div class="announcement-bar">
-        <div class="container announcement-content">
-            <p>Now Booking Startup Growth Advisory Sessions with RC Sarangi | ₹999 for 60 Minutes</p>
-            <a href="startup-advisory.html" class="btn btn-success btn-small">Book Now</a>
+    <div class="announcement-bar"
+        style="background-color: #0D0D0D; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.15);">
+        <div class="container"
+            style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; text-align: center;">
+
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;">
+
+                <!-- Urgency Badges -->
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <span
+                        style="background-color: #22C55E; color: #FFFFFF; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px;">50%
+                        OFF</span>
+                    <span style="color: #D4AF37; font-weight: 600; font-size: 13px;"><i class="fas fa-fire"
+                            style="margin-right: 4px;"></i>Only 5 Slots Left</span>
+                </div>
+
+                <!-- Main Text -->
+                <p style="margin: 0; font-weight: 500; font-size: 14px; color: #FFFFFF;">
+                    Quickly Register for Startup Advisory Session with RC Sarangi |
+                    <span
+                        style="text-decoration: line-through; text-decoration-color: #DC2626; color: #A1A1AA; margin: 0 4px;">₹1,999</span>
+                    <span style="color: #22C55E; font-weight: 700;">₹999</span>
+                </p>
+
+                <!-- Compact Timer -->
+                <div class="countdown-wrapper"
+                    style="margin: 0; padding: 4px 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 8px; border-radius: 6px;">
+                    <span style="font-size: 11px; color: #A1A1AA; font-weight: 600; text-transform: uppercase;">Ends
+                        in:</span>
+
+                    <!-- Forced White Text Color for Dark Background -->
+                    <div class="timer-display"
+                        style="display: flex; gap: 4px; color: #FFFFFF !important; font-weight: 700; font-size: 14px; margin: 0;">
+                        <span class="t-hours" style="color: #FFFFFF !important;">00</span><span
+                            style="color: #FFFFFF !important;">:</span>
+                        <span class="t-mins" style="color: #FFFFFF !important;">00</span><span
+                            style="color: #FFFFFF !important;">:</span>
+                        <span class="t-secs" style="color: #FFFFFF !important;">00</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA Button -->
+            <a href="contact.html" class="btn btn-success btn-small"
+                style="background-color: #22C55E; color: #FFFFFF; height: 34px; line-height: 34px; font-size: 13px; padding: 0 16px; margin: 0; border-radius: 6px; text-decoration: none; font-weight: 600;">Register
+                Now</a>
+
         </div>
     </div>
 
@@ -64,7 +108,7 @@
             </nav>
 
             <div class="header-actions">
-                <a href="startup-advisory.html" class="btn btn-primary d-none-mobile">Book Advisory Session</a>
+                <a href="startup-advisory.html" class="btn btn-primary d-none-mobile">Register Advisory Session</a>
                 <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -82,7 +126,7 @@
                 <li><a href="startup-advisory.html" class="mobile-link">Startup Advisory</a></li>
                 <li><a href="contact.html" class="mobile-link">Contact</a></li>
             </ul>
-            <a href="startup-advisory.html" class="btn btn-primary mobile-btn">Book Advisory Session</a>
+            <a href="startup-advisory.html" class="btn btn-primary mobile-btn">Register Advisory Session</a>
         </div>
     </header>
 
@@ -102,7 +146,7 @@
                             <img src="../assets/images/founder.jpg" alt="RC Sarangi" class="founder-img">
                             <div class="founder-info">
                                 <h3 class="founder-name">RC Sarangi</h3>
-                                <p class="founder-title">Founder & Group CEO</p>
+                                <p class="founder-title">Founder & CEO</p>
                                 <div class="founder-social">
                                     <a href="https://www.linkedin.com/in/rcsarangi?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"><i class="fab fa-linkedin"></i></a>
                                 </div>
@@ -223,7 +267,7 @@
                 </blockquote>
                 <div class="quote-author">
                     <strong>RC Sarangi</strong>
-                    <span>Founder & Group CEO, Sarangi Consulting</span>
+                    <span>Founder & CEO, Sarangi Consulting</span>
                 </div>
             </div>
         </div>
@@ -234,77 +278,16 @@
         <div class="container">
             <div class="section-header text-center reveal-up">
                 <h2 class="section-title">About RC Sarangi</h2>
-                <p class="section-description mx-auto">Founder & Group CEO, Sarangi Group</p>
+                <p class="section-description mx-auto">Founder & CEO, Sarangi Group</p>
             </div>
             
             <div class="profile-grid" style="display: grid; grid-template-columns: 1fr; gap: 40px;">
                 <div class="profile-about reveal-up" style="background: var(--white); padding: 40px; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-grey);">
                     <h3 style="margin-bottom: 20px; font-size: 1.5rem; color: var(--primary-green);">Biography</h3>
-                    <p style="margin-bottom: 15px; color: var(--text-grey); font-size: 1.05rem;">I am the Founder & Group CEO of Sarangi Group, a multi-vertical organization being built with a long-term vision of creating a future Indian conglomerate.</p>
+                    <p style="margin-bottom: 15px; color: var(--text-grey); font-size: 1.05rem;">I am the Founder & CEO of Sarangi Group, a multi-vertical organization being built with a long-term vision of creating a future Indian conglomerate.</p>
                     <p style="margin-bottom: 15px; color: var(--text-grey); font-size: 1.05rem;">Alongside my academic journey in Business Intelligence & Data Analytics, I actively lead strategic decision-making, brand structuring, and growth initiatives across Sarangi Group’s businesses. My focus lies in building scalable systems, ethical leadership, and long-term value creation rather than short-term outcomes.</p>
                     <p style="margin-bottom: 15px; color: var(--text-grey); font-size: 1.05rem;">I strongly believe in building in public—documenting real entrepreneurial learning, strategic thinking, and leadership development while creating organizations that can contribute meaningfully to India’s economic and social growth.</p>
                     <p style="font-weight: 600; color: var(--exec-black); margin-top: 20px;">Core interests: <span style="font-weight: 400; color: var(--text-grey);">Entrepreneurship, Business Strategy, Leadership, Data-driven Decision Making, and Conglomerate Building.</span></p>
-                </div>
-
-                <div class="profile-experience reveal-up" style="transition-delay: 0.2s;">
-                    <h3 style="margin-bottom: 30px; font-size: 1.5rem; text-align: center;">Professional Experience</h3>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 20px;">
-                        <!-- Experience 1 -->
-                        <div style="background: var(--white); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-grey); border-left: 4px solid var(--primary-green);">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                                <div>
-                                    <h4 style="font-size: 1.25rem; margin-bottom: 5px;">Founder & Group Chief Executive Officer</h4>
-                                    <p style="color: var(--primary-green); font-weight: 600; margin-bottom: 0;">Sarangi Group</p>
-                                </div>
-                                <div style="text-align: right; color: var(--text-grey); font-size: 0.9rem;">
-                                    <span style="display: block; font-weight: 500; color: var(--exec-black);">Jan 2025 - Present</span>
-                                    <span>Remote</span>
-                                </div>
-                            </div>
-                            <ul style="list-style-type: disc; margin-left: 20px; color: var(--text-grey); gap: 8px; display: flex; flex-direction: column;">
-                                <li>Founded and leading Sarangi Group with the vision of developing a diversified conglomerate structure.</li>
-                                <li>Driving strategic planning, brand architecture, and long-term growth initiatives across multiple verticals.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Experience 2 -->
-                        <div style="background: var(--white); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-grey); border-left: 4px solid var(--primary-green);">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                                <div>
-                                    <h4 style="font-size: 1.25rem; margin-bottom: 5px;">McKinsey Forward Program</h4>
-                                    <p style="color: var(--primary-green); font-weight: 600; margin-bottom: 0;">McKinsey & Company</p>
-                                </div>
-                                <div style="text-align: right; color: var(--text-grey); font-size: 0.9rem;">
-                                    <span style="display: block; font-weight: 500; color: var(--exec-black);">Mar 2026 - Jun 2026</span>
-                                </div>
-                            </div>
-                            <p style="color: var(--text-grey); margin-bottom: 15px;">Selected for the McKinsey Forward Program, a global upskilling initiative by McKinsey & Company focused on leadership, problem-solving, and business execution.</p>
-                            <ul style="list-style-type: disc; margin-left: 20px; color: var(--text-grey); gap: 8px; display: flex; flex-direction: column;">
-                                <li>Applied structured thinking and strategic frameworks to business scenarios.</li>
-                                <li>Strengthened decision-making and leadership skills relevant to building scalable ventures.</li>
-                                <li>Engaged in a global peer network focused on growth, innovation, and execution.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Experience 3 -->
-                        <div style="background: var(--white); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-grey); border-left: 4px solid var(--primary-green);">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                                <div>
-                                    <h4 style="font-size: 1.25rem; margin-bottom: 5px;">Data Science & Artificial Intelligence Intern</h4>
-                                    <p style="color: var(--primary-green); font-weight: 600; margin-bottom: 0;">Indian Institute of Technology Jammu</p>
-                                </div>
-                                <div style="text-align: right; color: var(--text-grey); font-size: 0.9rem;">
-                                    <span style="display: block; font-weight: 500; color: var(--exec-black);">Jun 2025 - Aug 2025</span>
-                                    <span>On-site</span>
-                                </div>
-                            </div>
-                            <ul style="list-style-type: disc; margin-left: 20px; color: var(--text-grey); gap: 8px; display: flex; flex-direction: column;">
-                                <li>Gained hands-on exposure to data analytics, data visualization, and applied artificial intelligence through real-world use cases. Focused on understanding how data-driven insights support business strategy, decision-making, and innovation.</li>
-                                <li>Worked with practical tools and frameworks to analyze datasets, derive insights, and interpret outcomes from both a technical and business perspective, strengthening the intersection of technology, analytics, and strategic thinking.</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
