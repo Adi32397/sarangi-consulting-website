@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Free Consultation | Sarangi Consulting</title>
+    <meta name="description" content="Sign up for your first free consultation session with Sarangi Consulting's expert advisors.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=8">
+    <style>
+        .register-page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; }
+        @media (max-width: 768px) { .register-page { grid-template-columns: 1fr; } .register-hero { display: none; } }
+        .register-hero {
+            background: var(--exec-black);
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .register-hero::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(34,197,94,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .register-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 20px; }
+        .register-hero h1 span { color: var(--primary-green); }
+        .register-hero p { color: #94a3b8; font-size: 16px; line-height: 1.7; margin-bottom: 40px; }
+        .benefit-item { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+        .benefit-icon { width: 42px; height: 42px; background: rgba(34,197,94,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary-green); flex-shrink: 0; }
+        .benefit-text h4 { color: #fff; font-size: 15px; font-weight: 600; margin: 0 0 3px; }
+        .benefit-text p { color: #94a3b8; font-size: 13px; margin: 0; }
+
+        .register-form-section { background: #f8fafc; display: flex; align-items: center; justify-content: center; padding: 60px 40px; }
+        .form-card { background: white; border-radius: 16px; padding: 44px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; width: 100%; max-width: 480px; }
+        .form-card h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; color: var(--exec-black); margin-bottom: 6px; }
+        .form-card .subtitle { color: #64748b; font-size: 14px; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 7px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #111;
+            background: #f8fafc;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-green);
+            outline: none;
+            background: white;
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--exec-black);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
+        .submit-btn:hover { background: #222; }
+        .submit-btn:active { transform: scale(0.99); }
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        .divider { text-align: center; color: #94a3b8; font-size: 13px; margin: 20px 0; }
+        .login-link-row { text-align: center; font-size: 14px; color: #64748b; margin-top: 20px; }
+        .login-link-row a { color: var(--primary-green); font-weight: 600; text-decoration: none; }
+        .alert { padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; display: none; }
+        .alert-error { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+        .alert-success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+        .badge-free { display: inline-block; background: rgba(34,197,94,0.15); color: var(--primary-green); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <!-- Minimal Header -->
+    <header class="header" id="header" style="background: var(--exec-black); position: relative;">
+        <div class="container header-container">
+            <a href="index.html" class="logo-container">
+                <svg class="logo-mark" width="32" height="32" viewBox="0 0 100 100" fill="none" stroke="var(--primary-green)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+                    <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
+                    <line x1="10" y1="30" x2="90" y2="70" />
+                </svg>
+                <div class="logo-text text-white">SARANGI<span style="color:var(--primary-green)">CONSULTING</span></div>
+            </a>
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Back to Home</a></li>
+                    <li><a href="login.html" style="color:var(--primary-green); font-weight:600;">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="register-page">
+        <!-- LEFT: Value Proposition -->
+        <div class="register-hero">
+            <div style="position: relative; z-index: 1;">
+                <div class="badge-free">✦ FREE FIRST CONSULTATION</div>
+                <h1>Start Your Business <span>Transformation</span> Today</h1>
+                <p>Register once and get access to a complimentary 30-minute strategy session with our senior consultants — no commitment required.</p>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-check"></i></div>
+                    <div class="benefit-text">
+                        <h4>Free 30-Min Strategy Call</h4>
+                        <p>No cost, no pressure — just actionable insights.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-user-tie"></i></div>
+                    <div class="benefit-text">
+                        <h4>Matched to the Right Expert</h4>
+                        <p>We align your business challenge with the best-fit advisor.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="benefit-text">
+                        <h4>100% Confidential</h4>
+                        <p>Your information is never shared with third parties.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <p style="font-size: 13px; color: #64748b; margin: 0;">Trusted by 55,000+ clients across 25+ industries.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Registration Form -->
+        <div class="register-form-section">
+            <div class="form-card">
+                <h2>Create Your Account</h2>
+                <p class="subtitle">Fill in the details below to book your free consultation.</p>
+
+                <div class="alert alert-error" id="error-msg"></div>
+                <div class="alert alert-success" id="success-msg"></div>
+
+                <form id="registerForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-name">Full Name *</label>
+                            <input type="text" id="reg-name" name="name" placeholder="Rahul Sharma" maxlength="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-phone">Phone Number</label>
+                            <input type="tel" id="reg-phone" name="phone" placeholder="+91 99999 99999" maxlength="20">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-email">Email Address *</label>
+                        <input type="email" id="reg-email" name="email" placeholder="rahul@company.com" maxlength="150" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-business">Business / Company Name</label>
+                        <input type="text" id="reg-business" name="business_name" placeholder="Your Startup or Company" maxlength="150">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-password">Password *</label>
+                        <input type="password" id="reg-password" name="password" placeholder="Min. 6 characters" minlength="6" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-area">Primary Area of Concern *</label>
+                        <select id="reg-area" name="area_of_concern" required>
+                            <option value="">Select one...</option>
+                            <option>Business Strategy & Growth</option>
+                            <option>Financial Advisory & Funding</option>
+                            <option>Operations & Process Improvement</option>
+                            <option>Digital Transformation</option>
+                            <option>Marketing & Customer Acquisition</option>
+                            <option>Leadership & Organisation Design</option>
+                            <option>ESG & Sustainability</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-message">Tell us briefly about your challenge</label>
+                        <textarea id="reg-message" name="message" placeholder="What is the biggest obstacle your business is facing right now?" maxlength="1000"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <i class="fas fa-calendar-check" style="margin-right: 8px;"></i> Book Free Consultation
+                    </button>
+                </form>
+
+                <div class="login-link-row">
+                    Already have an account? <a href="login.html">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919999999999?text=Hi%20Sarangi%20Consulting!%20I%20want%20to%20learn%20more%20about%20your%20services." id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <style>
+        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 3px #999; z-index: 100; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.1); color: #FFF; }
+    </style>
+
+    <script>
+        const API_BASE = 'http://localhost:5000';
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const errorEl = document.getElementById('error-msg');
+            const successEl = document.getElementById('success-msg');
+
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Registering...';
+
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const business_name = document.getElementById('reg-business').value.trim();
+            const area = document.getElementById('reg-area').value;
+            const message = document.getElementById('reg-message').value.trim();
+
+            // Client-side validation
+            if (!name || !email || !password || !area) {
+                errorEl.textContent = 'Please fill in all required fields.';
+                errorEl.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-calendar-check" style="margin-right:8px;"></i> Book Free Consultation';
+                return;
+            }
+            if (password.length < 6) {
+                errorEl.textContent = 'Password must be at least 6 characters.';
+                errorEl.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-calendar-check" style="margin-right:8px;"></i> Book Free Consultation';
+                return;
+            }
+
+            try {
+                // Step 1: Register user
+                const regRes = await fetch(`${API_BASE}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone, password })
+                });
+                const regData = await regRes.json();
+
+                if (!regRes.ok) {
+                    throw new Error(regData.message || 'Registration failed.');
+                }
+
+                // Save token
+                if (regData.token) localStorage.setItem('token', regData.token);
+
+                // Step 2: Also submit as contact/lead for CRM tracking
+                await fetch(`${API_BASE}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name, email, phone,
+                        subject: `Free Consultation Request — ${area}`,
+                        message: message || `New signup interested in: ${area}. Business: ${business_name || 'N/A'}`
+                    })
+                });
+
+                successEl.innerHTML = '<i class="fas fa-check-circle"></i> Account created! Redirecting to your dashboard...';
+                successEl.style.display = 'block';
+
+                setTimeout(() => { window.location.href = 'user-dashboard.html'; }, 2000);
+
+            } catch (err) {
+                errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+                errorEl.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-calendar-check" style="margin-right:8px;"></i> Book Free Consultation';
+            }
+        });
+    </script>
+</body>
+</html>

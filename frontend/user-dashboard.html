@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=8">
+    <style>
+        .dashboard-layout { display: flex; min-height: 100vh; background-color: #f8fafc; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; }
+        .sidebar-logo { padding: 20px; border-bottom: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .nav-item { padding: 12px 20px; color: #64748b; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .nav-item:hover, .nav-item.active { background: #f1f5f9; color: var(--exec-black); border-right: 3px solid var(--primary-green); }
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .welcome-card { background: var(--exec-black); color: white; padding: 30px; border-radius: 12px; margin-bottom: 40px; position: relative; overflow: hidden; }
+        .welcome-card::after { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 100%; background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2)); }
+        
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .card h3 { font-family: 'Montserrat'; font-size: 16px; font-weight: 600; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+        .meeting-item { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-start; }
+        .meeting-date { background: #f1f5f9; padding: 10px; border-radius: 8px; text-align: center; min-width: 60px; }
+        .meeting-date span { display: block; font-weight: 700; color: var(--primary-green); font-size: 18px; }
+        .meeting-date small { font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 600; }
+        .meeting-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .meeting-info p { font-size: 13px; color: #64748b; margin: 0; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px;">SARANGI<span style="color: var(--primary-green);">CLIENT</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a href="#" class="nav-item active"><i class="fas fa-home"></i> Overview</a>
+            <a href="#" class="nav-item"><i class="fas fa-calendar-alt"></i> My Sessions</a>
+            <a href="#" class="nav-item"><i class="fas fa-file-invoice"></i> Billing & Payments</a>
+            <a href="#" class="nav-item"><i class="fas fa-folder-open"></i> Resources</a>
+            <a href="#" class="nav-item"><i class="fas fa-user"></i> Profile Settings</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 24px; font-weight: 700;">Client Portal</h1>
+            </div>
+            <div>
+                <a href="startup-advisory.html" class="btn btn-primary">Book New Session</a>
+            </div>
+        </header>
+
+        <!-- WELCOME CARD -->
+        <div class="welcome-card">
+            <h2 style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 10px;">Welcome, User!</h2>
+            <p style="color: #cbd5e1; max-width: 600px;">Access your advisory sessions, download resources, and track your business transformation journey all in one place.</p>
+        </div>
+
+        <div class="grid-cards">
+            <!-- UPCOMING SESSIONS -->
+            <div class="card">
+                <h3>Upcoming Sessions</h3>
+                
+                <div class="meeting-item">
+                    <div class="meeting-date">
+                        <span>24</span>
+                        <small>Oct</small>
+                    </div>
+                    <div class="meeting-info">
+                        <h4>Startup Growth Advisory</h4>
+                        <p><i class="far fa-clock"></i> 10:00 AM - 11:00 AM</p>
+                        <p style="margin-top: 5px;"><a href="#" style="color: var(--primary-green); font-weight: 500; font-size: 12px; text-decoration: none;">Join Google Meet</a></p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: #64748b; font-size: 13px; font-weight: 500; text-decoration: none;">View All Sessions</a>
+                </div>
+            </div>
+
+            <!-- RECENT RESOURCES -->
+            <div class="card">
+                <h3>Shared Resources</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 14px; font-weight: 500;"><i class="far fa-file-pdf" style="color: #ef4444; margin-right: 8px;"></i> Q3 Strategy Deck.pdf</span>
+                        <button style="background: none; border: none; color: #64748b; cursor: pointer;"><i class="fas fa-download"></i></button>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 14px; font-weight: 500;"><i class="far fa-file-excel" style="color: #10b981; margin-right: 8px;"></i> Financial Projections.xlsx</span>
+                        <button style="background: none; border: none; color: #64748b; cursor: pointer;"><i class="fas fa-download"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+    <!-- Floating WhatsApp Button -->
+    <a href="#" id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: #FFF;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const waBtn = document.getElementById('whatsapp-btn');
+            if (waBtn) {
+                let serviceContext = 'General Inquiry';
+                let waMessage = encodeURIComponent(`Hi Sarangi Consulting! I'm interested in learning more about your services (${serviceContext}).`);
+                let waNumber = '919999999999';
+                
+                waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
+
+                waBtn.addEventListener('click', () => {
+                    fetch('http://localhost:5000/api/whatsapp/click', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            page: window.location.pathname || 'home',
+                            service: serviceContext
+                        })
+                    }).catch(err => console.error('Failed to log WhatsApp click:', err));
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -104,6 +104,7 @@
                     <li><a href="insights.html">Insights</a></li>
                     <li><a href="startup-advisory.html">Startup Advisory</a></li>
                     <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" style="color: var(--primary-green); font-weight: 600;">Login</a></li>
                 </ul>
             </nav>
 
@@ -307,5 +308,61 @@
 
     <!-- Scripts -->
     <script src="script.js"></script>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="#" id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: #FFF;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const waBtn = document.getElementById('whatsapp-btn');
+            if (waBtn) {
+                let serviceContext = 'General Inquiry';
+                let waMessage = encodeURIComponent(`Hi Sarangi Consulting! I'm interested in learning more about your services (${serviceContext}).`);
+                let waNumber = '919999999999';
+                
+                waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
+
+                waBtn.addEventListener('click', () => {
+                    fetch('http://localhost:5000/api/whatsapp/click', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            page: window.location.pathname || 'home',
+                            service: serviceContext
+                        })
+                    }).catch(err => console.error('Failed to log WhatsApp click:', err));
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=8">
+    <style>
+        .dashboard-layout { display: flex; min-height: 100vh; background-color: #f8fafc; }
+        .sidebar { width: 260px; background: var(--exec-black); color: white; padding: 20px 0; display: flex; flex-direction: column; }
+        .sidebar-logo { padding: 0 20px 30px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
+        .nav-item { padding: 12px 20px; color: #a1a1aa; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .nav-item:hover, .nav-item.active { background: rgba(34, 197, 94, 0.1); color: var(--primary-green); border-right: 3px solid var(--primary-green); }
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .stat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 40px; }
+        .stat-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .stat-title { color: #64748b; font-size: 14px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+        .stat-value { font-size: 32px; font-weight: 700; color: var(--exec-black); font-family: 'Montserrat', sans-serif; }
+        
+        .table-container { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; overflow: hidden; }
+        .table-header { padding: 20px 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 16px 24px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+        th { background: #f8fafc; font-weight: 600; color: #64748b; text-transform: uppercase; font-size: 12px; }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-pending { background: #fef9c3; color: #854d0e; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px;">SARANGI<span style="color: var(--primary-green);">ADMIN</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a href="#" class="nav-item active"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="#" class="nav-item"><i class="fas fa-users"></i> Leads & Contacts</a>
+            <a href="#" class="nav-item"><i class="fas fa-calendar-check"></i> Bookings</a>
+            <a href="#" class="nav-item"><i class="fas fa-image"></i> Banners</a>
+            <a href="#" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 28px; font-weight: 700;">Dashboard Overview</h1>
+                <p style="color: #64748b;">Welcome back, Admin. Here's what's happening today.</p>
+            </div>
+            <div>
+                <button class="btn btn-primary"><i class="fas fa-download"></i> Export Report</button>
+            </div>
+        </header>
+
+        <!-- STATS -->
+        <div class="stat-cards">
+            <div class="stat-card">
+                <div class="stat-title">Total Leads</div>
+                <div class="stat-value" id="stat-leads">...</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Active Bookings</div>
+                <div class="stat-value" id="stat-bookings">...</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Revenue</div>
+                <div class="stat-value" id="stat-revenue">...</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Active Contacts</div>
+                <div class="stat-value" id="stat-contacts">...</div>
+            </div>
+        </div>
+
+        <!-- BANNERS & QR CODES -->
+        <div class="table-container" style="margin-bottom: 40px;">
+            <div class="table-header">
+                <h3 style="font-family: 'Montserrat'; font-size: 16px; font-weight: 600;">Active Banners & QR Codes</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Subtitle</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="banners-tbody">
+                    <tr><td colspan="4" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- RECENT BOOKINGS TABLE -->
+        <div class="table-container">
+            <div class="table-header">
+                <h3 style="font-family: 'Montserrat'; font-size: 16px; font-weight: 600;">Recent Advisory Bookings</h3>
+                <a href="#" style="color: var(--primary-green); text-decoration: none; font-size: 14px; font-weight: 600;">View All</a>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Business</th>
+                        <th>Date & Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings-tbody">
+                    <tr><td colspan="5" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+
+    <!-- Floating WhatsApp Button -->
+    <a href="#" id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: #FFF;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const waBtn = document.getElementById('whatsapp-btn');
+            if (waBtn) {
+                let serviceContext = 'General Inquiry';
+                let waMessage = encodeURIComponent(`Hi Sarangi Consulting! I'm interested in learning more about your services (${serviceContext}).`);
+                let waNumber = '919999999999';
+                
+                waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
+
+                waBtn.addEventListener('click', () => {
+                    fetch('http://localhost:5000/api/whatsapp/click', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            page: window.location.pathname || 'home',
+                            service: serviceContext
+                        })
+                    }).catch(err => console.error('Failed to log WhatsApp click:', err));
+                });
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Setup generic token handling if auth is implemented
+            const token = localStorage.getItem('token') || '';
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            };
+
+            // Fetch Stats
+            try {
+                const statsRes = await fetch('http://localhost:5000/api/admin/stats', { headers });
+                if(statsRes.ok) {
+                    const stats = await statsRes.json();
+                    document.getElementById('stat-leads').innerText = stats.totalLeads;
+                    document.getElementById('stat-bookings').innerText = stats.totalBookings;
+                    document.getElementById('stat-revenue').innerText = '₹' + stats.revenue;
+                    document.getElementById('stat-contacts').innerText = stats.totalContacts;
+                } else {
+                    // Fallback for demo if API fails
+                    document.getElementById('stat-leads').innerText = '1,248';
+                    document.getElementById('stat-bookings').innerText = '42';
+                    document.getElementById('stat-revenue').innerText = '₹124K';
+                    document.getElementById('stat-contacts').innerText = '8';
+                }
+            } catch(e) {
+                console.error('Stats fetch failed', e);
+            }
+
+            // Fetch Banners
+            try {
+                const bannersRes = await fetch('http://localhost:5000/api/banners', { headers });
+                const bannersTbody = document.getElementById('banners-tbody');
+                if(bannersRes.ok) {
+                    const banners = await bannersRes.json();
+                    bannersTbody.innerHTML = banners.map(b => `
+                        <tr>
+                            <td style="font-weight: 500;">${b.title}</td>
+                            <td>${b.subtitle || ''}</td>
+                            <td><span class="badge badge-success">${b.status}</span></td>
+                            <td>
+                                <a href="${b.image_url}" target="_blank" style="color:var(--primary-green); text-decoration:none; font-weight:600;"><i class="fas fa-qrcode"></i> View QR Code</a>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    bannersTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: red;">Failed to load banners</td></tr>`;
+                }
+            } catch(e) {
+                console.error('Banners fetch failed', e);
+            }
+
+            // Fetch Bookings
+            try {
+                const bookingsRes = await fetch('http://localhost:5000/api/bookings', { headers });
+                const bookingsTbody = document.getElementById('bookings-tbody');
+                if(bookingsRes.ok) {
+                    const bookings = await bookingsRes.json();
+                    bookingsTbody.innerHTML = bookings.map(b => `
+                        <tr>
+                            <td style="font-weight: 500;">${b.name}</td>
+                            <td>${b.business_name || 'N/A'}</td>
+                            <td>${new Date(b.booking_date).toLocaleDateString()} - ${b.booking_time}</td>
+                            <td><span class="badge ${b.status === 'confirmed' ? 'badge-success' : 'badge-pending'}">${b.status}</span></td>
+                            <td><button style="border:none; background:none; color:var(--primary-green); cursor:pointer;">View</button></td>
+                        </tr>
+                    `).join('');
+                } else {
+                    bookingsTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: red;">Failed to load bookings</td></tr>`;
+                }
+            } catch(e) {
+                console.error('Bookings fetch failed', e);
+            }
+        });
+    </script>
+</body>
+</html>
