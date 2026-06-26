@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Admin Dashboard | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- External Libraries for Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px; color: white;">SARANGI<span style="color: var(--primary-green);">ADMIN</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="leads.html" class="nav-item"><i class="fas fa-users"></i> Leads & Contacts</a>
+            <a href="bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i> Bookings</a>
+            <a href="banners.html" class="nav-item"><i class="fas fa-image"></i> Banners</a>
+            <a href="settings.html" class="nav-item active"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        
+        <!-- PAGE HEADER -->
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 28px; font-weight: 700;">Settings</h1>
+                <p style="color: #64748b; margin-top: 5px;">Manage your website, company information, security, users, notifications, branding, and system preferences.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="openResetModal()"><i class="fas fa-undo"></i> Reset to Default</button>
+                <button class="btn btn-secondary"><i class="fas fa-desktop"></i> Preview Website</button>
+                <button class="btn btn-primary" onclick="openSaveModal()"><i class="fas fa-save"></i> Save Changes</button>
+            </div>
+        </header>
+
+        <!-- SETTINGS LAYOUT (TABS + CONTENT) -->
+        <div class="settings-container">
+            
+            <!-- LEFT NAVIGATION TABS -->
+            <div class="settings-sidebar card">
+                <nav class="settings-nav">
+                    <a href="#" class="setting-tab active" data-target="tab-general"><i class="fas fa-sliders-h"></i> General Settings</a>
+                    <a href="#" class="setting-tab" data-target="tab-company"><i class="fas fa-building"></i> Company Information</a>
+                    <a href="#" class="setting-tab" data-target="tab-website"><i class="fas fa-globe"></i> Website Settings</a>
+                    <a href="#" class="setting-tab" data-target="tab-profile"><i class="fas fa-user-circle"></i> Admin Profile</a>
+                    <a href="#" class="setting-tab" data-target="tab-security"><i class="fas fa-shield-alt"></i> Security</a>
+                    <a href="#" class="setting-tab" data-target="tab-notifications"><i class="fas fa-bell"></i> Notifications</a>
+                    <a href="#" class="setting-tab" data-target="tab-email"><i class="fas fa-envelope"></i> Email Config</a>
+                    <a href="#" class="setting-tab" data-target="tab-seo"><i class="fas fa-search"></i> SEO Settings</a>
+                    <a href="#" class="setting-tab" data-target="tab-social"><i class="fas fa-share-alt"></i> Social Media</a>
+                    <a href="#" class="setting-tab" data-target="tab-appearance"><i class="fas fa-paint-brush"></i> Appearance</a>
+                    <a href="#" class="setting-tab" data-target="tab-system"><i class="fas fa-cogs"></i> System Preferences</a>
+                    <a href="#" class="setting-tab" data-target="tab-backup"><i class="fas fa-database"></i> Backup & Restore</a>
+                    <a href="#" class="setting-tab" data-target="tab-logs"><i class="fas fa-clipboard-list"></i> Activity Logs</a>
+                </nav>
+            </div>
+
+            <!-- RIGHT CONTENT PANES -->
+            <div class="settings-content">
+                
+                <!-- 1. GENERAL SETTINGS -->
+                <section id="tab-general" class="settings-pane active">
+                    <div class="card p-30">
+                        <h3 class="section-title">General Settings</h3>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Website Name</label>
+                                    <input type="text" value="Sarangi Consulting">
+                                </div>
+                                <div class="form-group">
+                                    <label>Company Name</label>
+                                    <input type="text" value="Sarangi Corporate Solutions Pvt Ltd">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Website URL</label>
+                                    <input type="url" value="https://sarangiconsulting.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Support Email</label>
+                                    <input type="email" value="support@sarangiconsulting.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Support Phone</label>
+                                    <input type="tel" value="+91 98765 43210">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Timezone</label>
+                                    <select><option>Asia/Kolkata (IST)</option><option>UTC</option></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Language</label>
+                                    <select><option>English (US)</option><option>Hindi</option></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Currency</label>
+                                    <select><option>INR (₹)</option><option>USD ($)</option></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Business Hours</label>
+                                    <input type="text" value="Mon-Fri, 9:00 AM - 6:00 PM">
+                                </div>
+                            </div>
+                            <div class="form-row align-center border-top pt-20 mt-10">
+                                <div class="flex-1">
+                                    <label class="mb-0">Maintenance Mode</label>
+                                    <p class="text-muted" style="font-size:12px; margin:0;">Put the website offline for visitors.</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="form-row mt-20">
+                                <div class="form-group">
+                                    <label>Website Status</label>
+                                    <select><option>Online</option><option>Maintenance</option><option>Offline</option></select>
+                                </div>
+                            </div>
+                            <div class="form-actions mt-30 text-right">
+                                <button type="button" class="btn btn-secondary mr-10">Reset</button>
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 2. COMPANY INFORMATION -->
+                <section id="tab-company" class="settings-pane">
+                    <div class="card p-30">
+                        <h3 class="section-title">Company Information</h3>
+                        <form class="settings-form">
+                            <div class="form-row mb-30">
+                                <div class="form-group full-width">
+                                    <label>Company Logo</label>
+                                    <div class="d-flex align-center gap-20">
+                                        <div style="width: 80px; height: 80px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; display:flex; align-items:center; justify-content:center;">
+                                            <i class="fas fa-image text-muted fs-24"></i>
+                                        </div>
+                                        <button type="button" class="btn btn-outline btn-small"><i class="fas fa-upload"></i> Upload Logo</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Company Name</label>
+                                    <input type="text" value="Sarangi Consulting">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tagline</label>
+                                    <input type="text" value="Empowering Your Business">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Registration Number</label>
+                                    <input type="text" value="U74999MH2026PTC123456">
+                                </div>
+                                <div class="form-group">
+                                    <label>GST Number</label>
+                                    <input type="text" value="27AAACS1234F1Z5">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>PAN Number</label>
+                                    <input type="text" value="AAACS1234F">
+                                </div>
+                            </div>
+                            <h4 class="form-section-title mt-20">Contact Details</h4>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Address</label>
+                                    <textarea rows="2">123 Business Park, Tower A</textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="text" value="Mumbai">
+                                </div>
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" value="Maharashtra">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input type="text" value="India">
+                                </div>
+                                <div class="form-group">
+                                    <label>Postal Code</label>
+                                    <input type="text" value="400001">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Google Maps Embed Link</label>
+                                    <input type="url" placeholder="https://maps.google.com/...">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Business Description</label>
+                                    <textarea rows="4">Leading consulting firm providing expert advisory services.</textarea>
+                                </div>
+                            </div>
+                            <div class="form-actions mt-30 text-right">
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save Information</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 3. WEBSITE SETTINGS -->
+                <section id="tab-website" class="settings-pane">
+                    <div class="card p-30">
+                        <h3 class="section-title">Website Settings</h3>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Homepage Title</label>
+                                    <input type="text" value="Welcome to Sarangi Consulting">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Homepage Subtitle</label>
+                                    <input type="text" value="Expert business solutions for modern enterprises.">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Footer Copyright</label>
+                                    <input type="text" value="© 2026 Sarangi Consulting. All rights reserved.">
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Form Email</label>
+                                    <input type="email" value="leads@sarangiconsulting.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Footer Description</label>
+                                    <textarea rows="2">Driving growth through strategic insights.</textarea>
+                                </div>
+                            </div>
+                            <div class="form-row mb-20">
+                                <div class="form-group full-width">
+                                    <label>Homepage Hero Image</label>
+                                    <div class="drag-drop-zone">
+                                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                        <p>Drag & Drop your image here or <strong>Browse</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 class="form-section-title mt-20">Features</h4>
+                            <div class="feature-toggles">
+                                <div class="toggle-row">
+                                    <span>Enable Contact Form</span>
+                                    <label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                                </div>
+                                <div class="toggle-row">
+                                    <span>Enable Newsletter</span>
+                                    <label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                                </div>
+                                <div class="toggle-row">
+                                    <span>Enable Live Chat</span>
+                                    <label class="toggle-switch"><input type="checkbox"><span class="slider round"></span></label>
+                                </div>
+                                <div class="toggle-row">
+                                    <span>Enable WhatsApp Chat</span>
+                                    <label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                                </div>
+                                <div class="toggle-row">
+                                    <span>Enable Google Maps</span>
+                                    <label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                                </div>
+                            </div>
+                            <div class="form-actions mt-30 text-right">
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save Website Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 4. ADMIN PROFILE -->
+                <section id="tab-profile" class="settings-pane">
+                    <div class="card p-30 mb-30">
+                        <h3 class="section-title">Admin Profile</h3>
+                        <div class="profile-header d-flex align-center gap-20 border-bottom pb-20 mb-20">
+                            <img src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff&size=100" alt="Admin" style="border-radius: 50%; width: 80px; height: 80px;">
+                            <div>
+                                <h4 style="font-family: 'Montserrat'; font-size:18px;">Admin User</h4>
+                                <p class="text-muted" style="margin:0; font-size:14px;">Super Administrator</p>
+                                <button class="btn btn-outline btn-small mt-10">Change Avatar</button>
+                            </div>
+                        </div>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" value="Admin User">
+                                </div>
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <input type="text" value="Super Admin" disabled class="bg-light">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" value="admin@sarangiconsulting.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" value="+91 98765 00000">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Department</label>
+                                    <input type="text" value="IT & Operations">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Bio</label>
+                                    <textarea rows="3">System administrator for the Sarangi Consulting platform.</textarea>
+                                </div>
+                            </div>
+                            <div class="form-actions mt-20 text-right">
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Update Profile</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card p-30">
+                        <h3 class="section-title">Change Password</h3>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Current Password</label>
+                                    <input type="password" placeholder="Enter current password">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <input type="password" placeholder="Enter new password">
+                                    <div class="password-strength mt-5">
+                                        <div class="strength-bar" style="width:0%;"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" placeholder="Confirm new password">
+                                </div>
+                            </div>
+                            <div class="form-actions mt-20 text-right">
+                                <button type="button" class="btn btn-primary">Update Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 5. SECURITY SETTINGS -->
+                <section id="tab-security" class="settings-pane">
+                    <div class="card p-30 mb-30">
+                        <h3 class="section-title">Authentication & Security</h3>
+                        <div class="feature-toggles">
+                            <div class="toggle-row">
+                                <div>
+                                    <span style="font-weight:600; color:#1e293b;">Enable Two-Factor Authentication (2FA)</span>
+                                    <p class="text-muted" style="font-size:12px; margin:0;">Require an OTP via authenticator app on login.</p>
+                                </div>
+                                <label class="toggle-switch"><input type="checkbox"><span class="slider round"></span></label>
+                            </div>
+                            <div class="toggle-row">
+                                <div>
+                                    <span style="font-weight:600; color:#1e293b;">Login Alerts</span>
+                                    <p class="text-muted" style="font-size:12px; margin:0;">Receive an email on unrecognized device logins.</p>
+                                </div>
+                                <label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                            </div>
+                            <div class="toggle-row">
+                                <div>
+                                    <span style="font-weight:600; color:#1e293b;">Auto Logout</span>
+                                    <p class="text-muted" style="font-size:12px; margin:0;">Automatically logout after inactivity.</p>
+                                </div>
+                                <label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                            </div>
+                        </div>
+                        <form class="settings-form mt-30 border-top pt-30">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Session Timeout (Minutes)</label>
+                                    <input type="number" value="30">
+                                </div>
+                                <div class="form-group">
+                                    <label>Maximum Login Attempts</label>
+                                    <input type="number" value="5">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Password Expiry (Days)</label>
+                                    <input type="number" value="90">
+                                </div>
+                                <div class="form-group">
+                                    <label>IP Whitelist</label>
+                                    <input type="text" placeholder="e.g. 192.168.1.1, 10.0.0.1">
+                                </div>
+                            </div>
+                            <div class="form-actions mt-20 text-right">
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save Security</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card p-30">
+                        <div class="d-flex justify-between align-center mb-20">
+                            <h3 class="section-title mb-0">Recent Login History</h3>
+                            <button class="btn btn-outline btn-small text-danger border-danger"><i class="fas fa-sign-out-alt"></i> Logout All Devices</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="cms-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Location</th>
+                                        <th>IP Address</th>
+                                        <th>Device / Browser</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>26 Jun 2026, 10:45 AM</td>
+                                        <td>Mumbai, India</td>
+                                        <td class="font-mono text-muted">192.168.1.25</td>
+                                        <td>Windows • Chrome</td>
+                                        <td><span class="badge badge-active">Current Session</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>25 Jun 2026, 09:12 AM</td>
+                                        <td>Mumbai, India</td>
+                                        <td class="font-mono text-muted">192.168.1.25</td>
+                                        <td>Windows • Chrome</td>
+                                        <td><span class="badge badge-inactive">Success</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>22 Jun 2026, 14:30 PM</td>
+                                        <td>Delhi, India</td>
+                                        <td class="font-mono text-muted">103.24.55.12</td>
+                                        <td>iOS • Safari</td>
+                                        <td><span class="badge badge-inactive">Success</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. NOTIFICATIONS -->
+                <section id="tab-notifications" class="settings-pane">
+                    <div class="card p-30">
+                        <h3 class="section-title">Notification Preferences</h3>
+                        <div class="feature-toggles">
+                            <h4 class="form-section-title">Delivery Channels</h4>
+                            <div class="toggle-row"><span>Email Notifications</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                            <div class="toggle-row"><span>SMS Notifications</span><label class="toggle-switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                            <div class="toggle-row"><span>WhatsApp Notifications</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                            <div class="toggle-row"><span>Push Notifications</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                            
+                            <h4 class="form-section-title mt-30">System Alerts</h4>
+                            <div class="toggle-row"><span>New Booking Alerts</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                            <div class="toggle-row"><span>New Lead Alerts</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                            <div class="toggle-row"><span>Banner Expiry Alerts</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                            <div class="toggle-row"><span>Weekly Analytics Reports</span><label class="toggle-switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                            <div class="toggle-row"><span>Monthly Reports</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                            <div class="toggle-row"><span>System Updates</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                        </div>
+                        <div class="form-actions mt-30 text-right">
+                            <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save Preferences</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. EMAIL CONFIGURATION -->
+                <section id="tab-email" class="settings-pane">
+                    <div class="card p-30">
+                        <h3 class="section-title">SMTP Configuration</h3>
+                        <p class="text-muted mb-20" style="font-size:14px;">Configure the email server used to send outgoing transactional emails.</p>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>SMTP Host</label>
+                                    <input type="text" value="smtp.mailgun.org">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>SMTP Port</label>
+                                    <input type="number" value="587">
+                                </div>
+                                <div class="form-group">
+                                    <label>Encryption</label>
+                                    <select><option>TLS</option><option>SSL</option><option>None</option></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>SMTP Username</label>
+                                    <input type="text" value="postmaster@sarangiconsulting.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>SMTP Password</label>
+                                    <input type="password" value="********">
+                                </div>
+                            </div>
+                            <div class="form-row border-top pt-20 mt-20">
+                                <div class="form-group">
+                                    <label>Sender Email</label>
+                                    <input type="email" value="noreply@sarangiconsulting.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Sender Name</label>
+                                    <input type="text" value="Sarangi Admin">
+                                </div>
+                            </div>
+                            <div class="form-actions mt-30 d-flex justify-between">
+                                <button type="button" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Test Email</button>
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save SMTP</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 8. SEO SETTINGS -->
+                <section id="tab-seo" class="settings-pane">
+                    <div class="card p-30">
+                        <h3 class="section-title">Search Engine Optimization</h3>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Website Meta Title</label>
+                                    <input type="text" value="Sarangi Consulting - Expert Business Advisory">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Meta Description</label>
+                                    <textarea rows="3">Top-tier corporate consulting and startup funding assistance.</textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Meta Keywords</label>
+                                    <input type="text" value="consulting, business, advisory, startups, finance">
+                                </div>
+                            </div>
+                            <div class="form-row border-top pt-20 mt-20">
+                                <div class="form-group">
+                                    <label>Google Analytics ID</label>
+                                    <input type="text" value="G-ABC123XYZ">
+                                </div>
+                                <div class="form-group">
+                                    <label>Facebook Pixel ID</label>
+                                    <input type="text" placeholder="Enter Pixel ID">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Google Search Console Verification Code</label>
+                                    <input type="text" placeholder="<meta name='google-site-verification' ...>">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Sitemap URL</label>
+                                    <input type="url" value="https://sarangiconsulting.com/sitemap.xml" disabled class="bg-light">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Robots.txt Editor</label>
+                                    <textarea rows="4" class="font-mono">User-agent: *&#10;Disallow: /admin/&#10;Allow: /</textarea>
+                                </div>
+                            </div>
+                            <div class="toggle-row mt-20">
+                                <span>Enable Schema Markup</span>
+                                <label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                            </div>
+                            <div class="form-actions mt-30 text-right">
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save SEO</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 9. SOCIAL MEDIA -->
+                <section id="tab-social" class="settings-pane">
+                    <div class="card p-30">
+                        <h3 class="section-title">Social Media Links</h3>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label><i class="fab fa-facebook text-blue mr-10"></i> Facebook URL</label>
+                                    <input type="url" value="https://facebook.com/sarangiconsulting">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label><i class="fab fa-instagram text-danger mr-10"></i> Instagram URL</label>
+                                    <input type="url" value="https://instagram.com/sarangiconsulting">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label><i class="fab fa-linkedin text-blue mr-10"></i> LinkedIn URL</label>
+                                    <input type="url" value="https://linkedin.com/company/sarangiconsulting">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label><i class="fab fa-twitter text-dark mr-10"></i> Twitter/X URL</label>
+                                    <input type="url" placeholder="https://x.com/...">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label><i class="fab fa-youtube text-danger mr-10"></i> YouTube URL</label>
+                                    <input type="url" placeholder="https://youtube.com/...">
+                                </div>
+                            </div>
+                            <div class="form-row border-top pt-20 mt-20">
+                                <div class="form-group">
+                                    <label><i class="fab fa-whatsapp text-success mr-10"></i> WhatsApp Number</label>
+                                    <input type="tel" value="+919876543210">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fab fa-telegram text-blue mr-10"></i> Telegram</label>
+                                    <input type="text" placeholder="@username">
+                                </div>
+                            </div>
+                            <div class="form-actions mt-30 text-right">
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save Social Links</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 10. APPEARANCE -->
+                <section id="tab-appearance" class="settings-pane">
+                    <div class="card p-30">
+                        <h3 class="section-title">Dashboard Appearance</h3>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Theme</label>
+                                    <div class="d-flex gap-20 mt-10">
+                                        <label class="theme-option active"><input type="radio" name="theme" checked> Light</label>
+                                        <label class="theme-option"><input type="radio" name="theme"> Dark</label>
+                                        <label class="theme-option"><input type="radio" name="theme"> System Default</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mt-20">
+                                <div class="form-group">
+                                    <label>Primary Color</label>
+                                    <div class="d-flex align-center gap-10">
+                                        <input type="color" value="#0B6B3A" style="width:50px; height:40px; padding:0; border:none;">
+                                        <input type="text" value="#0B6B3A" class="flex-1 font-mono">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Secondary Color</label>
+                                    <div class="d-flex align-center gap-10">
+                                        <input type="color" value="#128a4d" style="width:50px; height:40px; padding:0; border:none;">
+                                        <input type="text" value="#128a4d" class="flex-1 font-mono">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mt-20">
+                                <div class="form-group">
+                                    <label>Sidebar Style</label>
+                                    <select><option>Expanded (Default)</option><option>Collapsed (Icons only)</option></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Font Selection</label>
+                                    <select><option>Inter / Montserrat (Default)</option><option>Roboto / Open Sans</option></select>
+                                </div>
+                            </div>
+                            <div class="form-row mt-20">
+                                <div class="form-group full-width">
+                                    <label>Card Radius Slider</label>
+                                    <input type="range" min="0" max="30" value="16" class="w-100 mt-10">
+                                    <div class="d-flex justify-between text-muted fs-12 mt-5"><span>Sharp (0px)</span><span>Rounded (16px)</span><span>Pill (30px)</span></div>
+                                </div>
+                            </div>
+                            <div class="form-actions mt-40 d-flex justify-between">
+                                <button type="button" class="btn btn-outline"><i class="fas fa-eye"></i> Preview Theme</button>
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save Appearance</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 11. SYSTEM PREFERENCES -->
+                <section id="tab-system" class="settings-pane">
+                    <div class="card p-30">
+                        <h3 class="section-title">System Preferences</h3>
+                        <form class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Default Dashboard Page</label>
+                                    <select><option>Dashboard Overview</option><option>Leads & Contacts</option><option>Bookings</option></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Records Per Page (Tables)</label>
+                                    <select><option>10</option><option selected>20</option><option>50</option><option>100</option></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Date Format</label>
+                                    <select><option>DD MMM YYYY (e.g. 26 Jun 2026)</option><option>MM/DD/YYYY</option><option>YYYY-MM-DD</option></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Time Format</label>
+                                    <select><option>12-hour (AM/PM)</option><option>24-hour</option></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>File Upload Limit (MB)</label>
+                                    <input type="number" value="10">
+                                </div>
+                                <div class="form-group">
+                                    <label>Default Currency</label>
+                                    <select><option>INR</option><option>USD</option></select>
+                                </div>
+                            </div>
+                            <div class="feature-toggles mt-30 border-top pt-20">
+                                <div class="toggle-row"><span>Auto Save Forms</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                                <div class="toggle-row"><span>Enable Debug Mode</span><label class="toggle-switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                                <div class="toggle-row"><span>Enable API Access</span><label class="toggle-switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                                <div class="toggle-row"><span>Enable Maintenance Notification Banner</span><label class="toggle-switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                            </div>
+                            <div class="form-actions mt-30 text-right">
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save Preferences</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 12. BACKUP & RESTORE -->
+                <section id="tab-backup" class="settings-pane">
+                    <div class="card p-30 mb-30">
+                        <h3 class="section-title">Database Backup</h3>
+                        <div class="d-flex align-center justify-between bg-light p-20 border-radius-12 border mb-30">
+                            <div>
+                                <h4 class="fw-bold m-0" style="color:#0f172a; font-family:'Montserrat';">Latest Backup</h4>
+                                <p class="text-muted mt-5 mb-0" style="font-size:14px;"><i class="fas fa-calendar-check mr-10"></i> 25 Jun 2026, 02:00 AM &bull; <i class="fas fa-hdd ml-10 mr-10"></i> 45.2 MB &bull; <span class="text-success fw-bold"><i class="fas fa-check-circle"></i> Success</span></p>
+                            </div>
+                            <button class="btn btn-secondary btn-small"><i class="fas fa-download"></i> Download</button>
+                        </div>
+                        
+                        <div class="d-flex gap-20">
+                            <button class="btn btn-primary flex-1"><i class="fas fa-cloud-download-alt"></i> Create Manual Backup</button>
+                            <button class="btn btn-outline text-danger border-danger flex-1"><i class="fas fa-history"></i> Restore Backup</button>
+                        </div>
+                        
+                        <form class="settings-form mt-40 border-top pt-30">
+                            <h4 class="form-section-title">Automatic Backup Settings</h4>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Backup Schedule</label>
+                                    <select><option>Daily (2:00 AM)</option><option>Weekly (Sunday)</option><option>Monthly</option><option>Disabled</option></select>
+                                </div>
+                            </div>
+                            <div class="form-actions mt-20 text-right">
+                                <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save Schedule</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 13. ACTIVITY LOGS -->
+                <section id="tab-logs" class="settings-pane">
+                    <div class="card p-30">
+                        <div class="d-flex justify-between align-center mb-20">
+                            <h3 class="section-title mb-0">System Activity Logs</h3>
+                            <button class="btn btn-outline btn-small"><i class="fas fa-download"></i> Export Logs</button>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="cms-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>User</th>
+                                        <th>Action</th>
+                                        <th>Module</th>
+                                        <th>IP Address</th>
+                                        <th>Device</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activityLogsBody">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="pagination-container mt-20">
+                            <div class="pagination-info">Showing 1 to 10 of 124 logs</div>
+                            <div class="pagination-controls">
+                                <button class="btn-page disabled"><i class="fas fa-chevron-left"></i></button>
+                                <button class="btn-page active">1</button>
+                                <button class="btn-page">2</button>
+                                <button class="btn-page">...</button>
+                                <button class="btn-page"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div> <!-- End Right Content Panes -->
+        </div> <!-- End Settings Container -->
+
+        <!-- SYSTEM HEALTH & ANALYTICS -->
+        <h3 class="section-title mt-50">System Health & Analytics</h3>
+        <div class="stat-cards cms-stats">
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-success"><i class="fas fa-server"></i></div>
+                <div class="stat-title">Server Status</div>
+                <div class="stat-value" style="font-size:24px;">Online</div>
+                <div class="growth-indicator text-muted">99.9% Uptime</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-primary"><i class="fas fa-database"></i></div>
+                <div class="stat-title">Database Status</div>
+                <div class="stat-value" style="font-size:24px;">Healthy</div>
+                <div class="growth-indicator text-muted">Connected</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-blue"><i class="fas fa-network-wired"></i></div>
+                <div class="stat-title">API Status</div>
+                <div class="stat-value" style="font-size:24px;">Running</div>
+                <div class="growth-indicator positive">12ms Latency</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-warning"><i class="fas fa-hdd"></i></div>
+                <div class="stat-title">Storage Usage</div>
+                <div class="stat-value" style="font-size:24px;">68%</div>
+                <div class="growth-indicator text-muted">340GB / 500GB</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-purple"><i class="fas fa-memory"></i></div>
+                <div class="stat-title">Memory Usage</div>
+                <div class="stat-value" style="font-size:24px;">54%</div>
+                <div class="growth-indicator text-muted">16GB RAM</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-danger"><i class="fas fa-microchip"></i></div>
+                <div class="stat-title">CPU Usage</div>
+                <div class="stat-value" style="font-size:24px;">21%</div>
+                <div class="growth-indicator text-muted">Average Load</div>
+            </div>
+        </div>
+
+        <div class="analytics-grid mb-50">
+            <div class="card chart-card full-width">
+                <h4>Daily Login Activity</h4>
+                <div class="chart-container"><canvas id="loginsChart"></canvas></div>
+            </div>
+            <div class="card chart-card">
+                <h4>System Usage Allocation</h4>
+                <div class="chart-container"><canvas id="usageChart"></canvas></div>
+            </div>
+            <div class="card chart-card">
+                <h4>Storage Overview</h4>
+                <div class="chart-container"><canvas id="storageChart"></canvas></div>
+            </div>
+            <div class="card chart-card">
+                <h4>Notification Delivery Status</h4>
+                <div class="chart-container"><canvas id="notificationsChart"></canvas></div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ================================================== -->
+<!-- MODALS -->
+<!-- ================================================== -->
+
+<!-- SAVE CHANGES MODAL -->
+<div class="modal-overlay" id="saveSettingsModal">
+    <div class="modal-content modal-sm text-center">
+        <div class="modal-body p-40">
+            <div style="font-size: 48px; color: var(--primary-green); margin-bottom: 20px;"><i class="fas fa-question-circle"></i></div>
+            <h3 style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px; color: var(--exec-black);">Save Changes?</h3>
+            <p style="color: #64748b; font-size: 15px; margin-bottom: 30px;">Are you sure you want to save these settings? They will be applied immediately across the system.</p>
+            <div class="d-flex justify-center" style="gap: 16px;">
+                <button class="btn btn-secondary" onclick="closeModal('saveSettingsModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmSave()"><i class="fas fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RESET SETTINGS MODAL -->
+<div class="modal-overlay" id="resetSettingsModal">
+    <div class="modal-content modal-sm text-center">
+        <div class="modal-body p-40">
+            <div style="font-size: 48px; color: #ef4444; margin-bottom: 20px;"><i class="fas fa-exclamation-triangle"></i></div>
+            <h3 style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px; color: var(--exec-black);">Reset to Default?</h3>
+            <p style="color: #64748b; font-size: 15px; margin-bottom: 30px;">Are you sure you want to reset all settings back to their factory defaults? This action cannot be undone.</p>
+            <div class="d-flex justify-center" style="gap: 16px;">
+                <button class="btn btn-secondary" onclick="closeModal('resetSettingsModal')">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmReset()"><i class="fas fa-undo"></i> Reset</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="settings.js"></script>
+
+</body>
+</html>
