@@ -23,11 +23,11 @@ async function main() {
 
   // ── Users ─────────────────────────────────────────────
   const admin = await prisma.user.create({
-    data: { name: 'RC Sarangi (Admin)', email: 'admin@sarangi.com', password: adminPass, role: 'admin', is_verified: true }
+    data: { name: 'RC Sarangi (Admin)', email: 'admin@sarangi.com', password: adminPass, role: 'admin', is_verified: true, updated_at: new Date() }
   });
 
   const client = await prisma.user.create({
-    data: { name: 'Rahul Sharma', email: 'user@sarangi.com', password: userPass, role: 'user', is_verified: true, phone: '9876543210' }
+    data: { name: 'Rahul Sharma', email: 'user@sarangi.com', password: userPass, role: 'user', is_verified: true, phone: '9876543210', updated_at: new Date() }
   });
 
   // ── Services ─────────────────────────────────────────
@@ -50,8 +50,9 @@ async function main() {
         button_text: 'Register Now',
         button_link: '/startup-advisory.html',
         status: 'active',
-        start_date: new Date('2026-06-01'),
-        end_date: new Date('2026-08-31'),
+        start_date: new Date('2026-07-01'),
+        end_date: new Date('2026-07-31'),
+        
       },
       {
         title: 'Free Business Health Webinar',
@@ -60,7 +61,7 @@ async function main() {
         button_text: 'Reserve Spot',
         button_link: '/contact.html',
         status: 'active',
-        start_date: new Date('2026-06-15'),
+        start_date: new Date('2026-07-01'),
         end_date: new Date('2026-07-15'),
       }
     ]
