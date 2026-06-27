@@ -16,13 +16,18 @@ const register = async (userData) => {
 
   const hashedPassword = await bcrypt.hash(userData.password, 10);
 
+  
   const user = await prisma.user.create({
-    data: {
-      ...userData,
-      password: hashedPassword
-    }
-  });
+  data: {
+    name: userData.name,
+    email: userData.email,
+    phone: userData.phone || null,
+    password: hashedPassword,
 
+    role: "user",
+    is_verified: false
+  }
+});
   const token = generateToken(user.id);
   
   return { user: excludePassword(user), token };

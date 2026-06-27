@@ -188,8 +188,10 @@ model user {
   password     String
   role         String         @default("user")
   is_verified  Boolean        @default(false)
+
   created_at   DateTime       @default(now())
-  updated_at   DateTime
+  updated_at   DateTime       @updatedAt
+
   booking      booking[]
   notification notification[]
 }
