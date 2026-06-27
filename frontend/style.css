@@ -1743,11 +1743,7 @@ img {
     }
 }
 
-@media (max-width: 768px) {
-    .section-padding {
-        padding: 60px 0;
-    }
-
+@media (max-width: 1100px) {
     .desktop-nav,
     .d-none-mobile {
         display: none;
@@ -1755,6 +1751,12 @@ img {
 
     .mobile-menu-toggle {
         display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 60px 0;
     }
 
     .hero-container {

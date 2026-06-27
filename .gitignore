@@ -1,8 +1,15 @@
-node_modules/
+# Environment variables - NEVER commit these!
 .env
-dist/
-build/
-coverage/
-.vscode/
+.env.local
+.env.production
+
+# Dependencies
+node_modules/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Logs
+logs/
 *.log

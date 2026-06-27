@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=9">
+    <style>
+        .dashboard-layout { display: flex; min-height: 100vh; background-color: #f8fafc; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; position: fixed; height: 100vh; }
+        .sidebar-logo { padding: 20px; border-bottom: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .nav-item { padding: 12px 20px; color: #64748b; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 12px; transition: 0.3s; cursor: pointer; border-right: 3px solid transparent; }
+        .nav-item:hover, .nav-item.active { background: #f1f5f9; color: var(--exec-black); border-right: 3px solid var(--primary-green); }
+        .main-content { flex: 1; padding: 40px; margin-left: 260px; }
+        
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        
+        /* Tab System */
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Welcome Card */
+        .welcome-card { background: var(--exec-black); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; position: relative; overflow: hidden; }
+        .welcome-card::after { content: ''; position: absolute; top: 0; right: 0; width: 250px; height: 100%; background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2)); }
+        
+        /* Quick Stats */
+        .stat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .stat-title { color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+        .stat-value { font-size: 20px; font-weight: 700; color: var(--exec-black); font-family: 'Montserrat', sans-serif; }
+        .stat-value.highlight { color: var(--primary-green); }
+
+        /* Layout Grids */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+        @media (max-width: 1024px) { .grid-2, .grid-2-1 { grid-template-columns: 1fr; } }
+
+        /* Section Cards */
+        .section-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 24px; }
+        .section-title { font-family: 'Montserrat'; font-size: 16px; font-weight: 600; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; color: var(--exec-black); }
+
+        /* Tables */
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+        th { background: #f8fafc; font-weight: 600; color: #64748b; font-size: 12px; text-transform: uppercase; }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-pending { background: #fef9c3; color: #854d0e; }
+        .badge-primary { background: rgba(34,197,94,0.15); color: var(--primary-green); }
+
+        /* Forms */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 7px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 14px; background: #f8fafc; box-sizing: border-box; }
+        .form-group input:focus { border-color: var(--primary-green); outline: none; background: white; }
+        
+        /* Lists & Items */
+        .update-item { padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+        .update-item:last-child { border-bottom: none; }
+        .update-date { font-size: 12px; color: var(--primary-green); font-weight: 600; margin-bottom: 5px; }
+        .update-title { font-size: 14px; font-weight: 600; color: var(--exec-black); margin-bottom: 5px; }
+        .update-desc { font-size: 13px; color: #64748b; line-height: 1.5; }
+
+        .recommendation-card { background: #f8fafc; border-left: 4px solid var(--primary-green); padding: 15px 20px; border-radius: 0 8px 8px 0; margin-bottom: 15px; }
+        .recommendation-card h4 { font-size: 14px; margin-bottom: 5px; color: var(--exec-black); }
+        .recommendation-card p { font-size: 13px; color: #64748b; margin: 0; line-height: 1.5; }
+
+        .resource-item { padding: 15px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: flex-start; }
+        .resource-item:last-child { border-bottom: none; }
+        .resource-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 5px; color: var(--exec-black); }
+        .resource-info p { font-size: 13px; color: #64748b; margin: 0; max-width: 400px; line-height: 1.4; }
+        .download-btn { color: var(--primary-green); background: rgba(34,197,94,0.1); padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-block; transition: 0.2s; }
+        .download-btn:hover { background: var(--primary-green); color: white; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px;">SARANGI<span style="color: var(--primary-green);">CLIENT</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a class="nav-item active" data-tab="overview"><i class="fas fa-home"></i> Overview</a>
+            <a class="nav-item" data-tab="profile"><i class="fas fa-user-circle"></i> Profile & Plan</a>
+            <a class="nav-item" data-tab="meetings"><i class="fas fa-calendar-alt"></i> Meetings</a>
+            <a class="nav-item" data-tab="reports"><i class="fas fa-chart-line"></i> Reports & Insights</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 24px; font-weight: 700;">Client Portal</h1>
+            </div>
+            <div>
+                <a href="startup-advisory.html" class="btn btn-primary" style="padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; background: var(--primary-green); color: white; text-decoration: none;"><i class="fas fa-plus"></i> Book New Session</a>
+            </div>
+        </header>
+
+        <!-- TAB 1: OVERVIEW -->
+        <div id="overview" class="tab-content active">
+            <div class="welcome-card">
+                <h2 style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 10px;">Welcome back, User!</h2>
+                <p style="color: #cbd5e1; max-width: 600px; font-size: 14px; line-height: 1.6;">Access your advisory sessions, track your business transformation journey, and view tailored insights all in one place.</p>
+            </div>
+
+            <div class="stat-cards">
+                <div class="stat-card">
+                    <div class="stat-title">Current Plan</div>
+                    <div class="stat-value highlight">Growth Advisory</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Next Meeting</div>
+                    <div class="stat-value">Oct 24, 10:00 AM</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Available Sessions</div>
+                    <div class="stat-value">2</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Unread Reports</div>
+                    <div class="stat-value">1</div>
+                </div>
+            </div>
+
+            <div class="grid-2-1">
+                <div class="section-card">
+                    <h3 class="section-title">Latest Updates</h3>
+                    <div class="update-item">
+                        <div class="update-date">Oct 15, 2026</div>
+                        <div class="update-title">New ESG Consulting Framework Launched</div>
+                        <div class="update-desc">We have updated our sustainability strategies. Read the new playbook in the Reports section to align your startup with 2027 ESG standards.</div>
+                    </div>
+                    <div class="update-item">
+                        <div class="update-date">Oct 10, 2026</div>
+                        <div class="update-title">Q4 Financial Planning Template Available</div>
+                        <div class="update-desc">Download the latest financial projection excel sheet tailored for scaling tech startups.</div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="section-title">Quick Actions</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="btn btn-outline" style="width: 100%; text-align: left; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;" onclick="switchTab('meetings')"><i class="fas fa-video" style="color: var(--primary-green); width: 25px;"></i> Join Upcoming Meeting</button>
+                        <button class="btn btn-outline" style="width: 100%; text-align: left; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;" onclick="switchTab('reports')"><i class="fas fa-file-pdf" style="color: #ef4444; width: 25px;"></i> View Latest Report</button>
+                        <button class="btn btn-outline" style="width: 100%; text-align: left; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;" onclick="switchTab('profile')"><i class="fas fa-lock" style="color: #64748b; width: 25px;"></i> Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: PROFILE & PLAN -->
+        <div id="profile" class="tab-content">
+            <div class="grid-2">
+                <!-- User Details -->
+                <div class="section-card">
+                    <h3 class="section-title">Personal Details</h3>
+                    <form>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="Rahul Sharma" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" value="rahul@techstartup.com" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" value="+91 98765 43210" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Company / Business Name</label>
+                            <input type="text" value="TechNova Solutions" readonly>
+                        </div>
+                    </form>
+                </div>
+
+                <div>
+                    <!-- Current Plan -->
+                    <div class="section-card">
+                        <h3 class="section-title">Current Plan Details</h3>
+                        <div style="background: var(--exec-black); padding: 20px; border-radius: 8px; color: white; margin-bottom: 20px;">
+                            <h4 style="font-size: 18px; margin-bottom: 5px; color: var(--primary-green);">Startup Growth Advisory</h4>
+                            <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 15px;">Active Since: Aug 2026</p>
+                            <div style="display: flex; gap: 10px;">
+                                <span class="badge badge-success">Active</span>
+                                <span class="badge" style="background: rgba(255,255,255,0.1); color: white;">2 Sessions Remaining</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 13px; color: #64748b; line-height: 1.5;">Your current plan includes monthly 1-on-1 strategy sessions, financial projection analysis, and priority email support. Need more hours?</p>
+                        <button class="btn btn-outline" style="margin-top: 10px; padding: 8px 15px; border-radius: 6px; font-size: 13px; border: 1px solid var(--primary-green); color: var(--primary-green); background: white; cursor: pointer;">Upgrade Plan</button>
+                    </div>
+
+                    <!-- Change Password -->
+                    <div class="section-card">
+                        <h3 class="section-title">Change Password</h3>
+                        <form>
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input type="password" placeholder="••••••••">
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" placeholder="Min. 8 characters">
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; border-radius: 6px; border: none; background: var(--exec-black); color: white; cursor: pointer;">Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: MEETINGS -->
+        <div id="meetings" class="tab-content">
+            <div class="section-card table-container" style="padding: 0;">
+                <div class="table-header" style="padding: 20px 24px;">
+                    <h3 style="font-family: 'Montserrat'; font-size: 16px; font-weight: 600; margin: 0;">Upcoming Sessions</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Topic / Focus Area</th>
+                            <th>Advisor</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Oct 24, 2026</strong><br>
+                                <span style="font-size: 12px; color: #64748b;">10:00 AM - 11:00 AM IST</span>
+                            </td>
+                            <td>Q4 Financial Projections Review</td>
+                            <td>Arun Kumar</td>
+                            <td><a href="#" class="btn btn-primary" style="padding: 6px 12px; border-radius: 6px; font-size: 12px; background: var(--primary-green); color: white; text-decoration: none;">Join Google Meet</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-card table-container" style="padding: 0;">
+                <div class="table-header" style="padding: 20px 24px;">
+                    <h3 style="font-family: 'Montserrat'; font-size: 16px; font-weight: 600; margin: 0;">Past Sessions</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Topic</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sep 15, 2026</td>
+                            <td>Initial Discovery & Growth Strategy</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td><a href="#" style="color: var(--primary-green); font-size: 13px; font-weight: 500; text-decoration: none;"><i class="fas fa-file-alt"></i> View Summary</a></td>
+                        </tr>
+                        <tr>
+                            <td>Aug 20, 2026</td>
+                            <td>Market Positioning Workshop</td>
+                            <td><span class="badge badge-success">Completed</span></td>
+                            <td><a href="#" style="color: var(--primary-green); font-size: 13px; font-weight: 500; text-decoration: none;"><i class="fas fa-file-alt"></i> View Summary</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 4: REPORTS & INSIGHTS -->
+        <div id="reports" class="tab-content">
+            <div class="grid-2">
+                <!-- Business Reports Analysis -->
+                <div class="section-card">
+                    <h3 class="section-title">Business Reports & Analysis</h3>
+                    
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <h4><i class="far fa-file-pdf" style="color: #ef4444; margin-right: 8px;"></i> Q3 Performance Analysis.pdf</h4>
+                            <p>Detailed breakdown of your startup's Q3 KPIs, showcasing a 15% improvement in customer acquisition costs.</p>
+                        </div>
+                        <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <h4><i class="far fa-file-excel" style="color: #10b981; margin-right: 8px;"></i> 2027 Financial Model.xlsx</h4>
+                            <p>Projected runway and cash flow scenarios based on our last advisory session.</p>
+                        </div>
+                        <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+
+                <!-- Company Recommendations -->
+                <div class="section-card">
+                    <h3 class="section-title">Tailored Recommendations</h3>
+                    <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">Based on your current trajectory, our advisory team recommends focusing on the following strategic areas:</p>
+                    
+                    <div class="recommendation-card">
+                        <h4>1. Optimize Supply Chain Margins</h4>
+                        <p>Consider renegotiating contracts with tier-2 vendors to improve your gross margins by an estimated 4-6% before end of year.</p>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <h4>2. Leadership Hiring</h4>
+                        <p>As you approach Series A funding, bringing in a seasoned VP of Sales will strengthen investor confidence and accelerate revenue.</p>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <h4>3. ESG Compliance</h4>
+                        <p>Initiate a baseline carbon footprint audit. Being proactive here will open doors to ESG-focused venture funds next year.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- Floating WhatsApp Button -->
+<a href="#" id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+</a>
+<style>
+    .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 3px #999; z-index: 100; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; text-decoration: none; }
+    .whatsapp-float:hover { transform: scale(1.1); color: #FFF; }
+</style>
+
+<script>
+    // Tab Switching Logic
+    const navItems = document.querySelectorAll('.nav-item[data-tab]');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    function switchTab(tabId) {
+        // Remove active class from all tabs and contents
+        navItems.forEach(item => item.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        // Add active class to target
+        const targetNav = document.querySelector(`.nav-item[data-tab="${tabId}"]`);
+        const targetContent = document.getElementById(tabId);
+        
+        if(targetNav && targetContent) {
+            targetNav.classList.add('active');
+            targetContent.classList.add('active');
+            window.scrollTo(0,0);
+        }
+    }
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tabId = item.getAttribute('data-tab');
+            switchTab(tabId);
+        });
+    });
+
+    // WhatsApp logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const waBtn = document.getElementById('whatsapp-btn');
+        if (waBtn) {
+            let serviceContext = 'Client Dashboard Support';
+            let waMessage = encodeURIComponent(`Hi Sarangi Consulting! I need support from my dashboard.`);
+            let waNumber = '919999999999';
+            waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
+        }
+    });
+</script>
+
+</body>
+</html>
