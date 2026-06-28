@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('🗑️  Clearing old data...');
-  // Clear in dependency order
+  // Clear in dependency order to prevent foreign key constraint violations
   await prisma.notification.deleteMany();
   await prisma.booking.deleteMany();
   await prisma.lead.deleteMany();
@@ -20,14 +20,33 @@ async function main() {
 
   const adminPass = await bcrypt.hash('admin123', 10);
   const userPass  = await bcrypt.hash('user123', 10);
+  const u3Pass = await bcrypt.hash('user789', 10);
+  const u4Pass = await bcrypt.hash('userabc', 10);
+  const u5Pass = await bcrypt.hash('userxyz', 10);
+  const u6Pass = await bcrypt.hash('userdef', 10);
+  const u7Pass = await bcrypt.hash('userghi', 10);
 
   // ── Users ─────────────────────────────────────────────
   const admin = await prisma.user.create({
-    data: { name: 'RC Sarangi (Admin)', email: 'admin@sarangi.com', password: adminPass, role: 'admin', is_verified: true }
+    data: { name: 'RC Sarangi (Admin)', email: 'admin@sarangi.com', password: adminPass, role: 'admin', is_verified: true, updated_at: new Date() }
   });
-
-  const client = await prisma.user.create({
-    data: { name: 'Rahul Sharma', email: 'user@sarangi.com', password: userPass, role: 'user', is_verified: true, phone: '9876543210' }
+  const client1 = await prisma.user.create({
+    data: { name: 'Rahul Sharma', email: 'user@sarangi.com', password: userPass, role: 'user', is_verified: true, phone: '9876543210', updated_at: new Date() }
+  });
+  const client2 = await prisma.user.create({
+    data: { name: 'Ananya Iyer', email: 'ananya@sarangi.com', password: u3Pass, role: 'user', is_verified: true, updated_at: new Date() }
+  });
+  const client3 = await prisma.user.create({
+    data: { name: 'Vikram Malhotra', email: 'vikram@sarangi.com', password: u4Pass, role: 'user', is_verified: true, updated_at: new Date() }
+  });
+  const client4 = await prisma.user.create({
+    data: { name: 'Sarah Jones', email: 'sarah@sarangi.com', password: u5Pass, role: 'user', is_verified: true, updated_at: new Date() }
+  });
+  const client5 = await prisma.user.create({
+    data: { name: 'Priya Patel', email: 'priya@greenleaf.com', password: u6Pass, role: 'user', is_verified: true, phone: '9812345678', updated_at: new Date() }
+  });
+  const client6 = await prisma.user.create({
+    data: { name: 'Amit Joshi', email: 'amit@manufab.co', password: u7Pass, role: 'user', is_verified: true, phone: '9998887776', updated_at: new Date() }
   });
 
   // ── Services ─────────────────────────────────────────
@@ -40,7 +59,7 @@ async function main() {
     ]
   });
 
-  // ── Banners (with QR code) ────────────────────────────
+  // ── Banners ──────────────────────────────────────────
   await prisma.banner.createMany({
     data: [
       {
@@ -50,8 +69,8 @@ async function main() {
         button_text: 'Register Now',
         button_link: '/startup-advisory.html',
         status: 'active',
-        start_date: new Date('2026-06-01'),
-        end_date: new Date('2026-08-31'),
+        start_date: new Date('2026-07-01'),
+        end_date: new Date('2026-07-31'),
       },
       {
         title: 'Free Business Health Webinar',
@@ -60,7 +79,7 @@ async function main() {
         button_text: 'Reserve Spot',
         button_link: '/contact.html',
         status: 'active',
-        start_date: new Date('2026-06-15'),
+        start_date: new Date('2026-07-01'),
         end_date: new Date('2026-07-15'),
       }
     ]
@@ -76,6 +95,15 @@ async function main() {
   const c3 = await prisma.contact.create({
     data: { name: 'Amit Joshi', email: 'amit@manufab.co', phone: '9998887776', subject: 'Operations Consulting', message: 'Our production line efficiency has dropped 20% this quarter. Need expert help.', status: 'new' }
   });
+  const c4 = await prisma.contact.create({ // Fixed: Changed duplicate variable from c3 to c4
+    data: { name: 'Ananya Iyer', email: 'ananya@sarangi.com', phone: '9888823456', subject: 'Digital Transformation', message: 'We are looking to modernize our operations with technology. Need a consultation.', status: 'new' }
+  });
+  const c5 = await prisma.contact.create({ // Fixed: Renamed variable to avoid logical gaps
+    data: { name: 'Vikram Malhotra', email: 'vikram@fabindustries.com', phone: '9823456789', subject: 'Strategy & Growth', message: 'We are planning to expand our business overseas and need a growth strategy.', status: 'in_progress' }
+  });
+  const c6 = await prisma.contact.create({ // Fixed: Renamed variable to avoid logical gaps
+    data: { name: 'Sarah Jones', email: 'sarah@sarangi.com', phone: '9876545679', subject: 'Startup Advisory', message: 'We are a new startup and would like to schedule an advisory session.', status: 'new' }
+  });
 
   // ── Leads ─────────────────────────────────────────────
   await prisma.lead.createMany({
@@ -88,10 +116,13 @@ async function main() {
 
   // ── Bookings ──────────────────────────────────────────
   await prisma.booking.createMany({
-    data: [
-      { user_id: client.id, name: 'Rahul Sharma', email: 'rahul@technova.in', phone: '9876543210', business_name: 'TechNova EdTech', booking_date: new Date('2026-10-24'), booking_time: '10:00 AM', status: 'confirmed' },
-      { user_id: client.id, name: 'Priya Patel', email: 'priya@greenleaf.com', phone: '9812345678', business_name: 'GreenLeaf E-Commerce', booking_date: new Date('2026-10-25'), booking_time: '02:00 PM', status: 'pending' },
-      { user_id: client.id, name: 'Amit Joshi', email: 'amit@manufab.co', phone: '9998887776', business_name: 'ManuFab Industries', booking_date: new Date('2026-10-28'), booking_time: '11:00 AM', status: 'confirmed' },
+    data: [ // Fixed: Swapped non-existent "client.id" references with correct client variables
+      { user_id: client1.id, name: 'Rahul Sharma', email: 'rahul@technova.in', phone: '9876543210', business_name: 'TechNova EdTech', booking_date: new Date('2026-10-24'), booking_time: '10:00 AM', status: 'confirmed' },
+      { user_id: client5.id, name: 'Priya Patel', email: 'priya@greenleaf.com', phone: '9812345678', business_name: 'GreenLeaf E-Commerce', booking_date: new Date('2026-10-25'), booking_time: '02:00 PM', status: 'pending' },
+      { user_id: client6.id, name: 'Amit Joshi', email: 'amit@manufab.co', phone: '9998887776', business_name: 'ManuFab Industries', booking_date: new Date('2026-10-28'), booking_time: '11:00 AM', status: 'confirmed' },
+      { user_id: client2.id, name: 'Ananya Iyer', email: 'ananya@infotech.com', phone: '9888823456', business_name: 'InfoTech', booking_date: new Date('2026-10-29'), booking_time: '01:00 PM', status: 'confirmed' },
+      { user_id: client3.id, name: 'Vikram Malhotra', email: 'vikram@fabindustries.com', phone: '9823456789', business_name: 'FAB Industries', booking_date: new Date('2026-10-29'), booking_time: '01:00 PM', status: 'pending' },
+      { user_id: client4.id, name: 'Sarah Jones', email: 'sarah@sarangi.com', phone: '9876545679', business_name: 'JCT Industries', booking_date: new Date('2026-10-30'), booking_time: '03:00 PM', status: 'confirmed' }
     ]
   });
 
@@ -100,7 +131,12 @@ async function main() {
     data: [
       { user_id: admin.id, title: 'New Lead: TechNova EdTech', message: 'A new lead from Rahul Sharma has been submitted via the website.', type: 'lead', is_read: false },
       { user_id: admin.id, title: 'Booking Confirmed', message: 'Booking for Rahul Sharma on Oct 24 at 10:00 AM has been confirmed.', type: 'booking', is_read: true },
-      { user_id: client.id, title: 'Session Confirmed!', message: 'Your advisory session on Oct 24, 2026 at 10:00 AM is confirmed. Check your email for the meeting link.', type: 'booking', is_read: false },
+      { user_id: client1.id, title: 'Session Confirmed!', message: 'Booking advisory session for Rahul Sharma on Oct 24, 2026 at 10:00 AM is confirmed. Check your email for the meeting link.', type: 'booking', is_read: true },
+      {user_id: client2.id, title: 'Session Confirmed!', message: 'Booking advisory session for Ananya Iyer on Oct 29, 2026 at 01:00 PM is confirmed. Check your email for the meeting link.', type: 'booking', is_read: true }, 
+      {user_id: client3.id, title: 'Session Confirmed!', message: 'Booking advisory session for Vikram Malhotra on Oct 31, 2026 at 01:00 PM is confirmed. Check your email for the meeting link.', type: 'booking', is_read: true }, 
+      {user_id: client4.id, title: 'Booking Confirmed!', message: 'Booking advisory session for Sarah Jones on Nov 1, 2026 at 11:00 AM is pending confirmed. Check your email for the meeting link.', type: 'booking', is_read: false },
+      {user_id: client5.id, title: 'Booking Pending', message: 'Booking advisory session for Priya Patel on Nov 5, 2026 at 03:00 PM is pending confirmation. Check your email for updates.', type: 'booking', is_read: false },
+      {user_id: client6.id, title: 'Booking Confirmed!', message: 'Booking advisory session for Amit Joshi on Nov 8, 2026 at 11:00 AM is confirmed. Check your email for the meeting link.', type: 'booking', is_read: true }
     ]
   });
 
