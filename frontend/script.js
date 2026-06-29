@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Form Submission
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Basic HTML5 validation trigger
@@ -205,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Simulate loading
             const btnText = contactSubmitBtn.querySelector('.btn-text');
             const btnLoader = contactSubmitBtn.querySelector('.btn-loader');
             
@@ -213,23 +212,51 @@ document.addEventListener('DOMContentLoaded', () => {
             btnText.classList.add('hidden');
             btnLoader.classList.remove('hidden');
 
-            setTimeout(() => {
-                // Reset button
+            const selectedMethod = document.querySelector('input[name="contactMethod"]:checked');
+            const methodVal = selectedMethod ? selectedMethod.value : 'Email';
+
+            const userMessage = document.getElementById('contactDetails').value;
+            const extraDetails = `Project Type: ${document.getElementById('contactProjectType').value}\nBudget: ${document.getElementById('contactBudget').value}\nTimeline: ${document.getElementById('contactTimeline').value}\nPreferred Contact: ${methodVal}\nBest Time: ${document.getElementById('contactTime').value}`;
+
+            // Construct payload mapping to our Lead Schema
+            const payload = {
+                customerName: document.getElementById('contactName').value,
+                company: document.getElementById('contactCompany').value,
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value,
+                serviceInterested: document.getElementById('contactService').value,
+                leadSource: document.getElementById('contactSource').value || 'Website',
+                priority: 'Medium',
+                status: 'New',
+                message: userMessage + '\n\n---\n' + extraDetails
+            };
+
+            try {
+                const res = await fetch('http://localhost:5000/api/leads', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const json = await res.json();
+                if (json.success) {
+                    if (successPopup) {
+                        successPopup.classList.add('show');
+                    }
+                    contactForm.reset();
+                    floatingInputs.forEach(input => checkValue(input));
+                    if(fileNameDisplay) fileNameDisplay.textContent = "";
+                } else {
+                    alert('Failed to submit form: ' + (json.message || JSON.stringify(json.errors)));
+                }
+            } catch (err) {
+                console.error('Contact form submission error:', err);
+                alert('An error occurred while submitting your request. Please try again.');
+            } finally {
                 contactSubmitBtn.disabled = false;
                 btnText.classList.remove('hidden');
                 btnLoader.classList.add('hidden');
-                
-                // Show success popup
-                if (successPopup) {
-                    successPopup.classList.add('show');
-                }
-                
-                // Reset form
-                contactForm.reset();
-                floatingInputs.forEach(input => checkValue(input));
-                if(fileNameDisplay) fileNameDisplay.textContent = "";
-                
-            }, 1500); // 1.5s simulated network request
+            }
         });
     }
 
@@ -269,5 +296,66 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize immediately, then update every second
     updateTimers();
     setInterval(updateTimers, 1000);
+
+    // 8. Dynamic Banner Rendering
+    async function renderDynamicBanners() {
+        try {
+            const res = await fetch('http://localhost:5000/api/banners?status=Active');
+            const data = await res.json();
+            
+            if (data.success && data.data && data.data.length > 0) {
+                // Determine current page context
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                
+                // Map page to display_position
+                let position = 'Homepage';
+                if (currentPage.includes('about')) position = 'About';
+                else if (currentPage.includes('service')) position = 'Services';
+                else if (currentPage.includes('login') || currentPage.includes('contact')) position = 'Sidebar'; // Example fallback
+                
+                // Filter banners for the current position
+                let pageBanners = data.data.filter(b => b.display_position === position);
+                
+                if (pageBanners.length > 0) {
+                    // Sort by priority (lower number = higher priority)
+                    pageBanners.sort((a, b) => a.priority - b.priority);
+                    const banner = pageBanners[0];
+                    
+                    // Construct Banner HTML
+                    const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `http://localhost:5000${banner.image}`;
+                    
+                    const bannerHtml = `
+                        <div id="dynamic-banner-container" style="background-color: #0D0D0D; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.15); position: relative; z-index: 1000; width: 100%;">
+                            <div class="container" style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; text-align: center;">
+                                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;">
+                                    ${banner.image && !banner.image.includes('via.placeholder.com') ? `<img src="${bannerImgSrc}" style="height: 40px; border-radius: 4px; object-fit: contain;">` : ''}
+                                    <div style="text-align: left;">
+                                        <p style="margin: 0; font-weight: 600; font-size: 15px; color: #FFFFFF;">${banner.title}</p>
+                                        ${banner.subtitle ? `<p style="margin: 0; font-size: 13px; color: #A1A1AA;">${banner.subtitle}</p>` : ''}
+                                    </div>
+                                </div>
+                                ${banner.button_text && banner.button_url ? `
+                                <a href="${banner.button_url}" class="btn btn-success btn-small" style="background-color: #22C55E; color: #FFFFFF; height: 34px; line-height: 34px; font-size: 13px; padding: 0 16px; margin: 0; border-radius: 6px; text-decoration: none; font-weight: 600;">${banner.button_text}</a>
+                                ` : ''}
+                                <button onclick="document.getElementById('dynamic-banner-container').remove()" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #A1A1AA; cursor: pointer; font-size: 20px;">&times;</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Remove existing static announcement bar if any
+                    const staticAnnouncements = document.querySelectorAll('.announcement-bar');
+                    staticAnnouncements.forEach(el => el.remove());
+                    
+                    // Insert dynamic banner at the very top of body
+                    document.body.insertAdjacentHTML('afterbegin', bannerHtml);
+                }
+            }
+        } catch (err) {
+            console.error('Error fetching dynamic banners:', err);
+        }
+    }
+    
+    // Call the function
+    renderDynamicBanners();
 
 });

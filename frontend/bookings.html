@@ -45,8 +45,8 @@
             </div>
             <div class="header-actions">
                 <button class="btn btn-secondary" onclick="toggleCalendarView()" id="calendarViewBtn"><i class="fas fa-calendar-alt"></i> Calendar View</button>
-                <button class="btn btn-secondary"><i class="fas fa-file-excel"></i> Export Excel</button>
-                <button class="btn btn-secondary"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                <button class="btn btn-secondary" onclick="exportBookings('excel', true)"><i class="fas fa-file-excel"></i> Export Excel</button>
+                <button class="btn btn-secondary" onclick="exportBookings('pdf', true)"><i class="fas fa-file-pdf"></i> Export PDF</button>
                 <button class="btn btn-primary" onclick="openModal('addBookingModal')"><i class="fas fa-plus"></i> New Booking</button>
             </div>
         </header>
@@ -95,13 +95,13 @@
         <div class="filter-section card mb-30">
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search by Client Name, Booking ID, Email or Phone">
+                <input type="text" id="searchInput" placeholder="Search by Client Name, Booking ID, Email or Phone">
             </div>
             <div class="filters-grid">
                 <div class="filter-group">
                     <label>Booking Status</label>
-                    <select>
-                        <option>All</option>
+                    <select id="statusFilter">
+                        <option value="">All</option>
                         <option>Pending</option>
                         <option>Confirmed</option>
                         <option>Completed</option>
@@ -112,7 +112,8 @@
                 </div>
                 <div class="filter-group">
                     <label>Consultation Type</label>
-                    <select>
+                    <select id="typeFilter">
+                        <option value="">All</option>
                         <option>Startup Advisory</option>
                         <option>Business Consultation</option>
                         <option>Tax Consultation</option>
@@ -125,8 +126,8 @@
                 </div>
                 <div class="filter-group">
                     <label>Assigned Consultant</label>
-                    <select>
-                        <option>All</option>
+                    <select id="consultantFilter">
+                        <option value="">All</option>
                         <option>Samuel</option>
                         <option>Aditya</option>
                         <option>Priya</option>
@@ -135,8 +136,8 @@
                 </div>
                 <div class="filter-group">
                     <label>Payment Status</label>
-                    <select>
-                        <option>All</option>
+                    <select id="paymentFilter">
+                        <option value="">All</option>
                         <option>Paid</option>
                         <option>Pending</option>
                         <option>Failed</option>
@@ -145,7 +146,8 @@
                 </div>
                 <div class="filter-group">
                     <label>Meeting Mode</label>
-                    <select>
+                    <select id="modeFilter">
+                        <option value="">All</option>
                         <option>Online</option>
                         <option>Offline</option>
                         <option>Video Call</option>
@@ -154,12 +156,12 @@
                 </div>
                 <div class="filter-group">
                     <label>Date Range</label>
-                    <select>
+                    <select id="dateFilter">
+                        <option value="">All Time</option>
                         <option>Today</option>
                         <option>Tomorrow</option>
                         <option>This Week</option>
                         <option>This Month</option>
-                        <option>Custom Range</option>
                     </select>
                 </div>
             </div>
@@ -178,12 +180,14 @@
                 <!-- BULK ACTIONS -->
                 <div class="bulk-actions card mb-20" id="bulkActionsContainer">
                     <span style="font-weight: 600; font-size: 14px; margin-right: 15px;">Bulk Actions:</span>
-                    <button class="btn btn-small btn-outline"><i class="fas fa-check"></i> Confirm Selected</button>
-                    <button class="btn btn-small btn-outline"><i class="fas fa-times"></i> Cancel Selected</button>
-                    <button class="btn btn-small btn-outline"><i class="fas fa-user-tag"></i> Assign Consultant</button>
-                    <button class="btn btn-small btn-outline"><i class="fas fa-bell"></i> Send Reminder</button>
-                    <button class="btn btn-small btn-outline"><i class="fas fa-file-export"></i> Export Selected</button>
-                    <button class="btn btn-small btn-danger"><i class="fas fa-trash"></i> Delete Selected</button>
+                    <button class="btn btn-small btn-outline" onclick="bulkUpdateStatus('Confirmed')"><i class="fas fa-check"></i> Confirm Selected</button>
+                    <button class="btn btn-small btn-outline" onclick="bulkUpdateStatus('Cancelled')"><i class="fas fa-times"></i> Cancel Selected</button>
+                    <button class="btn btn-small btn-outline" onclick="bulkAssignConsultant()"><i class="fas fa-user-tag"></i> Assign Consultant</button>
+                    <button class="btn btn-small btn-outline" onclick="bulkSendReminder()"><i class="fas fa-bell"></i> Send Reminder</button>
+                    <button class="btn btn-small btn-outline" onclick="exportBookings('csv')"><i class="fas fa-file-csv"></i> CSV</button>
+                    <button class="btn btn-small btn-outline" onclick="exportBookings('excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                    <button class="btn btn-small btn-outline" onclick="exportBookings('pdf')"><i class="fas fa-file-pdf"></i> PDF</button>
+                    <button class="btn btn-small btn-danger" onclick="bulkDelete()"><i class="fas fa-trash"></i> Delete Selected</button>
                 </div>
 
                 <!-- BOOKINGS TABLE VIEW -->
@@ -348,7 +352,7 @@
             <h3>Booking Details - <span id="detailBookingId">BK001</span></h3>
             <div class="d-flex gap-8">
                 <button class="btn btn-small btn-outline"><i class="fas fa-print"></i> Print</button>
-                <button class="btn btn-small btn-outline"><i class="fas fa-file-invoice"></i> Generate Invoice</button>
+                <button class="btn btn-small btn-outline" id="generateInvoiceBtn"><i class="fas fa-file-invoice"></i> Generate Invoice</button>
                 <button class="close-btn" onclick="closeModal('viewBookingModal')"><i class="fas fa-times"></i></button>
             </div>
         </div>
@@ -359,60 +363,48 @@
                     <div class="details-section">
                         <h4>Booking Information</h4>
                         <div class="info-grid">
-                            <div class="info-group"><label>Booking Date</label><p>28 Jun 2026</p></div>
-                            <div class="info-group"><label>Booking Time</label><p>10:30 AM</p></div>
-                            <div class="info-group"><label>Duration</label><p>1 Hour</p></div>
-                            <div class="info-group"><label>Meeting Mode</label><p>Online</p></div>
-                            <div class="info-group"><label>Consultation Type</label><p>Startup Advisory</p></div>
-                            <div class="info-group"><label>Booking Status</label><p><span class="badge badge-status badge-confirmed">Confirmed</span></p></div>
-                            <div class="info-group"><label>Payment Status</label><p><span class="badge badge-payment badge-paid">Paid</span></p></div>
+                            <div class="info-group"><label>Booking Date</label><p id="viewBookingDate"></p></div>
+                            <div class="info-group"><label>Booking Time</label><p id="viewBookingTime"></p></div>
+                            <div class="info-group"><label>Duration</label><p id="viewDuration"></p></div>
+                            <div class="info-group"><label>Meeting Mode</label><p id="viewMeetingMode"></p></div>
+                            <div class="info-group"><label>Consultation Type</label><p id="viewConsultationType"></p></div>
+                            <div class="info-group"><label>Booking Status</label><p id="viewBookingStatus"></p></div>
+                            <div class="info-group"><label>Payment Status</label><p id="viewPaymentStatus"></p></div>
                         </div>
                     </div>
                     
                     <div class="details-section">
                         <h4>Client Information</h4>
                         <div class="info-grid">
-                            <div class="info-group"><label>Name</label><p>Rahul Sharma</p></div>
-                            <div class="info-group"><label>Company</label><p>ABC Pvt Ltd</p></div>
-                            <div class="info-group"><label>Email</label><p><a href="mailto:rahul@gmail.com">rahul@gmail.com</a></p></div>
-                            <div class="info-group"><label>Phone</label><p><a href="tel:9876543210">9876543210</a></p></div>
-                            <div class="info-group"><label>Business Category</label><p>Technology</p></div>
-                            <div class="info-group"><label>Location</label><p>New Delhi, India</p></div>
+                            <div class="info-group"><label>Name</label><p id="viewClientName"></p></div>
+                            <div class="info-group"><label>Company</label><p id="viewCompany"></p></div>
+                            <div class="info-group"><label>Email</label><p id="viewEmail"></p></div>
+                            <div class="info-group"><label>Phone</label><p id="viewPhone"></p></div>
                         </div>
                     </div>
                     
                     <div class="details-section">
                         <h4>Consultant Details</h4>
                         <div class="info-grid">
-                            <div class="info-group"><label>Consultant Name</label><p>Samuel</p></div>
-                            <div class="info-group"><label>Department</label><p>Advisory</p></div>
-                            <div class="info-group" style="grid-column: span 2;"><label>Meeting Link</label><p><a href="#" class="text-primary">https://meet.google.com/abc-defg-hij</a></p></div>
+                            <div class="info-group"><label>Consultant Name</label><p id="viewConsultantName"></p></div>
+                            <div class="info-group" style="grid-column: span 2;"><label>Meeting Link</label><p id="viewMeetingLink"></p></div>
                         </div>
                     </div>
                     
                     <div class="details-section">
                         <h4>Payment Information</h4>
                         <div class="info-grid">
-                            <div class="info-group"><label>Amount</label><p>₹10,000</p></div>
-                            <div class="info-group"><label>GST (18%)</label><p>₹1,800</p></div>
-                            <div class="info-group"><label>Discount</label><p>₹0</p></div>
-                            <div class="info-group"><label>Total</label><p class="fw-bold text-success">₹11,800</p></div>
-                            <div class="info-group"><label>Transaction ID</label><p>TXN9876543210</p></div>
-                            <div class="info-group"><label>Payment Method</label><p>Credit Card</p></div>
-                            <div class="info-group"><label>Invoice Number</label><p>INV-2026-06-001</p></div>
+                            <div class="info-group"><label>Amount</label><p id="viewAmount"></p></div>
+                            <div class="info-group"><label>GST</label><p id="viewGst"></p></div>
+                            <div class="info-group"><label>Discount</label><p id="viewDiscount"></p></div>
+                            <div class="info-group"><label>Total</label><p class="fw-bold text-success" id="viewTotal"></p></div>
                         </div>
                     </div>
                     
                     <div class="details-section">
                         <h4>Client Notes</h4>
-                        <div class="notes-box">
-                            "Looking to understand the registration process for a Private Limited company and initial compliance requirements."
+                        <div class="notes-box" id="viewNotes">
                         </div>
-                    </div>
-                    
-                    <div class="details-section">
-                        <h4>Admin Notes</h4>
-                        <textarea class="admin-textarea" rows="3">Client requested consultation after lunch. Interested in company registration.</textarea>
                     </div>
                 </div>
                 
@@ -454,7 +446,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-outline" onclick="closeModal('viewBookingModal')">Close</button>
-            <button class="btn btn-primary" onclick="closeModal('viewBookingModal'); openModal('editBookingModal')">Edit Booking</button>
+            <button class="btn btn-primary" id="viewModalEditBtn">Edit Booking</button>
         </div>
     </div>
 </div>
@@ -470,34 +462,34 @@
             <form class="booking-form">
                 <h5 class="form-section-title">Client Info</h5>
                 <div class="form-row">
-                    <div class="form-group"><label>Client Name *</label><input type="text" required></div>
-                    <div class="form-group"><label>Company</label><input type="text"></div>
+                    <div class="form-group"><label>Client Name *</label><input type="text" id="addClientName" required></div>
+                    <div class="form-group"><label>Company</label><input type="text" id="addCompany"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>Email *</label><input type="email" required></div>
-                    <div class="form-group"><label>Phone *</label><input type="tel" required></div>
+                    <div class="form-group"><label>Email *</label><input type="email" id="addEmail" required></div>
+                    <div class="form-group"><label>Phone *</label><input type="tel" id="addPhone" required></div>
                 </div>
                 
                 <h5 class="form-section-title mt-20">Booking Details</h5>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Consultation Type</label>
-                        <select><option>Startup Advisory</option><option>GST Registration</option></select>
+                        <select id="addType"><option>Startup Advisory</option><option>GST Registration</option></select>
                     </div>
                     <div class="form-group">
                         <label>Assigned Consultant</label>
-                        <select><option>Samuel</option><option>Admin</option></select>
+                        <select id="addConsultant"><option>Samuel</option><option>Admin</option></select>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>Booking Date</label><input type="date"></div>
-                    <div class="form-group"><label>Booking Time</label><input type="time"></div>
+                    <div class="form-group"><label>Booking Date</label><input type="date" id="addDate"></div>
+                    <div class="form-group"><label>Booking Time</label><input type="time" id="addTime"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-group"><label>Duration</label><input type="text" value="1 Hour"></div>
                     <div class="form-group">
                         <label>Meeting Mode</label>
-                        <select><option>Online</option><option>Offline</option></select>
+                        <select id="addMode"><option>Online</option><option>Offline</option></select>
                     </div>
                 </div>
                 <div class="form-group full-width"><label>Meeting Link</label><input type="text"></div>
@@ -514,8 +506,8 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>Amount (₹)</label><input type="number" value="10000"></div>
-                    <div class="form-group"><label>Discount (₹)</label><input type="number" value="0"></div>
+                    <div class="form-group"><label>Amount (₹)</label><input type="number" id="addAmount" value="10000"></div>
+                    <div class="form-group"><label>Discount (₹)</label><input type="number" id="addDiscount" value="0"></div>
                 </div>
                 
                 <div class="form-group full-width mt-20">
@@ -525,27 +517,114 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-outline" onclick="closeModal('addBookingModal')">Cancel</button>
-            <button class="btn btn-primary" onclick="closeModal('addBookingModal')">Save Booking</button>
+            <button class="btn btn-outline" type="button" onclick="closeModal('addBookingModal')">Cancel</button>
+            <button class="btn btn-primary" type="button">Save Booking</button>
         </div>
     </div>
 </div>
 
 <!-- EDIT BOOKING MODAL -->
-<!-- Using same structure as Add Booking -->
 <div class="modal-overlay" id="editBookingModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>Edit Booking</h3>
+            <h3>Edit Booking <span id="editBookingIdDisplay" style="font-size: 14px; color: var(--text-muted); margin-left: 10px;"></span></h3>
             <button class="close-btn" onclick="closeModal('editBookingModal')"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
-            <!-- Form content similar to Add, omitted for brevity but handles all fields -->
-            <p class="text-muted">Edit form fields here...</p>
+            <form class="booking-form">
+                <input type="hidden" id="editBookingId">
+                <h5 class="form-section-title">Client Info</h5>
+                <div class="form-row">
+                    <div class="form-group"><label>Client Name *</label><input type="text" id="editClientName" required></div>
+                    <div class="form-group"><label>Company</label><input type="text" id="editCompany"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Email *</label><input type="email" id="editEmail" required></div>
+                    <div class="form-group"><label>Phone *</label><input type="tel" id="editPhone" required></div>
+                </div>
+                
+                <h5 class="form-section-title mt-20">Consultation Details</h5>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Consultation Type</label>
+                        <select id="editType">
+                            <option>Startup Advisory</option>
+                            <option>Business Consultation</option>
+                            <option>Tax Consultation</option>
+                            <option>Legal Consultation</option>
+                            <option>Trademark</option>
+                            <option>GST</option>
+                            <option>Funding</option>
+                            <option>Compliance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Assigned Consultant</label>
+                        <select id="editConsultant">
+                            <option>Samuel</option>
+                            <option>Aditya</option>
+                            <option>Priya</option>
+                            <option>Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Date *</label><input type="date" id="editDate" required></div>
+                    <div class="form-group"><label>Time *</label><input type="time" id="editTime" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Meeting Mode</label>
+                        <select id="editMode">
+                            <option>Online</option>
+                            <option>Offline</option>
+                            <option>Video Call</option>
+                            <option>Phone Call</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Meeting Link</label>
+                        <input type="url" id="editMeetingLink" placeholder="https://meet.google.com/...">
+                    </div>
+                </div>
+                
+                <h5 class="form-section-title mt-20">Payment & Status</h5>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Booking Status</label>
+                        <select id="editBookingStatus">
+                            <option>Pending</option>
+                            <option>Confirmed</option>
+                            <option>Upcoming</option>
+                            <option>Rescheduled</option>
+                            <option>Completed</option>
+                            <option>Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Status</label>
+                        <select id="editPaymentStatus">
+                            <option>Pending</option>
+                            <option>Paid</option>
+                            <option>Failed</option>
+                            <option>Refunded</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Amount (₹)</label><input type="number" id="editAmount"></div>
+                    <div class="form-group"><label>Discount (₹)</label><input type="number" id="editDiscount"></div>
+                </div>
+                
+                <div class="form-group full-width mt-20">
+                    <label>Notes</label>
+                    <textarea id="editNotes" rows="3"></textarea>
+                </div>
+            </form>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-outline" onclick="closeModal('editBookingModal')">Cancel</button>
-            <button class="btn btn-primary" onclick="closeModal('editBookingModal')">Save Changes</button>
+            <button class="btn btn-outline" type="button" onclick="closeModal('editBookingModal')">Cancel</button>
+            <button class="btn btn-primary" type="button" id="saveEditBookingBtn">Save Changes</button>
         </div>
     </div>
 </div>
@@ -595,6 +674,6 @@
     </div>
 </div>
 
-<script src="bookings.js"></script>
+<script src="bookings.js?v=10"></script>
 </body>
 </html>

@@ -1,0 +1,39 @@
+const { initUser, getUser } = require('./User');
+const { initLead, getLead } = require('./Lead');
+const { initBooking, getBooking } = require('./Booking');
+const { initBanner, getBanner } = require('./Banner');
+const { initSetting, getSetting } = require('./Setting');
+const { initActivityLog, getActivityLog } = require('./ActivityLog');
+const { initNotification, getNotification } = require('./Notification');
+const { getSequelize } = require('../config/database');
+
+const syncDatabase = async () => {
+    // 1. Initialize models
+    const User = initUser();
+    const Lead = initLead();
+    const Booking = initBooking();
+    const Banner = initBanner();
+    const Setting = initSetting();
+    const ActivityLog = initActivityLog();
+    const Notification = initNotification();
+
+    // 2. Define relationships (if any, in the future)
+    User.hasMany(Lead, { foreignKey: 'assignedConsultant', as: 'leads' });
+    Lead.belongsTo(User, { foreignKey: 'assignedConsultant', as: 'consultant' });
+
+    // 3. Sync database tables
+    const sequelize = getSequelize();
+    await sequelize.sync();
+    console.log('Database synced successfully');
+};
+
+module.exports = {
+    syncDatabase,
+    User: () => getUser(),
+    Lead: () => getLead(),
+    Booking: () => getBooking(),
+    Banner: () => getBanner(),
+    Setting: () => getSetting(),
+    ActivityLog: () => getActivityLog(),
+    Notification: () => getNotification()
+};

@@ -1,0 +1,204 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model appointmentslot {
+  id         Int      @id @default(autoincrement())
+  date       DateTime
+  time       String
+  is_booked  Boolean  @default(false)
+  created_at DateTime @default(now())
+}
+
+model auditlog {
+  id         Int      @id @default(autoincrement())
+  user_id    Int?
+  action     String
+  details    String?  @db.Text
+  created_at DateTime @default(now())
+}
+
+model banner {
+  id          Int       @id @default(autoincrement())
+  title       String
+  subtitle    String?
+  image_url   String
+  button_text String?
+  button_link String?
+  status      String    @default("active")
+  start_date  DateTime?
+  end_date    DateTime?
+  created_at  DateTime  @default(now())
+}
+
+model blog {
+  id         Int      @id @default(autoincrement())
+  title      String
+  slug       String   @unique(map: "Blog_slug_key")
+  content    String   @db.LongText
+  author     String?
+  status     String   @default("draft")
+  created_at DateTime @default(now())
+}
+
+model booking {
+  id            Int      @id @default(autoincrement())
+  user_id       Int
+  name          String
+  email         String
+  phone         String?
+  business_name String?
+  booking_date  DateTime
+  booking_time  String
+  status        String   @default("pending")
+  created_at    DateTime @default(now())
+  user          user     @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "Booking_user_id_fkey")
+
+  @@index([user_id], map: "Booking_user_id_fkey")
+}
+
+model chatmessage {
+  id          Int         @id @default(autoincrement())
+  session_id  Int
+  sender      String
+  message     String      @db.Text
+  created_at  DateTime    @default(now())
+  chatsession chatsession @relation(fields: [session_id], references: [id], onDelete: NoAction, map: "ChatMessage_session_id_fkey")
+
+  @@index([session_id], map: "ChatMessage_session_id_fkey")
+}
+
+model chatsession {
+  id          Int           @id @default(autoincrement())
+  user_id     Int?
+  status      String        @default("active")
+  created_at  DateTime      @default(now())
+  chatmessage chatmessage[]
+}
+
+model contact {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  phone      String?
+  subject    String?
+  message    String
+  status     String   @default("new")
+  created_at DateTime @default(now())
+  lead       lead[]
+}
+
+model faq {
+  id         Int      @id @default(autoincrement())
+  question   String   @db.Text
+  answer     String   @db.Text
+  status     String   @default("active")
+  created_at DateTime @default(now())
+}
+
+model fileupload {
+  id         Int      @id @default(autoincrement())
+  file_name  String
+  file_url   String
+  file_type  String?
+  created_at DateTime @default(now())
+}
+
+model lead {
+  id          Int      @id @default(autoincrement())
+  contact_id  Int
+  source      String?
+  status      String   @default("new")
+  assigned_to Int?
+  notes       String?
+  created_at  DateTime @default(now())
+  contact     contact  @relation(fields: [contact_id], references: [id], onDelete: NoAction, map: "Lead_contact_id_fkey")
+
+  @@index([contact_id], map: "Lead_contact_id_fkey")
+}
+
+model notification {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  title      String
+  message    String
+  type       String
+  is_read    Boolean  @default(false)
+  created_at DateTime @default(now())
+  user       user     @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "Notification_user_id_fkey")
+
+  @@index([user_id], map: "Notification_user_id_fkey")
+}
+
+model payment {
+  id             Int      @id @default(autoincrement())
+  booking_id     Int?
+  amount         Float
+  gateway        String
+  transaction_id String?  @unique(map: "Payment_transaction_id_key")
+  status         String   @default("pending")
+  created_at     DateTime @default(now())
+}
+
+model permission {
+  id   Int    @id @default(autoincrement())
+  name String @unique(map: "Permission_name_key")
+  role role[] @relation("permissiontorole")
+}
+
+model role {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique(map: "Role_name_key")
+  permission permission[] @relation("permissiontorole")
+}
+
+model service {
+  id             Int      @id @default(autoincrement())
+  name           String
+  slug           String   @unique(map: "Service_slug_key")
+  description    String?
+  price          Float
+  discount_price Float?
+  status         String   @default("active")
+  created_at     DateTime @default(now())
+}
+
+model testimonial {
+  id          Int      @id @default(autoincrement())
+  client_name String
+  designation String?
+  company     String?
+  photo_url   String?
+  testimonial String   @db.Text
+  rating      Int      @default(5)
+  status      String   @default("active")
+  created_at  DateTime @default(now())
+}
+
+model user {
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique(map: "User_email_key")
+  phone        String?
+  password     String
+  role         String         @default("user")
+  is_verified  Boolean        @default(false)
+
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+
+  booking      booking[]
+  notification notification[]
+}
+
+model whatsappclick {
+  id         Int      @id @default(autoincrement())
+  page       String
+  service    String?
+  created_at DateTime @default(now())
+}

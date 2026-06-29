@@ -5,77 +5,198 @@
 // DOM Elements
 const settingTabs = document.querySelectorAll('.setting-tab');
 const settingPanes = document.querySelectorAll('.settings-pane');
+const API_URL = 'http://localhost:5000/api/settings';
 
 // 1. Tab Switching Logic
 settingTabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        // Remove active class from all tabs & panes
         settingTabs.forEach(t => t.classList.remove('active'));
         settingPanes.forEach(p => p.classList.remove('active'));
-        
-        // Add active class to clicked tab
         tab.classList.add('active');
-        
-        // Add active class to corresponding pane
-        const targetId = tab.getAttribute('data-target');
-        document.getElementById(targetId).classList.add('active');
+        document.getElementById(tab.getAttribute('data-target')).classList.add('active');
     });
 });
 
-// 2. Activity Logs Mock Data
-const sampleLogs = [
-    { date: '26 Jun 2026, 10:25 AM', user: 'Admin', action: 'Updated Website Settings', module: 'Settings', ip: '192.168.1.25', device: 'Chrome / Win', status: 'Success' },
-    { date: '26 Jun 2026, 09:14 AM', user: 'Admin', action: 'Created New Banner', module: 'Banners', ip: '192.168.1.25', device: 'Chrome / Win', status: 'Success' },
-    { date: '25 Jun 2026, 18:45 PM', user: 'Samuel', action: 'Failed Login Attempt', module: 'Auth', ip: '103.45.12.99', device: 'Safari / iOS', status: 'Failed' },
-    { date: '25 Jun 2026, 16:30 PM', user: 'Admin', action: 'Exported Leads Report', module: 'Leads', ip: '192.168.1.25', device: 'Chrome / Win', status: 'Success' },
-    { date: '24 Jun 2026, 11:20 AM', user: 'System', action: 'Automated Database Backup', module: 'System', ip: 'Localhost', device: 'Server', status: 'Success' },
-    { date: '23 Jun 2026, 14:15 PM', user: 'Samuel', action: 'Updated Lead Status', module: 'Leads', ip: '103.45.12.99', device: 'Safari / Mac', status: 'Success' },
-    { date: '22 Jun 2026, 10:05 AM', user: 'System', action: 'SMTP Email Test', module: 'Settings', ip: 'Localhost', device: 'Server', status: 'Failed' },
-    { date: '21 Jun 2026, 09:30 AM', user: 'Admin', action: 'Deleted Banner BN004', module: 'Banners', ip: '192.168.1.25', device: 'Chrome / Win', status: 'Success' }
-];
+// Dynamic naming of inputs for easy serialization
+function initializeFormNames() {
+    const panes = document.querySelectorAll('.settings-pane');
+    panes.forEach(pane => {
+        const groupId = pane.id.replace('tab-', ''); // general, company, website, etc.
+        const form = pane.querySelector('form.settings-form');
+        if (!form) return;
+        
+        form.setAttribute('data-group', groupId);
+        
+        // Find all inputs, selects, textareas inside the form
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach((input, index) => {
+            if (!input.name) {
+                // Try to find the label
+                let label = '';
+                const formGroup = input.closest('.form-group');
+                if (formGroup) {
+                    const labelEl = formGroup.querySelector('label');
+                    if (labelEl) label = labelEl.innerText.trim();
+                }
+                
+                // If no label found, use fallback
+                if (!label) {
+                    const row = input.closest('.form-row');
+                    if (row) {
+                        const rowLabel = row.querySelector('label');
+                        if (rowLabel) label = rowLabel.innerText.trim();
+                    }
+                }
+                
+                if (!label) label = `field_${index}`;
+                
+                // Slugify label
+                const name = label.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/_$/, '');
+                input.name = name;
+            }
+        });
 
-const renderActivityLogs = () => {
+        // Attach Save button listener
+        // The save button is usually outside the form or inside it? 
+        // In the HTML, it's inside the form at the bottom: <button type="button" class="btn btn-primary" onclick="openSaveModal()">Save</button>
+        // We will intercept the openSaveModal or add our own click listener
+        const saveBtn = form.querySelector('.btn-primary');
+        if (saveBtn) {
+            saveBtn.removeAttribute('onclick'); // Remove dummy modal
+            saveBtn.addEventListener('click', async () => {
+                await saveSettingsGroup(form, groupId);
+            });
+        }
+    });
+}
+
+async function saveSettingsGroup(form, groupId) {
+    const token = localStorage.getItem('token');
+    
+    // Collect data
+    const data = {};
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+        if(input.type === 'checkbox' || input.type === 'radio') {
+            data[input.name] = input.checked;
+        } else {
+            data[input.name] = input.value;
+        }
+    });
+
+    try {
+        const saveBtn = form.querySelector('.btn-primary');
+        const origText = saveBtn.innerHTML;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        
+        const res = await fetch(`${API_URL}/${groupId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await res.json();
+        saveBtn.innerHTML = origText;
+        
+        if (result.success) {
+            // Show toast or temporary success message
+            saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved!';
+            setTimeout(() => { saveBtn.innerHTML = origText; }, 2000);
+            fetchActivityLogs(); // Refresh logs
+        } else {
+            alert('Failed to save settings: ' + (result.message || 'Unknown error'));
+        }
+    } catch(err) {
+        console.error(err);
+        alert('Error saving settings');
+    }
+}
+
+async function loadSettings() {
+    const token = localStorage.getItem('token');
+    try {
+        const res = await fetch(API_URL, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const result = await res.json();
+        
+        if(result.success && result.data) {
+            const settingsObj = result.data; // { general: {...}, company: {...} }
+            
+            // Populate forms
+            const panes = document.querySelectorAll('.settings-pane');
+            panes.forEach(pane => {
+                const groupId = pane.id.replace('tab-', '');
+                const form = pane.querySelector('form.settings-form');
+                if(!form) return;
+                
+                const groupData = settingsObj[groupId];
+                if(groupData) {
+                    const inputs = form.querySelectorAll('input, select, textarea');
+                    inputs.forEach(input => {
+                        if(groupData[input.name] !== undefined) {
+                            if(input.type === 'checkbox' || input.type === 'radio') {
+                                input.checked = groupData[input.name];
+                            } else {
+                                input.value = groupData[input.name];
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    } catch(err) {
+        console.error('Error loading settings', err);
+    }
+}
+
+// 2. Activity Logs Logic
+async function fetchActivityLogs() {
+    const token = localStorage.getItem('token');
+    try {
+        const res = await fetch(`${API_URL}/logs`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const result = await res.json();
+        
+        if(result.success) {
+            renderActivityLogs(result.data);
+        }
+    } catch(err) {
+        console.error('Error fetching logs', err);
+    }
+}
+
+const renderActivityLogs = (logs) => {
     const tbody = document.getElementById('activityLogsBody');
     if (!tbody) return;
     
     tbody.innerHTML = '';
     
-    sampleLogs.forEach(log => {
+    logs.forEach(log => {
         const badgeClass = log.status === 'Success' ? 'badge-active' : 'badge-failed';
         const tr = document.createElement('tr');
         
+        // Format Date
+        const dateOpts = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        const formattedDate = new Date(log.created_at).toLocaleDateString('en-GB', dateOpts);
+        
         tr.innerHTML = `
-            <td>${log.date}</td>
-            <td class="fw-bold">${log.user}</td>
+            <td>${formattedDate}</td>
+            <td class="fw-bold">${log.user_id}</td>
             <td>${log.action}</td>
             <td>${log.module}</td>
-            <td class="font-mono text-muted">${log.ip}</td>
-            <td>${log.device}</td>
+            <td class="font-mono text-muted">${log.ip_address}</td>
+            <td>${log.browser}</td>
             <td><span class="badge ${badgeClass}">${log.status}</span></td>
             <td><button class="btn btn-outline btn-small" title="View Details"><i class="fas fa-ellipsis-v"></i></button></td>
         `;
         tbody.appendChild(tr);
     });
-};
-
-// 3. Modals
-window.openSaveModal = () => {
-    document.getElementById('saveSettingsModal').classList.add('active');
-};
-window.openResetModal = () => {
-    document.getElementById('resetSettingsModal').classList.add('active');
-};
-window.closeModal = (id) => {
-    document.getElementById(id).classList.remove('active');
-};
-window.confirmSave = () => {
-    closeModal('saveSettingsModal');
-    // Optional toast notification simulation here
-};
-window.confirmReset = () => {
-    closeModal('resetSettingsModal');
 };
 
 // 4. Analytics & Health Charts
@@ -165,7 +286,9 @@ const initSystemCharts = () => {
 };
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    renderActivityLogs();
+document.addEventListener('DOMContentLoaded', async () => {
+    initializeFormNames();
+    await loadSettings();
+    await fetchActivityLogs();
     setTimeout(initSystemCharts, 150);
 });

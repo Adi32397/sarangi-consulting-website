@@ -268,11 +268,11 @@
                 <div class="form-row">
                     <div class="form-group full-width">
                         <label>Banner Image Upload *</label>
-                        <div class="drag-drop-zone">
+                        <div class="drag-drop-zone" id="dragDropZone">
                             <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                            <p>Drag & Drop your image here or <strong>Browse</strong></p>
+                            <p id="dragDropText">Drag & Drop your image here or <strong>Browse</strong></p>
                             <span class="text-muted" style="font-size: 12px;">Supported formats: JPG, PNG, WEBP (Max 5MB)</span>
-                            <input type="file" hidden id="bannerImageFile">
+                            <input type="file" hidden id="bannerImageFile" accept="image/*">
                         </div>
                     </div>
                 </div>
@@ -280,28 +280,28 @@
                 <div class="form-row">
                     <div class="form-group full-width">
                         <label>Banner Title *</label>
-                        <input type="text" placeholder="Enter banner title" required>
+                        <input type="text" id="addBannerTitle" placeholder="Enter banner title" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
                         <label>Subtitle</label>
-                        <input type="text" placeholder="Enter subtitle or tagline">
+                        <input type="text" id="addBannerSubtitle" placeholder="Enter subtitle or tagline">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
                         <label>Description</label>
-                        <textarea rows="3" placeholder="Enter short description"></textarea>
+                        <textarea rows="3" id="addBannerDesc" placeholder="Enter short description"></textarea>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Banner Type</label>
-                        <select>
+                        <select id="addBannerType">
                             <option>Homepage Hero</option>
                             <option>Promotion</option>
                             <option>Announcement</option>
@@ -311,7 +311,7 @@
                     </div>
                     <div class="form-group">
                         <label>Display Position</label>
-                        <select>
+                        <select id="addBannerPosition">
                             <option>Homepage</option>
                             <option>Services</option>
                             <option>About</option>
@@ -325,13 +325,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Priority (1 is highest)</label>
-                        <select>
+                        <select id="addBannerPriority">
                             <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select>
+                        <select id="addBannerStatus">
                             <option>Active</option><option>Inactive</option><option>Draft</option><option>Scheduled</option>
                         </select>
                     </div>
@@ -341,11 +341,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Button Text</label>
-                        <input type="text" placeholder="e.g. Learn More">
+                        <input type="text" id="addBannerBtnText" placeholder="e.g. Learn More">
                     </div>
                     <div class="form-group">
                         <label>Button Link</label>
-                        <input type="url" placeholder="https://...">
+                        <input type="url" id="addBannerBtnUrl" placeholder="https://...">
                     </div>
                 </div>
 
@@ -353,11 +353,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Start Date</label>
-                        <input type="date">
+                        <input type="date" id="addBannerStart">
                     </div>
                     <div class="form-group">
                         <label>End Date</label>
-                        <input type="date">
+                        <input type="date" id="addBannerEnd">
                     </div>
                 </div>
 
@@ -365,19 +365,19 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Enable QR Code</label>
-                        <select>
-                            <option>Yes</option><option>No</option>
+                        <select id="addBannerEnableQR">
+                            <option value="Yes">Yes</option><option value="No">No</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>QR Destination Link</label>
-                        <input type="url" placeholder="https://...">
+                        <input type="url" id="addBannerQRUrl" placeholder="https://...">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group full-width">
                         <label>SEO Keywords (Comma separated)</label>
-                        <input type="text" placeholder="consulting, strategy, business">
+                        <input type="text" id="addBannerSEO" placeholder="consulting, strategy, business">
                     </div>
                 </div>
 
@@ -386,7 +386,7 @@
         <div class="modal-footer">
             <button class="btn btn-secondary" onclick="closeModal('bannerModal')">Cancel</button>
             <button class="btn btn-outline"><i class="fas fa-eye"></i> Preview</button>
-            <button class="btn btn-primary" onclick="saveBanner()"><i class="fas fa-save"></i> Save Banner</button>
+            <button class="btn btn-primary" type="button" onclick="saveBanner()"><i class="fas fa-save"></i> Save Banner</button>
         </div>
     </div>
 </div>

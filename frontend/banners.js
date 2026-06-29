@@ -2,69 +2,39 @@
    BANNER MANAGEMENT MODULE SCRIPTS
 ================================================== */
 
-// SAMPLE DATA: 8 Realistic Banners
-const sampleBanners = [
-    {
-        id: 'BN001', title: 'Empowering Businesses with Expert Consulting', subtitle: 'Grow your business with Sarangi Consulting.', 
-        type: 'Homepage Hero', position: 'Homepage', priority: 1, 
-        startDate: '2026-07-01', endDate: '2026-07-31', status: 'Active', 
-        qr: true, creator: 'Admin', image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32d7?auto=format&fit=crop&w=150&q=80'
-    },
-    {
-        id: 'BN002', title: 'Startup Funding Assistance', subtitle: 'Apply for funding consultation.', 
-        type: 'Campaign', position: 'Homepage', priority: 2, 
-        startDate: '2026-07-05', endDate: '2026-07-30', status: 'Scheduled', 
-        qr: true, creator: 'Samuel', image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=150&q=80'
-    },
-    {
-        id: 'BN003', title: 'Q3 Financial Advisory Services', subtitle: 'Optimize your corporate tax strategy.', 
-        type: 'Service Banner', position: 'Services', priority: 1, 
-        startDate: '2026-06-01', endDate: '2026-08-31', status: 'Active', 
-        qr: false, creator: 'Admin', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=150&q=80'
-    },
-    {
-        id: 'BN004', title: 'New Office Opening in Dubai', subtitle: 'Join us for our international expansion launch.', 
-        type: 'Announcement', position: 'Sidebar', priority: 3, 
-        startDate: '2026-06-15', endDate: '2026-06-25', status: 'Expired', 
-        qr: false, creator: 'HR Team', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=150&q=80'
-    },
-    {
-        id: 'BN005', title: 'Free SEO Audit for SMEs', subtitle: 'Limited time offer for new clients.', 
-        type: 'Promotion', position: 'Footer', priority: 4, 
-        startDate: '2026-07-10', endDate: '2026-07-20', status: 'Draft', 
-        qr: true, creator: 'Marketing', image: 'https://images.unsplash.com/photo-1572061486714-25e24391219b?auto=format&fit=crop&w=150&q=80'
-    },
-    {
-        id: 'BN006', title: 'Annual General Meeting 2026', subtitle: 'Register for our virtual shareholder event.', 
-        type: 'Event Banner', position: 'About', priority: 2, 
-        startDate: '2026-07-01', endDate: '2026-07-15', status: 'Scheduled', 
-        qr: true, creator: 'Admin', image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=150&q=80'
-    },
-    {
-        id: 'BN007', title: 'Award Winning Consultants', subtitle: 'Voted Best B2B Agency 2025.', 
-        type: 'Announcement', position: 'Homepage', priority: 5, 
-        startDate: '2026-01-01', endDate: '2026-12-31', status: 'Active', 
-        qr: false, creator: 'PR Dept', image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=150&q=80'
-    },
-    {
-        id: 'BN008', title: 'End of Year Clearance Strategy', subtitle: 'Maximize your Q4 retail profits.', 
-        type: 'Campaign', position: 'Services', priority: 2, 
-        startDate: '2025-11-01', endDate: '2025-12-31', status: 'Expired', 
-        qr: true, creator: 'Samuel', image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=150&q=80'
-    }
-];
+let liveBanners = [];
+const API_URL = 'http://localhost:5000/api/banners';
 
 // Helper: Format Date
 const formatDate = (dateStr) => {
+    if (!dateStr) return 'N/A';
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     return new Date(dateStr).toLocaleDateString('en-GB', options);
 };
 
 // Helper: Get Badge HTML
 const getBadge = (status) => {
-    const lower = status.toLowerCase();
+    const lower = (status || 'draft').toLowerCase();
     return `<span class="badge badge-${lower}">${status}</span>`;
 };
+
+// Fetch API Setup
+async function fetchBanners() {
+    const token = localStorage.getItem('token');
+    try {
+        const res = await fetch(API_URL, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+            liveBanners = data.data;
+            renderBannersTable();
+            renderActiveCampaigns();
+        }
+    } catch (err) {
+        console.error('Error fetching banners:', err);
+    }
+}
 
 // Render CMS Table
 const renderBannersTable = () => {
@@ -73,31 +43,36 @@ const renderBannersTable = () => {
     
     tbody.innerHTML = '';
     
-    sampleBanners.forEach(banner => {
+    liveBanners.forEach(banner => {
         const tr = document.createElement('tr');
+        
+        let imageSrc = banner.image;
+        if(imageSrc && imageSrc.startsWith('/')) {
+            imageSrc = `http://localhost:5000${imageSrc}`;
+        }
         
         tr.innerHTML = `
             <td data-label="Select"><input type="checkbox"></td>
             <td data-label="Priority"><i class="fas fa-grip-vertical text-muted mr-10" style="cursor: grab;"></i> ${banner.priority}</td>
-            <td data-label="Image"><img src="${banner.image}" class="banner-thumb" alt="Thumb"></td>
+            <td data-label="Image"><img src="${imageSrc}" class="banner-thumb" alt="Thumb"></td>
             <td data-label="Info">
                 <span class="banner-title">${banner.title}</span>
-                <span class="banner-subtitle" title="${banner.subtitle}">${banner.subtitle}</span>
-                <span class="text-muted" style="font-size: 11px;">ID: ${banner.id}</span>
+                <span class="banner-subtitle" title="${banner.subtitle || ''}">${banner.subtitle || ''}</span>
+                <span class="text-muted" style="font-size: 11px;">ID: ${banner.banner_id}</span>
             </td>
             <td data-label="Display">
-                <div style="font-size: 13px; font-weight: 600; color: #1e293b;">${banner.position}</div>
-                <div style="font-size: 12px; color: #64748b;">${banner.type}</div>
+                <div style="font-size: 13px; font-weight: 600; color: #1e293b;">${banner.display_position}</div>
+                <div style="font-size: 12px; color: #64748b;">${banner.banner_type}</div>
             </td>
             <td data-label="Timeline">
-                <div style="font-size: 12px; color: #64748b;"><i class="far fa-calendar-alt mr-10"></i>${formatDate(banner.startDate)}</div>
-                <div style="font-size: 12px; color: #64748b;"><i class="far fa-calendar-times mr-10"></i>${formatDate(banner.endDate)}</div>
+                <div style="font-size: 12px; color: #64748b;"><i class="far fa-calendar-alt mr-10"></i>${formatDate(banner.start_date)}</div>
+                <div style="font-size: 12px; color: #64748b;"><i class="far fa-calendar-times mr-10"></i>${formatDate(banner.end_date)}</div>
             </td>
             <td data-label="Status/QR">
                 ${getBadge(banner.status)}
                 <div class="mt-10">
-                    <span class="qr-badge ${banner.qr ? 'enabled' : ''}">
-                        <i class="fas fa-qrcode"></i> ${banner.qr ? 'QR Ready' : 'No QR'}
+                    <span class="qr-badge ${banner.qr_code ? 'enabled' : ''}">
+                        <i class="fas fa-qrcode"></i> ${banner.qr_code ? 'QR Ready' : 'No QR'}
                     </span>
                 </div>
             </td>
@@ -105,8 +80,7 @@ const renderBannersTable = () => {
                 <div class="action-buttons">
                     <button class="icon-btn icon-primary" title="View" onclick="viewBanner('${banner.id}')"><i class="fas fa-eye"></i></button>
                     <button class="icon-btn icon-warning" title="Edit" onclick="openAddBannerModal()"><i class="fas fa-pen"></i></button>
-                    <button class="icon-btn" title="Generate QR"><i class="fas fa-qrcode"></i></button>
-                    <button class="icon-btn icon-danger" title="Delete" onclick="openDeleteModal()"><i class="fas fa-trash"></i></button>
+                    <button class="icon-btn icon-danger" title="Delete" onclick="deleteBanner('${banner.id}')"><i class="fas fa-trash"></i></button>
                 </div>
             </td>
         `;
@@ -114,33 +88,57 @@ const renderBannersTable = () => {
     });
 };
 
+// Delete Banner
+window.deleteBanner = async (id) => {
+    if(!confirm('Are you sure you want to delete this banner?')) return;
+    const token = localStorage.getItem('token');
+    try {
+        const res = await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+            fetchBanners();
+        }
+    } catch(err) {
+        console.error(err);
+    }
+}
+
+
 // Render Active Campaigns
 const renderActiveCampaigns = () => {
     const list = document.getElementById('campaignsList');
     if (!list) return;
 
-    const activeCampaigns = sampleBanners.filter(b => b.status === 'Active' && b.type.includes('Campaign') || b.type.includes('Service'));
+    const activeCampaigns = liveBanners.filter(b => b.status === 'Active' && (b.banner_type.includes('Campaign') || b.banner_type.includes('Service')));
     
     list.innerHTML = '';
     activeCampaigns.forEach(camp => {
+        let imageSrc = camp.image;
+        if(imageSrc && imageSrc.startsWith('/')) {
+            imageSrc = `http://localhost:5000${imageSrc}`;
+        }
+        
         list.innerHTML += `
             <div class="campaign-item">
-                <img src="${camp.image}" class="campaign-img" alt="Campaign">
+                <img src="${imageSrc}" class="campaign-img" alt="Campaign">
                 <div>
                     <h4 style="font-family: 'Montserrat'; font-size: 16px; margin-bottom: 4px; color: #0f172a;">${camp.title}</h4>
-                    <p style="font-size: 13px; color: #64748b; margin: 0;">Running: ${formatDate(camp.startDate)} - ${formatDate(camp.endDate)}</p>
+                    <p style="font-size: 13px; color: #64748b; margin: 0;">Running: ${formatDate(camp.start_date)} - ${formatDate(camp.end_date)}</p>
                 </div>
                 <div class="campaign-stat">
                     <span>Views</span>
-                    <strong>45.2k</strong>
+                    <strong>${camp.views}</strong>
                 </div>
                 <div class="campaign-stat">
                     <span>Clicks</span>
-                    <strong class="text-primary">8.4k</strong>
+                    <strong class="text-primary">${camp.clicks}</strong>
                 </div>
                 <div class="campaign-stat">
                     <span>CTR</span>
-                    <strong class="text-success">18.5%</strong>
+                    <strong class="text-success">${camp.views ? ((camp.clicks / camp.views) * 100).toFixed(1) : 0}%</strong>
                 </div>
             </div>
         `;
@@ -155,35 +153,138 @@ window.closeModal = (id) => {
     document.getElementById(id).classList.remove('active');
 };
 window.viewBanner = (id) => {
-    const banner = sampleBanners.find(b => b.id === id);
+    const banner = liveBanners.find(b => b.id === id);
     if (banner) {
+        let imageSrc = banner.image;
+        if(imageSrc && imageSrc.startsWith('/')) {
+            imageSrc = `http://localhost:5000${imageSrc}`;
+        }
+        
         document.getElementById('viewBannerTitle').innerText = banner.title;
-        document.getElementById('viewBannerImg').src = banner.image;
-        document.getElementById('viewBannerId').innerText = banner.id;
+        document.getElementById('viewBannerImg').src = imageSrc;
+        document.getElementById('viewBannerId').innerText = banner.banner_id;
         document.getElementById('viewBannerStatus').innerHTML = getBadge(banner.status);
         document.getElementById('viewBannerSubtitle').innerText = banner.subtitle;
-        document.getElementById('viewBannerType').innerText = banner.type;
-        document.getElementById('viewBannerPos').innerText = banner.position;
+        document.getElementById('viewBannerType').innerText = banner.banner_type;
+        document.getElementById('viewBannerPos').innerText = banner.display_position;
         document.getElementById('viewBannerPriority').innerText = banner.priority;
-        document.getElementById('viewBannerCreator').innerText = banner.creator;
-        document.getElementById('viewBannerStart').innerText = formatDate(banner.startDate);
-        document.getElementById('viewBannerEnd').innerText = formatDate(banner.endDate);
-        document.getElementById('viewBannerBtn').innerText = "Learn More";
-        document.getElementById('viewBannerBtn').href = "#";
+        document.getElementById('viewBannerCreator').innerText = banner.creator || 'Admin';
+        document.getElementById('viewBannerStart').innerText = formatDate(banner.start_date);
+        document.getElementById('viewBannerEnd').innerText = formatDate(banner.end_date);
+        document.getElementById('viewBannerBtn').innerText = banner.button_text || "Learn More";
+        document.getElementById('viewBannerBtn').href = banner.button_url || "#";
         
         document.getElementById('viewBannerModal').classList.add('active');
     }
 };
-window.openDeleteModal = () => {
-    document.getElementById('deleteBannerModal').classList.add('active');
-};
-window.confirmDelete = () => {
-    closeModal('deleteBannerModal');
-    alert('Banner deleted successfully!');
-};
-window.saveBanner = () => {
-    closeModal('bannerModal');
-    alert('Banner saved successfully!');
+
+// Image Upload Logic for Modal
+let uploadedImagePath = '';
+
+document.addEventListener('DOMContentLoaded', () => {
+    const dragDropZone = document.getElementById('dragDropZone');
+    const fileInput = document.getElementById('bannerImageFile');
+    const dragDropText = document.getElementById('dragDropText');
+
+    if(dragDropZone && fileInput) {
+        dragDropZone.addEventListener('click', () => fileInput.click());
+        
+        fileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if(file) {
+                dragDropText.innerHTML = `Uploading: ${file.name}...`;
+                const formData = new FormData();
+                formData.append('image', file);
+                
+                try {
+                    const token = localStorage.getItem('token');
+                    const res = await fetch(`${API_URL}/upload`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${token}` },
+                        body: formData
+                    });
+                    const data = await res.json();
+                    if(data.success) {
+                        uploadedImagePath = data.data; // e.g. /uploads/banner-xxx.jpg
+                        dragDropText.innerHTML = `<span class="text-success"><i class="fas fa-check-circle"></i> Uploaded Successfully!</span>`;
+                    } else {
+                        dragDropText.innerHTML = `<span class="text-danger">Upload failed</span>`;
+                    }
+                } catch(err) {
+                    console.error(err);
+                    dragDropText.innerHTML = `<span class="text-danger">Upload failed</span>`;
+                }
+            }
+        });
+    }
+});
+
+// Save Form
+window.saveBanner = async () => {
+    const token = localStorage.getItem('token');
+    
+    // QR Code generation if requested
+    let qr_code_data = null;
+    const generateQR = document.getElementById('addBannerEnableQR').value === 'Yes';
+    const qrUrl = document.getElementById('addBannerQRUrl').value;
+    
+    if(generateQR && qrUrl) {
+        try {
+            const qrRes = await fetch(`${API_URL}/generate-qr`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ url: qrUrl })
+            });
+            const qrData = await qrRes.json();
+            if(qrData.success) {
+                qr_code_data = qrData.data;
+            }
+        } catch(e) {
+            console.error('QR Generation Failed', e);
+        }
+    }
+
+    const newBanner = {
+        title: document.getElementById('addBannerTitle').value,
+        subtitle: document.getElementById('addBannerSubtitle').value,
+        description: document.getElementById('addBannerDesc').value,
+        image: uploadedImagePath || 'https://via.placeholder.com/800x400?text=No+Image', // fallback
+        banner_type: document.getElementById('addBannerType').value,
+        display_position: document.getElementById('addBannerPosition').value,
+        priority: document.getElementById('addBannerPriority').value,
+        status: document.getElementById('addBannerStatus').value,
+        button_text: document.getElementById('addBannerBtnText').value,
+        button_url: document.getElementById('addBannerBtnUrl').value,
+        start_date: document.getElementById('addBannerStart').value,
+        end_date: document.getElementById('addBannerEnd').value,
+        qr_code: qr_code_data
+    };
+
+    try {
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(newBanner)
+        });
+        const data = await res.json();
+        if(data.success) {
+            closeModal('bannerModal');
+            document.getElementById('bannerForm').reset();
+            uploadedImagePath = '';
+            document.getElementById('dragDropText').innerHTML = `Drag & Drop your image here or <strong>Browse</strong>`;
+            fetchBanners();
+        } else {
+            alert(data.message || 'Error saving banner');
+        }
+    } catch(err) {
+        console.error(err);
+    }
 };
 
 // Charts
@@ -267,7 +368,6 @@ const initCharts = () => {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    renderBannersTable();
-    renderActiveCampaigns();
+    fetchBanners();
     setTimeout(initCharts, 100);
 });
