@@ -16,7 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 // Security headers
 app.use(helmet({
     contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false
 }));
 
 // Rate Limiting

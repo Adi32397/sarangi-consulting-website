@@ -150,3 +150,104 @@ exports.generateQR = async (req, res, next) => {
         next(error);
     }
 };
+
+// @desc    Get Banner Stats for Dashboard
+// @route   GET /api/banners/stats
+exports.getBannerStats = async (req, res, next) => {
+    try {
+        const BannerModel = Banner();
+        const { fn, col } = require('sequelize');
+
+        // Summary Counts
+        const total = await BannerModel.count();
+        const active = await BannerModel.count({ where: { status: 'Active' } });
+        const scheduled = await BannerModel.count({ where: { status: 'Scheduled' } });
+        const expired = await BannerModel.count({ where: { status: 'Expired' } });
+        const draft = await BannerModel.count({ where: { status: 'Draft' } });
+        
+        // QR Campaigns (qr_code is not null)
+        const qrCampaigns = await BannerModel.count({
+            where: { qr_code: { [Op.ne]: null } }
+        });
+
+        // Overall Analytics
+        const totalViews = await BannerModel.sum('views') || 0;
+        const totalClicks = await BannerModel.sum('clicks') || 0;
+        const avgCtr = totalViews > 0 ? ((totalClicks / totalViews) * 100).toFixed(1) : 0;
+        
+        const topPerformingBanner = await BannerModel.findOne({
+            order: [['clicks', 'DESC']]
+        });
+        const topPerforming = topPerformingBanner ? topPerformingBanner.title : 'N/A';
+
+        // Monthly Banner Views (mock aggregate using createdAt month)
+        const viewsByMonthRaw = await BannerModel.findAll({
+            attributes: [
+                [fn('MONTH', col('createdAt')), 'month'],
+                [fn('SUM', col('views')), 'total_views']
+            ],
+            group: [fn('MONTH', col('createdAt'))],
+            raw: true
+        });
+
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const monthlyViews = Array(12).fill(0);
+        viewsByMonthRaw.forEach(row => {
+            if (row.month) {
+                monthlyViews[row.month - 1] = parseInt(row.total_views, 10) || 0;
+            }
+        });
+        
+        // Since we want dynamic labels up to current month (or all 12)
+        // Let's just return the full 12 months data
+        const viewsChartData = {
+            labels: monthNames,
+            data: monthlyViews
+        };
+
+        // Top 4 Banners by Clicks for Clicks Chart
+        const clicksChartRaw = await BannerModel.findAll({
+            attributes: ['title', 'clicks'],
+            order: [['clicks', 'DESC']],
+            limit: 4,
+            raw: true
+        });
+        const clicksChartData = {
+            labels: clicksChartRaw.map(b => b.title),
+            data: clicksChartRaw.map(b => b.clicks)
+        };
+
+        // Status Distribution
+        const statusRaw = await BannerModel.findAll({
+            attributes: ['status', [fn('COUNT', col('id')), 'count']],
+            group: ['status'],
+            raw: true
+        });
+        const statusChartData = {
+            labels: statusRaw.map(s => s.status),
+            data: statusRaw.map(s => s.count)
+        };
+
+        // Type Distribution
+        const typeRaw = await BannerModel.findAll({
+            attributes: ['banner_type', [fn('COUNT', col('id')), 'count']],
+            group: ['banner_type'],
+            raw: true
+        });
+        const typeChartData = {
+            labels: typeRaw.map(t => t.banner_type),
+            data: typeRaw.map(t => t.count)
+        };
+
+        res.status(200).json({
+            success: true,
+            data: {
+                counts: { total, active, scheduled, expired, draft, qrCampaigns },
+                analytics: { totalViews, totalClicks, avgCtr, topPerforming },
+                charts: { viewsChartData, clicksChartData, statusChartData, typeChartData }
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};

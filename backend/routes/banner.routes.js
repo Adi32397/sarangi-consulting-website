@@ -7,7 +7,8 @@ const {
     updateBanner,
     deleteBanner,
     uploadImage,
-    generateQR
+    generateQR,
+    getBannerStats
 } = require('../controllers/banner.controller');
 
 const { protect } = require('../middlewares/auth.middleware');
@@ -42,6 +43,8 @@ const upload = multer({
 
 router.post('/upload', protect, upload.single('image'), uploadImage);
 router.post('/generate-qr', protect, generateQR);
+
+router.get('/stats', protect, getBannerStats);
 
 router.route('/')
     .get(getBanners) // Public to retrieve active banners for frontend

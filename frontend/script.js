@@ -321,33 +321,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     pageBanners.sort((a, b) => a.priority - b.priority);
                     const banner = pageBanners[0];
                     
-                    // Construct Banner HTML
-                    const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `http://localhost:5000${banner.image}`;
+                    // Construct Banner HTML as a Popup Modal
+                    const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `http://localhost:5000${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
                     
                     const bannerHtml = `
-                        <div id="dynamic-banner-container" style="background-color: #0D0D0D; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.15); position: relative; z-index: 1000; width: 100%;">
-                            <div class="container" style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; text-align: center;">
-                                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;">
-                                    ${banner.image && !banner.image.includes('via.placeholder.com') ? `<img src="${bannerImgSrc}" style="height: 40px; border-radius: 4px; object-fit: contain;">` : ''}
-                                    <div style="text-align: left;">
-                                        <p style="margin: 0; font-weight: 600; font-size: 15px; color: #FFFFFF;">${banner.title}</p>
-                                        ${banner.subtitle ? `<p style="margin: 0; font-size: 13px; color: #A1A1AA;">${banner.subtitle}</p>` : ''}
-                                    </div>
-                                </div>
+                        <div id="dynamic-banner-popup" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(4px);">
+                            <div style="background: white; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%; text-align: center; position: relative; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); animation: popupIn 0.3s ease-out forwards;">
+                                <button onclick="document.getElementById('dynamic-banner-popup').remove()" style="position: absolute; right: 16px; top: 16px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; display: flex; justify-content: center; align-items: center; transition: 0.2s;">&times;</button>
+                                
+                                ${banner.image && !banner.image.includes('via.placeholder.com') ? `<img src="${bannerImgSrc}" style="width: 100%; max-height: 200px; border-radius: 8px; object-fit: cover; margin-bottom: 20px;">` : ''}
+                                
+                                <h3 style="margin: 0 0 12px 0; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #1e293b;">${banner.title}</h3>
+                                ${banner.subtitle ? `<p style="margin: 0 0 20px 0; font-size: 15px; color: #64748b; line-height: 1.5;">${banner.subtitle}</p>` : ''}
+                                
                                 ${banner.button_text && banner.button_url ? `
-                                <a href="${banner.button_url}" class="btn btn-success btn-small" style="background-color: #22C55E; color: #FFFFFF; height: 34px; line-height: 34px; font-size: 13px; padding: 0 16px; margin: 0; border-radius: 6px; text-decoration: none; font-weight: 600;">${banner.button_text}</a>
+                                <a href="${banner.button_url}" class="btn btn-primary" style="display: inline-block; width: 100%; text-decoration: none;">${banner.button_text}</a>
                                 ` : ''}
-                                <button onclick="document.getElementById('dynamic-banner-container').remove()" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #A1A1AA; cursor: pointer; font-size: 20px;">&times;</button>
                             </div>
                         </div>
+                        <style>
+                            @keyframes popupIn {
+                                from { opacity: 0; transform: scale(0.9) translateY(20px); }
+                                to { opacity: 1; transform: scale(1) translateY(0); }
+                            }
+                        </style>
                     `;
                     
-                    // Remove existing static announcement bar if any
-                    const staticAnnouncements = document.querySelectorAll('.announcement-bar');
-                    staticAnnouncements.forEach(el => el.remove());
-                    
-                    // Insert dynamic banner at the very top of body
-                    document.body.insertAdjacentHTML('afterbegin', bannerHtml);
+                    // Insert dynamic banner popup into the body
+                    document.body.insertAdjacentHTML('beforeend', bannerHtml);
                 }
             }
         } catch (err) {

@@ -19,10 +19,12 @@ const getBadge = (status) => {
 };
 
 // Fetch API Setup
-async function fetchBanners() {
+async function fetchBanners(searchQuery = '') {
     const token = localStorage.getItem('token');
     try {
-        const res = await fetch(API_URL, {
+        let url = API_URL;
+        if (searchQuery) url += `?search=${encodeURIComponent(searchQuery)}`;
+        const res = await fetch(url, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();
@@ -33,6 +35,37 @@ async function fetchBanners() {
         }
     } catch (err) {
         console.error('Error fetching banners:', err);
+    }
+}
+
+async function fetchBannerStats() {
+    const token = localStorage.getItem('token');
+    try {
+        const res = await fetch(`${API_URL}/stats`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+            const { counts, analytics, charts } = data.data;
+            // Update Summary Cards
+            if (document.getElementById('stat-total-banners')) document.getElementById('stat-total-banners').innerText = counts.total;
+            if (document.getElementById('stat-active-banners')) document.getElementById('stat-active-banners').innerText = counts.active;
+            if (document.getElementById('stat-scheduled-banners')) document.getElementById('stat-scheduled-banners').innerText = counts.scheduled;
+            if (document.getElementById('stat-expired-banners')) document.getElementById('stat-expired-banners').innerText = counts.expired;
+            if (document.getElementById('stat-draft-banners')) document.getElementById('stat-draft-banners').innerText = counts.draft;
+            if (document.getElementById('stat-qr-campaigns')) document.getElementById('stat-qr-campaigns').innerText = counts.qrCampaigns;
+            
+            // Update Analytics Cards
+            if (document.getElementById('stat-total-views')) document.getElementById('stat-total-views').innerText = analytics.totalViews.toLocaleString();
+            if (document.getElementById('stat-total-clicks')) document.getElementById('stat-total-clicks').innerText = analytics.totalClicks.toLocaleString();
+            if (document.getElementById('stat-avg-ctr')) document.getElementById('stat-avg-ctr').innerText = `${analytics.avgCtr}%`;
+            if (document.getElementById('stat-top-performing')) document.getElementById('stat-top-performing').innerText = analytics.topPerforming;
+
+            // Initialize Charts with dynamic data
+            initCharts(charts);
+        }
+    } catch (err) {
+        console.error('Error fetching banner stats:', err);
     }
 }
 
@@ -52,7 +85,7 @@ const renderBannersTable = () => {
         }
         
         tr.innerHTML = `
-            <td data-label="Select"><input type="checkbox"></td>
+            <td data-label="Select"><input type="checkbox" class="banner-checkbox" value="${banner.id}"></td>
             <td data-label="Priority"><i class="fas fa-grip-vertical text-muted mr-10" style="cursor: grab;"></i> ${banner.priority}</td>
             <td data-label="Image"><img src="${imageSrc}" class="banner-thumb" alt="Thumb"></td>
             <td data-label="Info">
@@ -100,6 +133,7 @@ window.deleteBanner = async (id) => {
         const data = await res.json();
         if (data.success) {
             fetchBanners();
+            fetchBannerStats();
         }
     } catch(err) {
         console.error(err);
@@ -279,6 +313,7 @@ window.saveBanner = async () => {
             uploadedImagePath = '';
             document.getElementById('dragDropText').innerHTML = `Drag & Drop your image here or <strong>Browse</strong>`;
             fetchBanners();
+            fetchBannerStats();
         } else {
             alert(data.message || 'Error saving banner');
         }
@@ -287,8 +322,15 @@ window.saveBanner = async () => {
     }
 };
 
+// Chart Instances
+let viewsChartInst = null;
+let clicksChartInst = null;
+let statusChartInst = null;
+let typeChartInst = null;
+
 // Charts
-const initCharts = () => {
+const initCharts = (chartsData) => {
+    if(!chartsData) return;
     const chartOptions = {
         responsive: true, maintainAspectRatio: false,
         plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
@@ -297,13 +339,14 @@ const initCharts = () => {
     // 1. Monthly Views (Line)
     const ctxViews = document.getElementById('viewsChart');
     if (ctxViews) {
-        new Chart(ctxViews, {
+        if(viewsChartInst) viewsChartInst.destroy();
+        viewsChartInst = new Chart(ctxViews, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                labels: chartsData.viewsChartData.labels,
                 datasets: [{
                     label: 'Total Views',
-                    data: [12000, 19000, 15000, 22000, 28000, 35000],
+                    data: chartsData.viewsChartData.data,
                     borderColor: '#0B6B3A',
                     backgroundColor: 'rgba(11, 107, 58, 0.1)',
                     tension: 0.4, fill: true, borderWidth: 3
@@ -316,13 +359,14 @@ const initCharts = () => {
     // 2. Clicks (Bar)
     const ctxClicks = document.getElementById('clicksChart');
     if (ctxClicks) {
-        new Chart(ctxClicks, {
+        if(clicksChartInst) clicksChartInst.destroy();
+        clicksChartInst = new Chart(ctxClicks, {
             type: 'bar',
             data: {
-                labels: ['Hero Banner', 'Promo 1', 'Service', 'Footer Ad'],
+                labels: chartsData.clicksChartData.labels,
                 datasets: [{
                     label: 'Clicks',
-                    data: [8500, 4200, 3800, 1750],
+                    data: chartsData.clicksChartData.data,
                     backgroundColor: '#1d4ed8',
                     borderRadius: 6
                 }]
@@ -334,12 +378,13 @@ const initCharts = () => {
     // 3. Status (Doughnut)
     const ctxStatus = document.getElementById('statusChart');
     if (ctxStatus) {
-        new Chart(ctxStatus, {
+        if(statusChartInst) statusChartInst.destroy();
+        statusChartInst = new Chart(ctxStatus, {
             type: 'doughnut',
             data: {
-                labels: ['Active', 'Scheduled', 'Expired', 'Draft'],
+                labels: chartsData.statusChartData.labels,
                 datasets: [{
-                    data: [12, 3, 2, 1],
+                    data: chartsData.statusChartData.data,
                     backgroundColor: ['#22c55e', '#3b82f6', '#ef4444', '#f97316'],
                     borderWidth: 0
                 }]
@@ -351,13 +396,14 @@ const initCharts = () => {
     // 4. Type (Pie)
     const ctxType = document.getElementById('typeChart');
     if (ctxType) {
-        new Chart(ctxType, {
+        if(typeChartInst) typeChartInst.destroy();
+        typeChartInst = new Chart(ctxType, {
             type: 'pie',
             data: {
-                labels: ['Homepage', 'Promotion', 'Announcement', 'Campaign'],
+                labels: chartsData.typeChartData.labels,
                 datasets: [{
-                    data: [40, 25, 20, 15],
-                    backgroundColor: ['#0B6B3A', '#10b981', '#0ea5e9', '#8b5cf6'],
+                    data: chartsData.typeChartData.data,
+                    backgroundColor: ['#0B6B3A', '#10b981', '#0ea5e9', '#8b5cf6', '#f59e0b', '#6366f1'],
                     borderWidth: 0
                 }]
             },
@@ -369,5 +415,123 @@ const initCharts = () => {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     fetchBanners();
-    setTimeout(initCharts, 100);
+    fetchBannerStats();
+    
+    // Search Functionality
+    const searchInput = document.getElementById('searchBanners');
+    if(searchInput) {
+        let debounceTimer;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                fetchBanners(e.target.value);
+            }, 300);
+        });
+    }
+
+    // Select All Checkbox
+    const selectAllBtn = document.getElementById('selectAll');
+    if(selectAllBtn) {
+        selectAllBtn.addEventListener('change', (e) => {
+            const checkboxes = document.querySelectorAll('.banner-checkbox');
+            checkboxes.forEach(cb => cb.checked = e.target.checked);
+        });
+    }
+
+    // Bulk Actions
+    const bulkActionApply = document.getElementById('bulkActionApply');
+    if(bulkActionApply) {
+        bulkActionApply.addEventListener('click', async () => {
+            const action = document.getElementById('bulkActionSelect').value;
+            const checkboxes = document.querySelectorAll('.banner-checkbox:checked');
+            const selectedIds = Array.from(checkboxes).map(cb => cb.value);
+
+            if(selectedIds.length === 0) {
+                alert('Please select at least one banner.');
+                return;
+            }
+            if(!action) {
+                alert('Please select a bulk action.');
+                return;
+            }
+
+            if(!confirm(`Are you sure you want to ${action} ${selectedIds.length} banners?`)) return;
+
+            const token = localStorage.getItem('token');
+            for(const id of selectedIds) {
+                try {
+                    if(action === 'delete') {
+                        await fetch(`${API_URL}/${id}`, {
+                            method: 'DELETE',
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                    } else if(action === 'activate' || action === 'deactivate') {
+                        const status = action === 'activate' ? 'Active' : 'Inactive';
+                        await fetch(`${API_URL}/${id}`, {
+                            method: 'PUT',
+                            headers: { 
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}` 
+                            },
+                            body: JSON.stringify({ status })
+                        });
+                    }
+                } catch(e) {
+                    console.error('Bulk action failed for', id, e);
+                }
+            }
+            
+            // Refresh
+            fetchBanners(searchInput ? searchInput.value : '');
+            fetchBannerStats();
+            if(selectAllBtn) selectAllBtn.checked = false;
+        });
+    }
+    // Preview Website
+    const btnPreview = document.getElementById('btn-preview-website');
+    if (btnPreview) {
+        btnPreview.addEventListener('click', () => {
+            window.open('index.html', '_blank');
+        });
+    }
+
+    // Export Banner Report
+    const btnExport = document.getElementById('btn-export-report');
+    if (btnExport) {
+        btnExport.addEventListener('click', () => {
+            if (liveBanners.length === 0) {
+                alert('No banners to export.');
+                return;
+            }
+            
+            // CSV Header
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "ID,Title,Status,Priority,Type,Position,Views,Clicks,Start Date,End Date\n";
+            
+            // CSV Rows
+            liveBanners.forEach(b => {
+                const row = [
+                    b.banner_id || '',
+                    `"${(b.title || '').replace(/"/g, '""')}"`,
+                    b.status || '',
+                    b.priority || '',
+                    b.banner_type || '',
+                    b.display_position || '',
+                    b.views || 0,
+                    b.clicks || 0,
+                    b.start_date ? b.start_date.split('T')[0] : '',
+                    b.end_date ? b.end_date.split('T')[0] : ''
+                ].join(',');
+                csvContent += row + "\n";
+            });
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `banners_report_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
 });

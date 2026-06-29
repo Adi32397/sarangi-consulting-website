@@ -44,8 +44,8 @@
                 <p style="color: #64748b; margin-top: 5px;">Manage homepage banners, promotional campaigns, QR codes, and website announcements.</p>
             </div>
             <div class="header-actions">
-                <button class="btn btn-outline"><i class="fas fa-desktop"></i> Preview Website</button>
-                <button class="btn btn-secondary"><i class="fas fa-download"></i> Export Banner Report</button>
+                <button class="btn btn-outline" id="btn-preview-website"><i class="fas fa-desktop"></i> Preview Website</button>
+                <button class="btn btn-secondary" id="btn-export-report"><i class="fas fa-download"></i> Export Banner Report</button>
                 <button class="btn btn-primary" onclick="openAddBannerModal()"><i class="fas fa-plus"></i> Add New Banner</button>
             </div>
         </header>
@@ -55,38 +55,38 @@
             <div class="stat-card cms-card card">
                 <div class="stat-icon-wrapper text-primary"><i class="fas fa-image"></i></div>
                 <div class="stat-title">Total Banners</div>
-                <div class="stat-value">18</div>
+                <div class="stat-value" id="stat-total-banners">18</div>
                 <div class="growth-indicator positive"><i class="fas fa-arrow-up"></i> +2 this month</div>
             </div>
             <div class="stat-card cms-card card">
                 <div class="stat-icon-wrapper text-success"><i class="fas fa-check-circle"></i></div>
                 <div class="stat-title">Active Banners</div>
-                <div class="stat-value">12</div>
+                <div class="stat-value" id="stat-active-banners">12</div>
                 <div class="growth-indicator text-muted">Currently live</div>
             </div>
             <div class="stat-card cms-card card">
                 <div class="stat-icon-wrapper text-blue"><i class="fas fa-calendar"></i></div>
                 <div class="stat-title">Scheduled</div>
-                <div class="stat-value">3</div>
+                <div class="stat-value" id="stat-scheduled-banners">3</div>
                 <div class="growth-indicator positive"><i class="fas fa-clock"></i> Upcoming</div>
             </div>
             <div class="stat-card cms-card card">
                 <div class="stat-icon-wrapper text-danger"><i class="fas fa-clock"></i></div>
                 <div class="stat-title">Expired</div>
-                <div class="stat-value">2</div>
+                <div class="stat-value" id="stat-expired-banners">2</div>
                 <div class="growth-indicator text-muted">Past campaigns</div>
             </div>
             <div class="stat-card cms-card card">
                 <div class="stat-icon-wrapper text-warning"><i class="fas fa-edit"></i></div>
                 <div class="stat-title">Draft</div>
-                <div class="stat-value">1</div>
+                <div class="stat-value" id="stat-draft-banners">1</div>
                 <div class="growth-indicator text-muted">Needs review</div>
             </div>
             <div class="stat-card cms-card card">
                 <div class="stat-icon-wrapper text-purple"><i class="fas fa-qrcode"></i></div>
                 <div class="stat-title">QR Campaigns</div>
-                <div class="stat-value">8</div>
-                <div class="growth-indicator positive"><i class="fas fa-arrow-up"></i> 1,240 scans</div>
+                <div class="stat-value" id="stat-qr-campaigns">8</div>
+                <div class="growth-indicator positive"><i class="fas fa-arrow-up"></i> <span id="stat-qr-scans">1,240 scans</span></div>
             </div>
         </div>
 
@@ -155,15 +155,13 @@
         <div class="bulk-actions-container">
             <div class="bulk-actions bg-white card d-flex align-center">
                 <span class="text-muted fw-bold mr-15" style="font-size: 13px; text-transform: uppercase;">Bulk Actions:</span>
-                <select class="mr-10" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; cursor: pointer;">
-                    <option>Choose Action</option>
-                    <option>Activate Selected</option>
-                    <option>Deactivate Selected</option>
-                    <option>Export</option>
-                    <option>Duplicate</option>
-                    <option>Delete Selected</option>
+                <select id="bulkActionSelect" class="mr-10" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; cursor: pointer;">
+                    <option value="">Choose Action</option>
+                    <option value="activate">Activate Selected</option>
+                    <option value="deactivate">Deactivate Selected</option>
+                    <option value="delete">Delete Selected</option>
                 </select>
-                <button class="btn btn-secondary btn-small">Apply</button>
+                <button id="bulkActionApply" class="btn btn-secondary btn-small">Apply</button>
             </div>
         </div>
 
@@ -214,19 +212,19 @@
         <div class="analytics-cards-mini stat-cards mb-20">
             <div class="card p-20 text-center">
                 <div class="text-muted fw-bold mb-10" style="font-size: 12px; text-transform: uppercase;">Total Views</div>
-                <div class="fs-24 fw-bold text-dark">156,000</div>
+                <div class="fs-24 fw-bold text-dark" id="stat-total-views">156,000</div>
             </div>
             <div class="card p-20 text-center">
                 <div class="text-muted fw-bold mb-10" style="font-size: 12px; text-transform: uppercase;">Total Clicks</div>
-                <div class="fs-24 fw-bold text-dark">18,250</div>
+                <div class="fs-24 fw-bold text-dark" id="stat-total-clicks">18,250</div>
             </div>
             <div class="card p-20 text-center">
                 <div class="text-muted fw-bold mb-10" style="font-size: 12px; text-transform: uppercase;">Average CTR</div>
-                <div class="fs-24 fw-bold text-success">11.7%</div>
+                <div class="fs-24 fw-bold text-success" id="stat-avg-ctr">11.7%</div>
             </div>
             <div class="card p-20 text-center">
                 <div class="text-muted fw-bold mb-10" style="font-size: 12px; text-transform: uppercase;">Top Performing</div>
-                <div class="fs-16 fw-bold text-primary mt-5">Startup Advisory</div>
+                <div class="fs-16 fw-bold text-primary mt-5" id="stat-top-performing">Startup Advisory</div>
             </div>
         </div>
 
@@ -489,7 +487,7 @@
 </div>
 
 <!-- SCRIPTS -->
-<script src="banners.js"></script>
+<script src="banners.js?v=3"></script>
 
 </body>
 </html>
