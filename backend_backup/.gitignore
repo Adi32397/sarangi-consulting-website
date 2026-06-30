@@ -1,0 +1,22 @@
+# Environment variables - NEVER commit these!
+.env
+.env.local
+.env.production
+
+# Dependencies
+node_modules/
+
+# Prisma generated client
+node_modules/.prisma/
+
+# Admin seed script
+create-admin.js
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db

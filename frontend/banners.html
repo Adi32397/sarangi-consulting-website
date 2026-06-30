@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Management | Admin Dashboard | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- External Libraries for Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="banners.css">
+    
+    <!-- Theme Settings -->
+    <script src="theme.js?v=3"></script>
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px; color: white;">SARANGI<span style="color: var(--primary-green);">ADMIN</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="leads.html" class="nav-item"><i class="fas fa-users"></i> Leads & Contacts</a>
+            <a href="bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i> Bookings</a>
+            <a href="banners.html" class="nav-item active"><i class="fas fa-image"></i> Banners</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        
+        <!-- PAGE HEADER -->
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 28px; font-weight: 700;">Banner Management</h1>
+                <p style="color: #64748b; margin-top: 5px;">Manage homepage banners, promotional campaigns, QR codes, and website announcements.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-outline" id="btn-preview-website"><i class="fas fa-desktop"></i> Preview Website</button>
+                <button class="btn btn-secondary" id="btn-export-report"><i class="fas fa-download"></i> Export Banner Report</button>
+                <button class="btn btn-primary" onclick="openAddBannerModal()"><i class="fas fa-plus"></i> Add New Banner</button>
+            </div>
+        </header>
+
+        <!-- SUMMARY CARDS -->
+        <div class="stat-cards cms-stats">
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-primary"><i class="fas fa-image"></i></div>
+                <div class="stat-title">Total Banners</div>
+                <div class="stat-value" id="stat-total-banners">18</div>
+                <div class="growth-indicator positive"><i class="fas fa-arrow-up"></i> +2 this month</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-success"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-title">Active Banners</div>
+                <div class="stat-value" id="stat-active-banners">12</div>
+                <div class="growth-indicator text-muted">Currently live</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-blue"><i class="fas fa-calendar"></i></div>
+                <div class="stat-title">Scheduled</div>
+                <div class="stat-value" id="stat-scheduled-banners">3</div>
+                <div class="growth-indicator positive"><i class="fas fa-clock"></i> Upcoming</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-danger"><i class="fas fa-clock"></i></div>
+                <div class="stat-title">Expired</div>
+                <div class="stat-value" id="stat-expired-banners">2</div>
+                <div class="growth-indicator text-muted">Past campaigns</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-warning"><i class="fas fa-edit"></i></div>
+                <div class="stat-title">Draft</div>
+                <div class="stat-value" id="stat-draft-banners">1</div>
+                <div class="growth-indicator text-muted">Needs review</div>
+            </div>
+            <div class="stat-card cms-card card">
+                <div class="stat-icon-wrapper text-purple"><i class="fas fa-qrcode"></i></div>
+                <div class="stat-title">QR Campaigns</div>
+                <div class="stat-value" id="stat-qr-campaigns">8</div>
+                <div class="growth-indicator positive"><i class="fas fa-arrow-up"></i> <span id="stat-qr-scans">1,240 scans</span></div>
+            </div>
+        </div>
+
+        <!-- SEARCH & FILTER SECTION -->
+        <div class="card filter-section mb-30">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchBanners" placeholder="Search Banner Title...">
+            </div>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select>
+                        <option>All</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                        <option>Scheduled</option>
+                        <option>Expired</option>
+                        <option>Draft</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Banner Type</label>
+                    <select>
+                        <option>All Types</option>
+                        <option>Homepage Hero</option>
+                        <option>Promotion</option>
+                        <option>Announcement</option>
+                        <option>Service Banner</option>
+                        <option>Offer Banner</option>
+                        <option>Event Banner</option>
+                        <option>Campaign Banner</option>
+                        <option>QR Banner</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Display Position</label>
+                    <select>
+                        <option>All Positions</option>
+                        <option>Homepage</option>
+                        <option>About Page</option>
+                        <option>Services Page</option>
+                        <option>Contact Page</option>
+                        <option>Footer</option>
+                        <option>Sidebar</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Created Date</label>
+                    <select>
+                        <option>All Time</option>
+                        <option>Today</option>
+                        <option>This Week</option>
+                        <option>This Month</option>
+                        <option>Custom Range</option>
+                    </select>
+                </div>
+                <div class="filter-group filter-actions">
+                    <button class="btn btn-secondary w-100">Clear Filters</button>
+                    <button class="btn btn-primary w-100 mt-10">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BULK ACTIONS -->
+        <div class="bulk-actions-container">
+            <div class="bulk-actions bg-white card d-flex align-center">
+                <span class="text-muted fw-bold mr-15" style="font-size: 13px; text-transform: uppercase;">Bulk Actions:</span>
+                <select id="bulkActionSelect" class="mr-10" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; cursor: pointer;">
+                    <option value="">Choose Action</option>
+                    <option value="activate">Activate Selected</option>
+                    <option value="deactivate">Deactivate Selected</option>
+                    <option value="delete">Delete Selected</option>
+                </select>
+                <button id="bulkActionApply" class="btn btn-secondary btn-small">Apply</button>
+            </div>
+        </div>
+
+        <!-- BANNERS TABLE -->
+        <div class="card table-wrapper mb-40">
+            <div class="table-responsive">
+                <table class="cms-table" id="bannersTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"><input type="checkbox" id="selectAll"></th>
+                            <th>Priority</th>
+                            <th>Banner Image</th>
+                            <th>Banner Info</th>
+                            <th>Display Settings</th>
+                            <th>Timeline</th>
+                            <th>Status / QR</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bannersTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination -->
+            <div class="pagination-container">
+                <div class="pagination-info">Showing 1 to 8 of 18 entries</div>
+                <div class="pagination-controls">
+                    <button class="btn-page disabled"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn-page active">1</button>
+                    <button class="btn-page">2</button>
+                    <button class="btn-page">3</button>
+                    <button class="btn-page"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVE CAMPAIGNS DASHBOARD -->
+        <h3 class="section-title mt-40">Active Campaigns Performance</h3>
+        <div class="campaigns-grid card mb-40">
+            <div class="campaign-list" id="campaignsList">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+
+        <!-- ANALYTICS SECTION -->
+        <h3 class="section-title mt-40">Banner Analytics</h3>
+        <div class="analytics-cards-mini stat-cards mb-20">
+            <div class="card p-20 text-center">
+                <div class="text-muted fw-bold mb-10" style="font-size: 12px; text-transform: uppercase;">Total Views</div>
+                <div class="fs-24 fw-bold text-dark" id="stat-total-views">156,000</div>
+            </div>
+            <div class="card p-20 text-center">
+                <div class="text-muted fw-bold mb-10" style="font-size: 12px; text-transform: uppercase;">Total Clicks</div>
+                <div class="fs-24 fw-bold text-dark" id="stat-total-clicks">18,250</div>
+            </div>
+            <div class="card p-20 text-center">
+                <div class="text-muted fw-bold mb-10" style="font-size: 12px; text-transform: uppercase;">Average CTR</div>
+                <div class="fs-24 fw-bold text-success" id="stat-avg-ctr">11.7%</div>
+            </div>
+            <div class="card p-20 text-center">
+                <div class="text-muted fw-bold mb-10" style="font-size: 12px; text-transform: uppercase;">Top Performing</div>
+                <div class="fs-16 fw-bold text-primary mt-5" id="stat-top-performing">Startup Advisory</div>
+            </div>
+        </div>
+
+        <div class="analytics-grid mb-50">
+            <div class="card chart-card full-width">
+                <h4>Monthly Banner Views</h4>
+                <div class="chart-container"><canvas id="viewsChart"></canvas></div>
+            </div>
+            <div class="card chart-card full-width">
+                <h4>Clicks Per Banner</h4>
+                <div class="chart-container"><canvas id="clicksChart"></canvas></div>
+            </div>
+            <div class="card chart-card">
+                <h4>Status Distribution</h4>
+                <div class="chart-container"><canvas id="statusChart"></canvas></div>
+            </div>
+            <div class="card chart-card">
+                <h4>Banner Type Distribution</h4>
+                <div class="chart-container"><canvas id="typeChart"></canvas></div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ================================================== -->
+<!-- MODALS -->
+<!-- ================================================== -->
+
+<!-- ADD / EDIT BANNER MODAL -->
+<div class="modal-overlay" id="bannerModal">
+    <div class="modal-content modal-lg">
+        <div class="modal-header">
+            <h3 id="bannerModalTitle">Add New Banner</h3>
+            <button class="close-btn" onclick="closeModal('bannerModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="bannerForm" class="cms-form">
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Banner Image Upload *</label>
+                        <div class="drag-drop-zone" id="dragDropZone">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p id="dragDropText">Drag & Drop your image here or <strong>Browse</strong></p>
+                            <span class="text-muted" style="font-size: 12px;">Supported formats: JPG, PNG, WEBP (Max 5MB)</span>
+                            <input type="file" hidden id="bannerImageFile" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Banner Title *</label>
+                        <input type="text" id="addBannerTitle" placeholder="Enter banner title" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Subtitle</label>
+                        <input type="text" id="addBannerSubtitle" placeholder="Enter subtitle or tagline">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Description</label>
+                        <textarea rows="3" id="addBannerDesc" placeholder="Enter short description"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Banner Type</label>
+                        <select id="addBannerType">
+                            <option>Homepage Hero</option>
+                            <option>Promotion</option>
+                            <option>Announcement</option>
+                            <option>Campaign</option>
+                            <option>Service Banner</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Display Position</label>
+                        <select id="addBannerPosition">
+                            <option>Homepage</option>
+                            <option>Services</option>
+                            <option>About</option>
+                            <option>Contact</option>
+                            <option>Sidebar</option>
+                            <option>Footer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Priority (1 is highest)</label>
+                        <select id="addBannerPriority">
+                            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="addBannerStatus">
+                            <option>Active</option><option>Inactive</option><option>Draft</option><option>Scheduled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h4 class="form-section-title mt-20">Call To Action (CTA)</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Button Text</label>
+                        <input type="text" id="addBannerBtnText" placeholder="e.g. Learn More">
+                    </div>
+                    <div class="form-group">
+                        <label>Button Link</label>
+                        <input type="url" id="addBannerBtnUrl" placeholder="https://...">
+                    </div>
+                </div>
+
+                <h4 class="form-section-title mt-20">Scheduling</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" id="addBannerStart">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" id="addBannerEnd">
+                    </div>
+                </div>
+
+                <h4 class="form-section-title mt-20">QR Code & SEO</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Enable QR Code</label>
+                        <select id="addBannerEnableQR">
+                            <option value="Yes">Yes</option><option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>QR Destination Link</label>
+                        <input type="url" id="addBannerQRUrl" placeholder="https://...">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>SEO Keywords (Comma separated)</label>
+                        <input type="text" id="addBannerSEO" placeholder="consulting, strategy, business">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal('bannerModal')">Cancel</button>
+            <button class="btn btn-outline"><i class="fas fa-eye"></i> Preview</button>
+            <button class="btn btn-primary" type="button" onclick="saveBanner()"><i class="fas fa-save"></i> Save Banner</button>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW BANNER DETAILS MODAL -->
+<div class="modal-overlay" id="viewBannerModal">
+    <div class="modal-content modal-lg">
+        <div class="modal-header">
+            <h3>Banner Details: <span id="viewBannerTitle" class="text-primary"></span></h3>
+            <button class="close-btn" onclick="closeModal('viewBannerModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body bg-light">
+            <div class="view-grid">
+                
+                <div class="view-image-panel card p-20 mb-20">
+                    <img id="viewBannerImg" src="" alt="Banner Preview" style="width:100%; border-radius: 12px; border: 1px solid #e2e8f0;">
+                </div>
+
+                <div class="card p-30 mb-20">
+                    <h4 class="mb-20 fw-bold" style="font-family: 'Montserrat';">Banner Information</h4>
+                    <div class="info-grid">
+                        <div class="info-group">
+                            <label>Banner ID</label>
+                            <p id="viewBannerId" class="fw-bold font-mono"></p>
+                        </div>
+                        <div class="info-group">
+                            <label>Status</label>
+                            <p id="viewBannerStatus"></p>
+                        </div>
+                        <div class="info-group full-width">
+                            <label>Subtitle</label>
+                            <p id="viewBannerSubtitle"></p>
+                        </div>
+                        <div class="info-group">
+                            <label>Banner Type</label>
+                            <p id="viewBannerType"></p>
+                        </div>
+                        <div class="info-group">
+                            <label>Display Position</label>
+                            <p id="viewBannerPos"></p>
+                        </div>
+                        <div class="info-group">
+                            <label>Priority</label>
+                            <p id="viewBannerPriority"></p>
+                        </div>
+                        <div class="info-group">
+                            <label>Created By</label>
+                            <p id="viewBannerCreator"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view-row-split">
+                    <div class="card p-30 mb-20 flex-1">
+                        <h4 class="mb-20 fw-bold" style="font-family: 'Montserrat';">Schedule & CTA</h4>
+                        <div class="info-grid">
+                            <div class="info-group">
+                                <label>Start Date</label>
+                                <p id="viewBannerStart"></p>
+                            </div>
+                            <div class="info-group">
+                                <label>End Date</label>
+                                <p id="viewBannerEnd"></p>
+                            </div>
+                            <div class="info-group full-width">
+                                <label>CTA Button</label>
+                                <p><a href="#" class="btn btn-primary btn-small mt-5" style="text-decoration: none;" id="viewBannerBtn"></a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-30 mb-20 flex-1 text-center">
+                        <h4 class="mb-20 fw-bold" style="font-family: 'Montserrat';">QR Code</h4>
+                        <div style="background: white; display: inline-block; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://sarangiconsulting.com" alt="QR Code" width="120">
+                        </div>
+                        <div>
+                            <button class="btn btn-outline btn-small"><i class="fas fa-download"></i> Download</button>
+                            <button class="btn btn-secondary btn-small"><i class="fas fa-sync"></i> Regenerate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="modal-overlay" id="deleteBannerModal">
+    <div class="modal-content modal-sm text-center">
+        <div class="modal-body p-40">
+            <div style="font-size: 48px; color: #ef4444; margin-bottom: 20px;"><i class="fas fa-exclamation-triangle"></i></div>
+            <h3 style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px; color: var(--exec-black);">Delete Banner?</h3>
+            <p style="color: #64748b; font-size: 15px; margin-bottom: 30px;">Are you sure you want to permanently delete this banner? This action cannot be undone.</p>
+            <div class="d-flex justify-center" style="gap: 16px;">
+                <button class="btn btn-secondary" onclick="closeModal('deleteBannerModal')">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()"><i class="fas fa-trash-alt"></i> Delete Permanently</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="banners.js?v=3"></script>
+
+</body>
+</html>

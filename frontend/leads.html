@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads & Contacts | Admin Dashboard | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="leads.css">
+    <!-- Theme Settings -->
+    <script src="theme.js?v=3"></script>
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px; color: white;">SARANGI<span style="color: var(--primary-green);">ADMIN</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="leads.html" class="nav-item active"><i class="fas fa-users"></i> Leads & Contacts</a>
+            <a href="bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i> Bookings</a>
+            <a href="banners.html" class="nav-item"><i class="fas fa-image"></i> Banners</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- PAGE HEADER -->
+        <header class="dashboard-header leads-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 28px; font-weight: 700;">Leads & Contacts</h1>
+                <p style="color: #64748b; margin-top: 5px;">Manage all customer inquiries, track lead progress, assign consultants, and monitor follow-ups.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="alert('Import CSV')"><i class="fas fa-file-import"></i> Import CSV</button>
+                <button class="btn btn-secondary" onclick="alert('Export PDF')"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                <button class="btn btn-secondary" onclick="alert('Export Excel')"><i class="fas fa-file-excel"></i> Export Excel</button>
+                <button class="btn btn-primary" onclick="openModal('addLeadModal')"><i class="fas fa-plus"></i> Add Lead</button>
+            </div>
+        </header>
+
+        <!-- SUMMARY CARDS -->
+        <div class="stat-cards leads-stats">
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i class="fas fa-users"></i></div>
+                <div class="stat-title">Total Leads</div>
+                <div class="stat-value">154</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;"><i class="fas fa-user-plus"></i></div>
+                <div class="stat-title">New Leads</div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(234, 179, 8, 0.1); color: #eab308;"><i class="fas fa-phone-volume"></i></div>
+                <div class="stat-title">Contacted</div>
+                <div class="stat-value">98</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;"><i class="fas fa-check-double"></i></div>
+                <div class="stat-title">Qualified</div>
+                <div class="stat-value">54</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(20, 184, 166, 0.1); color: #14b8a6;"><i class="fas fa-trophy"></i></div>
+                <div class="stat-title">Won Clients</div>
+                <div class="stat-value">37</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;"><i class="fas fa-times-circle"></i></div>
+                <div class="stat-title">Lost Leads</div>
+                <div class="stat-value">9</div>
+            </div>
+        </div>
+
+        <!-- SEARCH & FILTER SECTION -->
+        <div class="filter-section card">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by Name, Email, Phone, Company...">
+            </div>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Lead Status</label>
+                    <select id="statusFilter">
+                        <option value="">All</option>
+                        <option>New</option>
+                        <option>Contacted</option>
+                        <option>Meeting Scheduled</option>
+                        <option>Qualified</option>
+                        <option>Proposal Sent</option>
+                        <option>Negotiation</option>
+                        <option>Won</option>
+                        <option>Lost</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Service Interested</label>
+                    <select id="serviceFilter">
+                        <option value="">All</option>
+                        <option>Startup Advisory</option>
+                        <option>Business Registration</option>
+                        <option>Tax Consultation</option>
+                        <option>Legal Consultation</option>
+                        <option>Trademark</option>
+                        <option>GST</option>
+                        <option>Funding Support</option>
+                        <option>Compliance</option>
+                        <option>MSME Registration</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Priority</label>
+                    <select id="priorityFilter">
+                        <option value="">All</option>
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Assigned Consultant</label>
+                    <select id="consultantFilter">
+                        <option value="">All</option>
+                        <option>Samuel</option>
+                        <option>Admin</option>
+                        <option>Aditya</option>
+                        <option>Priya</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Date Filter</label>
+                    <select id="dateFilter">
+                        <option value="">All Time</option>
+                        <option>Today</option>
+                        <option>Yesterday</option>
+                        <option>This Week</option>
+                        <option>This Month</option>
+                        <option>Custom Range</option>
+                    </select>
+                </div>
+                <div class="filter-group d-flex align-end">
+                    <button id="resetFiltersBtn" class="btn btn-outline" style="width: 100%;"><i class="fas fa-sync-alt"></i> Reset Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEAD PIPELINE -->
+        <div class="pipeline-container card">
+            <h3 class="section-title">Lead Pipeline (Selected)</h3>
+            <div class="pipeline">
+                <div class="pipeline-stage completed">
+                    <div class="stage-dot"></div>
+                    <div class="stage-label">New</div>
+                </div>
+                <div class="pipeline-line completed"></div>
+                
+                <div class="pipeline-stage completed">
+                    <div class="stage-dot"></div>
+                    <div class="stage-label">Contacted</div>
+                </div>
+                <div class="pipeline-line completed"></div>
+                
+                <div class="pipeline-stage active">
+                    <div class="stage-dot"></div>
+                    <div class="stage-label">Meeting Scheduled</div>
+                </div>
+                <div class="pipeline-line"></div>
+                
+                <div class="pipeline-stage">
+                    <div class="stage-dot"></div>
+                    <div class="stage-label">Qualified</div>
+                </div>
+                <div class="pipeline-line"></div>
+                
+                <div class="pipeline-stage">
+                    <div class="stage-dot"></div>
+                    <div class="stage-label">Proposal Sent</div>
+                </div>
+                <div class="pipeline-line"></div>
+                
+                <div class="pipeline-stage">
+                    <div class="stage-dot"></div>
+                    <div class="stage-label">Negotiation</div>
+                </div>
+                <div class="pipeline-line"></div>
+                
+                <div class="pipeline-stage">
+                    <div class="stage-dot"></div>
+                    <div class="stage-label">Won / Lost</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BULK ACTIONS -->
+        <div class="bulk-actions-container">
+            <div class="bulk-actions card">
+                <span style="font-weight: 500; font-size: 14px; margin-right: 15px;">Bulk Actions:</span>
+                <button class="btn btn-small btn-outline" onclick="bulkAssignConsultant()"><i class="fas fa-user-tag"></i> Assign Consultant</button>
+                <button class="btn btn-small btn-outline" onclick="bulkChangeStatus()"><i class="fas fa-sync"></i> Change Status</button>
+                <button class="btn btn-small btn-outline" onclick="alert('Send Bulk Email coming soon')"><i class="fas fa-envelope"></i> Send Bulk Email</button>
+                <button class="btn btn-small btn-outline" onclick="exportLeads('csv')"><i class="fas fa-file-csv"></i> CSV</button>
+                <button class="btn btn-small btn-outline" onclick="exportLeads('excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                <button class="btn btn-small btn-outline" onclick="exportLeads('pdf')"><i class="fas fa-file-pdf"></i> PDF</button>
+                <button class="btn btn-small btn-danger" onclick="deleteSelectedLeads()"><i class="fas fa-trash"></i> Delete Selected</button>
+            </div>
+        </div>
+
+        <!-- LEADS TABLE -->
+        <div class="table-container leads-table-wrapper card">
+            <div class="table-responsive">
+                <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll"></th>
+                            <th>Lead ID</th>
+                            <th>Client Name</th>
+                            <th>Company</th>
+                            <th>Contact Info</th>
+                            <th>Service Interested</th>
+                            <th>Source</th>
+                            <th>Assigned To</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Last Follow-up</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leadsTableBody">
+                        <!-- Leads will be injected here via Fetch API -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="pagination-container">
+                <div class="pagination-info">Showing 1–10 of 154 Leads</div>
+                <div class="pagination-controls">
+                    <button class="btn-page disabled">Previous</button>
+                    <button class="btn-page active">1</button>
+                    <button class="btn-page">2</button>
+                    <button class="btn-page">3</button>
+                    <button class="btn-page">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANALYTICS SECTION -->
+        <h3 class="section-title mt-40">Lead Analytics</h3>
+        <div class="analytics-grid">
+            <div class="chart-card card">
+                <h4>Leads by Month</h4>
+                <div class="chart-container"><canvas id="leadsMonthChart"></canvas></div>
+            </div>
+            <div class="chart-card card">
+                <h4>Lead Sources</h4>
+                <div class="chart-container"><canvas id="leadsSourceChart"></canvas></div>
+            </div>
+            <div class="chart-card card">
+                <h4>Lead Status Distribution</h4>
+                <div class="chart-container"><canvas id="leadsStatusChart"></canvas></div>
+            </div>
+            <div class="chart-card card">
+                <h4>Lead Conversion Funnel</h4>
+                <div class="chart-container"><canvas id="leadsFunnelChart"></canvas></div>
+            </div>
+            <div class="chart-card card full-width">
+                <h4>Top Services Requested</h4>
+                <div class="chart-container chart-container-large"><canvas id="servicesChart"></canvas></div>
+            </div>
+        </div>
+    </main>
+</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('viewLeadModal')">Close</button>
+<!-- ==========================================
+     MODALS
+=========================================== -->
+
+<!-- VIEW LEAD MODAL -->
+<div class="modal-overlay" id="viewLeadModal">
+    <div class="modal-content modal-lg">
+        <div class="modal-header">
+            <h3 id="viewLeadTitle">Lead Details</h3>
+            <button class="close-btn" onclick="closeModal('viewLeadModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="lead-view-grid">
+                <div class="lead-info-panel">
+                    <input type="hidden" id="viewLeadId">
+                    <div class="info-group">
+                        <label>Client Name</label>
+                        <p id="viewCustomerName"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Company</label>
+                        <p id="viewCompany"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Email</label>
+                        <p><a href="#" id="viewEmail"></a></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Phone</label>
+                        <p><a href="#" id="viewPhone"></a></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Service Interested</label>
+                        <p id="viewServiceInterested"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Inquiry Source</label>
+                        <p id="viewLeadSource"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Assigned Consultant</label>
+                        <p id="viewAssignedTo"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Priority</label>
+                        <p><span id="viewPriority" class="badge badge-priority"></span></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Status</label>
+                        <p><span id="viewStatus" class="badge badge-status"></span></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Created Date</label>
+                        <p id="viewCreatedDate"></p>
+                    </div>
+                </div>
+                
+                <div class="lead-timeline-panel">
+                    <h4>Communication History</h4>
+                    <div class="timeline" id="viewTimeline">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('viewLeadModal')">Close</button>
+            <button class="btn btn-primary" onclick="closeModal('viewLeadModal'); editLead(document.getElementById('viewLeadId').value)">Edit Lead</button>
+        </div>
+    </div>
+</div>
+
+<!-- ADD LEAD MODAL -->
+<div class="modal-overlay" id="addLeadModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add New Lead</h3>
+            <button class="close-btn" onclick="closeModal('addLeadModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <form class="lead-form" id="addLeadForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Client Name *</label>
+                        <input type="text" id="addCustomerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input type="text" id="addCompany">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="addEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone *</label>
+                        <input type="tel" id="addPhone" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Service Interested</label>
+                        <select id="addServiceInterested">
+                            <option value="Startup Advisory">Startup Advisory</option>
+                            <option value="Business Registration">Business Registration</option>
+                            <option value="Tax Consultation">Tax Consultation</option>
+                            <option value="Legal Consultation">Legal Consultation</option>
+                            <option value="Trademark">Trademark</option>
+                            <option value="GST">GST</option>
+                            <option value="Funding Support">Funding Support</option>
+                            <option value="Compliance">Compliance</option>
+                            <option value="MSME Registration">MSME Registration</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Inquiry Source</label>
+                        <select id="addLeadSource">
+                            <option value="Website">Website</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Referral">Referral</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Assigned Consultant</label>
+                        <select id="addAssignedTo">
+                            <option value="">-- Unassigned --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <select id="addPriority">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="addStatus">
+                            <option value="New">New</option>
+                            <option value="Contacted">Contacted</option>
+                            <option value="Qualified">Qualified</option>
+                            <option value="Proposal Sent">Proposal Sent</option>
+                            <option value="Won">Won</option>
+                            <option value="Lost">Lost</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Customer Message</label>
+                    <textarea id="addMessage" rows="3"></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label>Internal Notes</label>
+                    <textarea id="addInternalNotes" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" type="button" onclick="closeModal('addLeadModal')">Cancel</button>
+            <button class="btn btn-primary" id="saveLeadBtn">Save Lead</button>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT LEAD MODAL -->
+<div class="modal-overlay" id="editLeadModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="editLeadTitle">Edit Lead</h3>
+            <button class="close-btn" onclick="closeModal('editLeadModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <form class="lead-form" id="editLeadForm">
+                <input type="hidden" id="editLeadId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Client Name</label>
+                        <input type="text" id="editCustomerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input type="text" id="editCompany">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="editEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="editPhone" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Service Interested</label>
+                        <select id="editServiceInterested">
+                            <option value="Startup Advisory">Startup Advisory</option>
+                            <option value="Business Registration">Business Registration</option>
+                            <option value="Tax Consultation">Tax Consultation</option>
+                            <option value="Legal Consultation">Legal Consultation</option>
+                            <option value="Trademark">Trademark</option>
+                            <option value="GST">GST</option>
+                            <option value="Funding Support">Funding Support</option>
+                            <option value="Compliance">Compliance</option>
+                            <option value="MSME Registration">MSME Registration</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="editStatus">
+                            <option value="New">New</option>
+                            <option value="Contacted">Contacted</option>
+                            <option value="Meeting Scheduled">Meeting Scheduled</option>
+                            <option value="Qualified">Qualified</option>
+                            <option value="Proposal Sent">Proposal Sent</option>
+                            <option value="Negotiation">Negotiation</option>
+                            <option value="Won">Won</option>
+                            <option value="Lost">Lost</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Assigned Consultant</label>
+                        <select id="editAssignedTo">
+                            <option value="">-- Unassigned --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <select id="editPriority">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('editLeadModal')">Cancel</button>
+            <button class="btn btn-primary" id="saveEditLeadBtn">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="modal-overlay" id="deleteLeadModal">
+    <div class="modal-content modal-sm text-center">
+        <div class="modal-body p-40">
+            <div class="warning-icon mb-20 text-danger" style="font-size: 48px; color: #ef4444;">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="mb-10">Delete Lead?</h3>
+            <p style="color: #64748b;">Are you sure you want to permanently delete this lead? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer justify-center">
+            <button class="btn btn-outline" onclick="closeModal('deleteLeadModal')">Cancel</button>
+            <button class="btn btn-danger" onclick="closeModal('deleteLeadModal')">Delete</button>
+        </div>
+    </div>
+</div>
+
+<script src="leads.js?v=11"></script>
+</body>
+</html>

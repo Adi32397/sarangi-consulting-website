@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Form Submission
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Basic HTML5 validation trigger
@@ -205,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Simulate loading
             const btnText = contactSubmitBtn.querySelector('.btn-text');
             const btnLoader = contactSubmitBtn.querySelector('.btn-loader');
             
@@ -213,23 +212,51 @@ document.addEventListener('DOMContentLoaded', () => {
             btnText.classList.add('hidden');
             btnLoader.classList.remove('hidden');
 
-            setTimeout(() => {
-                // Reset button
+            const selectedMethod = document.querySelector('input[name="contactMethod"]:checked');
+            const methodVal = selectedMethod ? selectedMethod.value : 'Email';
+
+            const userMessage = document.getElementById('contactDetails').value;
+            const extraDetails = `Project Type: ${document.getElementById('contactProjectType').value}\nBudget: ${document.getElementById('contactBudget').value}\nTimeline: ${document.getElementById('contactTimeline').value}\nPreferred Contact: ${methodVal}\nBest Time: ${document.getElementById('contactTime').value}`;
+
+            // Construct payload mapping to our Lead Schema
+            const payload = {
+                customerName: document.getElementById('contactName').value,
+                company: document.getElementById('contactCompany').value,
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value,
+                serviceInterested: document.getElementById('contactService').value,
+                leadSource: document.getElementById('contactSource').value || 'Website',
+                priority: 'Medium',
+                status: 'New',
+                message: userMessage + '\n\n---\n' + extraDetails
+            };
+
+            try {
+                const res = await fetch('http://localhost:5000/api/leads', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const json = await res.json();
+                if (json.success) {
+                    if (successPopup) {
+                        successPopup.classList.add('show');
+                    }
+                    contactForm.reset();
+                    floatingInputs.forEach(input => checkValue(input));
+                    if(fileNameDisplay) fileNameDisplay.textContent = "";
+                } else {
+                    alert('Failed to submit form: ' + (json.message || JSON.stringify(json.errors)));
+                }
+            } catch (err) {
+                console.error('Contact form submission error:', err);
+                alert('An error occurred while submitting your request. Please try again.');
+            } finally {
                 contactSubmitBtn.disabled = false;
                 btnText.classList.remove('hidden');
                 btnLoader.classList.add('hidden');
-                
-                // Show success popup
-                if (successPopup) {
-                    successPopup.classList.add('show');
-                }
-                
-                // Reset form
-                contactForm.reset();
-                floatingInputs.forEach(input => checkValue(input));
-                if(fileNameDisplay) fileNameDisplay.textContent = "";
-                
-            }, 1500); // 1.5s simulated network request
+            }
         });
     }
 
@@ -269,5 +296,67 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize immediately, then update every second
     updateTimers();
     setInterval(updateTimers, 1000);
+
+    // 8. Dynamic Banner Rendering
+    async function renderDynamicBanners() {
+        try {
+            const res = await fetch('http://localhost:5000/api/banners?status=Active');
+            const data = await res.json();
+            
+            if (data.success && data.data && data.data.length > 0) {
+                // Determine current page context
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                
+                // Map page to display_position
+                let position = 'Homepage';
+                if (currentPage.includes('about')) position = 'About';
+                else if (currentPage.includes('service')) position = 'Services';
+                else if (currentPage.includes('login') || currentPage.includes('contact')) position = 'Sidebar'; // Example fallback
+                
+                // Filter banners for the current position
+                let pageBanners = data.data.filter(b => b.display_position === position);
+                
+                if (pageBanners.length > 0) {
+                    // Sort by priority (lower number = higher priority)
+                    pageBanners.sort((a, b) => a.priority - b.priority);
+                    const banner = pageBanners[0];
+                    
+                    // Construct Banner HTML as a Popup Modal
+                    const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `http://localhost:5000${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
+                    
+                    const bannerHtml = `
+                        <div id="dynamic-banner-popup" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(4px);">
+                            <div style="background: white; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%; text-align: center; position: relative; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); animation: popupIn 0.3s ease-out forwards;">
+                                <button onclick="document.getElementById('dynamic-banner-popup').remove()" style="position: absolute; right: 16px; top: 16px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; display: flex; justify-content: center; align-items: center; transition: 0.2s;">&times;</button>
+                                
+                                ${banner.image && !banner.image.includes('via.placeholder.com') ? `<img src="${bannerImgSrc}" style="width: 100%; max-height: 200px; border-radius: 8px; object-fit: cover; margin-bottom: 20px;">` : ''}
+                                
+                                <h3 style="margin: 0 0 12px 0; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #1e293b;">${banner.title}</h3>
+                                ${banner.subtitle ? `<p style="margin: 0 0 20px 0; font-size: 15px; color: #64748b; line-height: 1.5;">${banner.subtitle}</p>` : ''}
+                                
+                                ${banner.button_text && banner.button_url ? `
+                                <a href="${banner.button_url}" class="btn btn-primary" style="display: inline-block; width: 100%; text-decoration: none;">${banner.button_text}</a>
+                                ` : ''}
+                            </div>
+                        </div>
+                        <style>
+                            @keyframes popupIn {
+                                from { opacity: 0; transform: scale(0.9) translateY(20px); }
+                                to { opacity: 1; transform: scale(1) translateY(0); }
+                            }
+                        </style>
+                    `;
+                    
+                    // Insert dynamic banner popup into the body
+                    document.body.insertAdjacentHTML('beforeend', bannerHtml);
+                }
+            }
+        } catch (err) {
+            console.error('Error fetching dynamic banners:', err);
+        }
+    }
+    
+    // Call the function
+    renderDynamicBanners();
 
 });
