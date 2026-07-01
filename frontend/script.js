@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateTimers, 1000);
 
     // 8. Dynamic Banner Rendering
-    async function renderDynamicBanners() {
+    async function renderDynamicBanners(isManual = false) {
         try {
             const res = await fetch('http://localhost:5000/api/banners?status=Active');
             const data = await res.json();
@@ -306,15 +306,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success && data.data && data.data.length > 0) {
                 // Determine current page context
                 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-                
                 // Map page to display_position
-                let position = 'Homepage';
-                if (currentPage.includes('about')) position = 'About';
+                let position = 'Other';
+                if (currentPage === 'index.html' || currentPage === '') position = 'Homepage';
+                else if (currentPage.includes('about')) position = 'About';
                 else if (currentPage.includes('service')) position = 'Services';
-                else if (currentPage.includes('login') || currentPage.includes('contact')) position = 'Sidebar'; // Example fallback
+                else if (currentPage.includes('login') || currentPage.includes('contact')) position = 'Sidebar';
                 
                 // Filter banners for the current position
                 let pageBanners = data.data.filter(b => b.display_position === position);
+                
+                if (isManual && pageBanners.length === 0) {
+                    pageBanners = data.data; // Fallback to all active banners if triggered manually
+                }
                 
                 if (pageBanners.length > 0) {
                     // Sort by priority (lower number = higher priority)
@@ -323,6 +327,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Construct Banner HTML as a Popup Modal
                     const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `http://localhost:5000${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
+                    
+                    // Remove existing popup if it exists
+                    const existingPopup = document.getElementById('dynamic-banner-popup');
+                    if (existingPopup) existingPopup.remove();
                     
                     const bannerHtml = `
                         <div id="dynamic-banner-popup" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(4px);">
@@ -357,6 +365,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Call the function
-    renderDynamicBanners();
+    renderDynamicBanners(false);
+    
+    // Expose for manual triggering
+    window.showAnnouncementBanners = () => renderDynamicBanners(true);
 
 });

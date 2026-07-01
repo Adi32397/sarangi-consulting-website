@@ -18,8 +18,7 @@ const syncDatabase = async () => {
     const Notification = initNotification();
 
     // 2. Define relationships (if any, in the future)
-    User.hasMany(Lead, { foreignKey: 'assignedConsultant', as: 'leads' });
-    Lead.belongsTo(User, { foreignKey: 'assignedConsultant', as: 'consultant' });
+    // Removed Lead-User relationship to store consultant names directly
 
     // 3. Sync database tables
     const sequelize = getSequelize();

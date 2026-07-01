@@ -743,13 +743,13 @@ async function bulkUpdateStatus(status) {
     const token = localStorage.getItem('token') || '';
     try {
         await Promise.all(ids.map(id => 
-            fetch(`${API_URL}/${id}`, {
-                method: 'PUT',
+            fetch(`${API_URL}/${id}/status`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({ booking_status: status })
+                body: JSON.stringify({ status: status })
             })
         ));
         fetchBookings();
@@ -773,8 +773,8 @@ async function bulkAssignConsultant() {
     const token = localStorage.getItem('token') || '';
     try {
         await Promise.all(ids.map(id => 
-            fetch(`${API_URL}/${id}`, {
-                method: 'PUT',
+            fetch(`${API_URL}/${id}/assign`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
@@ -828,3 +828,38 @@ async function bulkDelete() {
         alert('An error occurred while deleting bookings.');
     }
 }
+
+async function fetchConsultants() {
+    const token = localStorage.getItem('token') || '';
+    try {
+        const res = await fetch(`http://localhost:5000/api/auth/users`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const json = await res.json();
+        
+        if (json.success) {
+            const addSelect = document.getElementById('addConsultant');
+            const editSelect = document.getElementById('editConsultant');
+            const filterSelect = document.getElementById('consultantFilter');
+            
+            let optionsHTML = '';
+            let filterOptionsHTML = '<option value="All">All Consultants</option>';
+            
+            json.data.forEach(user => {
+                if (user.role.toLowerCase() !== 'admin' && user.name.toLowerCase() !== 'admin') {
+                    optionsHTML += `<option value="${user.name}">${user.name}</option>`;
+                    filterOptionsHTML += `<option value="${user.name}">${user.name}</option>`;
+                }
+            });
+            
+            if (addSelect) addSelect.innerHTML = optionsHTML;
+            if (editSelect) editSelect.innerHTML = optionsHTML;
+            if (filterSelect) filterSelect.innerHTML = filterOptionsHTML;
+        }
+    } catch (error) {
+        console.error('Error fetching consultants:', error);
+    }
+}
+
+// Fetch consultants on load
+fetchConsultants();

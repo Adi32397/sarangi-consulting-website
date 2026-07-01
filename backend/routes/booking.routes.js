@@ -6,6 +6,7 @@ const {
     updateBooking,
     deleteBooking,
     updateStatus,
+    assignConsultant,
     rescheduleBooking,
     getAnalytics,
     generateInvoice
@@ -28,6 +29,7 @@ router.route('/:id')
     .delete(protect, deleteBooking);
 
 router.patch('/:id/status', protect, updateStatus);
+router.patch('/:id/assign', protect, assignConsultant);
 router.patch('/:id/reschedule', protect, rescheduleBooking);
 router.get('/:id/invoice', protect, generateInvoice);
 

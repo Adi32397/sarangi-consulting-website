@@ -60,7 +60,7 @@ const initLead = () => {
             defaultValue: 'Website'
         },
         assignedConsultant: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             allowNull: true,
             defaultValue: null
         },

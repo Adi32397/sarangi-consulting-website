@@ -184,7 +184,7 @@ function renderLeadsTable(leads) {
     leads.forEach(lead => {
         const priorityBadge = lead.priority.toLowerCase();
         const statusBadge = lead.status.toLowerCase().replace(' ', '-');
-        const assignedName = lead.consultant ? lead.consultant.name : 'Unassigned';
+        const assignedName = lead.assignedConsultant ? lead.assignedConsultant : 'Unassigned';
         const initial = assignedName !== 'Unassigned' && assignedName ? assignedName.charAt(0) : '?';
         const createdDate = new Date(lead.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
         const lastFollowup = lead.communicationHistory && lead.communicationHistory.length > 0 
@@ -643,14 +643,14 @@ document.addEventListener('DOMContentLoaded', () => {
 window.bulkAssignConsultant = async () => {
     const ids = getSelectedLeadIds();
     if (ids.length === 0) return alert('Please select at least one lead.');
-    const consultantId = prompt('Enter Consultant ID to assign:');
-    if (!consultantId) return;
+    const consultantName = prompt('Enter Consultant Name to assign (e.g. Samuel, Aditya, Priya, Admin):');
+    if (!consultantName) return;
 
     try {
         const res = await fetch(`${API_URL}/leads/bulk/assign`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-            body: JSON.stringify({ ids, consultantId })
+            body: JSON.stringify({ ids, consultantName })
         });
         const json = await res.json();
         if (json.success) {

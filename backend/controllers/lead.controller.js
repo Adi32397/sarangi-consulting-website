@@ -74,11 +74,6 @@ exports.getLeads = async (req, res, next) => {
 
         const { count, rows } = await LeadModel.findAndCountAll({
             where: whereClause,
-            include: [{
-                model: UserModel,
-                as: 'consultant',
-                attributes: ['id', 'name', 'email']
-            }],
             order,
             limit,
             offset
@@ -102,13 +97,8 @@ exports.getLeads = async (req, res, next) => {
 exports.getLead = async (req, res, next) => {
     try {
         const LeadModel = Lead();
-        const UserModel = require('../models').User();
-        const lead = await LeadModel.findByPk(req.params.id, {
-            include: [{
-                model: UserModel,
-                as: 'consultant',
-                attributes: ['id', 'name', 'email']
-            }]
+        const lead = await LeadModel.findOne({
+            where: { id: req.params.id }
         });
 
         if (!lead) return res.status(404).json({ success: false, message: 'Lead not found' });
@@ -190,7 +180,13 @@ exports.assignConsultant = async (req, res, next) => {
         const lead = await LeadModel.findByPk(req.params.id);
         if (!lead) return res.status(404).json({ success: false, message: 'Lead not found' });
         
-        await lead.update({ assignedConsultant: req.body.consultantId });
+        const UserModel = User();
+        const consultant = await UserModel.findByPk(req.body.consultantId);
+        const consultantName = consultant ? consultant.name : null;
+
+        await lead.update({ 
+            assignedConsultant: consultantName
+        });
         res.status(200).json({ success: true, data: lead });
     } catch (error) {
         next(error);
@@ -265,9 +261,21 @@ exports.bulkAssign = async (req, res, next) => {
     const sequelize = getSequelize();
     const t = await sequelize.transaction();
     try {
+        const UserModel = User();
+        const consultant = await UserModel.findOne({ 
+            where: { name: { [Op.like]: `%${req.body.consultantName}%` } } 
+        });
+
+        if (!consultant) {
+            await t.rollback();
+            return res.status(404).json({ success: false, message: 'Consultant not found with that name' });
+        }
+
         const LeadModel = Lead();
         await LeadModel.update(
-            { assignedConsultant: req.body.consultantId },
+            { 
+                assignedConsultant: consultant.name
+            },
             { 
                 where: { id: { [Op.in]: req.body.ids } },
                 transaction: t
