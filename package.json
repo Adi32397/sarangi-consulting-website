@@ -1,0 +1,20 @@
+{
+  "name": "sarangi-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"serve frontend -l 8080\"",
+    "start": "concurrently \"npm start --prefix backend\" \"serve frontend -l 8080\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "serve": "^14.2.6"
+  }
+}
