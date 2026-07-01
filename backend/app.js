@@ -45,6 +45,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, '../frontend')));
 
+// Public contact route
+const { createLead } = require('./controllers/lead.controller');
+const { validateLead, validate } = require('./middlewares/validation.middleware');
+app.post('/api/contact', validateLead, validate, createLead);
+
 // Mount routes
 app.use('/api/auth', authRoutes);
 app.use('/api/leads', require('./routes/lead.routes'));

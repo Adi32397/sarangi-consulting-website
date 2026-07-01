@@ -10,6 +10,49 @@ const generateToken = (id) => {
     });
 };
 
+// @desc    Register user
+// @route   POST /api/auth/register
+// @access  Public
+exports.register = async (req, res, next) => {
+    try {
+        const { name, email, password, phone, role } = req.body;
+
+        const UserModel = User();
+        // Check if user exists
+        let user = await UserModel.findOne({ where: { email } });
+        if (user) {
+            return res.status(400).json({ success: false, message: 'Email already exists' });
+        }
+
+        user = await UserModel.create({
+            name,
+            email,
+            password,
+            phone,
+            role: role || 'Viewer',
+        });
+
+        // Inject the user manually for the logger since req.user isn't set yet
+        req.user = user;
+        await logActivity(req, 'Auth', 'User registered', { title: 'New Registration', type: 'info' });
+
+        const token = generateToken(user.id);
+
+        res.status(201).json({
+            success: true,
+            token,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 // @desc    Login user
 // @route   POST /api/auth/login
 // @access  Public

@@ -283,9 +283,12 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        name, email, phone,
-                        subject: `Free Consultation Request — ${area}`,
-                        message: message || `New signup interested in: ${area}. Business: ${business_name || 'N/A'}`
+                        customerName: name, 
+                        email, 
+                        phone,
+                        serviceInterested: area,
+                        company: business_name,
+                        message: message || `Free Consultation Request — ${area}`
                     })
                 });
 
