@@ -54,32 +54,32 @@
             <div class="stat-card">
                 <div class="stat-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i class="fas fa-users"></i></div>
                 <div class="stat-title">Total Leads</div>
-                <div class="stat-value">154</div>
+                <div class="stat-value" id="stat-total">154</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon-wrapper" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;"><i class="fas fa-user-plus"></i></div>
                 <div class="stat-title">New Leads</div>
-                <div class="stat-value">0</div>
+                <div class="stat-value" id="stat-new">0</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon-wrapper" style="background: rgba(234, 179, 8, 0.1); color: #eab308;"><i class="fas fa-phone-volume"></i></div>
                 <div class="stat-title">Contacted</div>
-                <div class="stat-value">98</div>
+                <div class="stat-value" id="stat-contacted">98</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon-wrapper" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;"><i class="fas fa-check-double"></i></div>
                 <div class="stat-title">Qualified</div>
-                <div class="stat-value">54</div>
+                <div class="stat-value" id="stat-qualified">54</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon-wrapper" style="background: rgba(20, 184, 166, 0.1); color: #14b8a6;"><i class="fas fa-trophy"></i></div>
                 <div class="stat-title">Won Clients</div>
-                <div class="stat-value">37</div>
+                <div class="stat-value" id="stat-won">37</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon-wrapper" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;"><i class="fas fa-times-circle"></i></div>
                 <div class="stat-title">Lost Leads</div>
-                <div class="stat-value">9</div>
+                <div class="stat-value" id="stat-lost">9</div>
             </div>
         </div>
 
@@ -108,15 +108,36 @@
                     <label>Service Interested</label>
                     <select id="serviceFilter">
                         <option value="">All</option>
-                        <option>Startup Advisory</option>
-                        <option>Business Registration</option>
-                        <option>Tax Consultation</option>
-                        <option>Legal Consultation</option>
-                        <option>Trademark</option>
-                        <option>GST</option>
-                        <option>Funding Support</option>
-                        <option>Compliance</option>
-                        <option>MSME Registration</option>
+                        <option value="AI & Automation">AI & Automation</option>
+                        <option value="Business Consulting">Business Consulting</option>
+                        <option value="Business Registration">Business Registration</option>
+                        <option value="Change Management">Change Management</option>
+                        <option value="Cloud Solutions">Cloud Solutions</option>
+                        <option value="Compliance">Compliance</option>
+                        <option value="Customer Experience Consulting">Customer Experience Consulting</option>
+                        <option value="Data Analytics">Data Analytics</option>
+                        <option value="Digital Transformation">Digital Transformation</option>
+                        <option value="ESG & Sustainability">ESG & Sustainability</option>
+                        <option value="Essential Startup Documents">Essential Startup Documents</option>
+                        <option value="Financial Advisory">Financial Advisory</option>
+                        <option value="Funding Support">Funding Support</option>
+                        <option value="GST">GST</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="IT Consulting">IT Consulting</option>
+                        <option value="Legal Consultation">Legal Consultation</option>
+                        <option value="License and Certificate">License and Certificate</option>
+                        <option value="Marketing & Growth Consulting">Marketing & Growth Consulting</option>
+                        <option value="MSME Registration">MSME Registration</option>
+                        <option value="Operations Consulting">Operations Consulting</option>
+                        <option value="Organization & Leadership">Organization & Leadership</option>
+                        <option value="Policy Making">Policy Making</option>
+                        <option value="Software Development">Software Development</option>
+                        <option value="Startup Advisory">Startup Advisory</option>
+                        <option value="Strategy & Growth Consulting">Strategy & Growth Consulting</option>
+                        <option value="Tax Consultation">Tax Consultation</option>
+                        <option value="Trademark">Trademark</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -408,15 +429,36 @@
                     <div class="form-group">
                         <label>Service Interested</label>
                         <select id="addServiceInterested">
-                            <option value="Startup Advisory">Startup Advisory</option>
+                            <option value="AI & Automation">AI & Automation</option>
+                            <option value="Business Consulting">Business Consulting</option>
                             <option value="Business Registration">Business Registration</option>
-                            <option value="Tax Consultation">Tax Consultation</option>
-                            <option value="Legal Consultation">Legal Consultation</option>
-                            <option value="Trademark">Trademark</option>
-                            <option value="GST">GST</option>
-                            <option value="Funding Support">Funding Support</option>
+                            <option value="Change Management">Change Management</option>
+                            <option value="Cloud Solutions">Cloud Solutions</option>
                             <option value="Compliance">Compliance</option>
+                            <option value="Customer Experience Consulting">Customer Experience Consulting</option>
+                            <option value="Data Analytics">Data Analytics</option>
+                            <option value="Digital Transformation">Digital Transformation</option>
+                            <option value="ESG & Sustainability">ESG & Sustainability</option>
+                            <option value="Essential Startup Documents">Essential Startup Documents</option>
+                            <option value="Financial Advisory">Financial Advisory</option>
+                            <option value="Funding Support">Funding Support</option>
+                            <option value="GST">GST</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="IT Consulting">IT Consulting</option>
+                            <option value="Legal Consultation">Legal Consultation</option>
+                            <option value="License and Certificate">License and Certificate</option>
+                            <option value="Marketing & Growth Consulting">Marketing & Growth Consulting</option>
                             <option value="MSME Registration">MSME Registration</option>
+                            <option value="Operations Consulting">Operations Consulting</option>
+                            <option value="Organization & Leadership">Organization & Leadership</option>
+                            <option value="Policy Making">Policy Making</option>
+                            <option value="Software Development">Software Development</option>
+                            <option value="Startup Advisory">Startup Advisory</option>
+                            <option value="Strategy & Growth Consulting">Strategy & Growth Consulting</option>
+                            <option value="Tax Consultation">Tax Consultation</option>
+                            <option value="Trademark">Trademark</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -507,15 +549,36 @@
                     <div class="form-group">
                         <label>Service Interested</label>
                         <select id="editServiceInterested">
-                            <option value="Startup Advisory">Startup Advisory</option>
+                            <option value="AI & Automation">AI & Automation</option>
+                            <option value="Business Consulting">Business Consulting</option>
                             <option value="Business Registration">Business Registration</option>
-                            <option value="Tax Consultation">Tax Consultation</option>
-                            <option value="Legal Consultation">Legal Consultation</option>
-                            <option value="Trademark">Trademark</option>
-                            <option value="GST">GST</option>
-                            <option value="Funding Support">Funding Support</option>
+                            <option value="Change Management">Change Management</option>
+                            <option value="Cloud Solutions">Cloud Solutions</option>
                             <option value="Compliance">Compliance</option>
+                            <option value="Customer Experience Consulting">Customer Experience Consulting</option>
+                            <option value="Data Analytics">Data Analytics</option>
+                            <option value="Digital Transformation">Digital Transformation</option>
+                            <option value="ESG & Sustainability">ESG & Sustainability</option>
+                            <option value="Essential Startup Documents">Essential Startup Documents</option>
+                            <option value="Financial Advisory">Financial Advisory</option>
+                            <option value="Funding Support">Funding Support</option>
+                            <option value="GST">GST</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="IT Consulting">IT Consulting</option>
+                            <option value="Legal Consultation">Legal Consultation</option>
+                            <option value="License and Certificate">License and Certificate</option>
+                            <option value="Marketing & Growth Consulting">Marketing & Growth Consulting</option>
                             <option value="MSME Registration">MSME Registration</option>
+                            <option value="Operations Consulting">Operations Consulting</option>
+                            <option value="Organization & Leadership">Organization & Leadership</option>
+                            <option value="Policy Making">Policy Making</option>
+                            <option value="Software Development">Software Development</option>
+                            <option value="Startup Advisory">Startup Advisory</option>
+                            <option value="Strategy & Growth Consulting">Strategy & Growth Consulting</option>
+                            <option value="Tax Consultation">Tax Consultation</option>
+                            <option value="Trademark">Trademark</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">

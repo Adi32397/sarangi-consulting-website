@@ -845,10 +845,16 @@ async function fetchConsultants() {
             let optionsHTML = '';
             let filterOptionsHTML = '<option value="All">All Consultants</option>';
             
+            const defaultConsultants = ['samuel', 'aditya', 'priya'];
+            const seenNames = new Set();
             json.data.forEach(user => {
-                if (user.role.toLowerCase() !== 'admin' && user.name.toLowerCase() !== 'admin') {
-                    optionsHTML += `<option value="${user.name}">${user.name}</option>`;
-                    filterOptionsHTML += `<option value="${user.name}">${user.name}</option>`;
+                const name = user.name.trim();
+                const isConsultant = user.role !== 'Viewer' || defaultConsultants.includes(name.toLowerCase());
+                const isExcluded = user.role === 'Admin' || user.role === 'Super Admin' || name.toLowerCase() === 'admin' || name.toLowerCase() === 'super admin';
+                if (isConsultant && !isExcluded && !seenNames.has(name.toLowerCase())) {
+                    seenNames.add(name.toLowerCase());
+                    optionsHTML += `<option value="${name}">${name}</option>`;
+                    filterOptionsHTML += `<option value="${name}">${name}</option>`;
                 }
             });
             

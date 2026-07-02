@@ -250,9 +250,8 @@ function updateDashboardCards(stats) {
     const statValues = document.querySelectorAll('.stat-value');
     if (statValues.length >= 6) {
         statValues[0].innerText = stats.totalLeads || 0;
-        statValues[1].innerText = stats.todaysLeads || 0;
-        // Mocking contacted for now
-        statValues[2].innerText = Math.floor((stats.totalLeads || 0) * 0.6); 
+        statValues[1].innerText = stats.newLeads || 0;
+        statValues[2].innerText = stats.contactedLeads || 0; 
         statValues[3].innerText = stats.qualifiedLeads || 0;
         statValues[4].innerText = stats.wonLeads || 0;
         statValues[5].innerText = stats.lostLeads || 0;
@@ -271,8 +270,16 @@ async function fetchConsultants() {
             const editSelect = document.getElementById('editAssignedTo');
             
             let optionsHTML = '<option value="">-- Unassigned --</option>';
+            const defaultConsultants = ['samuel', 'aditya', 'priya'];
+            const seenNames = new Set();
             json.data.forEach(user => {
-                optionsHTML += `<option value="${user.id}">${user.name} (${user.role})</option>`;
+                const name = user.name.trim();
+                const isConsultant = user.role !== 'Viewer' || defaultConsultants.includes(name.toLowerCase());
+                const isExcluded = user.role === 'Admin' || user.role === 'Super Admin' || name.toLowerCase() === 'admin' || name.toLowerCase() === 'super admin';
+                if (isConsultant && !isExcluded && !seenNames.has(name.toLowerCase())) {
+                    seenNames.add(name.toLowerCase());
+                    optionsHTML += `<option value="${name}">${name}</option>`;
+                }
             });
             
             if (addSelect) addSelect.innerHTML = optionsHTML;
@@ -412,14 +419,35 @@ function renderCharts(analytics) {
     // Top Services
     const ctxServicesElement = document.getElementById('servicesChart');
     if (ctxServicesElement) {
-        let labels = [];
-        let data = [];
+        const allServicesList = [
+            "AI & Automation", "Business Consulting", "Business Registration", 
+            "Change Management", "Cloud Solutions", "Compliance", 
+            "Customer Experience Consulting", "Data Analytics", 
+            "Digital Transformation", "ESG & Sustainability", 
+            "Essential Startup Documents", "Financial Advisory", 
+            "Funding Support", "GST", "Human Resources", "IT Consulting", 
+            "Legal Consultation", "License and Certificate", 
+            "Marketing & Growth Consulting", "MSME Registration", 
+            "Operations Consulting", "Organization & Leadership", 
+            "Policy Making", "Software Development", "Startup Advisory", 
+            "Strategy & Growth Consulting", "Tax Consultation", 
+            "Trademark", "Web Development", "Other"
+        ];
+        
+        let labels = [...allServicesList];
+        let data = new Array(allServicesList.length).fill(0);
+
         if (analytics.byService && analytics.byService.length > 0) {
-            labels = analytics.byService.map(item => item._id || 'Unknown');
-            data = analytics.byService.map(item => item.count);
-        } else {
-            labels = ['None'];
-            data = [0];
+            analytics.byService.forEach(item => {
+                const serviceName = item._id || 'Unknown';
+                const index = allServicesList.indexOf(serviceName);
+                if (index !== -1) {
+                    data[index] = item.count;
+                } else {
+                    labels.push(serviceName);
+                    data.push(item.count);
+                }
+            });
         }
 
         if(charts.services) charts.services.destroy();
@@ -715,7 +743,7 @@ window.viewLead = async (id) => {
             
             document.getElementById('viewServiceInterested').innerText = lead.serviceInterested || '-';
             document.getElementById('viewLeadSource').innerText = lead.leadSource || '-';
-            document.getElementById('viewAssignedTo').innerText = lead.consultant ? lead.consultant.name : 'Unassigned';
+            document.getElementById('viewAssignedTo').innerText = lead.assignedConsultant ? lead.assignedConsultant : 'Unassigned';
             
             const priorityEl = document.getElementById('viewPriority');
             priorityEl.innerText = lead.priority;
@@ -892,3 +920,128 @@ window.sendBulkEmail = () => {
     const mailtoLink = `mailto:?bcc=${emails.join(',')}`;
     window.location.href = mailtoLink;
 };
+
+window.handleImportCSV = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+        const text = e.target.result;
+        const rows = text.split('\n').map(row => row.trim()).filter(row => row);
+        if (rows.length < 2) {
+            alert('Invalid CSV format. Need at least a header row and one data row.');
+            return;
+        }
+
+        const headers = rows[0].split(',').map(h => h.trim().replace(/"/g, '').toLowerCase());
+        let successCount = 0;
+        let failCount = 0;
+
+        for (let i = 1; i < rows.length; i++) {
+            const values = rows[i].split(',').map(v => v.trim().replace(/"/g, ''));
+            const lead = {};
+            
+            headers.forEach((header, index) => {
+                if (header.includes('name')) lead.customerName = values[index];
+                else if (header.includes('company')) lead.company = values[index];
+                else if (header.includes('email')) lead.email = values[index];
+                else if (header.includes('phone')) lead.phone = values[index];
+                else if (header.includes('service')) lead.serviceInterested = values[index] || 'Startup Advisory';
+                else if (header.includes('source')) lead.leadSource = values[index] || 'Website';
+                else if (header.includes('priority')) lead.priority = values[index] || 'Medium';
+                else if (header.includes('status')) lead.status = values[index] || 'New';
+                else if (header.includes('consultant') || header.includes('assigned')) lead.assignedConsultant = values[index];
+            });
+
+            if (lead.customerName && (lead.phone || lead.email)) {
+                try {
+                    const res = await fetch(`${API_URL}/leads`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(lead)
+                    });
+                    const json = await res.json();
+                    if (json.success) successCount++;
+                    else failCount++;
+                } catch (err) {
+                    failCount++;
+                }
+            } else {
+                failCount++;
+            }
+        }
+        
+        alert(`Import Complete!\nSuccessfully imported: ${successCount}\nFailed: ${failCount}`);
+        event.target.value = ''; // Reset input
+        fetchLeads();
+        fetchAnalytics();
+    };
+    reader.readAsText(file);
+};
+
+window.exportLeads = async function(format) {
+    const token = localStorage.getItem('token') || '';
+    const checkboxes = document.querySelectorAll('.lead-checkbox:checked');
+    const ids = Array.from(checkboxes).map(cb => cb.value);
+    
+    try {
+        const response = await fetch(`${API_URL}/export/leads/${format}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ ids: ids })
+        });
+        
+        if (!response.ok) throw new Error('Export failed. Check backend console for details.');
+        
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        
+        let ext = format;
+        if(format === 'excel') ext = 'xlsx';
+        a.download = `leads_export_${Date.now()}.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Error exporting leads:', error);
+        alert('Failed to export leads. ' + error.message);
+    }
+};
+
+
+window.fetchDashboardStats = async function() {
+    try {
+        const token = localStorage.getItem('token') || '';
+        const res = await fetch(`${API_URL}/leads/stats/dashboard`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const json = await res.json();
+        
+        if (json.success) {
+            const data = json.data;
+            if(document.getElementById('stat-total')) document.getElementById('stat-total').innerText = data.totalLeads;
+            if(document.getElementById('stat-new')) document.getElementById('stat-new').innerText = data.newLeads;
+            if(document.getElementById('stat-contacted')) document.getElementById('stat-contacted').innerText = data.contactedLeads;
+            if(document.getElementById('stat-qualified')) document.getElementById('stat-qualified').innerText = data.qualifiedLeads;
+            if(document.getElementById('stat-won')) document.getElementById('stat-won').innerText = data.wonLeads;
+            if(document.getElementById('stat-lost')) document.getElementById('stat-lost').innerText = data.lostLeads;
+        }
+    } catch (e) {
+        console.error('Error fetching dashboard stats:', e);
+    }
+};
+
+// Call it initially
+document.addEventListener('DOMContentLoaded', () => {
+    fetchDashboardStats();
+});

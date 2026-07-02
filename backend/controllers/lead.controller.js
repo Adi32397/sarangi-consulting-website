@@ -399,8 +399,7 @@ exports.getAnalytics = async (req, res, next) => {
         const byService = await LeadModel.findAll({
             attributes: ['serviceInterested', [sequelize.fn('COUNT', sequelize.col('id')), 'count']],
             group: ['serviceInterested'],
-            order: [[sequelize.fn('COUNT', sequelize.col('id')), 'DESC']],
-            limit: 5
+            order: [[sequelize.fn('COUNT', sequelize.col('id')), 'DESC']]
         }).then(res => res.map(r => ({ _id: r.serviceInterested, count: r.get('count') })));
 
         res.status(200).json({
