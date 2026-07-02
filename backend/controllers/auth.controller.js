@@ -125,9 +125,29 @@ exports.getProfile = async (req, res, next) => {
     try {
         const UserModel = User();
         const user = await UserModel.findByPk(req.user.id);
+        
+        let leadData = null;
+        try {
+            const LeadModel = require('../models').Lead();
+            if (LeadModel) {
+                const lead = await LeadModel.findOne({ where: { email: user.email } });
+                if (lead) {
+                    leadData = {
+                        company: lead.company,
+                        serviceInterested: lead.serviceInterested
+                    };
+                }
+            }
+        } catch (e) {
+            console.error("Error fetching lead data for profile", e);
+        }
+
         res.status(200).json({
             success: true,
-            data: user,
+            data: {
+                ...user.toJSON(),
+                lead: leadData
+            },
         });
     } catch (error) {
         next(error);

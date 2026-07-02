@@ -863,3 +863,94 @@ async function fetchConsultants() {
 
 // Fetch consultants on load
 fetchConsultants();
+
+// ==========================================
+// QUICK ACTIONS
+// ==========================================
+
+window.sendEmailReminder = () => {
+    if(!currentViewBookingId) return;
+    const b = liveBookings.find(x => x.id === currentViewBookingId);
+    if(b && b.email) {
+        const subject = encodeURIComponent(`Meeting Reminder: ${b.consultation_type || 'Consultation'}`);
+        const body = encodeURIComponent(`Hi ${b.client_name},\n\nThis is a reminder for our upcoming meeting on ${b.booking_date} at ${b.booking_time}.\n\nMeeting Link: ${b.meeting_link || 'TBD'}\n\nBest regards,\nSarangi Consulting`);
+        window.location.href = `mailto:${b.email}?subject=${subject}&body=${body}`;
+    } else {
+        alert('No email address found for this client.');
+    }
+};
+
+window.sendWhatsAppReminder = () => {
+    if(!currentViewBookingId) return;
+    const b = liveBookings.find(x => x.id === currentViewBookingId);
+    if(b && b.phone) {
+        const text = encodeURIComponent(`Hi ${b.client_name}, this is a reminder for our meeting on ${b.booking_date} at ${b.booking_time}. Link: ${b.meeting_link || 'TBD'}`);
+        const phone = b.phone.replace(/\D/g, '');
+        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    } else {
+        alert('No phone number found for this client.');
+    }
+};
+
+window.generateMeetLink = async () => {
+    if(!currentViewBookingId) return;
+    const b = liveBookings.find(x => x.id === currentViewBookingId);
+    if(b) {
+        // Generate a random meet-like link
+        const randomString = Math.random().toString(36).substring(2, 12);
+        const newLink = `https://meet.google.com/${randomString.substring(0,3)}-${randomString.substring(3,7)}-${randomString.substring(7)}`;
+        
+        try {
+            const token = localStorage.getItem('token') || '';
+            
+            // The backend requires all required fields for a PUT request
+            const updatedBooking = { ...b, meeting_link: newLink };
+
+            const res = await fetch(`${API_URL}/${b.id}`, {
+                method: 'PUT',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+                },
+                body: JSON.stringify(updatedBooking)
+            });
+            const json = await res.json();
+            if (json.success) {
+                alert('Meeting link generated successfully!');
+                fetchBookings(); // Refresh the list
+                b.meeting_link = newLink; // update local instantly
+                viewBooking(b.id); // re-render the modal
+            } else {
+                alert('Failed to generate link: ' + (json.message || ''));
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error generating meeting link');
+        }
+    }
+};
+
+window.copyMeetingLink = () => {
+    if(!currentViewBookingId) return;
+    const b = liveBookings.find(x => x.id === currentViewBookingId);
+    if(b && b.meeting_link) {
+        navigator.clipboard.writeText(b.meeting_link).then(() => {
+            alert('Meeting link copied to clipboard!');
+        }).catch(err => {
+            alert('Failed to copy link.');
+            console.error(err);
+        });
+    } else {
+        alert('No meeting link is available to copy. Please generate one first.');
+    }
+};
+
+window.printBookingDetails = () => {
+    document.body.classList.add('print-modal-only');
+    window.print();
+    // Use setTimeout to remove the class after print dialog closes
+    setTimeout(() => {
+        document.body.classList.remove('print-modal-only');
+    }, 500);
+};
+

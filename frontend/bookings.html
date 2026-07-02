@@ -354,7 +354,7 @@
         <div class="modal-header">
             <h3>Booking Details - <span id="detailBookingId">BK001</span></h3>
             <div class="d-flex gap-8">
-                <button class="btn btn-small btn-outline"><i class="fas fa-print"></i> Print</button>
+                <button class="btn btn-small btn-outline" onclick="printBookingDetails()"><i class="fas fa-print"></i> Print</button>
                 <button class="btn btn-small btn-outline" id="generateInvoiceBtn"><i class="fas fa-file-invoice"></i> Generate Invoice</button>
                 <button class="close-btn" onclick="closeModal('viewBookingModal')"><i class="fas fa-times"></i></button>
             </div>
@@ -439,10 +439,10 @@
                     
                     <div class="quick-actions-box mt-30">
                         <h4>Quick Actions</h4>
-                        <button class="btn btn-outline btn-block mb-10"><i class="fas fa-envelope"></i> Send Email Reminder</button>
-                        <button class="btn btn-outline btn-block mb-10 text-success"><i class="fab fa-whatsapp"></i> Send WhatsApp Reminder</button>
-                        <button class="btn btn-outline btn-block mb-10"><i class="fas fa-video"></i> Generate Meet Link</button>
-                        <button class="btn btn-outline btn-block"><i class="fas fa-copy"></i> Copy Meeting Link</button>
+                        <button class="btn btn-outline btn-block mb-10" onclick="sendEmailReminder()"><i class="fas fa-envelope"></i> Send Email Reminder</button>
+                        <button class="btn btn-outline btn-block mb-10 text-success" onclick="sendWhatsAppReminder()"><i class="fab fa-whatsapp"></i> Send WhatsApp Reminder</button>
+                        <button class="btn btn-outline btn-block mb-10" onclick="generateMeetLink()"><i class="fas fa-video"></i> Generate Meet Link</button>
+                        <button class="btn btn-outline btn-block" onclick="copyMeetingLink()"><i class="fas fa-copy"></i> Copy Meeting Link</button>
                     </div>
                 </div>
             </div>

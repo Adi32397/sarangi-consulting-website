@@ -110,7 +110,7 @@
         <!-- TAB 1: OVERVIEW -->
         <div id="overview" class="tab-content active">
             <div class="welcome-card">
-                <h2 style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 10px;">Welcome back, User!</h2>
+                <h2 id="welcome-message" style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 10px;">Welcome back, User!</h2>
                 <p style="color: #cbd5e1; max-width: 600px; font-size: 14px; line-height: 1.6;">Access your advisory sessions, track your business transformation journey, and view tailored insights all in one place.</p>
             </div>
 
@@ -168,19 +168,19 @@
                     <form>
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" value="Rahul Sharma" readonly>
+                            <input type="text" id="profile-name" value="Rahul Sharma" readonly>
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" value="rahul@techstartup.com" readonly>
+                            <input type="email" id="profile-email" value="rahul@techstartup.com" readonly>
                         </div>
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input type="tel" value="+91 98765 43210" readonly>
+                            <input type="tel" id="profile-phone" value="+91 98765 43210" readonly>
                         </div>
                         <div class="form-group">
                             <label>Company / Business Name</label>
-                            <input type="text" value="TechNova Solutions" readonly>
+                            <input type="text" id="profile-company" value="TechNova Solutions" readonly>
                         </div>
                     </form>
                 </div>
@@ -378,6 +378,59 @@
             waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
         }
     });
+
+    // Fetch User Profile
+    async function fetchUserProfile() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            const API_BASE = 'http://localhost:5000';
+            const res = await fetch(`${API_BASE}/api/auth/profile`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                const user = data.data;
+                const lead = user.lead || {};
+                
+                // Update Welcome Message
+                const firstName = user.name.split(' ')[0];
+                const welcomeEl = document.getElementById('welcome-message');
+                if (welcomeEl) welcomeEl.textContent = `Welcome back, ${firstName}!`;
+
+                // Update Profile Fields
+                const nameEl = document.getElementById('profile-name');
+                if (nameEl) nameEl.value = user.name;
+                
+                const emailEl = document.getElementById('profile-email');
+                if (emailEl) emailEl.value = user.email;
+                
+                const phoneEl = document.getElementById('profile-phone');
+                if (phoneEl) phoneEl.value = user.phone || '';
+                
+                const companyEl = document.getElementById('profile-company');
+                if (companyEl) companyEl.value = lead.company || '';
+                
+            } else {
+                console.error("Failed to load profile:", data.message);
+                if (res.status === 401) {
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchUserProfile);
 </script>
 
 </body>

@@ -163,6 +163,7 @@ async function fetchLeads() {
         const json = await res.json();
         
         if (json.success) {
+            window.currentLeadsData = json.data;
             renderLeadsTable(json.data);
             document.querySelector('.pagination-info').innerText = `Showing 1–${json.data.length} of ${json.total} Leads`;
         }
@@ -840,3 +841,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+window.addCommunication = async () => {
+    const id = document.getElementById('viewLeadId').value;
+    const type = document.getElementById('commType').value;
+    const notes = document.getElementById('commNotes').value;
+    
+    if (!notes.trim()) {
+        alert('Please enter some notes for the communication.');
+        return;
+    }
+    
+    try {
+        const res = await fetch(`${API_URL}/leads/${id}/followup`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            body: JSON.stringify({ type, notes })
+        });
+        const json = await res.json();
+        
+        if (json.success) {
+            document.getElementById('commNotes').value = '';
+            viewLead(id); // Refresh the view
+        } else {
+            alert('Failed to add communication: ' + (json.message || ''));
+        }
+    } catch (error) {
+        console.error('Error adding communication:', error);
+        alert('Error saving communication');
+    }
+};
+
+window.sendBulkEmail = () => {
+    const ids = getSelectedLeadIds();
+    if (ids.length === 0) return alert('Please select at least one lead to email.');
+    
+    if (!window.currentLeadsData) return alert('Data not loaded. Please refresh the page.');
+    
+    const selectedLeads = window.currentLeadsData.filter(l => ids.includes(l.id));
+    const emails = selectedLeads.map(l => l.email).filter(e => e && e.trim() !== '' && e !== '-');
+    
+    if (emails.length === 0) {
+        return alert('No valid email addresses found in the selected leads.');
+    }
+    
+    // Create mailto link with bcc to hide emails from each other
+    const mailtoLink = `mailto:?bcc=${emails.join(',')}`;
+    window.location.href = mailtoLink;
+};

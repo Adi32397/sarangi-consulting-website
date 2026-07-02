@@ -223,3 +223,36 @@ body { background-color: var(--bg-light); }
     .bookings-table td::before { content: attr(data-label); font-weight: 700; font-size: 12px; text-transform: uppercase; color: #94a3b8; text-align: left; flex-basis: 40%; }
     .bookings-table td:first-child { display: none; }
 }
+
+/* Print Styles for Booking Details Modal */
+@media print {
+    body.print-modal-only * {
+        visibility: hidden;
+    }
+    body.print-modal-only #viewBookingModal, 
+    body.print-modal-only #viewBookingModal * {
+        visibility: visible;
+    }
+    body.print-modal-only #viewBookingModal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background: white;
+    }
+    body.print-modal-only .modal-content {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+    /* Hide non-printable areas */
+    body.print-modal-only .modal-header .d-flex, 
+    body.print-modal-only .quick-actions-box, 
+    body.print-modal-only .modal-footer {
+        display: none !important;
+    }
+}

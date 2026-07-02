@@ -225,7 +225,7 @@ exports.addFollowup = async (req, res, next) => {
         const comms = [...(lead.communicationHistory || [])];
         comms.push({
             type: req.body.type,
-            summary: req.body.summary,
+            notes: req.body.notes, // changed summary to notes
             date: req.body.date || new Date(),
             addedBy: req.user.id
         });
