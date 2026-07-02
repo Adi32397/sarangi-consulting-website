@@ -42,9 +42,10 @@
                 <p style="color: #64748b; margin-top: 5px;">Manage all customer inquiries, track lead progress, assign consultants, and monitor follow-ups.</p>
             </div>
             <div class="header-actions">
-                <button class="btn btn-secondary" onclick="alert('Import CSV')"><i class="fas fa-file-import"></i> Import CSV</button>
-                <button class="btn btn-secondary" onclick="alert('Export PDF')"><i class="fas fa-file-pdf"></i> Export PDF</button>
-                <button class="btn btn-secondary" onclick="alert('Export Excel')"><i class="fas fa-file-excel"></i> Export Excel</button>
+                <input type="file" id="csvFileInput" accept=".csv" style="display: none;" onchange="handleImportCSV(event)">
+                <button class="btn btn-secondary" onclick="document.getElementById('csvFileInput').click()"><i class="fas fa-file-import"></i> Import CSV</button>
+                <button class="btn btn-secondary" onclick="exportLeads('pdf')"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                <button class="btn btn-secondary" onclick="exportLeads('excel')"><i class="fas fa-file-excel"></i> Export Excel</button>
                 <button class="btn btn-primary" onclick="openModal('addLeadModal')"><i class="fas fa-plus"></i> Add Lead</button>
             </div>
         </header>

@@ -989,7 +989,7 @@ window.exportLeads = async function(format) {
     const ids = Array.from(checkboxes).map(cb => cb.value);
     
     try {
-        const response = await fetch(`${API_URL}/export/leads/${format}`, {
+        const response = await fetch(`${API_URL}/exports/leads/${format}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

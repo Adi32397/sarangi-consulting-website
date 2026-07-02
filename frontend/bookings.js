@@ -27,6 +27,7 @@ async function fetchBookings() {
         const consultant = document.getElementById('consultantFilter')?.value;
         const payment = document.getElementById('paymentFilter')?.value;
         const mode = document.getElementById('modeFilter')?.value;
+        const date = document.getElementById('dateFilter')?.value;
 
         if (search && search.trim() !== '') queryParams.append('search', search.trim());
         if (status && status !== '' && status !== 'All') queryParams.append('status', status);
@@ -34,6 +35,7 @@ async function fetchBookings() {
         if (consultant && consultant !== '' && consultant !== 'All') queryParams.append('consultant', consultant);
         if (payment && payment !== '' && payment !== 'All') queryParams.append('payment', payment);
         if (mode && mode !== '' && mode !== 'All') queryParams.append('mode', mode);
+        if (date && date !== '' && date !== 'All Time') queryParams.append('dateRange', date);
 
         const url = `${API_URL}?${queryParams.toString()}`;
 
@@ -525,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Setup Filters
-    const filterIds = ['searchInput', 'statusFilter', 'typeFilter', 'consultantFilter', 'paymentFilter', 'modeFilter'];
+    const filterIds = ['searchInput', 'statusFilter', 'typeFilter', 'consultantFilter', 'paymentFilter', 'modeFilter', 'dateFilter'];
     filterIds.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -540,6 +542,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+    if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', () => {
+            filterIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = (id === 'searchInput') ? '' : (el.options ? el.options[0].value : '');
+                }
+            });
+            fetchBookings();
+        });
+    }
+
+    const applyFiltersBtn = document.getElementById('applyFiltersBtn');
+    if (applyFiltersBtn) {
+        applyFiltersBtn.addEventListener('click', () => {
+            fetchBookings();
+        });
+    }
 
     // Load initial data
     fetchBookings();

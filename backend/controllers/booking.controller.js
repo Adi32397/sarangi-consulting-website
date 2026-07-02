@@ -52,6 +52,33 @@ exports.getBookings = async (req, res, next) => {
         if (req.query.consultant) where.consultant = req.query.consultant;
         if (req.query.mode) where.meeting_mode = req.query.mode;
 
+        if (req.query.dateRange && req.query.dateRange !== 'All Time') {
+            const today = new Date();
+            const formatDate = (date) => date.toISOString().split('T')[0];
+            
+            if (req.query.dateRange === 'Today') {
+                where.booking_date = formatDate(today);
+            } else if (req.query.dateRange === 'Tomorrow') {
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                where.booking_date = formatDate(tomorrow);
+            } else if (req.query.dateRange === 'This Week') {
+                const startOfWeek = new Date(today);
+                startOfWeek.setDate(today.getDate() - today.getDay());
+                const endOfWeek = new Date(startOfWeek);
+                endOfWeek.setDate(endOfWeek.getDate() + 6);
+                where.booking_date = {
+                    [Op.between]: [formatDate(startOfWeek), formatDate(endOfWeek)]
+                };
+            } else if (req.query.dateRange === 'This Month') {
+                const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                where.booking_date = {
+                    [Op.between]: [formatDate(startOfMonth), formatDate(endOfMonth)]
+                };
+            }
+        }
+
         const { count, rows } = await BookingModel.findAndCountAll({
             where,
             order,
