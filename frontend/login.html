@@ -40,9 +40,10 @@
                         <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: #333;">Email Address</label>
                         <input type="email" id="email" required style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px;" placeholder="Email" autocomplete="off">
                     </div>
-                    <div style="margin-bottom: 25px;">
+                    <div style="margin-bottom: 25px; position: relative;">
                         <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: #333;">Password</label>
-                        <input type="password" id="password" required style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px;" placeholder="Password" autocomplete="new-password">
+                        <input type="password" id="password" required style="width: 100%; padding: 12px 15px; padding-right: 40px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px;" placeholder="Password" autocomplete="new-password">
+                        <span id="togglePassword" style="position: absolute; right: 15px; top: 38px; cursor: pointer; user-select: none;">👁️</span>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-weight: 600; border-radius: 6px;">Sign In</button>
                 </form>
@@ -133,6 +134,15 @@
                 });
             }
         });
+        // Show Password Toggle
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#password');
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+            });
+        }
     </script>
 
 </body>

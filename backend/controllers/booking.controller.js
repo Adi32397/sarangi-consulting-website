@@ -241,12 +241,11 @@ exports.getAnalytics = async (req, res, next) => {
                 [sequelize.fn('YEAR', sequelize.col('createdAt')), 'year'],
                 [sequelize.fn('SUM', sequelize.col('amount')), 'total']
             ],
-            where: { payment_status: 'Paid' },
             group: ['year', 'month'],
             order: [['year', 'ASC'], ['month', 'ASC']]
         }).then(res => res.map(r => ({
             _id: { month: r.get('month'), year: r.get('year') },
-            total: r.get('total')
+            total: parseFloat(r.get('total')) || 0
         })));
 
         res.status(200).json({

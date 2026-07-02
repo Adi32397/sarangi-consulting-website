@@ -111,7 +111,7 @@ exports.getDashboardStats = async (req, res, next) => {
             const months = Array(12).fill(0);
             rawArray.forEach(row => {
                 if (row.month) {
-                    months[row.month - 1] = row[valueKey];
+                    months[row.month - 1] = parseFloat(row[valueKey]) || 0;
                 }
             });
             // We can return all 12 months or just up to current month.
@@ -126,7 +126,7 @@ exports.getDashboardStats = async (req, res, next) => {
         const formatCategoricalData = (rawArray, labelKey, valueKey) => {
             return {
                 labels: rawArray.map(r => r[labelKey] || 'Unknown'),
-                data: rawArray.map(r => r[valueKey] || 0)
+                data: rawArray.map(r => parseFloat(r[valueKey]) || 0)
             };
         };
 
