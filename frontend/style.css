@@ -2712,6 +2712,7 @@ textarea.form-control {
     background: linear-gradient(135deg, #F9D423 0%, #FF4E50 100%);
     background: linear-gradient(135deg, #D4AF37 0%, #FFF3A1 50%, #D4AF37 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
 }
