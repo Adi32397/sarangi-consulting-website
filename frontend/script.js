@@ -334,16 +334,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const bannerHtml = `
                         <div id="dynamic-banner-popup" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(4px);">
-                            <div style="background: white; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%; text-align: center; position: relative; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); animation: popupIn 0.3s ease-out forwards;">
-                                <button onclick="document.getElementById('dynamic-banner-popup').remove()" style="position: absolute; right: 16px; top: 16px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; display: flex; justify-content: center; align-items: center; transition: 0.2s;">&times;</button>
+                            <div id="dynamic-banner-content" style="background: white; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%; text-align: center; position: relative; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); animation: popupIn 0.3s ease-out forwards; cursor: pointer;">
+                                <button id="dynamic-banner-close" onclick="document.getElementById('dynamic-banner-popup').remove()" style="position: absolute; right: 16px; top: 16px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; display: flex; justify-content: center; align-items: center; transition: 0.2s; z-index: 2;">&times;</button>
                                 
-                                ${banner.image && !banner.image.includes('via.placeholder.com') ? `<img src="${bannerImgSrc}" style="width: 100%; max-height: 200px; border-radius: 8px; object-fit: cover; margin-bottom: 20px;">` : ''}
+                                ${banner.image && !banner.image.includes('via.placeholder.com') ? `<img src="${bannerImgSrc}" style="width: 100%; max-height: 200px; border-radius: 8px; object-fit: cover; margin-bottom: 20px; pointer-events: none;">` : ''}
                                 
-                                <h3 style="margin: 0 0 12px 0; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #1e293b;">${banner.title}</h3>
-                                ${banner.subtitle ? `<p style="margin: 0 0 20px 0; font-size: 15px; color: #64748b; line-height: 1.5;">${banner.subtitle}</p>` : ''}
+                                <h3 style="margin: 0 0 12px 0; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #1e293b; pointer-events: none;">${banner.title}</h3>
+                                ${banner.subtitle ? `<p style="margin: 0 0 20px 0; font-size: 15px; color: #64748b; line-height: 1.5; pointer-events: none;">${banner.subtitle}</p>` : ''}
                                 
                                 ${banner.button_text && banner.button_url ? `
-                                <a href="${banner.button_url}" class="btn btn-primary" style="display: inline-block; width: 100%; text-decoration: none;">${banner.button_text}</a>
+                                <a href="${banner.button_url}" id="dynamic-banner-btn" class="btn btn-primary" style="display: inline-block; width: 100%; text-decoration: none; position: relative; z-index: 2;">${banner.button_text}</a>
                                 ` : ''}
                             </div>
                         </div>
@@ -357,6 +357,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Insert dynamic banner popup into the body
                     document.body.insertAdjacentHTML('beforeend', bannerHtml);
+                    
+                    // Track View
+                    fetch(`http://localhost:5000/api/banners/${banner.id}/view`, { method: 'PUT' }).catch(console.error);
+                    
+                    // Track Click on entire content
+                    const bannerContent = document.getElementById('dynamic-banner-content');
+                    if (bannerContent) {
+                        bannerContent.addEventListener('click', (e) => {
+                            // Don't track if they clicked the close button
+                            if (e.target.closest('#dynamic-banner-close')) return;
+                            
+                            // Prevent tracking twice if they click the button explicitly
+                            if (e.target.closest('#dynamic-banner-btn')) {
+                                e.preventDefault();
+                            }
+                            
+                            fetch(`http://localhost:5000/api/banners/${banner.id}/click`, { method: 'PUT' })
+                                .catch(console.error)
+                                .finally(() => {
+                                    if (banner.button_url) {
+                                        window.location.href = banner.button_url;
+                                    }
+                                });
+                        });
+                    }
                 }
             }
         } catch (err) {

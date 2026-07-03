@@ -336,6 +336,19 @@ const initCharts = (chartsData) => {
         plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
     };
 
+    const axisOptions = {
+        ...chartOptions,
+        scales: {
+            y: {
+                beginAtZero: true,
+                min: 0,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        }
+    };
+
     // 1. Monthly Views (Line)
     const ctxViews = document.getElementById('viewsChart');
     if (ctxViews) {
@@ -352,13 +365,17 @@ const initCharts = (chartsData) => {
                     tension: 0.4, fill: true, borderWidth: 3
                 }]
             },
-            options: chartOptions
+            options: axisOptions
         });
     }
 
     // 2. Clicks (Bar)
     const ctxClicks = document.getElementById('clicksChart');
     if (ctxClicks) {
+        const gradientClicks = ctxClicks.getContext('2d').createLinearGradient(0, 0, 0, 400);
+        gradientClicks.addColorStop(0, '#3b82f6');
+        gradientClicks.addColorStop(1, '#1d4ed8');
+        
         if(clicksChartInst) clicksChartInst.destroy();
         clicksChartInst = new Chart(ctxClicks, {
             type: 'bar',
@@ -367,11 +384,12 @@ const initCharts = (chartsData) => {
                 datasets: [{
                     label: 'Clicks',
                     data: chartsData.clicksChartData.data,
-                    backgroundColor: '#1d4ed8',
-                    borderRadius: 6
+                    backgroundColor: gradientClicks,
+                    borderRadius: 6,
+                    maxBarThickness: 50
                 }]
             },
-            options: chartOptions
+            options: axisOptions
         });
     }
 

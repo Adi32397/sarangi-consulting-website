@@ -251,3 +251,33 @@ exports.getBannerStats = async (req, res, next) => {
         next(error);
     }
 };
+
+// @desc    Increment Banner View
+// @route   PUT /api/banners/:id/view
+exports.incrementView = async (req, res, next) => {
+    try {
+        const BannerModel = Banner();
+        const banner = await BannerModel.findByPk(req.params.id);
+        if (!banner) return res.status(404).json({ success: false, message: 'Banner not found' });
+        
+        await banner.increment('views');
+        res.status(200).json({ success: true, message: 'View incremented' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// @desc    Increment Banner Click
+// @route   PUT /api/banners/:id/click
+exports.incrementClick = async (req, res, next) => {
+    try {
+        const BannerModel = Banner();
+        const banner = await BannerModel.findByPk(req.params.id);
+        if (!banner) return res.status(404).json({ success: false, message: 'Banner not found' });
+        
+        await banner.increment('clicks');
+        res.status(200).json({ success: true, message: 'Click incremented' });
+    } catch (error) {
+        next(error);
+    }
+};
