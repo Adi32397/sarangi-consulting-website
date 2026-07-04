@@ -683,7 +683,7 @@
                                 <span style="font-size: 12px; color: #64748b;">${b.booking_time}</span>
                             </td>
                             <td>${b.consultation_type || 'Consultation'}</td>
-                            <td>${b.consultant || 'TBD'}</td>
+                            <td>${(b.consultant === 'Admin' || !b.consultant) ? 'Unassigned' : b.consultant}</td>
                             <td>${meetBtn}</td>
                         </tr>
                         `;
