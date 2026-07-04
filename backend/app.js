@@ -60,7 +60,7 @@ app.use('/api/dashboard', require('./routes/dashboard.routes'));
 app.use('/api/notifications', require('./routes/notification.routes'));
 app.use('/api/activity-logs', require('./routes/activity-log.routes'));
 app.use('/api/exports', require('./routes/export.routes'));
-
+app.use('/api/chatbot', require('./routes/chatbot.routes'));
 // Error handler middleware
 app.use(errorHandler);
 
