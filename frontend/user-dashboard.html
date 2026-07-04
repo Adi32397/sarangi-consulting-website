@@ -75,6 +75,202 @@
         .resource-info p { font-size: 13px; color: #64748b; margin: 0; max-width: 400px; line-height: 1.4; }
         .download-btn { color: var(--primary-green); background: rgba(34,197,94,0.1); padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-block; transition: 0.2s; }
         .download-btn:hover { background: var(--primary-green); color: white; }
+
+        /* Startup Advisory Pricing Grid Styles */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: 32px;
+            column-gap: 32px;
+            align-items: stretch;
+            margin: 0 auto; 
+            max-width: 1000px;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: left;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-green);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-green);
+            border-width: 2px;
+            box-shadow: 0 15px 35px rgba(20, 83, 45, 0.1);
+            transform: scale(1.02);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.02) translateY(-10px);
+        }
+
+        .badge-pulse {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: #16a34a;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.4);
+            animation: pulse-shadow 2s infinite;
+        }
+
+        @keyframes pulse-shadow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .pricing-card h3 {
+            font-size: 22px;
+            color: var(--exec-black);
+            margin-bottom: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .pricing-card .desc {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 24px;
+            min-height: 48px;
+            line-height: 1.5;
+        }
+
+        .price-box {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .price-strike {
+            font-size: 20px;
+            color: #9CA3AF;
+            text-decoration: line-through;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .price-active {
+            font-size: 28px;
+            color: var(--exec-black);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1;
+            margin-top: 4px;
+            white-space: nowrap;
+        }
+
+        .featured .price-active {
+            color: var(--primary-green);
+        }
+
+        .countdown-wrapper {
+            background: rgba(20, 83, 45, 0.05);
+            border: 1px solid rgba(20, 83, 45, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-green);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .time-box small {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            color: #64748b;
+            margin-top: 4px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px 0;
+            flex-grow: 1;
+        }
+
+        .pricing-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .pricing-list i {
+            color: var(--primary-green);
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .btn-outline-green {
+            background-color: transparent;
+            border: 1.5px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-outline-green:hover {
+            background-color: var(--primary-green);
+            color: white;
+            box-shadow: 0 8px 20px rgba(20, 83, 45, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            .pricing-card.featured:hover {
+                transform: translateY(-10px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -103,25 +299,25 @@
                 <h1 style="font-family: 'Montserrat'; font-size: 24px; font-weight: 700;">Client Portal</h1>
             </div>
             <div>
-                <a href="startup-advisory.html" class="btn btn-primary" style="padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; background: var(--primary-green); color: white; text-decoration: none;"><i class="fas fa-plus"></i> Book New Session</a>
+                <button onclick="openPlansModal()" class="btn btn-primary" style="padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; background: var(--primary-green); color: white; text-decoration: none; border: none; cursor: pointer;"><i class="fas fa-plus"></i> Book New Session</button>
             </div>
         </header>
 
         <!-- TAB 1: OVERVIEW -->
         <div id="overview" class="tab-content active">
             <div class="welcome-card">
-                <h2 id="welcome-message" style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 10px;">Welcome back, User!</h2>
+                <h2 id="welcome-message" style="font-family: 'Montserrat'; font-size: 22px; margin-bottom: 10px; color: white;">Welcome back, User!</h2>
                 <p style="color: #cbd5e1; max-width: 600px; font-size: 14px; line-height: 1.6;">Access your advisory sessions, track your business transformation journey, and view tailored insights all in one place.</p>
             </div>
 
             <div class="stat-cards">
                 <div class="stat-card">
                     <div class="stat-title">Current Plan</div>
-                    <div class="stat-value highlight">Growth Advisory</div>
+                    <div class="stat-value highlight" id="overview-plan">Growth Advisory</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title">Next Meeting</div>
-                    <div class="stat-value">Oct 24, 10:00 AM</div>
+                    <div class="stat-value" id="next-meeting-date">Loading...</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title">Available Sessions</div>
@@ -190,15 +386,20 @@
                     <div class="section-card">
                         <h3 class="section-title">Current Plan Details</h3>
                         <div style="background: var(--exec-black); padding: 20px; border-radius: 8px; color: white; margin-bottom: 20px;">
-                            <h4 style="font-size: 18px; margin-bottom: 5px; color: var(--primary-green);">Startup Growth Advisory</h4>
-                            <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 15px;">Active Since: Aug 2026</p>
+                            <h4 id="profile-plan-name" style="font-size: 18px; margin-bottom: 5px; color: white;">Startup Growth Advisory</h4>
+                            <p id="activeSinceText" style="font-size: 13px; color: #cbd5e1; margin-bottom: 15px;"></p>
+                            <script>
+                                const activeNow = new Date();
+                                const activeMonth = activeNow.toLocaleString('default', { month: 'short' });
+                                document.getElementById('activeSinceText').textContent = `Active Since: ${activeMonth} ${activeNow.getFullYear()}`;
+                            </script>
                             <div style="display: flex; gap: 10px;">
                                 <span class="badge badge-success">Active</span>
                                 <span class="badge" style="background: rgba(255,255,255,0.1); color: white;">2 Sessions Remaining</span>
                             </div>
                         </div>
                         <p style="font-size: 13px; color: #64748b; line-height: 1.5;">Your current plan includes monthly 1-on-1 strategy sessions, financial projection analysis, and priority email support. Need more hours?</p>
-                        <button class="btn btn-outline" style="margin-top: 10px; padding: 8px 15px; border-radius: 6px; font-size: 13px; border: 1px solid var(--primary-green); color: var(--primary-green); background: white; cursor: pointer;">Upgrade Plan</button>
+                        <button onclick="openPlansModal()" class="btn btn-outline" style="margin-top: 10px; padding: 8px 15px; border-radius: 6px; font-size: 13px; border: 1px solid var(--primary-green); color: var(--primary-green); background: white; cursor: pointer;">Upgrade Plan</button>
                     </div>
 
                     <!-- Change Password -->
@@ -235,15 +436,9 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="upcoming-sessions-tbody">
                         <tr>
-                            <td>
-                                <strong>Oct 24, 2026</strong><br>
-                                <span style="font-size: 12px; color: #64748b;">10:00 AM - 11:00 AM IST</span>
-                            </td>
-                            <td>Q4 Financial Projections Review</td>
-                            <td>Arun Kumar</td>
-                            <td><a href="#" class="btn btn-primary" style="padding: 6px 12px; border-radius: 6px; font-size: 12px; background: var(--primary-green); color: white; text-decoration: none;">Join Google Meet</a></td>
+                            <td colspan="4" style="text-align: center; color: #64748b;">Loading sessions...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -262,18 +457,9 @@
                             <th>Notes</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="past-sessions-tbody">
                         <tr>
-                            <td>Sep 15, 2026</td>
-                            <td>Initial Discovery & Growth Strategy</td>
-                            <td><span class="badge badge-success">Completed</span></td>
-                            <td><a href="#" style="color: var(--primary-green); font-size: 13px; font-weight: 500; text-decoration: none;"><i class="fas fa-file-alt"></i> View Summary</a></td>
-                        </tr>
-                        <tr>
-                            <td>Aug 20, 2026</td>
-                            <td>Market Positioning Workshop</td>
-                            <td><span class="badge badge-success">Completed</span></td>
-                            <td><a href="#" style="color: var(--primary-green); font-size: 13px; font-weight: 500; text-decoration: none;"><i class="fas fa-file-alt"></i> View Summary</a></td>
+                            <td colspan="4" style="text-align: center; color: #64748b;">Loading sessions...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -418,6 +604,17 @@
                 const companyEl = document.getElementById('profile-company');
                 if (companyEl) companyEl.value = lead.company || '';
                 
+                if (lead.serviceInterested) {
+                    const overviewPlan = document.getElementById('overview-plan');
+                    if (overviewPlan) overviewPlan.textContent = lead.serviceInterested;
+
+                    const profilePlanName = document.getElementById('profile-plan-name');
+                    if (profilePlanName) profilePlanName.textContent = lead.serviceInterested;
+                }
+                
+                // Fetch User Bookings
+                fetchUserBookings(user.email, token);
+                
             } else {
                 console.error("Failed to load profile:", data.message);
                 if (res.status === 401) {
@@ -431,7 +628,580 @@
     }
 
     document.addEventListener('DOMContentLoaded', fetchUserProfile);
+
+    // Fetch User Bookings
+    async function fetchUserBookings(email, token) {
+        try {
+            const API_BASE = 'http://localhost:5000';
+            const res = await fetch(`${API_BASE}/api/bookings?search=${encodeURIComponent(email)}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await res.json();
+
+            const upcomingTbody = document.getElementById('upcoming-sessions-tbody');
+            const pastTbody = document.getElementById('past-sessions-tbody');
+
+            if (res.ok && data.success) {
+                const bookings = data.data;
+                const now = new Date();
+
+                const upcoming = bookings.filter(b => b.booking_status === 'Upcoming' || b.booking_status === 'Pending' || b.booking_status === 'Confirmed' || new Date(b.booking_date) >= now);
+                const past = bookings.filter(b => b.booking_status === 'Completed' || b.booking_status === 'Cancelled' || (new Date(b.booking_date) < now && b.booking_status !== 'Upcoming' && b.booking_status !== 'Pending' && b.booking_status !== 'Confirmed'));
+
+                // Update Next Meeting Stat
+                const nextMeetingEl = document.getElementById('next-meeting-date');
+                if (nextMeetingEl) {
+                    if (upcoming.length > 0) {
+                        const sortedUpcoming = [...upcoming].sort((a, b) => new Date(a.booking_date) - new Date(b.booking_date));
+                        const next = sortedUpcoming[0];
+                        const dateObj = new Date(next.booking_date);
+                        const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                        nextMeetingEl.textContent = `${dateStr}, ${next.booking_time}`;
+                    } else {
+                        nextMeetingEl.textContent = 'None Scheduled';
+                    }
+                }
+
+                // Render Upcoming
+                if (upcoming.length === 0) {
+                    upcomingTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #64748b;">No upcoming sessions found.</td></tr>`;
+                } else {
+                    upcomingTbody.innerHTML = upcoming.map(b => {
+                        const dateObj = new Date(b.booking_date);
+                        const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                        const meetLink = b.meeting_link ? b.meeting_link : '#';
+                        const meetBtn = b.meeting_link 
+                            ? `<a href="${meetLink}" target="_blank" class="btn btn-primary" style="padding: 6px 12px; border-radius: 6px; font-size: 12px; background: var(--primary-green); color: white; text-decoration: none;">Join Google Meet</a>`
+                            : `<span style="font-size: 12px; color: #64748b;">Link pending</span>`;
+
+                        return `
+                        <tr>
+                            <td>
+                                <strong>${dateStr}</strong><br>
+                                <span style="font-size: 12px; color: #64748b;">${b.booking_time}</span>
+                            </td>
+                            <td>${b.consultation_type || 'Consultation'}</td>
+                            <td>${b.consultant || 'TBD'}</td>
+                            <td>${meetBtn}</td>
+                        </tr>
+                        `;
+                    }).join('');
+                }
+
+                // Render Past
+                if (past.length === 0) {
+                    pastTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #64748b;">No past sessions found.</td></tr>`;
+                } else {
+                    pastTbody.innerHTML = past.map(b => {
+                        const dateObj = new Date(b.booking_date);
+                        const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                        const statusClass = b.booking_status === 'Cancelled' ? 'badge-pending' : 'badge-success';
+                        
+                        return `
+                        <tr>
+                            <td>${dateStr}</td>
+                            <td>${b.consultation_type || 'Consultation'}</td>
+                            <td><span class="badge ${statusClass}">${b.booking_status}</span></td>
+                            <td><a href="#" onclick="alert('Summary is being prepared and will be sent via email.'); return false;" style="color: var(--primary-green); font-size: 13px; font-weight: 500; text-decoration: none;"><i class="fas fa-file-alt"></i> View Summary</a></td>
+                        </tr>
+                        `;
+                    }).join('');
+                }
+            } else {
+                upcomingTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #ef4444;">Failed to load sessions.</td></tr>`;
+                pastTbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #ef4444;">Failed to load sessions.</td></tr>`;
+            }
+        } catch (error) {
+            console.error("Error fetching bookings:", error);
+        }
+    }
 </script>
 
+
+<!-- PLANS MODAL -->
+<div id="plansModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: flex-start; backdrop-filter: blur(5px); overflow-y: auto;">
+    <div class="modal-content" style="background: transparent; border-radius: 12px; width: 95%; max-width: 1100px; padding: 20px 0; position: relative; margin: 40px auto;">
+        
+        <div style="background: white; border-radius: 12px; padding: 40px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+            <button onclick="closePlansModal()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 28px; color: #94a3b8; cursor: pointer; transition: 0.2s; z-index: 10;">&times;</button>
+            
+            <div class="text-center" style="margin-bottom: 2rem; text-align: center;">
+                <h2 style="font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 700; color: var(--exec-black); margin-bottom: 1rem;">
+                    Startup Growth & Registration Packages</h2>
+                <p style="color: #64748b; font-size: 16px;">Choose the advisory or registration service that fits your current business stage.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Card 1: Startup Advisory (Featured) -->
+                <div class="pricing-card featured">
+                    <div class="badge-pulse">50% Off - Only 5 Slots/Day!</div>
+                    <h3>One-on-One Advisory</h3>
+                    <p class="desc">60-minute Google Meet session with Industry Expert Business Consultant to solve growth challenges and build a roadmap.</p>
+                    <div class="price-box">
+                        <div class="price-strike" style="text-decoration: line-through red;">₹1,999</div>
+                        <div class="price-active">₹999</div>
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pricing-list">
+                        <li><i class="fas fa-check-circle"></i> Business & Strategy Review</li>
+                        <li><i class="fas fa-check-circle"></i> Market Positioning Advice</li>
+                        <li><i class="fas fa-check-circle"></i> Custom Growth Roadmap</li>
+                        <li><i class="fas fa-check-circle"></i> Founder Q&A</li>
+                    </ul>
+                    <a href="#" onclick="openContactModal(); return false;" class="btn btn-primary" style="width: 100%; text-align: center; padding: 12px; border-radius: 8px; background: var(--primary-green); color: white; border: none; font-weight: 600; text-decoration: none; display: block; box-sizing: border-box;">Register My Advisory Session</a>
+                </div>
+
+                <!-- Card 2: IP Registration -->
+                <div class="pricing-card">
+                    <h3>IP Registration</h3>
+                    <p class="desc">Safeguard and protect your intellectual property with comprehensive registration of trademarks, copyrights and patents.</p>
+                    <div class="price-box">
+                        <div class="price-strike" style="text-decoration: line-through red;">₹19,999</div>
+                        <div class="price-active">Starts from ₹9,999</div>
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pricing-list">
+                        <li><i class="fas fa-check-circle"></i> Strategic IP Planning</li>
+                        <li><i class="fas fa-check-circle"></i> Trademark Search & Registration</li>
+                        <li><i class="fas fa-check-circle"></i> Copyright Registration Filing</li>
+                        <li><i class="fas fa-check-circle"></i> Patent Draft & Filing Support</li>
+                        <li><i class="fas fa-check-circle"></i> Govt. Documentation handling</li>
+                    </ul>
+                    <a href="#" onclick="openContactModal(); return false;" class="btn btn-outline-green" style="width: 100%; display: block; box-sizing: border-box;">Schedule a Discovery Call</a>
+                </div>
+
+                <!-- Card 3: Firm Registration -->
+                <div class="pricing-card">
+                    <h3>Firm Registration</h3>
+                    <p class="desc">End-to-end incorporation services for Private Limited, LLP, and Partnership entities with scalable legal and regulatory compliance.</p>
+                    <div class="price-box">
+                        <div class="price-strike" style="text-decoration: line-through red;">₹49,999</div>
+                        <div class="price-active">Starts from ₹29,999</div>
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pricing-list">
+                        <li><i class="fas fa-check-circle"></i> Entity Structuring Advisory</li>
+                        <li><i class="fas fa-check-circle"></i> Pvt Ltd, LLP & Firm Registration</li>
+                        <li><i class="fas fa-check-circle"></i> MOA, AOA & Deed Drafting</li>
+                        <li><i class="fas fa-check-circle"></i> Core Compliance (GST, PAN, TAN)</li>
+                    </ul>
+                    <a href="#" onclick="openContactModal(); return false;" class="btn btn-outline-green" style="width: 100%; display: block; box-sizing: border-box;">Schedule a Discovery Call</a>
+                </div>
+
+                <!-- Card 4: Licenses & Certifications -->
+                <div class="pricing-card">
+                    <h3>Licenses & Certifications</h3>
+                    <p class="desc">Essential operational licenses and compliance certifications to ensure your business is legally cleared to scale.</p>
+                    <div class="price-box">
+                        <div class="price-strike" style="text-decoration: line-through red;">₹5,999</div>
+                        <div class="price-active" style="font-size: 28px; white-space: nowrap;">Starts from ₹2,999</div>
+                        
+                        <div style="font-size: 13px; color: var(--exec-black); margin-top: 10px; margin-bottom: 16px; font-weight: 600;">
+                            <i class="fas fa-tag" style="color: var(--primary-green); margin-right: 6px;"></i>Register now to get the best discounted price
+                        </div>
+
+                        <!-- Countdown Timer -->
+                        <div class="countdown-wrapper">
+                            <span style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer expires in:</span>
+                            <div class="timer-display">
+                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pricing-list">
+                        <li><i class="fas fa-check-circle"></i> Startup India (DPIIT) Recognition</li>
+                        <li><i class="fas fa-check-circle"></i> MSME (Udyam) Registration</li>
+                        <li><i class="fas fa-check-circle"></i> FSSAI, ISO & Trade Licenses</li>
+                        <li><i class="fas fa-check-circle"></i> Industry-Specific Compliance</li>
+                    </ul>
+                    <a href="#" onclick="openContactModal(); return false;" class="btn btn-outline-green" style="width: 100%; display: block; box-sizing: border-box;">Schedule a Discovery Call</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1001; justify-content: center; align-items: flex-start; backdrop-filter: blur(5px); overflow-y: auto;">
+    <div class="modal-content" style="background: white; border-radius: 12px; width: 95%; max-width: 800px; padding: 40px; position: relative; margin: 40px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+        <button onclick="closeContactModal()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 28px; color: #94a3b8; cursor: pointer; transition: 0.2s; z-index: 10;">&times;</button>
+        <div class="contact-form-panel">
+            <form id="mainContactForm" class="glass-form" novalidate style="margin-top: 0;">
+                <h3 class="form-title" style="margin-bottom: 25px;">Send us a message</h3>
+                
+                <!-- Personal Info -->
+                <div class="form-row">
+                    <div class="form-group floating-group">
+                        <input type="text" id="contactName" class="form-control" required>
+                        <label for="contactName">Full Name *</label>
+                    </div>
+                    <div class="form-group floating-group">
+                        <input type="text" id="contactCompany" class="form-control">
+                        <label for="contactCompany">Company Name</label>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group floating-group">
+                        <input type="text" id="contactTitle" class="form-control">
+                        <label for="contactTitle">Designation / Job Title</label>
+                    </div>
+                    <div class="form-group floating-group">
+                        <input type="email" id="contactEmail" class="form-control" required>
+                        <label for="contactEmail">Email Address *</label>
+                    </div>
+                </div>
+                
+                <div class="form-group floating-group">
+                    <input type="tel" id="contactPhone" class="form-control" required>
+                    <label for="contactPhone">Phone Number *</label>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- Service Requirements -->
+                <div class="form-row">
+                    <div class="form-group custom-select-wrapper">
+                        <select id="contactService" class="form-control custom-select" required>
+                            <option value="" disabled selected>Service Interested In *</option>
+                            <option value="AI & Automation">AI & Automation</option>
+                            <option value="Business Consulting">Business Consulting</option>
+                            <option value="Business Registration">Business Registration</option>
+                            <option value="Change Management">Change Management</option>
+                            <option value="Cloud Solutions">Cloud Solutions</option>
+                            <option value="Compliance">Compliance</option>
+                            <option value="Customer Experience Consulting">Customer Experience Consulting</option>
+                            <option value="Data Analytics">Data Analytics</option>
+                            <option value="Digital Transformation">Digital Transformation</option>
+                            <option value="ESG & Sustainability">ESG & Sustainability</option>
+                            <option value="Essential Startup Documents">Essential Startup Documents</option>
+                            <option value="Financial Advisory">Financial Advisory</option>
+                            <option value="Funding Support">Funding Support</option>
+                            <option value="GST">GST</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="IT Consulting">IT Consulting</option>
+                            <option value="Legal Consultation">Legal Consultation</option>
+                            <option value="License and Certificate">License and Certificate</option>
+                            <option value="Marketing & Growth Consulting">Marketing & Growth Consulting</option>
+                            <option value="MSME Registration">MSME Registration</option>
+                            <option value="Operations Consulting">Operations Consulting</option>
+                            <option value="Organization & Leadership">Organization & Leadership</option>
+                            <option value="Policy Making">Policy Making</option>
+                            <option value="Software Development">Software Development</option>
+                            <option value="Startup Advisory">Startup Advisory</option>
+                            <option value="Strategy & Growth Consulting">Strategy & Growth Consulting</option>
+                            <option value="Tax Consultation">Tax Consultation</option>
+                            <option value="Trademark">Trademark</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group custom-select-wrapper">
+                        <select id="contactProjectType" class="form-control custom-select" required>
+                            <option value="" disabled selected>Project Type *</option>
+                            <option value="New Project">New Project</option>
+                            <option value="Existing Project Enhancement">Existing Project Enhancement</option>
+                            <option value="Consultation Only">Consultation Only</option>
+                            <option value="Partnership Inquiry">Partnership Inquiry</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group custom-select-wrapper">
+                        <select id="contactBudget" class="form-control custom-select">
+                            <option value="" disabled selected>Estimated Budget</option>
+                            <option value="Below ₹50,000">Below ₹50,000</option>
+                            <option value="₹50,000 – ₹2,00,000">₹50,000 – ₹2,00,000</option>
+                            <option value="₹2,00,000 – ₹5,00,000">₹2,00,000 – ₹5,00,000</option>
+                            <option value="Above ₹5,00,000">Above ₹5,00,000</option>
+                        </select>
+                    </div>
+                    <div class="form-group custom-select-wrapper">
+                        <select id="contactTimeline" class="form-control custom-select">
+                            <option value="" disabled selected>Project Timeline</option>
+                            <option value="Urgent (Within 1 Month)">Urgent (Within 1 Month)</option>
+                            <option value="1–3 Months">1–3 Months</option>
+                            <option value="3–6 Months">3–6 Months</option>
+                            <option value="More than 6 Months">More than 6 Months</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Project Details -->
+                <div class="form-group floating-group">
+                    <textarea id="contactDetails" class="form-control" rows="4" required></textarea>
+                    <label for="contactDetails">Tell us about your project requirements *</label>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- Additional Fields -->
+                <div class="form-group">
+                    <label class="radio-group-label">Preferred Contact Method</label>
+                    <div class="radio-group">
+                        <label class="custom-radio">
+                            <input type="radio" name="contactMethod" value="Email" checked>
+                            <span class="radio-mark"></span>
+                            Email
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="contactMethod" value="Phone Call">
+                            <span class="radio-mark"></span>
+                            Phone Call
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="contactMethod" value="WhatsApp">
+                            <span class="radio-mark"></span>
+                            WhatsApp
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="contactMethod" value="Video Meeting">
+                            <span class="radio-mark"></span>
+                            Video Meeting
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group custom-select-wrapper">
+                        <select id="contactTime" class="form-control custom-select">
+                            <option value="" disabled selected>Best Time to Contact</option>
+                            <option value="Morning">Morning</option>
+                            <option value="Afternoon">Afternoon</option>
+                            <option value="Evening">Evening</option>
+                        </select>
+                    </div>
+                    <div class="form-group custom-select-wrapper">
+                        <select id="contactSource" class="form-control custom-select">
+                            <option value="" disabled selected>How Did You Hear About Us?</option>
+                            <option value="Google Search">Google Search</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Referral">Referral</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group file-upload-group">
+                    <label for="contactFile" class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Upload File (PDF, DOC, DOCX) - Optional</span>
+                    </label>
+                    <input type="file" id="contactFile" accept=".pdf,.doc,.docx" class="hidden-file-input">
+                    <div id="fileNameDisplay" class="file-name-display"></div>
+                </div>
+
+                <div class="form-group checkbox-group mt-3">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="contactPrivacy" required>
+                        <span class="checkmark"></span>
+                        I agree to the Privacy Policy and Terms of Service.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-submit-massive" id="contactSubmitBtn">
+                    <span class="btn-text">Schedule a Free Consultation</span>
+                    <span class="btn-loader hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Success Popup -->
+        <div class="success-popup-overlay hidden" id="successPopup">
+            <div class="success-popup-card">
+                <div class="success-icon-wrapper">
+                    <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="success-checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="success-checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                </div>
+                <h3>Thank You!</h3>
+                <p>Your message has been sent successfully. Our team will contact you shortly.</p>
+                <button type="button" class="btn btn-primary mt-3" id="closePopupBtn">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Countdown Timer logic copied from startup advisory
+    function updateTimers() {
+        const now = new Date();
+        const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        const diff = endOfDay - now;
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        document.querySelectorAll('.t-hours').forEach(el => el.textContent = String(hours).padStart(2, '0'));
+        document.querySelectorAll('.t-mins').forEach(el => el.textContent = String(minutes).padStart(2, '0'));
+        document.querySelectorAll('.t-secs').forEach(el => el.textContent = String(seconds).padStart(2, '0'));
+    }
+    setInterval(updateTimers, 1000);
+    updateTimers();
+
+    function openPlansModal() {
+        document.getElementById('plansModal').style.display = 'flex';
+    }
+    function closePlansModal() {
+        document.getElementById('plansModal').style.display = 'none';
+    }
+
+    function openContactModal() {
+        closePlansModal(); // Close plans modal when opening contact modal
+        document.getElementById('contactModal').style.display = 'flex';
+    }
+    function closeContactModal() {
+        document.getElementById('contactModal').style.display = 'none';
+    }
+
+    // Contact Form Logic
+    const contactForm = document.getElementById('mainContactForm');
+    const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+    const successPopup = document.getElementById('successPopup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const fileInput = document.getElementById('contactFile');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+    if (contactForm) {
+        // Floating label value check
+        const floatingInputs = contactForm.querySelectorAll('.floating-group .form-control');
+        
+        const checkValue = (input) => {
+            if (input.value.trim() !== '') {
+                input.classList.add('has-value');
+            } else {
+                input.classList.remove('has-value');
+            }
+        };
+
+        floatingInputs.forEach(input => {
+            checkValue(input);
+            input.addEventListener('input', () => checkValue(input));
+            input.addEventListener('blur', () => checkValue(input));
+        });
+
+        // File upload display
+        if (fileInput && fileNameDisplay) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    fileNameDisplay.textContent = "Selected: " + this.files[0].name;
+                } else {
+                    fileNameDisplay.textContent = "";
+                }
+            });
+        }
+
+        // Form Submission
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!contactForm.checkValidity()) {
+                contactForm.reportValidity();
+                return;
+            }
+
+            const btnText = contactSubmitBtn.querySelector('.btn-text');
+            const btnLoader = contactSubmitBtn.querySelector('.btn-loader');
+            
+            contactSubmitBtn.disabled = true;
+            if(btnText) btnText.classList.add('hidden');
+            if(btnLoader) btnLoader.classList.remove('hidden');
+
+            const selectedMethod = document.querySelector('input[name="contactMethod"]:checked');
+            const methodVal = selectedMethod ? selectedMethod.value : 'Email';
+
+            const contactDetailsEl = document.getElementById('contactDetails');
+            const projectTypeEl = document.getElementById('contactProjectType');
+            const budgetEl = document.getElementById('contactBudget');
+            const timelineEl = document.getElementById('contactTimeline');
+            const timeEl = document.getElementById('contactTime');
+            const sourceEl = document.getElementById('contactSource');
+
+            const userMessage = contactDetailsEl ? contactDetailsEl.value : '';
+            const extraDetails = `Project Type: ${projectTypeEl ? projectTypeEl.value : ''}\nBudget: ${budgetEl ? budgetEl.value : ''}\nTimeline: ${timelineEl ? timelineEl.value : ''}\nPreferred Contact: ${methodVal}\nBest Time: ${timeEl ? timeEl.value : ''}`;
+
+            const payload = {
+                customerName: document.getElementById('contactName') ? document.getElementById('contactName').value : '',
+                company: document.getElementById('contactCompany') ? document.getElementById('contactCompany').value : '',
+                email: document.getElementById('contactEmail') ? document.getElementById('contactEmail').value : '',
+                phone: document.getElementById('contactPhone') ? document.getElementById('contactPhone').value : '',
+                serviceInterested: document.getElementById('contactService') ? document.getElementById('contactService').value : '',
+                leadSource: (sourceEl ? sourceEl.value : '') || 'Dashboard',
+                priority: 'Medium',
+                status: 'New',
+                message: userMessage + '\n\n---\n' + extraDetails
+            };
+
+            try {
+                const res = await fetch('http://localhost:5000/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const json = await res.json();
+                if (json.success) {
+                    if (successPopup) {
+                        successPopup.classList.add('show');
+                    } else {
+                        closeContactModal();
+                        alert('Message sent successfully!');
+                    }
+                    contactForm.reset();
+                    floatingInputs.forEach(input => checkValue(input));
+                    if(fileNameDisplay) fileNameDisplay.textContent = "";
+                } else {
+                    alert('Failed to submit form: ' + (json.message || JSON.stringify(json.errors)));
+                }
+            } catch (err) {
+                console.error('Contact form submission error:', err);
+                alert('An error occurred while submitting your request. Please try again.');
+            } finally {
+                contactSubmitBtn.disabled = false;
+                if(btnText) btnText.classList.remove('hidden');
+                if(btnLoader) btnLoader.classList.add('hidden');
+            }
+        });
+    }
+
+    if (closePopupBtn && successPopup) {
+        closePopupBtn.addEventListener('click', () => {
+            successPopup.classList.remove('show');
+            closeContactModal(); // Also close the parent modal
+        });
+    }
+</script>
 </body>
 </html>

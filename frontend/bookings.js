@@ -424,7 +424,7 @@ function renderStatusChart(statusData) {
         options: {
             responsive: true, maintainAspectRatio: false,
             plugins: {
-                legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 8 } }
+                legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } }
             },
             cutout: '70%'
         }
@@ -456,7 +456,7 @@ function renderConsultationChart(categoryData) {
         options: {
             responsive: true, maintainAspectRatio: false,
             plugins: {
-                legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 8 } }
+                legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } }
             }
         }
     });
@@ -480,7 +480,7 @@ function renderRevenueChart(revenueData) {
     gradient.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
 
     revenueChartInstance = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: labels.length ? labels : ['No Data'],
             datasets: [{
@@ -818,10 +818,19 @@ async function bulkSendReminder() {
         return;
     }
     
-    if (!confirm(`Send reminders to ${ids.length} clients?`)) return;
+    if (!confirm(`Send reminders to ${ids.length} clients via Email?`)) return;
 
-    // Simulate sending reminders since there is no endpoint
-    alert(`Successfully sent reminders to ${ids.length} clients.`);
+    const selectedBookings = liveBookings.filter(b => ids.includes(b.id) && b.email);
+    if (selectedBookings.length === 0) {
+        alert('None of the selected bookings have email addresses.');
+        return;
+    }
+
+    const bccEmails = selectedBookings.map(b => b.email).join(',');
+    const subject = encodeURIComponent('Reminder from Sarangi Consulting');
+    const body = encodeURIComponent('Hi,\n\nThis is a gentle reminder regarding your upcoming consultation.\n\nBest regards,\nSarangi Consulting');
+    
+    window.location.href = `mailto:?bcc=${bccEmails}&subject=${subject}&body=${body}`;
 }
 
 async function bulkDelete() {

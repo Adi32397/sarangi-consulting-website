@@ -323,65 +323,86 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (pageBanners.length > 0) {
                     // Sort by priority (lower number = higher priority)
                     pageBanners.sort((a, b) => a.priority - b.priority);
-                    const banner = pageBanners[0];
                     
-                    // Construct Banner HTML as a Popup Modal
-                    const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `http://localhost:5000${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
-                    
-                    // Remove existing popup if it exists
-                    const existingPopup = document.getElementById('dynamic-banner-popup');
-                    if (existingPopup) existingPopup.remove();
-                    
-                    const bannerHtml = `
-                        <div id="dynamic-banner-popup" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(4px);">
-                            <div id="dynamic-banner-content" style="background: white; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%; text-align: center; position: relative; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); animation: popupIn 0.3s ease-out forwards; cursor: pointer;">
-                                <button id="dynamic-banner-close" onclick="document.getElementById('dynamic-banner-popup').remove()" style="position: absolute; right: 16px; top: 16px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; display: flex; justify-content: center; align-items: center; transition: 0.2s; z-index: 2;">&times;</button>
-                                
-                                ${banner.image && !banner.image.includes('via.placeholder.com') ? `<img src="${bannerImgSrc}" style="width: 100%; max-height: 200px; border-radius: 8px; object-fit: cover; margin-bottom: 20px; pointer-events: none;">` : ''}
-                                
-                                <h3 style="margin: 0 0 12px 0; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #1e293b; pointer-events: none;">${banner.title}</h3>
-                                ${banner.subtitle ? `<p style="margin: 0 0 20px 0; font-size: 15px; color: #64748b; line-height: 1.5; pointer-events: none;">${banner.subtitle}</p>` : ''}
-                                
-                                ${banner.button_text && banner.button_url ? `
-                                <a href="${banner.button_url}" id="dynamic-banner-btn" class="btn btn-primary" style="display: inline-block; width: 100%; text-decoration: none; position: relative; z-index: 2;">${banner.button_text}</a>
-                                ` : ''}
+                    const renderNextBanner = () => {
+                        if (pageBanners.length === 0) return;
+                        
+                        const banner = pageBanners.shift();
+                        
+                        // Construct Banner HTML as a Popup Modal
+                        const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `http://localhost:5000${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
+                        
+                        // Remove existing popup if it exists
+                        const existingPopup = document.getElementById('dynamic-banner-popup');
+                        if (existingPopup) existingPopup.remove();
+                        
+                        const bannerHtml = `
+                            <div id="dynamic-banner-popup" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(4px);">
+                                <div id="dynamic-banner-content" style="background: white; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%; text-align: center; position: relative; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); animation: popupIn 0.3s ease-out forwards; cursor: pointer;">
+                                    <button id="dynamic-banner-close" style="position: absolute; right: 16px; top: 16px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; display: flex; justify-content: center; align-items: center; transition: 0.2s; z-index: 2;">&times;</button>
+                                    
+                                    ${banner.image && !banner.image.includes('via.placeholder.com') ? `<img src="${bannerImgSrc}" style="width: 100%; max-height: 200px; border-radius: 8px; object-fit: cover; margin-bottom: 20px; pointer-events: none;">` : ''}
+                                    
+                                    <h3 style="margin: 0 0 12px 0; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #1e293b; pointer-events: none;">${banner.title}</h3>
+                                    ${banner.subtitle ? `<p style="margin: 0 0 20px 0; font-size: 15px; color: #64748b; line-height: 1.5; pointer-events: none;">${banner.subtitle}</p>` : ''}
+                                    
+                                    ${banner.button_text && banner.button_url ? `
+                                    <a href="${banner.button_url}" id="dynamic-banner-btn" class="btn btn-primary" style="display: inline-block; width: 100%; text-decoration: none; position: relative; z-index: 2;">${banner.button_text}</a>
+                                    ` : ''}
+                                </div>
                             </div>
-                        </div>
-                        <style>
-                            @keyframes popupIn {
-                                from { opacity: 0; transform: scale(0.9) translateY(20px); }
-                                to { opacity: 1; transform: scale(1) translateY(0); }
-                            }
-                        </style>
-                    `;
+                            <style>
+                                @keyframes popupIn {
+                                    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+                                    to { opacity: 1; transform: scale(1) translateY(0); }
+                                }
+                            </style>
+                        `;
+                        
+                        // Insert dynamic banner popup into the body
+                        document.body.insertAdjacentHTML('beforeend', bannerHtml);
+                        
+                        // Track View
+                        fetch(`http://localhost:5000/api/banners/${banner.id}/view`, { method: 'PUT' }).catch(console.error);
+                        
+                        // Handle Close Button
+                        const closeBtn = document.getElementById('dynamic-banner-close');
+                        if (closeBtn) {
+                            closeBtn.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                document.getElementById('dynamic-banner-popup').remove();
+                                renderNextBanner();
+                            });
+                        }
+                        
+                        // Track Click on entire content
+                        const bannerContent = document.getElementById('dynamic-banner-content');
+                        if (bannerContent) {
+                            bannerContent.addEventListener('click', (e) => {
+                                // Don't track if they clicked the close button
+                                if (e.target.closest('#dynamic-banner-close')) return;
+                                
+                                // Prevent tracking twice if they click the button explicitly
+                                if (e.target.closest('#dynamic-banner-btn')) {
+                                    e.preventDefault();
+                                }
+                                
+                                fetch(`http://localhost:5000/api/banners/${banner.id}/click`, { method: 'PUT' })
+                                    .catch(console.error)
+                                    .finally(() => {
+                                        if (banner.button_url) {
+                                            window.location.href = banner.button_url;
+                                        } else {
+                                            document.getElementById('dynamic-banner-popup').remove();
+                                            renderNextBanner();
+                                        }
+                                    });
+                            });
+                        }
+                    };
                     
-                    // Insert dynamic banner popup into the body
-                    document.body.insertAdjacentHTML('beforeend', bannerHtml);
-                    
-                    // Track View
-                    fetch(`http://localhost:5000/api/banners/${banner.id}/view`, { method: 'PUT' }).catch(console.error);
-                    
-                    // Track Click on entire content
-                    const bannerContent = document.getElementById('dynamic-banner-content');
-                    if (bannerContent) {
-                        bannerContent.addEventListener('click', (e) => {
-                            // Don't track if they clicked the close button
-                            if (e.target.closest('#dynamic-banner-close')) return;
-                            
-                            // Prevent tracking twice if they click the button explicitly
-                            if (e.target.closest('#dynamic-banner-btn')) {
-                                e.preventDefault();
-                            }
-                            
-                            fetch(`http://localhost:5000/api/banners/${banner.id}/click`, { method: 'PUT' })
-                                .catch(console.error)
-                                .finally(() => {
-                                    if (banner.button_url) {
-                                        window.location.href = banner.button_url;
-                                    }
-                                });
-                        });
-                    }
+                    // Start rendering the first banner
+                    renderNextBanner();
                 }
             }
         } catch (err) {

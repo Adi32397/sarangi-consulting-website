@@ -102,54 +102,53 @@
             <div class="filters-grid">
                 <div class="filter-group">
                     <label>Status</label>
-                    <select>
-                        <option>All</option>
-                        <option>Active</option>
-                        <option>Inactive</option>
-                        <option>Scheduled</option>
-                        <option>Expired</option>
-                        <option>Draft</option>
+                    <select id="filterStatus">
+                        <option value="">All</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Expired">Expired</option>
+                        <option value="Draft">Draft</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label>Banner Type</label>
-                    <select>
-                        <option>All Types</option>
-                        <option>Homepage Hero</option>
-                        <option>Promotion</option>
-                        <option>Announcement</option>
-                        <option>Service Banner</option>
-                        <option>Offer Banner</option>
-                        <option>Event Banner</option>
-                        <option>Campaign Banner</option>
-                        <option>QR Banner</option>
+                    <select id="filterType">
+                        <option value="">All Types</option>
+                        <option value="Homepage Hero">Homepage Hero</option>
+                        <option value="Promotion">Promotion</option>
+                        <option value="Announcement">Announcement</option>
+                        <option value="Service Banner">Service Banner</option>
+                        <option value="Offer Banner">Offer Banner</option>
+                        <option value="Event Banner">Event Banner</option>
+                        <option value="Campaign Banner">Campaign Banner</option>
+                        <option value="QR Banner">QR Banner</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label>Display Position</label>
-                    <select>
-                        <option>All Positions</option>
-                        <option>Homepage</option>
-                        <option>About Page</option>
-                        <option>Services Page</option>
-                        <option>Contact Page</option>
-                        <option>Footer</option>
-                        <option>Sidebar</option>
+                    <select id="filterPosition">
+                        <option value="">All Positions</option>
+                        <option value="Homepage">Homepage</option>
+                        <option value="About Page">About Page</option>
+                        <option value="Services Page">Services Page</option>
+                        <option value="Contact Page">Contact Page</option>
+                        <option value="Footer">Footer</option>
+                        <option value="Sidebar">Sidebar</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label>Created Date</label>
-                    <select>
-                        <option>All Time</option>
-                        <option>Today</option>
-                        <option>This Week</option>
-                        <option>This Month</option>
-                        <option>Custom Range</option>
+                    <select id="filterDate">
+                        <option value="">All Time</option>
+                        <option value="Today">Today</option>
+                        <option value="This Week">This Week</option>
+                        <option value="This Month">This Month</option>
                     </select>
                 </div>
                 <div class="filter-group filter-actions">
-                    <button class="btn btn-secondary w-100">Clear Filters</button>
-                    <button class="btn btn-primary w-100 mt-10">Apply Filters</button>
+                    <button id="clearFiltersBtn" class="btn btn-secondary w-100">Clear Filters</button>
+                    <button id="applyFiltersBtn" class="btn btn-primary w-100 mt-10">Apply Filters</button>
                 </div>
             </div>
         </div>
@@ -162,6 +161,9 @@
                     <option value="">Choose Action</option>
                     <option value="activate">Activate Selected</option>
                     <option value="deactivate">Deactivate Selected</option>
+                    <option value="scheduled">Scheduled Selected</option>
+                    <option value="expired">Expired Selected</option>
+                    <option value="draft">Draft Selected</option>
                     <option value="delete">Delete Selected</option>
                 </select>
                 <button id="bulkActionApply" class="btn btn-secondary btn-small">Apply</button>
@@ -386,7 +388,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-secondary" onclick="closeModal('bannerModal')">Cancel</button>
-            <button class="btn btn-outline"><i class="fas fa-eye"></i> Preview</button>
+            <button class="btn btn-outline" type="button" onclick="previewBanner()"><i class="fas fa-eye"></i> Preview</button>
             <button class="btn btn-primary" type="button" onclick="saveBanner()"><i class="fas fa-save"></i> Save Banner</button>
         </div>
     </div>
