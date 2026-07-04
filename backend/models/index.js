@@ -5,6 +5,7 @@ const { initBanner, getBanner } = require('./Banner');
 const { initSetting, getSetting } = require('./Setting');
 const { initActivityLog, getActivityLog } = require('./ActivityLog');
 const { initNotification, getNotification } = require('./Notification');
+const { initPricingCard, PricingCard: getPricingCard } = require('./PricingCard');
 const { getSequelize } = require('../config/database');
 
 const syncDatabase = async () => {
@@ -16,6 +17,8 @@ const syncDatabase = async () => {
     const Setting = initSetting();
     const ActivityLog = initActivityLog();
     const Notification = initNotification();
+    initPricingCard();
+
 
     // 2. Define relationships (if any, in the future)
     // Removed Lead-User relationship to store consultant names directly
@@ -34,5 +37,6 @@ module.exports = {
     Banner: () => getBanner(),
     Setting: () => getSetting(),
     ActivityLog: () => getActivityLog(),
-    Notification: () => getNotification()
+    Notification: () => getNotification(),
+    PricingCard: () => getPricingCard()
 };

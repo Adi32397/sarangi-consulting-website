@@ -33,3 +33,12 @@ exports.validateBooking = [
 exports.validateBanner = [
     check('title', 'Title is required').notEmpty()
 ];
+
+// Pricing Card Validations
+exports.validatePricingCard = [
+    check('title', 'Title is required').notEmpty(),
+    check('description', 'Description is required').notEmpty(),
+    check('price_active', 'Active price is required').notEmpty(),
+    check('order_index', 'Order index must be a number').optional().isInt(),
+    check('button_text', 'Button text is required').optional().notEmpty()
+];

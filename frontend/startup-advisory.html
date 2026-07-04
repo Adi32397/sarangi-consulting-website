@@ -149,7 +149,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            /* Changed to Dark Green from Executive Black */
             background-color: var(--dark-green);
             color: var(--white);
         }
@@ -160,7 +159,6 @@
             left: -10%;
             width: 120%;
             height: 200%;
-            /* Changed glow to a subtle Accent Gold fading into Dark Green */
             background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(15, 61, 36, 1) 70%);
             z-index: 0;
             pointer-events: none;
@@ -180,7 +178,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: #FFFFFF;
-            /* Fallback for older browsers */
         }
 
         #startup-hero .subheadline {
@@ -190,7 +187,6 @@
             margin: 0 auto 40px;
         }
 
-        /* Small Label specific to Hero */
         #startup-hero .hero-label {
             display: inline-block;
             font-size: 14px;
@@ -200,7 +196,6 @@
             margin-bottom: 1.5rem;
             color: var(--accent-gold);
             background: rgba(212, 175, 55, 0.1);
-            /* Soft gold background pill */
             padding: 8px 16px;
             border-radius: 20px;
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -209,18 +204,27 @@
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            row-gap: 32px;    /* Space between top and bottom rows */
-            column-gap: 56px; /* INCREASED: Space between cards on the same row */
+            row-gap: 32px;    
+            column-gap: 56px; 
             align-items: stretch;
             margin: 48px auto 0; 
-            max-width: 1000px; /* Slightly widened to accommodate the new gap */
+            max-width: 1000px; 
+        }
+
+        /* NEW: Rule to perfectly center an odd, last card while maintaining width */
+        @media (min-width: 769px) {
+            .pricing-grid > .pricing-card:last-child:nth-child(odd) {
+                grid-column: 1 / -1;
+                justify-self: center;
+                width: calc(50% - 28px); /* 50% width minus half of the 56px gap */
+            }
         }
 
         .pricing-card {
             background: var(--white);
             border: 1px solid var(--border-grey);
             border-radius: var(--radius-card);
-            padding: 32px; /* Reduced from 40px */
+            padding: 32px; 
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
@@ -260,7 +264,7 @@
         }
 
         .pricing-card h3 {
-            font-size: 22px; /* Reduced from 24px */
+            font-size: 22px; 
             color: var(--executive-black);
             margin-bottom: 8px;
         }
@@ -287,7 +291,7 @@
         }
 
         .price-active {
-            font-size: 28px; /* Reduced from 32px for uniform sizing */
+            font-size: 28px; 
             color: var(--executive-black);
             font-family: var(--font-stats);
             line-height: 1;
@@ -485,7 +489,6 @@
             color: var(--executive-black);
         }
 
-        /* Enhanced Smooth FAQ Accordion */
         .faq-item {
             border-bottom: 1px solid var(--border-grey);
             padding: 24px 0;
@@ -499,7 +502,6 @@
             font-size: 20px;
             font-weight: 600;
             color: var(--executive-black);
-            /* Added transition for smooth color and lift effects */
             transition: all 0.3s ease;
         }
 
@@ -508,19 +510,15 @@
             transition: transform 0.4s ease;
         }
 
-        /* NEW: Hover effect for the FAQ item */
         .faq-item:hover .faq-question {
             color: var(--primary-green);
             transform: translateY(-3px);
-            /* Subtle lift */
         }
 
         .faq-answer {
             max-height: 0;
             opacity: 0;
-            /* Added for smooth fade */
             overflow: hidden;
-            /* Upgraded transition for ultra-smooth slide & fade */
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out;
         }
 
@@ -532,14 +530,12 @@
         .faq-item.active .faq-answer {
             max-height: 250px;
             opacity: 1;
-            /* Fades in when active */
         }
 
         .faq-item.active .faq-question i {
             transform: rotate(180deg);
         }
 
-        /* Primary Green Outline Button */
         .btn-outline-green {
             background-color: transparent;
             border-color: var(--primary-green);
@@ -553,7 +549,6 @@
             transform: translateY(-2px);
         }
 
-        /* Premium Countdown Timer Styles */
         .countdown-wrapper {
             background: rgba(20, 83, 45, 0.05);
             border: 1px solid rgba(20, 83, 45, 0.1);
@@ -636,8 +631,9 @@
             .hero-section h1 {
                 font-size: 36px;
             }
-
-            .pricing-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
             .grid-3,
             .grid-2,
             .deliverables-list {
@@ -658,134 +654,17 @@
 
     <section class="section-padding bg-light" id="booking">
         <div class="container">
-            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
             <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
-                <!-- Subtle bump: margin-bottom 1rem (20px) -->
                 <h2 style="font-family: var(--font-heading); color: var(--executive-black); margin-bottom: 1rem;">
                     Startup Growth & Registration Packages</h2>
                 <p>Choose the advisory or registration service that fits your current business stage.</p>
             </div>
 
-            <div class="pricing-grid">
-                <!-- Card 1: Startup Advisory (Featured) -->
-                <div class="pricing-card featured reveal-up delay-2">
-                    <div class="badge-pulse">50% Off - Only 5 Slots/Day!</div>
-                    <h3>One-on-One Advisory</h3>
-                    <p class="desc">60-minute Google Meet session with Industry Expert Business Consultant to solve
-                        growth challenges and build a
-                        roadmap.</p>
-                    <div class="price-box">
-                        <div class="price-strike" style="text-decoration: line-through red;">₹1,999</div>
-                        <div class="price-active">₹999</div>
-                        <!-- Countdown Timer -->
-                        <div class="countdown-wrapper">
-                            <span
-                                style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer
-                                expires in:</span>
-                            <div class="timer-display">
-                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
-                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
-                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="pricing-list">
-                        <li><i class="fas fa-check-circle"></i> Business & Strategy Review</li>
-                        <li><i class="fas fa-check-circle"></i> Market Positioning Advice</li>
-                        <li><i class="fas fa-check-circle"></i> Custom Growth Roadmap</li>
-                        <li><i class="fas fa-check-circle"></i> Founder Q&A</li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-primary" style="width: 100%;">Register My Advisory Session</a>
-                </div>
-
-                <!-- Card 2: IP Registration -->
-                <div class="pricing-card reveal-up delay-1">
-                    <h3>IP Registration</h3>
-                    <p class="desc">Safeguard and protect your intellectual property with comprehensive registration of trademarks, copyrights and patents.</p>
-                    <div class="price-box">
-                        <div class="price-strike" style="text-decoration: line-through red;">₹19,999</div>
-                        <div class="price-active">Starts from ₹9,999</div>
-                        <!-- Countdown Timer -->
-                        <div class="countdown-wrapper">
-                            <span
-                                style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer
-                                expires in:</span>
-                            <div class="timer-display">
-                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
-                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
-                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="pricing-list">
-                        <li><i class="fas fa-check-circle"></i> Strategic IP Planning</li>
-                        <li><i class="fas fa-check-circle"></i> Trademark Search & Registration</li>
-                        <li><i class="fas fa-check-circle"></i> Copyright Registration Filing</li>
-                        <li><i class="fas fa-check-circle"></i> Patent Draft & Filing Support</li>
-                        <li><i class="fas fa-check-circle"></i> Govt. Documentation handling</li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery
-                        Call</a>
-                </div>
-
-                <!-- Card 3: Firm Registration -->
-                <div class="pricing-card reveal-up delay-3">
-                    <h3>Firm Registration</h3>
-                    <p class="desc">End-to-end incorporation services for Private Limited, LLP, and Partnership entities with scalable legal and regulatory compliance.</p>
-                    <div class="price-box">
-                        <div class="price-strike" style="text-decoration: line-through red;">₹49,999</div>
-                        <div class="price-active">Starts from ₹29,999</div>
-                        <!-- Countdown Timer -->
-                        <div class="countdown-wrapper">
-                            <span
-                                style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer
-                                expires in:</span>
-                            <div class="timer-display">
-                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
-                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
-                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="pricing-list">
-                        <li><i class="fas fa-check-circle"></i> Entity Structuring Advisory</li>
-                        <li><i class="fas fa-check-circle"></i> Pvt Ltd, LLP & Firm Registration</li>
-                        <li><i class="fas fa-check-circle"></i> MOA, AOA & Deed Drafting</li>
-                        <li><i class="fas fa-check-circle"></i> Core Compliance (GST, PAN, TAN)</li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery
-                        Call</a>
-                </div>
-
-                <!-- Card 4: Licenses & Certifications -->
-                <div class="pricing-card reveal-up delay-4">
-                    <h3>Licenses & Certifications</h3>
-                    <p class="desc">Essential operational licenses and compliance certifications to ensure your business is legally cleared to scale.</p>
-                    <div class="price-box">
-                        <div class="price-strike" style="text-decoration: line-through red;">₹5,999</div>
-                        <div class="price-active" style="font-size: 28px; white-space: nowrap;">Starts from ₹2,999</div>
-
-                        <div style="font-size: 13px; color: var(--executive-black); margin-top: 10px; margin-bottom: 16px; font-weight: 600;">
-                            <i class="fas fa-tag" style="color: var(--primary-green); margin-right: 6px;"></i>Register now to get the best discounted price
-                        </div>
-
-                        <!-- Countdown Timer -->
-                        <div class="countdown-wrapper">
-                            <span style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer expires in:</span>
-                            <div class="timer-display">
-                                <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
-                                <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
-                                <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="pricing-list">
-                        <li><i class="fas fa-check-circle"></i> Startup India (DPIIT) Recognition</li>
-                        <li><i class="fas fa-check-circle"></i> MSME (Udyam) Registration</li>
-                        <li><i class="fas fa-check-circle"></i> FSSAI, ISO & Trade Licenses</li>
-                        <li><i class="fas fa-check-circle"></i> Industry-Specific Compliance</li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-outline-green" style="width: 100%;">Schedule a Discovery Call</a>
+            <!-- Dynamic Pricing Grid Container -->
+            <div class="pricing-grid" id="dynamic-pricing-grid">
+                <!-- Cards will be injected here by JS -->
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-grey);">
+                    Loading our latest growth packages...
                 </div>
             </div>
         </div>
@@ -793,7 +672,6 @@
 
     <section class="section-padding section-white">
         <div class="container text-center">
-            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
             <h2 class="reveal-up" style="color: var(--executive-black); margin-bottom: 1.5rem;">Designed for Ambitious
                 Founders</h2>
             <div class="grid-3 text-left">
@@ -822,9 +700,7 @@
 
     <section class="section-padding bg-light">
         <div class="container">
-            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
             <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
-                <!-- Subtle bump: margin-bottom 1rem (20px) -->
                 <h2 style="color: var(--executive-black); margin-bottom: 1rem;">Common Founder Challenges</h2>
                 <p>We help you navigate the toughest questions in your business journey.</p>
             </div>
@@ -843,9 +719,7 @@
 
     <section class="section-padding section-white">
         <div class="container">
-            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
             <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
-                <!-- Subtle bump: margin-bottom 1rem (20px) -->
                 <h2 style="color: var(--executive-black); margin-bottom: 1rem;">Advisory Session Deliverables</h2>
                 <p>What you will walk away with after your 60-minute strategy session.</p>
             </div>
@@ -860,56 +734,9 @@
         </div>
     </section>
 
-    <!-- MEET YOUR ADVISOR -->
     <section class="section-padding bg-light">
         <div class="container">
-            <div class="grid-2" style="align-items: center; gap: 64px;">
-
-                <!-- Left Column: Image -->
-                <div class="text-center reveal-up" style="position: relative;">
-                    <img src="founder.jpg" alt="RC Sarangi - Consulting Advisor"
-                        style="position: relative; z-index: 1; border-radius: var(--radius-card); width: 75%; max-width: 75%; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);">
-                </div>
-
-                <!-- Right Column: Text -->
-                <div class="reveal-up delay-1">
-                    <span class="small-label" style="margin-bottom: 14px;">Your Strategic Partner</span>
-                    <!-- Subtle bump: margin-bottom 28px -->
-                    <h2 style="color: var(--executive-black); font-size: 40px; margin-bottom: 28px;">Meet Your Advisor
-                    </h2>
-
-                    <p
-                        style="font-size: 20px; font-weight: 600; color: var(--primary-green); margin-bottom: 20px; line-height: 1.5;">
-                        RC Sarangi is the Founder & CEO of Sarangi Group and the visionary behind Sarangi
-                        Consulting.
-                    </p>
-
-                    <p style="margin-bottom: 16px;">His focus is helping founders, startups, and growing businesses
-                        navigate the complex waters of strategy, growth, legal execution, and business transformation.
-                    </p>
-
-                    <p style="margin-bottom: 40px;">Through Sarangi Consulting, he works with ambitious entrepreneurs
-                        looking to scale sustainably, legitimize their brands, and create long-term market impact.</p>
-
-                    <div
-                        style="display: flex; gap: 20px; align-items: center; border-top: 1px solid var(--border-grey); padding-top: 32px; flex-wrap: wrap;">
-                        <a href="https://www.linkedin.com/in/rcsarangi" target="_blank" class="btn btn-outline-dark"
-                            style="height: 44px; padding: 0 24px; font-size: 15px;">
-                            <i class="fab fa-linkedin-in" style="margin-right: 8px; color: var(--primary-green);"></i>
-                            Connect on LinkedIn
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding bg-light">
-        <div class="container">
-            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
             <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
-                <!-- Subtle bump: margin-bottom 1rem (20px) -->
                 <h2 style="color: var(--executive-black); margin-bottom: 1rem;">Simple Registration Process
                 </h2>
                 <p>Secure your advisory slot or start your registration in a few clicks.</p>
@@ -941,7 +768,6 @@
 
     <section class="section-padding section-white">
         <div class="container">
-            <!-- Subtle bump: margin-bottom 1.5rem (56px) -->
             <div class="text-center reveal-up" style="margin-bottom: 1.5rem;">
                 <h2 style="color: var(--executive-black);">Frequently Asked Questions</h2>
             </div>
@@ -976,25 +802,6 @@
             </div>
         </div>
     </section>
-
-    <script>
-        // FAQ Accordion Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                question.addEventListener('click', () => {
-                    faqItems.forEach(otherItem => {
-                        if (otherItem !== item && otherItem.classList.contains('active')) {
-                            otherItem.classList.remove('active');
-                        }
-                    });
-                    item.classList.toggle('active');
-                });
-            });
-        });
-    </script>
-
 
     <!-- 15. FOOTER -->
     <footer class="footer">
@@ -1066,6 +873,104 @@
 
     <!-- Scripts -->
     <script src="script.js?v=5"></script>
+
+    <!-- Dynamic Pricing Cards Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // FAQ Accordion Logic (Retained)
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Fetch and Render Dynamic Pricing Cards
+            try {
+                const res = await fetch('http://localhost:5000/api/pricing-cards');
+                const data = await res.json();
+
+                // FIX 1: Define the container element
+                const container = document.getElementById('dynamic-pricing-grid');
+
+                if (data.success && data.data.length > 0) {
+                    
+                    // Filter out cards where is_active is false
+                    const activeCards = data.data.filter(card => card.is_active !== false);
+                    
+                    if (activeCards.length === 0) {
+                        container.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding:40px; color:#64748b;">No plans currently available.</div>';
+                        return;
+                    }
+
+                    // FIX 2, 3 & 4: Assign to container.innerHTML, use .map(), and include the index parameter
+                    container.innerHTML = activeCards.map((card, index) => {
+                        
+                        // 1. Determine Dynamic CSS Classes
+                        const isFeatured = card.is_highlighted ? 'featured' : '';
+                        const buttonClass = card.is_highlighted ? 'btn-primary' : 'btn-outline-green';
+                        const buttonText = card.button_text || (card.is_highlighted ? 'Register My Advisory Session' : 'Schedule a Discovery Call');
+                        const delayClass = `delay-${(index % 4) + 1}`; // Staggered animations now have access to 'index'
+                        
+                        // 2. Handle Optional Elements
+                        const badgeHtml = card.urgency_text 
+                            ? `<div class="badge-pulse">${card.urgency_text}</div>` 
+                            : '';
+                            
+                        const strikeHtml = card.price_strike 
+                            ? `<div class="price-strike" style="text-decoration: line-through red;">${card.price_strike}</div>` 
+                            : '';
+
+                        // 3. Build the Bullet Points HTML
+                        let featuresListHtml = '';
+                        if (card.features && Array.isArray(card.features)) {
+                            const liItems = card.features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('');
+                            featuresListHtml = `<ul class="pricing-list">${liItems}</ul>`;
+                        }
+
+                        // 4. Return the HTML string for this specific card
+                        return `
+                            <div class="pricing-card ${isFeatured} reveal-up ${delayClass}">
+                                ${badgeHtml}
+                                <h3>${card.title}</h3>
+                                <p class="desc">${card.description}</p>
+                                
+                                <div class="price-box">
+                                    ${strikeHtml}
+                                    <div class="price-active">${card.price_active}</div>
+                                    
+                                    <div class="countdown-wrapper">
+                                        <span style="font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Offer expires in:</span>
+                                        <div class="timer-display">
+                                            <div class="time-box"><span class="t-hours">00</span><small>HRS</small></div>:
+                                            <div class="time-box"><span class="t-mins">00</span><small>MIN</small></div>:
+                                            <div class="time-box"><span class="t-secs">00</span><small>SEC</small></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                ${featuresListHtml}
+
+                                <a href="contact.html" class="btn ${buttonClass}" style="width: 100%; text-align:center;">${buttonText}</a>
+                            </div>
+                        `;
+                    }).join(''); // Connect all the returned card strings into one giant HTML block
+                }
+            } catch (err) {
+                console.error("Failed to load pricing cards", err);
+                const container = document.getElementById('dynamic-pricing-grid');
+                if(container) {
+                    container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #ef4444;">Unable to load packages at this time. Please contact support.</div>';
+                }
+            }
+        });
+    </script>
 
     <!-- Floating WhatsApp Button -->
     <a href="#" id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
