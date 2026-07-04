@@ -299,7 +299,7 @@
                 <h1 style="font-family: 'Montserrat'; font-size: 24px; font-weight: 700;">Client Portal</h1>
             </div>
             <div>
-                <button onclick="openPlansModal()" class="btn btn-primary" style="padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; background: var(--primary-green); color: white; text-decoration: none; border: none; cursor: pointer;"><i class="fas fa-plus"></i> Book New Session</button>
+                <button onclick="window.location.href='startup-advisory.html'" class="btn btn-primary" style="padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; background: var(--primary-green); color: white; text-decoration: none; border: none; cursor: pointer;"><i class="fas fa-plus"></i> Book New Session</button>
             </div>
         </header>
 
@@ -472,21 +472,8 @@
                 <!-- Business Reports Analysis -->
                 <div class="section-card">
                     <h3 class="section-title">Business Reports & Analysis</h3>
-                    
-                    <div class="resource-item">
-                        <div class="resource-info">
-                            <h4><i class="far fa-file-pdf" style="color: #ef4444; margin-right: 8px;"></i> Q3 Performance Analysis.pdf</h4>
-                            <p>Detailed breakdown of your startup's Q3 KPIs, showcasing a 15% improvement in customer acquisition costs.</p>
-                        </div>
-                        <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
-                    </div>
-                    
-                    <div class="resource-item">
-                        <div class="resource-info">
-                            <h4><i class="far fa-file-excel" style="color: #10b981; margin-right: 8px;"></i> 2027 Financial Model.xlsx</h4>
-                            <p>Projected runway and cash flow scenarios based on our last advisory session.</p>
-                        </div>
-                        <a href="#" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    <div id="reports-container">
+                        <p style="font-size: 13px; color: #64748b; text-align: center; margin-top: 20px;">Loading reports...</p>
                     </div>
                 </div>
 
@@ -494,20 +481,8 @@
                 <div class="section-card">
                     <h3 class="section-title">Tailored Recommendations</h3>
                     <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">Based on your current trajectory, our advisory team recommends focusing on the following strategic areas:</p>
-                    
-                    <div class="recommendation-card">
-                        <h4>1. Optimize Supply Chain Margins</h4>
-                        <p>Consider renegotiating contracts with tier-2 vendors to improve your gross margins by an estimated 4-6% before end of year.</p>
-                    </div>
-                    
-                    <div class="recommendation-card">
-                        <h4>2. Leadership Hiring</h4>
-                        <p>As you approach Series A funding, bringing in a seasoned VP of Sales will strengthen investor confidence and accelerate revenue.</p>
-                    </div>
-                    
-                    <div class="recommendation-card">
-                        <h4>3. ESG Compliance</h4>
-                        <p>Initiate a baseline carbon footprint audit. Being proactive here will open doors to ESG-focused venture funds next year.</p>
+                    <div id="recommendations-container">
+                        <p style="font-size: 13px; color: #64748b; text-align: center; margin-top: 20px;">Loading recommendations...</p>
                     </div>
                 </div>
             </div>
@@ -612,6 +587,9 @@
                     if (profilePlanName) profilePlanName.textContent = lead.serviceInterested;
                 }
                 
+                // Render Reports and Recommendations
+                renderReportsAndRecommendations(user);
+                
                 // Fetch User Bookings
                 fetchUserBookings(user.email, token);
                 
@@ -628,6 +606,44 @@
     }
 
     document.addEventListener('DOMContentLoaded', fetchUserProfile);
+
+    // Render Reports and Recommendations
+    function renderReportsAndRecommendations(user) {
+        const reportsContainer = document.getElementById('reports-container');
+        const recommendationsContainer = document.getElementById('recommendations-container');
+        
+        const reports = user.reports || [];
+        const recommendations = user.recommendations || [];
+        
+        if (reportsContainer) {
+            if (reports.length === 0) {
+                reportsContainer.innerHTML = '<p style="font-size: 13px; color: #64748b; text-align: center; margin-top: 20px;">No reports available yet.</p>';
+            } else {
+                reportsContainer.innerHTML = reports.map(report => `
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <h4><i class="${report.icon || 'far fa-file-alt'}" style="color: ${report.iconColor || '#64748b'}; margin-right: 8px;"></i> ${report.title}</h4>
+                            <p>${report.description}</p>
+                        </div>
+                        <a href="${report.fileUrl || '#'}" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        if (recommendationsContainer) {
+            if (recommendations.length === 0) {
+                recommendationsContainer.innerHTML = '<p style="font-size: 13px; color: #64748b; text-align: center; margin-top: 20px;">No recommendations available yet.</p>';
+            } else {
+                recommendationsContainer.innerHTML = recommendations.map(rec => `
+                    <div class="recommendation-card">
+                        <h4>${rec.title}</h4>
+                        <p>${rec.description}</p>
+                    </div>
+                `).join('');
+            }
+        }
+    }
 
     // Fetch User Bookings
     async function fetchUserBookings(email, token) {

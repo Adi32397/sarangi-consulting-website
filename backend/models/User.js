@@ -60,6 +60,42 @@ const initUser = () => {
         lastLogin: {
             type: DataTypes.DATE,
             defaultValue: null
+        },
+        reports: {
+            type: DataTypes.JSON,
+            defaultValue: [
+                {
+                    title: "Q3 Performance Analysis.pdf",
+                    description: "Detailed breakdown of your startup's Q3 KPIs, showcasing a 15% improvement in customer acquisition costs.",
+                    icon: "far fa-file-pdf",
+                    iconColor: "#ef4444",
+                    fileUrl: "#"
+                },
+                {
+                    title: "2027 Financial Model.xlsx",
+                    description: "Projected runway and cash flow scenarios based on our last advisory session.",
+                    icon: "far fa-file-excel",
+                    iconColor: "#10b981",
+                    fileUrl: "#"
+                }
+            ]
+        },
+        recommendations: {
+            type: DataTypes.JSON,
+            defaultValue: [
+                {
+                    title: "1. Optimize Supply Chain Margins",
+                    description: "Consider renegotiating contracts with tier-2 vendors to improve your gross margins by an estimated 4-6% before end of year."
+                },
+                {
+                    title: "2. Leadership Hiring",
+                    description: "As you approach Series A funding, bringing in a seasoned VP of Sales will strengthen investor confidence and accelerate revenue."
+                },
+                {
+                    title: "3. ESG Compliance",
+                    description: "Initiate a baseline carbon footprint audit. Being proactive here will open doors to ESG-focused venture funds next year."
+                }
+            ]
         }
     }, {
         timestamps: true,
