@@ -109,6 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Fetch Leads
+let currentPage = 1;
+const limit = 10;
+
 async function fetchLeads() {
     try {
         let url = new URL(`${API_URL}/leads`);
@@ -157,6 +160,9 @@ async function fetchLeads() {
             }
         }
 
+        url.searchParams.append('page', currentPage);
+        url.searchParams.append('limit', limit);
+
         const res = await fetch(url, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -165,11 +171,49 @@ async function fetchLeads() {
         if (json.success) {
             window.currentLeadsData = json.data;
             renderLeadsTable(json.data);
-            document.querySelector('.pagination-info').innerText = `Showing 1–${json.data.length} of ${json.total} Leads`;
+            renderPagination(json.page, json.pages, json.total, json.data.length);
         }
     } catch (error) {
         console.error('Error fetching leads:', error);
     }
+}
+
+function renderPagination(page, totalPages, totalItems, currentItemsCount) {
+    const infoEl = document.querySelector('.pagination-info');
+    const controlsEl = document.querySelector('.pagination-controls');
+    
+    if (infoEl) {
+        const startItem = (page - 1) * limit + 1;
+        const endItem = startItem + currentItemsCount - 1;
+        infoEl.innerText = `Showing ${totalItems === 0 ? 0 : startItem}–${endItem} of ${totalItems} Leads`;
+    }
+    
+    if (controlsEl) {
+        let html = '';
+        
+        // Previous Button
+        html += `<button class="btn-page ${page === 1 ? 'disabled' : ''}" ${page === 1 ? 'disabled' : ''} onclick="goToPage(${page - 1})">Previous</button>`;
+        
+        // Page Numbers
+        for (let i = 1; i <= totalPages; i++) {
+            // Only show a few pages around the current page
+            if (i === 1 || i === totalPages || (i >= page - 1 && i <= page + 1)) {
+                html += `<button class="btn-page ${i === page ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            } else if (i === page - 2 || i === page + 2) {
+                html += `<button class="btn-page disabled" disabled>...</button>`;
+            }
+        }
+        
+        // Next Button
+        html += `<button class="btn-page ${page === totalPages || totalPages === 0 ? 'disabled' : ''}" ${page === totalPages || totalPages === 0 ? 'disabled' : ''} onclick="goToPage(${page + 1})">Next</button>`;
+        
+        controlsEl.innerHTML = html;
+    }
+}
+
+function goToPage(page) {
+    currentPage = page;
+    fetchLeads();
 }
 
 function renderLeadsTable(leads) {

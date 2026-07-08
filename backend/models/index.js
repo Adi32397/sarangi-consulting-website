@@ -25,7 +25,7 @@ const syncDatabase = async () => {
 
     // 3. Sync database tables
     const sequelize = getSequelize();
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
     console.log('Database synced successfully');
 };
 

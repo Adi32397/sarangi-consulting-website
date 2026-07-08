@@ -398,6 +398,28 @@
             plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
         };
 
+        const yAxisOptions = {
+            ...commonOptions,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 0,
+                    ticks: { stepSize: 1 }
+                }
+            }
+        };
+
+        const xAxisOptions = {
+            ...commonOptions,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    min: 0,
+                    ticks: { stepSize: 1 }
+                }
+            }
+        };
+
         // 1. Monthly Leads (Line)
         new Chart(document.getElementById('leadsChart'), {
             type: 'line',
@@ -411,22 +433,28 @@
                     tension: 0.4, fill: true, borderWidth: 3
                 }]
             },
-            options: commonOptions
+            options: yAxisOptions
         });
 
+        const ctxRevenue = document.getElementById('revenueChart');
+        const gradientRevenue = ctxRevenue.getContext('2d').createLinearGradient(0, 0, 0, 400);
+        gradientRevenue.addColorStop(0, '#34d399');
+        gradientRevenue.addColorStop(1, '#059669');
+
         // 2. Monthly Revenue (Bar)
-        new Chart(document.getElementById('revenueChart'), {
+        new Chart(ctxRevenue, {
             type: 'bar',
             data: {
                 labels: chartsData.monthlyRevenue.labels,
                 datasets: [{
                     label: 'Revenue (₹)',
                     data: chartsData.monthlyRevenue.data,
-                    backgroundColor: '#10b981',
-                    borderRadius: 6
+                    backgroundColor: gradientRevenue,
+                    borderRadius: 6,
+                    maxBarThickness: 50
                 }]
             },
-            options: commonOptions
+            options: yAxisOptions
         });
 
         // 3. Monthly Bookings (Line)
@@ -442,23 +470,29 @@
                     tension: 0.4, fill: true, borderWidth: 3
                 }]
             },
-            options: commonOptions
+            options: yAxisOptions
         });
 
+        const ctxBanners = document.getElementById('bannersChart');
+        const gradientBanners = ctxBanners.getContext('2d').createLinearGradient(0, 0, 400, 0);
+        gradientBanners.addColorStop(0, '#a78bfa');
+        gradientBanners.addColorStop(1, '#7c3aed');
+
         // 4. Top Banner Views (Bar horizontal)
-        new Chart(document.getElementById('bannersChart'), {
+        new Chart(ctxBanners, {
             type: 'bar',
             data: {
                 labels: chartsData.bannerViews.labels,
                 datasets: [{
                     label: 'Views',
                     data: chartsData.bannerViews.data,
-                    backgroundColor: '#8b5cf6',
-                    borderRadius: 6
+                    backgroundColor: gradientBanners,
+                    borderRadius: 6,
+                    maxBarThickness: 40
                 }]
             },
             options: {
-                ...commonOptions,
+                ...xAxisOptions,
                 indexAxis: 'y'
             }
         });

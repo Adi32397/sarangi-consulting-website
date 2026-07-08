@@ -76,7 +76,38 @@ const renderBannersTable = () => {
     
     tbody.innerHTML = '';
     
-    liveBanners.forEach(banner => {
+    // Read filters
+    const search = (document.getElementById('searchBanners')?.value || '').toLowerCase();
+    const status = document.getElementById('filterStatus')?.value || '';
+    const type = document.getElementById('filterType')?.value || '';
+    const position = document.getElementById('filterPosition')?.value || '';
+    const dateFilter = document.getElementById('filterDate')?.value || '';
+    
+    const now = new Date();
+    
+    const filteredBanners = liveBanners.filter(b => {
+        if (search && !b.title.toLowerCase().includes(search)) return false;
+        if (status && b.status !== status) return false;
+        if (type && b.banner_type !== type) return false;
+        if (position && b.display_position !== position) return false;
+        
+        if (dateFilter && b.createdAt) {
+            const createdDate = new Date(b.createdAt);
+            if (dateFilter === 'Today') {
+                if (createdDate.toDateString() !== now.toDateString()) return false;
+            } else if (dateFilter === 'This Week') {
+                const oneWeekAgo = new Date();
+                oneWeekAgo.setDate(now.getDate() - 7);
+                if (createdDate < oneWeekAgo) return false;
+            } else if (dateFilter === 'This Month') {
+                if (createdDate.getMonth() !== now.getMonth() || createdDate.getFullYear() !== now.getFullYear()) return false;
+            }
+        }
+        
+        return true;
+    });
+    
+    filteredBanners.forEach(banner => {
         const tr = document.createElement('tr');
         
         let imageSrc = banner.image;
@@ -112,7 +143,7 @@ const renderBannersTable = () => {
             <td data-label="Actions" class="text-right">
                 <div class="action-buttons">
                     <button class="icon-btn icon-primary" title="View" onclick="viewBanner('${banner.id}')"><i class="fas fa-eye"></i></button>
-                    <button class="icon-btn icon-warning" title="Edit" onclick="openAddBannerModal()"><i class="fas fa-pen"></i></button>
+                    <button class="icon-btn icon-warning" title="Edit" onclick="openEditBannerModal('${banner.id}')"><i class="fas fa-pen"></i></button>
                     <button class="icon-btn icon-danger" title="Delete" onclick="deleteBanner('${banner.id}')"><i class="fas fa-trash"></i></button>
                 </div>
             </td>
@@ -180,7 +211,57 @@ const renderActiveCampaigns = () => {
 };
 
 // Modals
+let editBannerId = null;
+
 window.openAddBannerModal = () => {
+    editBannerId = null;
+    const form = document.getElementById('bannerForm');
+    if (form) form.reset();
+    document.getElementById('dragDropText').innerHTML = `Drag & Drop your image here or <strong>Browse</strong>`;
+    uploadedImagePath = '';
+    
+    const modalTitle = document.querySelector('#bannerModal .modal-header h3');
+    if (modalTitle) modalTitle.innerText = 'Add New Banner';
+    
+    document.getElementById('bannerModal').classList.add('active');
+};
+
+window.openEditBannerModal = (id) => {
+    editBannerId = id;
+    const banner = liveBanners.find(b => b.id === id);
+    if (!banner) return;
+    
+    document.getElementById('addBannerTitle').value = banner.title;
+    document.getElementById('addBannerSubtitle').value = banner.subtitle || '';
+    document.getElementById('addBannerDesc').value = banner.description || '';
+    document.getElementById('addBannerType').value = banner.banner_type;
+    document.getElementById('addBannerPosition').value = banner.display_position;
+    document.getElementById('addBannerPriority').value = banner.priority;
+    document.getElementById('addBannerStatus').value = banner.status;
+    document.getElementById('addBannerBtnText').value = banner.button_text || '';
+    document.getElementById('addBannerBtnUrl').value = banner.button_url || '';
+    
+    try {
+        const startDate = new Date(banner.start_date).toISOString().split('T')[0];
+        const endDate = new Date(banner.end_date).toISOString().split('T')[0];
+        document.getElementById('addBannerStart').value = startDate;
+        document.getElementById('addBannerEnd').value = endDate;
+    } catch (e) {
+        console.error('Date parsing error', e);
+    }
+    
+    if (banner.qr_code) {
+        document.getElementById('addBannerEnableQR').value = 'Yes';
+    } else {
+        document.getElementById('addBannerEnableQR').value = 'No';
+    }
+    
+    uploadedImagePath = banner.image;
+    document.getElementById('dragDropText').innerHTML = `<span class="text-success"><i class="fas fa-check-circle"></i> Image Loaded</span>`;
+    
+    const modalTitle = document.querySelector('#bannerModal .modal-header h3');
+    if (modalTitle) modalTitle.innerText = 'Edit Banner';
+    
     document.getElementById('bannerModal').classList.add('active');
 };
 window.closeModal = (id) => {
@@ -212,10 +293,125 @@ window.viewBanner = (id) => {
     }
 };
 
+window.previewBanner = () => {
+    // Generate a mock banner from the current form fields
+    const mockBanner = {
+        title: document.getElementById('addBannerTitle').value || 'Preview Title',
+        image: uploadedImagePath || 'https://via.placeholder.com/800x400?text=No+Image',
+        banner_id: 'PREVIEW-123',
+        status: document.getElementById('addBannerStatus').value || 'Draft',
+        subtitle: document.getElementById('addBannerSubtitle').value || '',
+        banner_type: document.getElementById('addBannerType').value || 'Homepage Hero',
+        display_position: document.getElementById('addBannerPosition').value || 'Homepage',
+        priority: document.getElementById('addBannerPriority').value || '1',
+        creator: 'You (Preview)',
+        start_date: document.getElementById('addBannerStart').value || new Date().toISOString(),
+        end_date: document.getElementById('addBannerEnd').value || new Date().toISOString(),
+        button_text: document.getElementById('addBannerBtnText').value || 'Learn More',
+        button_url: document.getElementById('addBannerBtnUrl').value || '#'
+    };
+    
+    let imageSrc = mockBanner.image;
+    if(imageSrc && imageSrc.startsWith('/')) {
+        imageSrc = `http://localhost:5000${imageSrc}`;
+    }
+    
+    document.getElementById('viewBannerTitle').innerText = mockBanner.title;
+    document.getElementById('viewBannerImg').src = imageSrc;
+    document.getElementById('viewBannerId').innerText = mockBanner.banner_id;
+    document.getElementById('viewBannerStatus').innerHTML = getBadge(mockBanner.status);
+    document.getElementById('viewBannerSubtitle').innerText = mockBanner.subtitle;
+    document.getElementById('viewBannerType').innerText = mockBanner.banner_type;
+    document.getElementById('viewBannerPos').innerText = mockBanner.display_position;
+    document.getElementById('viewBannerPriority').innerText = mockBanner.priority;
+    document.getElementById('viewBannerCreator').innerText = mockBanner.creator;
+    document.getElementById('viewBannerStart').innerText = formatDate(mockBanner.start_date);
+    document.getElementById('viewBannerEnd').innerText = formatDate(mockBanner.end_date);
+    document.getElementById('viewBannerBtn').innerText = mockBanner.button_text;
+    document.getElementById('viewBannerBtn').href = mockBanner.button_url;
+    
+    document.getElementById('viewBannerModal').classList.add('active');
+};
+
 // Image Upload Logic for Modal
 let uploadedImagePath = '';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const applyFiltersBtn = document.getElementById('applyFiltersBtn');
+    if (applyFiltersBtn) {
+        applyFiltersBtn.addEventListener('click', renderBannersTable);
+    }
+    
+    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+    if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', () => {
+            if(document.getElementById('searchBanners')) document.getElementById('searchBanners').value = '';
+            if(document.getElementById('filterStatus')) document.getElementById('filterStatus').value = '';
+            if(document.getElementById('filterType')) document.getElementById('filterType').value = '';
+            if(document.getElementById('filterPosition')) document.getElementById('filterPosition').value = '';
+            if(document.getElementById('filterDate')) document.getElementById('filterDate').value = '';
+            renderBannersTable();
+        });
+    }
+
+    const bulkActionApply = document.getElementById('bulkActionApply');
+    if (bulkActionApply) {
+        bulkActionApply.addEventListener('click', async () => {
+            const action = document.getElementById('bulkActionSelect').value;
+            if (!action) return alert('Please select an action.');
+            
+            const checkboxes = document.querySelectorAll('.banner-checkbox:checked');
+            if (checkboxes.length === 0) return alert('Please select at least one banner.');
+            
+            if (!confirm(`Are you sure you want to apply this action to ${checkboxes.length} banner(s)?`)) return;
+            
+            const token = localStorage.getItem('token');
+            const ids = Array.from(checkboxes).map(cb => cb.value);
+            
+            try {
+                for (const id of ids) {
+                    if (action === 'delete') {
+                        await fetch(`${API_URL}/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+                    } else {
+                        // Action matches status names roughly, map them:
+                        const statusMap = {
+                            'activate': 'Active',
+                            'deactivate': 'Inactive',
+                            'scheduled': 'Scheduled',
+                            'expired': 'Expired',
+                            'draft': 'Draft'
+                        };
+                        const newStatus = statusMap[action];
+                        const banner = liveBanners.find(b => b.id === id);
+                        if (newStatus && banner) {
+                            await fetch(`${API_URL}/${id}`, {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                                body: JSON.stringify({ title: banner.title, status: newStatus })
+                            });
+                        }
+                    }
+                }
+                document.getElementById('bulkActionSelect').value = '';
+                document.getElementById('selectAll').checked = false;
+                fetchBanners();
+                fetchBannerStats();
+                alert(`Successfully processed ${checkboxes.length} banner(s).`);
+            } catch (err) {
+                console.error(err);
+                alert('Error performing bulk action.');
+            }
+        });
+    }
+
+    const selectAll = document.getElementById('selectAll');
+    if (selectAll) {
+        selectAll.addEventListener('change', (e) => {
+            const checkboxes = document.querySelectorAll('.banner-checkbox');
+            checkboxes.forEach(cb => cb.checked = e.target.checked);
+        });
+    }
+
     const dragDropZone = document.getElementById('dragDropZone');
     const fileInput = document.getElementById('bannerImageFile');
     const dragDropText = document.getElementById('dragDropText');
@@ -298,8 +494,11 @@ window.saveBanner = async () => {
     };
 
     try {
-        const res = await fetch(API_URL, {
-            method: 'POST',
+        const method = editBannerId ? 'PUT' : 'POST';
+        const url = editBannerId ? `${API_URL}/${editBannerId}` : API_URL;
+        
+        const res = await fetch(url, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -312,6 +511,7 @@ window.saveBanner = async () => {
             document.getElementById('bannerForm').reset();
             uploadedImagePath = '';
             document.getElementById('dragDropText').innerHTML = `Drag & Drop your image here or <strong>Browse</strong>`;
+            editBannerId = null;
             fetchBanners();
             fetchBannerStats();
         } else {
@@ -336,6 +536,19 @@ const initCharts = (chartsData) => {
         plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
     };
 
+    const axisOptions = {
+        ...chartOptions,
+        scales: {
+            y: {
+                beginAtZero: true,
+                min: 0,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        }
+    };
+
     // 1. Monthly Views (Line)
     const ctxViews = document.getElementById('viewsChart');
     if (ctxViews) {
@@ -352,26 +565,27 @@ const initCharts = (chartsData) => {
                     tension: 0.4, fill: true, borderWidth: 3
                 }]
             },
-            options: chartOptions
+            options: axisOptions
         });
     }
 
-    // 2. Clicks (Bar)
+    // 2. Clicks (Line)
     const ctxClicks = document.getElementById('clicksChart');
     if (ctxClicks) {
         if(clicksChartInst) clicksChartInst.destroy();
         clicksChartInst = new Chart(ctxClicks, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: chartsData.clicksChartData.labels,
                 datasets: [{
                     label: 'Clicks',
                     data: chartsData.clicksChartData.data,
-                    backgroundColor: '#1d4ed8',
-                    borderRadius: 6
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    tension: 0.4, fill: true, borderWidth: 3
                 }]
             },
-            options: chartOptions
+            options: axisOptions
         });
     }
 

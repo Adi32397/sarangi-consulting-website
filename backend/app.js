@@ -63,7 +63,8 @@ app.use('/api/activity-logs', require('./routes/activity-log.routes'));
 app.use('/api/exports', require('./routes/export.routes'));
 app.use('/api/pricing-cards', pricingCardRoutes);
 
+app.use('/api/chatbot', require('./routes/chatbot.routes'));
+app.use('/api/employees', require('./routes/employee.routes'));
 // Error handler middleware
 app.use(errorHandler);
-
 module.exports = app;

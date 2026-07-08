@@ -183,7 +183,10 @@
 
                     <div class="form-group">
                         <label for="reg-password">Password *</label>
-                        <input type="password" id="reg-password" name="password" placeholder="Min. 6 characters" minlength="6" maxlength="100" required>
+                        <div style="position: relative;">
+                            <input type="password" id="reg-password" name="password" placeholder="Min. 6 characters" minlength="6" maxlength="100" required style="padding-right: 40px;">
+                            <span id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; user-select: none;">👁️</span>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -257,6 +260,14 @@
                 btn.innerHTML = '<i class="fas fa-calendar-check" style="margin-right:8px;"></i> Book Free Consultation';
                 return;
             }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorEl.textContent = 'Please enter a valid email address.';
+                errorEl.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-calendar-check" style="margin-right:8px;"></i> Book Free Consultation';
+                return;
+            }
             if (password.length < 6) {
                 errorEl.textContent = 'Password must be at least 6 characters.';
                 errorEl.style.display = 'block';
@@ -273,7 +284,6 @@
                     body: JSON.stringify({ name, email, phone, password })
                 });
                 const regData = await regRes.json();
-
                 if (!regRes.ok) {
                     throw new Error(regData.message || 'Registration failed.');
                 }
@@ -295,7 +305,36 @@
                     })
                 });
 
-                successEl.innerHTML = '<i class="fas fa-check-circle"></i> Account created! Redirecting to your dashboard...';
+                // Step 3: Automatically create a Pending Booking for this free consultation
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                await fetch(`${API_BASE}/api/bookings`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${regData.token}`
+                    },
+                    body: JSON.stringify({
+                        booking_id: `BK-${Math.floor(100000 + Math.random() * 900000)}`,
+                        client_name: name,
+                        email: email,
+                        phone: phone || 'N/A',
+                        company: business_name,
+                        consultation_type: area || 'Free Consultation',
+                        consultant: 'Unassigned',
+                        booking_date: tomorrow.toISOString().split('T')[0],
+                        booking_time: '10:00 AM',
+                        duration: 30,
+                        meeting_mode: 'Online',
+                        booking_status: 'Pending',
+                        payment_status: 'Pending',
+                        amount: 0
+                    })
+                });
+
+                successEl.innerHTML = '<i class="fas fa-check-circle"></i> Account created & consultation requested! Redirecting to your dashboard...';
                 successEl.style.display = 'block';
 
                 setTimeout(() => { window.location.href = 'user-dashboard.html'; }, 2000);
@@ -307,6 +346,16 @@
                 btn.innerHTML = '<i class="fas fa-calendar-check" style="margin-right:8px;"></i> Book Free Consultation';
             }
         });
+
+        // Show Password Toggle
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#reg-password');
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+            });
+        }
     </script>
 </body>
 </html>

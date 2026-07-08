@@ -1,0 +1,265 @@
+const demoEmployee = {
+  id: "EMP001",
+  name: "Rajiv Sharma",
+  initials: "RS",
+  designation: "Business Analyst Intern",
+  department: "Consulting",
+  joiningDate: "01 July 2026",
+  salary: "₹25,000",
+  email: "rajiv@sarangi.com"
+};
+
+const API_BASE = "http://localhost:5000";
+
+const employeeLoginForm = document.getElementById("employeeLoginForm");
+
+if (employeeLoginForm) {
+    employeeLoginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const employee_id = document.getElementById("employeeId").value.trim();
+        const password = document.getElementById("employeePassword").value.trim();
+
+        try {
+            const res = await fetch(`${API_BASE}/api/employees/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ employee_id, password })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                alert(data.message || "Invalid employee login");
+                return;
+            }
+
+            localStorage.setItem("employeeToken", data.token);
+            localStorage.setItem("employeeData", JSON.stringify(data.employee));
+
+            window.location.href = "employee-dashboard.html";
+
+        } catch (error) {
+            console.error(error);
+            alert("Could not connect to employee server.");
+        }
+    });
+}
+
+if (window.location.pathname.includes("employee-dashboard.html")) {
+    const token = localStorage.getItem("employeeToken");
+
+    if (!token) {
+        window.location.href = "employee-login.html";
+    }
+
+    async function loadEmployeeProfile() {
+        try {
+            const res = await fetch(`${API_BASE}/api/employees/profile`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                localStorage.removeItem("employeeToken");
+                localStorage.removeItem("employeeData");
+                window.location.href = "employee-login.html";
+                return;
+            }
+
+            const emp = data.employee;
+
+            document.getElementById("empName").innerText = emp.name;
+            document.getElementById("profileName").innerText = emp.name;
+            document.getElementById("profileRole").innerText = emp.designation;
+
+            document.getElementById("topProfileName").innerText = emp.name;
+            document.getElementById("topProfileRole").innerText = emp.designation;
+
+            document.querySelector(".emp-top-avatar").innerText =
+                emp.name.split(" ").map(n => n[0]).join("").toUpperCase();
+
+            document.getElementById("empId").innerText = emp.employee_id;
+            document.getElementById("empDesignation").innerText = emp.designation;
+            document.getElementById("empDepartment").innerText = emp.department;
+            document.getElementById("empJoiningDate").innerText = emp.joining_date;
+
+            localStorage.setItem("employeeData", JSON.stringify(emp));
+
+        } catch (error) {
+            console.error(error);
+            alert("Could not load employee profile");
+        }
+    }
+
+    loadEmployeeProfile();
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("employeeToken");
+        localStorage.removeItem("employeeData");
+        window.location.href = "employee-login.html";
+    });
+}
+
+function letterHeader() {
+  return `
+    <div class="letter-head">
+      <h1>Sarangi Consulting</h1>
+      <p>Growth & Management Consulting Firm</p>
+    </div>
+  `;
+}
+
+async function openDocument(type, shouldDownload = false) {
+    const token = localStorage.getItem("employeeToken");
+
+    if (!token) {
+        window.location.href = "employee-login.html";
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE}/api/employees/documents/${type}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+            alert(data.message || "Could not load document");
+            return;
+        }
+
+        const emp = data.employee;
+
+        renderDocument(type, emp);
+
+        if (shouldDownload) {
+            setTimeout(() => {
+                downloadDocument();
+            }, 300);
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Could not connect to employee document server.");
+    }
+}
+
+function renderDocument(type, emp) {
+    const preview = document.getElementById("documentPreview");
+    const paper = document.getElementById("letterPaper");
+    const title = document.getElementById("docTitle");
+
+    preview.style.display = "block";
+
+    let html = "";
+
+    if (type === "offer") {
+        title.innerText = "Offer Letter";
+        html = `
+            ${letterHeader()}
+            <h2>Offer Letter</h2>
+            <p>Date: ${new Date().toLocaleDateString("en-IN")}</p>
+
+            <p>Dear <strong>${emp.name}</strong>,</p>
+
+            <p>
+                We are pleased to offer you the position of
+                <strong>${emp.designation}</strong> at Sarangi Consulting.
+            </p>
+
+            <p>
+                Your joining date will be <strong>${emp.joining_date}</strong>.
+                Your monthly salary will be <strong>₹${Number(emp.salary).toLocaleString("en-IN")}</strong>.
+            </p>
+
+            <p>
+                We welcome you to Sarangi Consulting and look forward to your contribution.
+            </p>
+
+            <br><br>
+            <p><strong>Authorized Signatory</strong><br>Sarangi Consulting</p>
+        `;
+    }
+
+    if (type === "salary") {
+        title.innerText = "Salary Slip";
+        html = `
+            ${letterHeader()}
+            <h2>Salary Slip</h2>
+
+            <p><strong>Employee Name:</strong> ${emp.name}</p>
+            <p><strong>Employee ID:</strong> ${emp.employee_id}</p>
+            <p><strong>Designation:</strong> ${emp.designation}</p>
+            <p><strong>Department:</strong> ${emp.department}</p>
+
+            <hr>
+
+            <p><strong>Basic Salary:</strong> ₹${Number(emp.salary).toLocaleString("en-IN")}</p>
+            <p><strong>Deductions:</strong> ₹0</p>
+            <p><strong>Net Pay:</strong> ₹${Number(emp.salary).toLocaleString("en-IN")}</p>
+        `;
+    }
+
+    if (type === "experience") {
+        title.innerText = "Experience Letter";
+        html = `
+            ${letterHeader()}
+            <h2>Experience Letter</h2>
+
+            <p>
+                This is to certify that <strong>${emp.name}</strong> worked with
+                Sarangi Consulting as <strong>${emp.designation}</strong>.
+            </p>
+
+            <p>
+                During the tenure, the employee contributed to consulting,
+                operations and project-related responsibilities.
+            </p>
+
+            <p>
+                We appreciate their contribution and wish them success in future endeavors.
+            </p>
+
+            <br><br>
+            <p><strong>Authorized Signatory</strong><br>Sarangi Consulting</p>
+        `;
+    }
+
+    if (type === "relieving") {
+        title.innerText = "Relieving Letter";
+        html = `
+            ${letterHeader()}
+            <h2>Relieving Letter</h2>
+
+            <p>Dear <strong>${emp.name}</strong>,</p>
+
+            <p>
+                This is to confirm that you have been relieved from your duties at
+                Sarangi Consulting after completion of your assigned responsibilities.
+            </p>
+
+            <p>
+                We appreciate your contribution and wish you the best for your future.
+            </p>
+
+            <br><br>
+            <p><strong>Authorized Signatory</strong><br>Sarangi Consulting</p>
+        `;
+    }
+
+    paper.innerHTML = html;
+    preview.scrollIntoView({ behavior: "smooth" });
+}
+
+function downloadDocument() {
+  window.print();
+}
