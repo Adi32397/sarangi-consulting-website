@@ -6,6 +6,7 @@ const { initSetting, getSetting } = require('./Setting');
 const { initActivityLog, getActivityLog } = require('./ActivityLog');
 const { initNotification, getNotification } = require('./Notification');
 const { initPricingCard, PricingCard: getPricingCard } = require('./PricingCard');
+const { initEmployee } = require('./Employee');
 const { getSequelize } = require('../config/database');
 
 const syncDatabase = async () => {
@@ -17,6 +18,7 @@ const syncDatabase = async () => {
     const Setting = initSetting();
     const ActivityLog = initActivityLog();
     const Notification = initNotification();
+    const Employee = initEmployee();
     initPricingCard();
 
 
@@ -38,5 +40,6 @@ module.exports = {
     Setting: () => getSetting(),
     ActivityLog: () => getActivityLog(),
     Notification: () => getNotification(),
-    PricingCard: () => getPricingCard()
+    PricingCard: () => getPricingCard(),
+    Employee: () => Employee,
 };

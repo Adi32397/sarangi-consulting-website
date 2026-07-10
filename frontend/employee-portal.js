@@ -1,62 +1,18 @@
-const demoEmployee = {
-  id: "EMP001",
-  name: "Rajiv Sharma",
-  initials: "RS",
-  designation: "Business Analyst Intern",
-  department: "Consulting",
-  joiningDate: "01 July 2026",
-  salary: "₹25,000",
-  email: "rajiv@sarangi.com"
-};
-
 const API_BASE = "http://localhost:5000";
 
-const employeeLoginForm = document.getElementById("employeeLoginForm");
-
-if (employeeLoginForm) {
-    employeeLoginForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        const employee_id = document.getElementById("employeeId").value.trim();
-        const password = document.getElementById("employeePassword").value.trim();
-
-        try {
-            const res = await fetch(`${API_BASE}/api/employees/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ employee_id, password })
-            });
-
-            const data = await res.json();
-
-            if (!res.ok || !data.success) {
-                alert(data.message || "Invalid employee login");
-                return;
-            }
-
-            localStorage.setItem("employeeToken", data.token);
-            localStorage.setItem("employeeData", JSON.stringify(data.employee));
-
-            window.location.href = "employee-dashboard.html";
-
-        } catch (error) {
-            console.error(error);
-            alert("Could not connect to employee server.");
-        }
-    });
-}
-
+// Only run this if we are on the employee dashboard
 if (window.location.pathname.includes("employee-dashboard.html")) {
-    const token = localStorage.getItem("employeeToken");
+    // 1. Check for the standard unified 'token'
+    const token = localStorage.getItem("token");
 
     if (!token) {
-        window.location.href = "employee-login.html";
+        // Redirect to the unified login page
+        window.location.href = "login.html";
     }
 
     async function loadEmployeeProfile() {
         try {
+            // Note: Make sure your backend allows the unified JWT token to access this route
             const res = await fetch(`${API_BASE}/api/employees/profile`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -66,9 +22,9 @@ if (window.location.pathname.includes("employee-dashboard.html")) {
             const data = await res.json();
 
             if (!res.ok || !data.success) {
-                localStorage.removeItem("employeeToken");
-                localStorage.removeItem("employeeData");
-                window.location.href = "employee-login.html";
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                window.location.href = "login.html";
                 return;
             }
 
@@ -89,6 +45,7 @@ if (window.location.pathname.includes("employee-dashboard.html")) {
             document.getElementById("empDepartment").innerText = emp.department;
             document.getElementById("empJoiningDate").innerText = emp.joining_date;
 
+            // Optional: Save specific employee data if needed for documents
             localStorage.setItem("employeeData", JSON.stringify(emp));
 
         } catch (error) {
@@ -99,12 +56,16 @@ if (window.location.pathname.includes("employee-dashboard.html")) {
 
     loadEmployeeProfile();
 
+    // Logout button logic
     document.getElementById("logoutBtn").addEventListener("click", () => {
-        localStorage.removeItem("employeeToken");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         localStorage.removeItem("employeeData");
-        window.location.href = "employee-login.html";
+        window.location.href = "login.html";
     });
 }
+
+// --- Document Generation Logic ---
 
 function letterHeader() {
   return `
@@ -116,10 +77,11 @@ function letterHeader() {
 }
 
 async function openDocument(type, shouldDownload = false) {
-    const token = localStorage.getItem("employeeToken");
+    // 2. Use the unified token for document requests too
+    const token = localStorage.getItem("token");
 
     if (!token) {
-        window.location.href = "employee-login.html";
+        window.location.href = "login.html";
         return;
     }
 
