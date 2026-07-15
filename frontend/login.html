@@ -81,7 +81,9 @@
                     window.location.href = 'admin-dashboard.html';
                 } else if (userRole === 'employee') {
                     window.location.href = 'employee-dashboard.html';
-                } else {
+                } else if (userRole === 'intern') {
+                    window.location.href = 'intern-dashboard.html'; // New Intern Route
+                }else {
                     // Default fallback for clients/viewers
                     window.location.href = 'user-dashboard.html'; 
                 }

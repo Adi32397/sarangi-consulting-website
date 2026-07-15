@@ -1,15 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
-// Import both protect and authorize from the unified auth middleware
 const { protect, authorize } = require('../middlewares/auth.middleware'); 
 const { 
     getEmployeeProfile, 
-    getEmployeeDocument 
+    getEmployeeDocument,
+    createDocumentRequest,
+    getMyRequests,
+    getMyUploads
 } = require('../controllers/employee.controller');
 
-// ONLY allow Employees (and Admins) to access these HR routes
-router.get('/profile', protect, authorize('Employee', 'Admin', 'Super Admin'), getEmployeeProfile);
-router.get('/documents/:type', protect, authorize('Employee', 'Admin', 'Super Admin'), getEmployeeDocument);
+// Existing Routes
+router.get('/profile', protect, authorize('Employee', 'Intern', 'Admin', 'Super Admin'), getEmployeeProfile);
+router.get('/documents/:type', protect, authorize('Employee', 'Intern', 'Admin', 'Super Admin'), getEmployeeDocument);
+
+// New Document Request Routes
+router.post('/requests', protect, authorize('Employee', 'Intern'), createDocumentRequest);
+router.get('/requests', protect, authorize('Employee', 'Intern'), getMyRequests);
+router.get('/my-uploads', protect, authorize('Employee', 'Intern'), getMyUploads);
 
 module.exports = router;

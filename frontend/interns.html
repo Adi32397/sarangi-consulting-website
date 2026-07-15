@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intern Management | Admin | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="bookings.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px; color: white;">SARANGI<span style="color: var(--primary-green);">ADMIN</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="leads.html" class="nav-item"><i class="fas fa-users"></i> Leads & Contacts</a>
+            <a href="bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i> Bookings</a>
+            <a href="employees.html" class="nav-item"><i class="fas fa-user-tie"></i> Employees</a>
+            <a href="interns.html" class="nav-item active"><i class="fas fa-user-graduate"></i> Interns</a>
+            <a href="hr-requests.html" class="nav-item"><i class="fas fa-file-signature"></i> HR Requests</a>
+            <a href="manage-plan-cards.html" class="nav-item"><i class="fas fa-tags"></i> Manage Plan Cards</a>
+            <a href="banners.html" class="nav-item"><i class="fas fa-image"></i> Banners</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="dashboard-header bookings-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 28px; font-weight: 700; color: #0f172a;">Interns</h1>
+                <p style="color: #64748b; margin-top: 5px;">Manage intern onboarding, stipends, and program completion.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary"><i class="fas fa-file-excel"></i> Export</button>
+                <button class="btn btn-primary" onclick="openModal('addInternModal')"><i class="fas fa-plus"></i> Add Intern</button>
+            </div>
+        </header>
+
+        <div class="stat-cards bookings-stats">
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(11, 107, 58, 0.1); color: var(--primary-green);"><i class="fas fa-user-graduate"></i></div>
+                <div class="stat-title">Total Interns</div>
+                <div class="stat-value">...</div> </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i class="fas fa-spinner"></i></div>
+                <div class="stat-title">Active Now</div>
+                <div class="stat-value">...</div> </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;"><i class="fas fa-award"></i></div>
+                <div class="stat-title">Completed</div>
+                <div class="stat-value">0</div>
+            </div>
+        </div>
+
+        <div class="filter-section card mb-30">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search by Intern Name, ID, or Email...">
+            </div>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select><option>All</option><option>Active</option><option>Completed</option></select>
+                </div>
+                <div class="filter-group">
+                    <label>Department</label>
+                    <select><option>All</option><option>Engineering</option><option>Marketing</option></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container card">
+            <div class="table-responsive">
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Intern Info</th>
+                            <th>Department</th>
+                            <th>Role</th>
+                            <th>Joining Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="7" style="text-align: center;">Loading interns...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal-overlay" id="viewInternModal">
+    <div class="modal-content modal-xl">
+        <div class="modal-header">
+            <h3>Intern Details</h3>
+            <button class="close-btn" onclick="closeModal('viewInternModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="details-grid">
+                <div class="details-main">
+                    <div class="details-section">
+                        <h4>Program Information</h4>
+                        <div class="info-grid">
+                            <div class="info-group"><label>Name</label><p>...</p></div>
+                            <div class="info-group"><label>Email</label><p>...</p></div>
+                            <div class="info-group"><label>Department</label><p>...</p></div>
+                            <div class="info-group"><label>Role</label><p>...</p></div>
+                            <div class="info-group"><label>Joining Date</label><p>...</p></div>
+                            <div class="info-group"><label>Stipend</label><p>...</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-sidebar">
+                    <div class="quick-actions-box">
+                        <h4>Internship Actions</h4>
+                        <button class="btn btn-outline btn-block mb-10"><i class="fas fa-certificate"></i> Generate Certificate</button>
+                        <button class="btn btn-outline btn-block mb-10"><i class="fas fa-upload"></i> Upload Custom Document</button>
+                        <button class="btn btn-outline btn-block text-danger"><i class="fas fa-key"></i> Reset Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="addInternModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add / Edit Intern</h3>
+            <button class="close-btn" onclick="closeModal('addInternModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <form class="booking-form">
+                <div class="form-row">
+                    <div class="form-group"><label>Full Name *</label><input type="text" required></div>
+                    <div class="form-group"><label>Email *</label><input type="email" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Phone</label><input type="tel"></div>
+                    <div class="form-group"><label>Joining Date</label><input type="date"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Department</label><input type="text"></div>
+                    <div class="form-group"><label>Role</label><input type="text"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Stipend (₹)</label><input type="number"></div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select><option>Active</option><option>Completed</option><option>Terminated</option></select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('addInternModal')">Cancel</button>
+            <button class="btn btn-primary">Save Intern</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+</script>
+
+<script src="admin-hr.js"></script>
+</body>
+</html>

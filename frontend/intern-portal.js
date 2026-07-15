@@ -1,22 +1,16 @@
 const API_BASE = "http://localhost:5000";
 
-// Only run this if we are on the employee dashboard
-if (window.location.pathname.includes("employee-dashboard.html")) {
-    // 1. Check for the standard unified 'token'
+if (window.location.pathname.includes("intern-dashboard.html")) {
     const token = localStorage.getItem("token");
 
     if (!token) {
-        // Redirect to the unified login page
         window.location.href = "login.html";
     }
 
-    async function loadEmployeeProfile() {
+    async function loadInternProfile() {
         try {
-            // Note: Make sure your backend allows the unified JWT token to access this route
             const res = await fetch(`${API_BASE}/api/employees/profile`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                headers: { Authorization: `Bearer ${token}` }
             });
 
             const data = await res.json();
@@ -33,39 +27,27 @@ if (window.location.pathname.includes("employee-dashboard.html")) {
             document.getElementById("empName").innerText = emp.name;
             document.getElementById("profileName").innerText = emp.name;
             document.getElementById("profileRole").innerText = emp.designation;
-
             document.getElementById("topProfileName").innerText = emp.name;
             document.getElementById("topProfileRole").innerText = emp.designation;
-
-            document.querySelector(".emp-top-avatar").innerText =
-                emp.name.split(" ").map(n => n[0]).join("").toUpperCase();
-
+            document.getElementById("avatarInitials").innerText = emp.name.split(" ").map(n => n[0]).join("").toUpperCase();
             document.getElementById("empId").innerText = emp.employee_id;
-            document.getElementById("empDesignation").innerText = emp.designation;
             document.getElementById("empDepartment").innerText = emp.department;
             document.getElementById("empJoiningDate").innerText = emp.joining_date;
 
-            // Optional: Save specific employee data if needed for documents
-            localStorage.setItem("employeeData", JSON.stringify(emp));
-
         } catch (error) {
             console.error(error);
-            alert("Could not load employee profile");
+            alert("Could not load intern profile");
         }
     }
 
-    loadEmployeeProfile();
+    loadInternProfile();
 
-    // Logout button logic
     document.getElementById("logoutBtn").addEventListener("click", () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        localStorage.removeItem("employeeData");
         window.location.href = "login.html";
     });
 }
-
-// --- Document Generation Logic ---
 
 function letterHeader() {
   return `
@@ -77,7 +59,6 @@ function letterHeader() {
 }
 
 async function openDocument(type, shouldDownload = false) {
-    // 2. Use the unified token for document requests too
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -87,9 +68,7 @@ async function openDocument(type, shouldDownload = false) {
 
     try {
         const res = await fetch(`${API_BASE}/api/employees/documents/${type}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            headers: { Authorization: `Bearer ${token}` }
         });
 
         const data = await res.json();
@@ -99,19 +78,15 @@ async function openDocument(type, shouldDownload = false) {
             return;
         }
 
-        const emp = data.employee;
-
-        renderDocument(type, emp);
+        renderDocument(type, data.employee);
 
         if (shouldDownload) {
-            setTimeout(() => {
-                downloadDocument();
-            }, 300);
+            setTimeout(() => { downloadDocument(); }, 300);
         }
 
     } catch (error) {
         console.error(error);
-        alert("Could not connect to employee document server.");
+        alert("Could not connect to document server.");
     }
 }
 
@@ -121,98 +96,42 @@ function renderDocument(type, emp) {
     const title = document.getElementById("docTitle");
 
     preview.style.display = "block";
-
     let html = "";
 
     if (type === "offer") {
-        title.innerText = "Offer Letter";
+        title.innerText = "Internship Offer Letter";
         html = `
             ${letterHeader()}
-            <h2>Offer Letter</h2>
+            <h2>Internship Offer Letter</h2>
             <p>Date: ${new Date().toLocaleDateString("en-IN")}</p>
-
             <p>Dear <strong>${emp.name}</strong>,</p>
-
-            <p>
-                We are pleased to offer you the position of
-                <strong>${emp.designation}</strong> at Sarangi Consulting.
-            </p>
-
-            <p>
-                Your joining date will be <strong>${emp.joining_date}</strong>.
-                Your monthly salary will be <strong>₹${Number(emp.salary).toLocaleString("en-IN")}</strong>.
-            </p>
-
-            <p>
-                We welcome you to Sarangi Consulting and look forward to your contribution.
-            </p>
-
+            <p>We are pleased to offer you the internship position of <strong>${emp.designation}</strong> at Sarangi Consulting.</p>
+            <p>Your joining date will be <strong>${emp.joining_date}</strong>. Your monthly stipend will be <strong>₹${Number(emp.salary).toLocaleString("en-IN")}</strong>.</p>
             <br><br>
             <p><strong>Authorized Signatory</strong><br>Sarangi Consulting</p>
         `;
     }
 
     if (type === "salary") {
-        title.innerText = "Salary Slip";
+        title.innerText = "Stipend Slip";
         html = `
             ${letterHeader()}
-            <h2>Salary Slip</h2>
-
-            <p><strong>Employee Name:</strong> ${emp.name}</p>
-            <p><strong>Employee ID:</strong> ${emp.employee_id}</p>
-            <p><strong>Designation:</strong> ${emp.designation}</p>
-            <p><strong>Department:</strong> ${emp.department}</p>
-
+            <h2>Stipend Slip</h2>
+            <p><strong>Intern Name:</strong> ${emp.name}</p>
+            <p><strong>Intern ID:</strong> ${emp.employee_id}</p>
+            <p><strong>Role:</strong> ${emp.designation}</p>
             <hr>
-
-            <p><strong>Basic Salary:</strong> ₹${Number(emp.salary).toLocaleString("en-IN")}</p>
-            <p><strong>Deductions:</strong> ₹0</p>
+            <p><strong>Basic Stipend:</strong> ₹${Number(emp.salary).toLocaleString("en-IN")}</p>
             <p><strong>Net Pay:</strong> ₹${Number(emp.salary).toLocaleString("en-IN")}</p>
         `;
     }
 
     if (type === "experience") {
-        title.innerText = "Experience Letter";
+        title.innerText = "Internship Certificate";
         html = `
             ${letterHeader()}
-            <h2>Experience Letter</h2>
-
-            <p>
-                This is to certify that <strong>${emp.name}</strong> worked with
-                Sarangi Consulting as <strong>${emp.designation}</strong>.
-            </p>
-
-            <p>
-                During the tenure, the employee contributed to consulting,
-                operations and project-related responsibilities.
-            </p>
-
-            <p>
-                We appreciate their contribution and wish them success in future endeavors.
-            </p>
-
-            <br><br>
-            <p><strong>Authorized Signatory</strong><br>Sarangi Consulting</p>
-        `;
-    }
-
-    if (type === "relieving") {
-        title.innerText = "Relieving Letter";
-        html = `
-            ${letterHeader()}
-            <h2>Relieving Letter</h2>
-
-            <p>Dear <strong>${emp.name}</strong>,</p>
-
-            <p>
-                This is to confirm that you have been relieved from your duties at
-                Sarangi Consulting after completion of your assigned responsibilities.
-            </p>
-
-            <p>
-                We appreciate your contribution and wish you the best for your future.
-            </p>
-
+            <h2>Certificate of Completion</h2>
+            <p>This is to certify that <strong>${emp.name}</strong> successfully completed their internship with Sarangi Consulting as an <strong>${emp.designation}</strong>.</p>
             <br><br>
             <p><strong>Authorized Signatory</strong><br>Sarangi Consulting</p>
         `;

@@ -46,7 +46,7 @@ const initUser = () => {
             defaultValue: ''
         },
         role: {
-            type: DataTypes.ENUM('Super Admin', 'Admin', 'Manager', 'Employee', 'Viewer'),
+            type: DataTypes.ENUM('Super Admin', 'Admin', 'Manager', 'Employee', 'Intern', 'Viewer'),
             defaultValue: 'Viewer'
         },
         profileImage: {

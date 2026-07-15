@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Requests | Admin | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="bookings.css">
+    <style>
+        /* Tab Button Styles */
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-btn:hover {
+            background: #e2e8f0;
+        }
+        .tab-btn.active {
+            background: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 10px rgba(11, 107, 58, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px; color: white;">SARANGI<span style="color: var(--primary-green);">ADMIN</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="leads.html" class="nav-item"><i class="fas fa-users"></i> Leads & Contacts</a>
+            <a href="bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i> Bookings</a>
+            <a href="employees.html" class="nav-item"><i class="fas fa-user-tie"></i> Employees</a>
+            <a href="interns.html" class="nav-item"><i class="fas fa-user-graduate"></i> Interns</a>
+            <a href="hr-requests.html active" class="nav-item"><i class="fas fa-file-signature"></i> HR Requests</a>
+            <a href="manage-plan-cards.html" class="nav-item"><i class="fas fa-tags"></i> Manage Plan Cards</a>
+            <a href="banners.html" class="nav-item"><i class="fas fa-image"></i> Banners</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 28px; font-weight: 700; color: #0f172a;">HR Requests & Uploads</h1>
+                <p style="color: #64748b;">Manage document requests from staff and upload official files to their portals.</p>
+            </div>
+        </header>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 20px;">
+            
+            <div class="table-container card" style="margin-bottom: 0;">
+                <div style="padding: 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-family: 'Montserrat'; font-size: 16px;">Pending Requests</h3>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <button class="tab-btn active" id="tab-Employee" onclick="switchTab('Employee')">Employees</button>
+                        <button class="tab-btn" id="tab-Intern" onclick="switchTab('Intern')">Interns</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="bookings-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Document Type</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsTableBody">
+                            <tr><td colspan="5" style="text-align: center;">Loading requests...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 24px; align-self: start;">
+                <h3 style="margin: 0 0 20px 0; font-family: 'Montserrat'; font-size: 16px;">Upload Custom Document</h3>
+                <form id="adminUploadForm" style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="form-group">
+                        <label>Select Staff Member</label>
+                        <select id="uploadUserId" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Document Title</label>
+                        <input type="text" id="uploadTitle" required placeholder="e.g., Signed Form 16" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                    </div>
+                    <div class="form-group">
+                        <label>Select File</label>
+                        <input type="file" id="uploadFile" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;"><i class="fas fa-upload"></i> Upload & Send to Portal</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script>
+    const API_BASE = "http://localhost:5000";
+    const token = localStorage.getItem("token");
+
+    // Global variables to store our data
+    let allUsersMap = {}; 
+    let allRequests = [];
+    let currentTab = 'Employee'; // Default view
+
+    async function initRequestsPage() {
+        if (!token) return;
+
+        // 1. Fetch Users (We need this to know who is an employee and who is an intern)
+        try {
+            const userRes = await fetch(`${API_BASE}/api/auth/users`, { headers: { Authorization: `Bearer ${token}` } });
+            const userData = await userRes.json();
+            
+            if (userData.success) {
+                const select = document.getElementById('uploadUserId');
+                let employeeOptions = '<optgroup label="Employees">';
+                let internOptions = '<optgroup label="Interns">';
+
+                userData.data.forEach(u => {
+                    // Save to our map for quick lookups later
+                    allUsersMap[u.id] = { name: u.name, role: u.role };
+
+                    // Sort into the dropdown groups
+                    if (u.role === 'Employee') {
+                        employeeOptions += `<option value="${u.id}">${u.name} (Employee)</option>`;
+                    } else if (u.role === 'Intern') {
+                        internOptions += `<option value="${u.id}">${u.name} (Intern)</option>`;
+                    }
+                });
+
+                employeeOptions += '</optgroup>';
+                internOptions += '</optgroup>';
+                
+                select.innerHTML = '<option value="">-- Select Employee/Intern --</option>' + employeeOptions + internOptions;
+            }
+        } catch (e) { console.error("Failed to load users:", e); }
+
+        // 2. Fetch Requests
+        await fetchRequests();
+    }
+
+    async function fetchRequests() {
+        try {
+            const res = await fetch(`${API_BASE}/api/admin/document-requests`, { headers: { Authorization: `Bearer ${token}` } });
+            const data = await res.json();
+            
+            if (data.success) {
+                allRequests = data.data;
+                renderTable(); // Draw the table based on the current tab
+            }
+        } catch (e) { console.error("Failed to load requests:", e); }
+    }
+
+    // Function to handle switching tabs
+    function switchTab(role) {
+        currentTab = role;
+        
+        // Update button styles
+        document.getElementById('tab-Employee').classList.remove('active');
+        document.getElementById('tab-Intern').classList.remove('active');
+        document.getElementById(`tab-${role}`).classList.add('active');
+
+        // Redraw table
+        renderTable();
+    }
+
+    // Function to draw the table filtered by role
+    function renderTable() {
+        const tbody = document.getElementById('requestsTableBody');
+        
+        // Filter requests based on the selected tab
+        const filteredRequests = allRequests.filter(req => {
+            const user = allUsersMap[req.userId];
+            // If user exists in our map, check if their role matches the current tab
+            return user && user.role === currentTab;
+        });
+
+        if (filteredRequests.length > 0) {
+            tbody.innerHTML = filteredRequests.map(req => {
+                const userName = allUsersMap[req.userId] ? allUsersMap[req.userId].name : 'Unknown User';
+                
+                return `
+                <tr>
+                    <td><strong>${userName}</strong></td>
+                    <td style="font-weight: 600; color: #334155;">${req.documentType}</td>
+                    <td style="font-size: 13px;">${req.reason || '-'}</td>
+                    <td>
+                        <span class="badge badge-status ${req.status === 'Completed' ? 'badge-completed' : 'badge-pending'}">${req.status}</span>
+                    </td>
+                    <td>
+                        <select onchange="updateStatus('${req.id}', this.value)" style="padding: 6px; border-radius: 4px; border: 1px solid #cbd5e1;">
+                            <option value="Pending" ${req.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Completed" ${req.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                            <option value="Rejected" ${req.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                        </select>
+                    </td>
+                </tr>
+            `}).join('');
+        } else {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 30px; color: #64748b;">No pending ${currentTab.toLowerCase()} requests.</td></tr>`;
+        }
+    }
+
+    async function updateStatus(id, newStatus) {
+        try {
+            await fetch(`${API_BASE}/api/admin/document-requests/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ status: newStatus })
+            });
+            fetchRequests(); // Refresh the list to show the new status badge
+        } catch (e) { alert("Failed to update status"); }
+    }
+
+    document.getElementById('adminUploadForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('userId', document.getElementById('uploadUserId').value);
+        formData.append('title', document.getElementById('uploadTitle').value);
+        formData.append('document', document.getElementById('uploadFile').files[0]);
+
+        try {
+            const res = await fetch(`${API_BASE}/api/admin/upload-document`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${token}` },
+                body: formData // Do not stringify FormData
+            });
+            const data = await res.json();
+            if (data.success) {
+                alert('Document successfully uploaded to their portal!');
+                e.target.reset();
+            } else { alert(data.message || 'Upload failed'); }
+        } catch (e) { alert('Server error during upload'); }
+    });
+
+    // Start the page
+    initRequestsPage();
+</script>
+</body>
+</html>
