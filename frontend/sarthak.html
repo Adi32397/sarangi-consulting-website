@@ -170,6 +170,33 @@
             align-items: start;
         }
 
+        /* --- Intro & Grids --- */
+        .startup-application-intro {
+            display: grid;
+            grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+            gap: 80px;
+            align-items: center; /* FIX: Changed from 'start' to 'center' to balance the two columns */
+        }
+
+        /* --- NEW: About Section Green Theme --- */
+        .sarthak-about-section {
+            background-color: var(--sarthak-primary, #0b4f3c); /* Deep green background */
+        }
+
+        .sarthak-about-section .startup-application-kicker {
+            color: var(--sarthak-gold, #d7b36a); /* Changed to gold for high contrast */
+        }
+
+        .sarthak-about-section .section-title {
+            background: none; /* Removes the dark text gradient */
+            -webkit-text-fill-color: #ffffff; /* Forces text to be solid white */
+            color: #ffffff;
+        }
+
+        .sarthak-about-section .startup-application-intro p {
+            color: rgba(255, 255, 255, 0.85); /* Makes paragraph text light/white */
+        }
+
         .startup-application-intro p {
             color: var(--text-grey);
             font-size: 1.05rem;
@@ -631,16 +658,9 @@
 <body>
     <!-- PAGE LOADER -->
     <div id="page-loader" class="page-loader">
-        <div class="loader-content">
-            <svg class="loader-logo" width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
-                <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
-                <line x1="10" y1="30" x2="90" y2="70" />
-            </svg>
-            <div class="loader-counter">Loading... <span id="loader-count">1</span><span class="loader-suffix">/10</span></div>
-            <div class="loader-laser-track">
-                <div id="loader-laser" class="loader-laser"></div>
-            </div>
-        </div>
+        <div class="loader-sheet sheet-1"></div>
+        <div class="loader-sheet sheet-2"></div>
+        <div class="loader-sheet sheet-3"></div>
     </div>
 
     <!-- 1. TOP ANNOUNCEMENT BAR -->
@@ -662,7 +682,7 @@
 
                 <!-- Main Text -->
                 <p style="margin: 0; font-weight: 500; font-size: 14px; color: #FFFFFF;">
-                    Quickly Register for Startup Advisory Session with RC Sarangi |
+                    Quickly Register for Startup Advisory Session with Experts |
                     <span
                         style="text-decoration: line-through; text-decoration-color: #DC2626; color: #A1A1AA; margin: 0 4px;">₹1,999</span>
                     <span style="color: #22C55E; font-weight: 700;">₹999</span>
@@ -714,6 +734,7 @@
                     <li><a href="industries.html">Industries</a></li>
                     <li><a href="insights.html">Insights</a></li>
                     <li><a href="startup-advisory.html">Startup Advisory</a></li>
+                    <li><a href="sarthak.html">Sarthak</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="login.html" style="color: var(--primary-green); font-weight: 600;">Login</a></li>
                     <li style="display: flex; align-items: center;">
@@ -739,6 +760,7 @@
                 <li><a href="industries.html" class="mobile-link">Industries</a></li>
                 <li><a href="insights.html" class="mobile-link">Insights</a></li>
                 <li><a href="startup-advisory.html" class="mobile-link">Startup Advisory</a></li>
+                <li><a href="sarthak.html" class="mobile-link">Sarthak</a></li>
                 <li><a href="contact.html" class="mobile-link">Contact</a></li>
             </ul>
             <a href="startup-advisory.html" class="btn btn-primary mobile-btn">Register Advisory Session</a>
@@ -810,7 +832,7 @@
             </div>
         </section>
 
-        <section class="section-padding bg-light">
+        <section class="section-padding sarthak-about-section">
             <div class="container startup-application-intro">
                 <div class="reveal-up"><span class="startup-application-kicker">About the program</span>
                     <h2 class="section-title">Practical growth advisory for founder-led businesses.</h2>
@@ -970,17 +992,6 @@
                         questions</span>
                     <h2 class="section-title" id="faq-title">FAQ</h2>
                 </div>
-
-                <details class="reveal-up faq-item">
-                    <summary>Is there a fee to apply? <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
-                    </summary>
-                    <div class="faq-content-wrapper">
-                        <div class="faq-content">
-                            <p>There is no fee to submit an application. Any advisory engagement is discussed only after
-                                the review process.</p>
-                        </div>
-                    </div>
-                </details>
 
                 <details class="reveal-up faq-item">
                     <summary>Which startup stages can apply? <i class="fas fa-chevron-down faq-icon"
