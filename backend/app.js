@@ -6,6 +6,8 @@ const { errorHandler } = require('./middlewares/errorHandler');
 
 // Route files
 const authRoutes = require('./routes/auth.routes');
+const pricingCardRoutes = require('./routes/pricing-card.routes');
+const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
 
@@ -60,8 +62,11 @@ app.use('/api/dashboard', require('./routes/dashboard.routes'));
 app.use('/api/notifications', require('./routes/notification.routes'));
 app.use('/api/activity-logs', require('./routes/activity-log.routes'));
 app.use('/api/exports', require('./routes/export.routes'));
+app.use('/api/pricing-cards', pricingCardRoutes);
+
 app.use('/api/chatbot', require('./routes/chatbot.routes'));
+app.use('/api/employees', require('./routes/employee.routes'));
+app.use('/api/admin', adminRoutes);
 // Error handler middleware
 app.use(errorHandler);
-
 module.exports = app;

@@ -75,7 +75,18 @@
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 const userRole = data.user.role.toLowerCase();
-                window.location.href = (userRole === 'admin' || userRole === 'super admin') ? 'admin-dashboard.html' : 'user-dashboard.html';
+
+                // Route based on the user's role
+                if (userRole === 'admin' || userRole === 'super admin') {
+                    window.location.href = 'admin-dashboard.html';
+                } else if (userRole === 'employee') {
+                    window.location.href = 'employee-dashboard.html';
+                } else if (userRole === 'intern') {
+                    window.location.href = 'intern-dashboard.html'; // New Intern Route
+                }else {
+                    // Default fallback for clients/viewers
+                    window.location.href = 'user-dashboard.html'; 
+                }
             } catch (err) {
                 alert('Could not connect to server. Please run the backend first.');
             }

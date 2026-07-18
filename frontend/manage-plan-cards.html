@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Plan Cards | Admin Dashboard | Sarangi Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="manage-plan-cards.css">
+    <script src="theme.js?v=3"></script>
+</head>
+<body>
+
+<div class="dashboard-layout">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h2 style="font-family: 'Montserrat'; font-size: 18px; letter-spacing: 1px; color: white;">SARANGI<span style="color: var(--primary-green);">ADMIN</span></h2>
+        </div>
+        <nav style="flex: 1;">
+            <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="leads.html" class="nav-item"><i class="fas fa-users"></i> Leads & Contacts</a>
+            <a href="bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i> Bookings</a>
+            <a href="employees.html" class="nav-item"><i class="fas fa-user-tie"></i> Employees</a>
+            <a href="interns.html" class="nav-item"><i class="fas fa-user-graduate"></i> Interns</a>
+            <a href="hr-requests.html" class="nav-item"><i class="fas fa-file-signature"></i> HR Requests</a>
+            <a href="manage-plan-cards.html" class="nav-item active"><i class="fas fa-tags"></i> Manage Plan Cards</a>
+            <a href="banners.html" class="nav-item"><i class="fas fa-image"></i> Banners</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+        <div style="padding: 20px;">
+            <a href="login.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div>
+                <h1 style="font-family: 'Montserrat'; font-size: 28px; font-weight: 700; color: #0f172a;">Pricing Cards</h1>
+                <p style="color: #64748b; margin-top: 5px;">Manage the service packages displayed on the public website.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openModal('cardModal', 'add')"><i class="fas fa-plus"></i> Create New Plan</button>
+            </div>
+        </header>
+
+        <div class="cards-stats">
+            <div class="stat-card card">
+                <div class="stat-icon-wrapper" style="background: rgba(11, 107, 58, 0.1); color: var(--primary-green);"><i class="fas fa-tags"></i></div>
+                <div class="stat-title">Total Active Plans</div>
+                <div class="stat-value" id="statTotalCards">0</div>
+            </div>
+            <div class="stat-card card">
+                <div class="stat-icon-wrapper" style="background: rgba(249, 115, 22, 0.1); color: #f97316;"><i class="fas fa-star"></i></div>
+                <div class="stat-title">Highlighted Plans</div>
+                <div class="stat-value" id="statHighlighted">0</div>
+            </div>
+        </div>
+
+        <div class="cards-layout-grid">
+            
+            <div class="main-view-column">
+                
+                <div class="bulk-actions card mb-20 p-24 d-flex align-items-center gap-12" id="bulkActionsContainer">
+                    <span style="font-weight: 600; font-size: 14px; margin-right: 15px;">Bulk Actions:</span>
+                    <button class="btn btn-small btn-danger" onclick="bulkDelete()"><i class="fas fa-trash"></i> Delete Selected</button>
+                </div>
+
+                <div class="table-container card">
+                    <div class="table-responsive">
+                        <table class="plan-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;"><input type="checkbox" id="selectAll"></th>
+                                    <th>Order</th>
+                                    <th>Plan Details</th>
+                                    <th>Pricing</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cardsTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-column">
+                <div class="widget-card card">
+                    <h3 class="widget-title">Live Preview <span style="font-size: 12px; color: #94a3b8; font-weight: 500; float: right; margin-top: 4px;">Select a row to preview</span></h3>
+                    <div id="livePreviewContainer">
+                        <p style="text-align: center; color: #94a3b8; margin: 40px 0;">Select a card from the table to see how it looks on the website.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal-overlay" id="cardModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Edit Plan Card</h3>
+            <button class="close-btn" onclick="closeModal('cardModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="cardForm">
+                <input type="hidden" id="cardId">
+                <input type="hidden" id="modalMode">
+                
+                <div class="form-group full-width">
+                    <label>Card Title *</label>
+                    <input type="text" id="cardTitle" required placeholder="e.g. Firm Registration">
+                </div>
+                
+                <div class="form-group full-width">
+                    <label>Description *</label>
+                    <textarea id="cardDescription" rows="2" required placeholder="Short summary of the plan..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Strike Price (Optional)</label>
+                        <input type="text" id="priceStrike" placeholder="e.g. ₹5,999">
+                    </div>
+                    <div class="form-group">
+                        <label>Active Price *</label>
+                        <input type="text" id="priceActive" required placeholder="e.g. ₹2,999">
+                    </div>
+                </div>
+
+                <div class="form-group full-width mt-20">
+                    <label>Card Features (Comma separated)</label>
+                    <textarea id="cardFeatures" rows="3" placeholder="Feature 1, Feature 2, Feature 3..."></textarea>
+                    <small style="color: #64748b; font-size: 11px;">These represent the checkmark bullet points on the card.</small>
+                </div>
+
+                <div class="form-row mt-20">
+                    <div class="form-group">
+                        <label>Urgency Badge (Optional)</label>
+                        <input type="text" id="urgencyText" placeholder="e.g. 50% Off Today!">
+                    </div>
+                    <div class="form-group">
+                        <label>Display Order Index</label>
+                        <input type="number" id="orderIndex" value="0" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Button Text</label>
+                    <input type="text" id="cardButtonText" class="form-control" placeholder="e.g. Register Now">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="isHighlighted" style="width: 18px; height: 18px; accent-color: var(--primary-green);">
+                    <label for="isHighlighted"><strong>Highlight this card</strong> (Makes it stand out as the popular choice)</label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" type="button" onclick="closeModal('cardModal')">Cancel</button>
+            <button class="btn btn-primary" type="button" id="saveCardBtn">Save Card</button>
+        </div>
+    </div>
+</div>
+
+<script src="manage-plan-cards.js?v=1"></script>
+</body>
+</html>

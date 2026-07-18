@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intern Dashboard | Sarangi Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="employee-portal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="emp-layout">
+  <aside class="emp-sidebar">
+    <div class="emp-brand">
+      <img src="logo.jpeg" class="emp-brand-logo" alt="Sarangi Consulting">
+      <div class="emp-brand-text">
+          <h3>SARANGI</h3>
+          <span>Intern Portal</span>
+      </div>
+    </div>
+    <nav class="emp-nav">
+      <a href="#" class="active"><i class="fas fa-grid-2"></i> Dashboard</a>
+      <a href="#documents"><i class="fas fa-folder-open"></i> My Documents</a>
+      <a href="#"><i class="fas fa-wallet"></i> Stipend Records</a>
+    </nav>
+    <button id="logoutBtn" class="emp-sidebar-logout">
+      <i class="fas fa-arrow-right-from-bracket"></i> Logout
+    </button>
+  </aside>
+
+  <main class="emp-main">
+    <header class="emp-topbar">
+      <div>
+        <span class="emp-eyebrow">Internship Workspace</span>
+        <h1>Welcome, <strong id="empName">Intern</strong></h1>
+        <p>Manage your internship documents, stipend records, and personal information.</p>
+      </div>
+      <div class="emp-top-profile">
+        <div class="emp-top-avatar" id="avatarInitials">IN</div>
+        <div>
+          <strong id="topProfileName">Loading...</strong>
+          <span id="topProfileRole">Intern</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="emp-profile-card premium">
+      <div class="emp-avatar"><i class="fas fa-user-graduate"></i></div>
+      <div class="emp-profile-details">
+        <h2 id="profileName">Intern Name</h2>
+        <p id="profileRole">Intern Role</p>
+        <div class="emp-tags">
+          <span><i class="fas fa-id-card"></i> <strong id="empId">ID</strong></span>
+          <span><i class="fas fa-building"></i> <strong id="empDepartment">Dept</strong></span>
+          <span><i class="fas fa-calendar-check"></i> Joined <strong id="empJoiningDate">Date</strong></span>
+        </div>
+      </div>
+      <div class="emp-status"><span></span> Active Intern</div>
+    </section>
+
+    <section class="emp-content-grid">
+      <div>
+        <section class="emp-section-title" id="documents">
+          <div>
+            <h2>Internship Documents</h2>
+            <p>Access official documents issued by Sarangi Consulting.</p>
+          </div>
+        </section>
+
+        <section class="emp-doc-grid">
+          <div class="emp-doc-card">
+            <div class="emp-doc-icon green"><i class="fas fa-file-signature"></i></div>
+            <h3>Offer Letter</h3>
+            <p>Official internship offer and confirmation.</p>
+            <div class="emp-doc-actions">
+              <button onclick="openDocument('offer')">View</button>
+              <button onclick="openDocument('offer', true)">Download</button>
+            </div>
+          </div>
+          <div class="emp-doc-card">
+            <div class="emp-doc-icon blue"><i class="fas fa-file-invoice-dollar"></i></div>
+            <h3>Stipend Slip</h3>
+            <p>Monthly stipend breakdown and details.</p>
+            <div class="emp-doc-actions">
+              <button onclick="openDocument('salary')">View</button>
+              <button onclick="openDocument('salary', true)">Download</button>
+            </div>
+          </div>
+          <div class="emp-doc-card">
+            <div class="emp-doc-icon purple"><i class="fas fa-award"></i></div>
+            <h3>Certificate of Completion</h3>
+            <p>Internship experience verification.</p>
+            <div class="emp-doc-actions">
+              <button onclick="openDocument('experience')">View</button>
+              <button onclick="openDocument('experience', true)">Download</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="emp-side-panel">
+        <div class="emp-panel-card">
+          <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
+          <p>Welcome to the Sarangi Consulting Intern Portal.</p>
+          <p>Stipend slips and certificates will be available here after approval.</p>
+        </div>
+
+        <div class="emp-panel-card">
+          <h3><i class="fas fa-lock" style="color: #3b82f6;"></i> Change Password</h3>
+          <p style="font-size: 13px; color: var(--emp-muted); margin-bottom: 15px;">Update your initial login password to keep your intern account secure.</p>
+          
+          <form id="changePasswordForm" style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="password" id="currentPassword" placeholder="Current Password" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--emp-border);">
+            <input type="password" id="newPassword" placeholder="New Password" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--emp-border);">
+            <button type="submit" style="width: 100%; margin-top: 5px; background-color: #3b82f6; color: white; border: none;">Update Password</button>
+          </form>
+        </div>
+      </aside>
+    </section>
+
+    <section class="emp-section-title" id="custom-requests" style="margin-top: 40px;">
+      <div>
+        <h2>Document Requests & Received Files</h2>
+        <p>Request specific documents from HR or access custom files uploaded for you.</p>
+      </div>
+    </section>
+
+    <div class="emp-content-grid" style="grid-template-columns: 1fr 1fr; gap: 24px;">
+      <div class="emp-panel-card">
+        <h3><i class="fas fa-paper-plane"></i> Request a Document</h3>
+        <form id="documentRequestForm" style="margin-bottom: 20px;">
+          <select id="requestDocType" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--emp-border);">
+            <option value="">Select Document Type...</option>
+            <option value="Form 16">Form 16 / Tax Document</option>
+            <option value="Address Proof">Address Proof Letter</option>
+            <option value="Visa Letter">Visa Application Letter</option>
+            <option value="Other">Other (Specify in reason)</option>
+          </select>
+          <input type="text" id="requestReason" placeholder="Reason (Optional)" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--emp-border);">
+          <button type="submit" style="width: 100%;">Submit Request</button>
+        </form>
+
+        <h4 style="margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 8px;">My Requests</h4>
+        <div id="myRequestsList" style="max-height: 200px; overflow-y: auto; font-size: 14px;">
+          <p style="color: var(--emp-muted);">Loading requests...</p>
+        </div>
+      </div>
+
+      <div class="emp-panel-card">
+        <h3><i class="fas fa-inbox"></i> Files from Admin</h3>
+        <p style="font-size: 13px; color: var(--emp-muted); margin-bottom: 15px;">Documents explicitly uploaded for you by the HR/Admin team.</p>
+        
+        <div id="adminUploadsList" style="display: flex; flex-direction: column; gap: 12px;">
+          <p style="color: var(--emp-muted);">No files received yet.</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="emp-preview" id="documentPreview">
+      <div class="emp-preview-header">
+        <div>
+          <span>Document Preview</span>
+          <h2 id="docTitle">Document</h2>
+        </div>
+        <button onclick="downloadDocument()"><i class="fas fa-download"></i> Download PDF</button>
+      </div>
+      <div class="letter-paper" id="letterPaper"></div>
+    </section>
+  </main>
+</div>
+
+<script src="intern-portal.js"></script>
+</body>
+</html>
