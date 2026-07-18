@@ -9,7 +9,6 @@ const generateToken = (id) => {
         expiresIn: process.env.JWT_EXPIRE,
     });
 };
-
 // @desc    Register user
 // @route   POST /api/auth/register
 // @access  Public
@@ -18,23 +17,35 @@ exports.register = async (req, res, next) => {
         const { name, email, password, phone, role } = req.body;
 
         const UserModel = User();
-        // Check if user exists
-        let user = await UserModel.findOne({ where: { email } });
-        if (user) {
-            return res.status(400).json({ success: false, message: 'Email already exists' });
+
+        // Check if email already exists
+        const existing = await UserModel.findOne({
+            where: { email }
+        });
+
+        if (existing) {
+            return res.status(400).json({
+                success: false,
+                message: "Email already exists"
+            });
         }
 
-        user = await UserModel.create({
+        // Create user
+        const user = await UserModel.create({
             name,
             email,
             password,
             phone,
-            role: role || 'Viewer',
+            role: role || "Viewer",
+            status: "active"
         });
 
-        // Inject the user manually for the logger since req.user isn't set yet
+        // Log registration
         req.user = user;
-        await logActivity(req, 'Auth', 'User registered', { title: 'New Registration', type: 'info' });
+        await logActivity(req, "Auth", "User registered", {
+            title: "New Registration",
+            type: "info"
+        });
 
         const token = generateToken(user.id);
 
@@ -48,6 +59,7 @@ exports.register = async (req, res, next) => {
                 role: user.role
             }
         });
+
     } catch (error) {
         next(error);
     }
