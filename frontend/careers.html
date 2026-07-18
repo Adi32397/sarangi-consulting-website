@@ -279,7 +279,9 @@
             .job-meta-right {
                 width: 100% !important;
                 justify-content: space-between !important;
+            }
         }
+    
 
         /* Apply Button inside Insight Cards */
         .apply-card-btn {
@@ -472,7 +474,7 @@
 
                 <article class="insight-card reveal-up" style="transition-delay: 0.4s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784369183/bus1_d0sctj.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784398386/business_qear7m.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">Business Development</div>
@@ -485,7 +487,7 @@
 
                 <article class="insight-card reveal-up" style="transition-delay: 0.5s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368451/app_d2ptbe.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784398326/app_vsbuas.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">App Development</div>
@@ -498,7 +500,7 @@
 
                 <article class="insight-card reveal-up" style="transition-delay: 0.6s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368721/cyb_bqqp1c.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784398359/cyber_rotjcr.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">Cybersecurity</div>
@@ -511,7 +513,7 @@
 
                 <article class="insight-card reveal-up" style="transition-delay: 0.7s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784369072/ui_urv4re.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784398379/UI_nbw2hy.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">UI/UX</div>
@@ -524,7 +526,7 @@
 
                 <article class="insight-card reveal-up" style="transition-delay: 0.8s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368840/dvops_yc3nom.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784367826/ai_fcf0lf.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">DevOps</div>
@@ -537,7 +539,7 @@
 
                 <article class="insight-card reveal-up" style="transition-delay: 0.9s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368458/gam_l7suf7.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784403802/gam_m4uycd.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">Game Development</div>
@@ -550,7 +552,7 @@
 
                 <article class="insight-card reveal-up" style="transition-delay: 1.0s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784367979/digital_l3sqbt.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784403695/marketing_hrjvdh.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">Digital Marketing</div>
@@ -562,7 +564,7 @@
                 </article>
                 <article class="insight-card reveal-up" style="transition-delay: 1.0s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368926/bi_a4f4pq.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784398369/data_analytics_ldhm9j.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">Data Analytics & Business Intelligence</div>
@@ -575,7 +577,7 @@
                 </article>
                 <article class="insight-card reveal-up" style="transition-delay: 1.0s">
                     <div class="insight-img"
-                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368993/p_gfxlq6.jpg');">
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784398348/product_llh49y.jpg');">
                     </div>
                     <div class="insight-content">
                         <div class="insight-category">Product Management</div>
@@ -741,10 +743,10 @@
             const waBtn = document.getElementById('whatsapp-btn');
             if (waBtn) {
                 let serviceContext = 'General Inquiry';
-                let waMessage = encodeURIComponent(Hi Sarangi Consulting! I'm interested in learning more about your services (${serviceContext}).);
+                let waMessage = encodeURIComponent(`Hi Sarangi Consulting! I'm interested in learning more about your services (${serviceContext}).`);
                 let waNumber = '919999999999';
 
-                waBtn.href = https://wa.me/${waNumber}?text=${waMessage};
+                waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
 
                 waBtn.addEventListener('click', () => {
                     fetch('http://localhost:5000/api/whatsapp/click', {
@@ -754,7 +756,8 @@
                             page: window.location.pathname || 'home',
                             service: serviceContext
                         })
-                    }).catch(err => console.error('Failed to log WhatsApp click:', err));
+                    })
+                    .catch(err => console.error('Failed to log WhatsApp click:', err));
                 });
             }
         });
