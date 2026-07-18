@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarangi Consulting | Growth & Management Consulting</title>
+    <meta name="description"
+        content="Helping startups, MSMEs, SMEs, and growth-stage organizations achieve sustainable growth through strategy, transformation, operational excellence, and execution-focused advisory services.">
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css?v=8">
+
+    <style>
+        /* ==========================================================================
+   1. CAREERS INSIGHTS GRID & CARDS
+   ========================================================================== */
+        /* --- ULTIMATE FULL-WIDTH GRID FIX --- */
+
+        /* Forces the container row to expand to full width */
+         #careers .container {
+            max-width: 1200px !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+         }
+
+      /* Forces the grid layout to stretch completely across the container */
+        .insights-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            /* Locks exactly 3 equal columns */
+            gap: 30px !important;
+            /* Generates wide, healthy breathing space between cards */
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-top: 30px !important;
+        }
+
+        /* Keeps card sizes uniform and allows equal height row stretching */
+        .insight-card {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            background: #ffffff !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-6px) !important;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        /* Automatically shrinks the images proportionately */
+        .insight-img {
+            width: 100% !important;
+            height: 180px !important;
+            /* Slightly increased for balanced picture framing layout */
+            background-size: cover !important;
+            background-position: center !important;
+        }
+
+        .insight-content {
+            padding: 24px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            flex-grow: 1 !important;
+        }
+
+        /* ==========================================================================
+   2. WHY CHOOSE US ACCENT SECTION
+   ========================================================================== */
+        .why-choose-section {
+            background-color: #FAF9F5;
+            /* Matches your premium warm site canvas hue */
+            border-radius: 16px;
+            padding: 60px 40px;
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        /* Compact 3-Column Grid matching the card rows above */
+        .why-choose-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 24px !important;
+            width: 100% !important;
+            margin-top: 32px !important;
+        }
+
+        /* Sleek, Slim Feature Box Items */
+        .why-card {
+            background: #ffffff !important;
+            border: 1px solid #eaeaea !important;
+            border-radius: 12px !important;
+            padding: 32px 24px !important;
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+            /* Makes all boxes exactly the same height */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .why-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .why-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111;
+        }
+
+        .why-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+   3. FILTERS TRACK & LIST CARDS SYSTEM
+   ========================================================================== */
+        .roles-section {
+            padding: 40px 0;
+            background-color: transparent;
+        }
+
+        .role-filter-wrapper {
+            display: flex !important;
+            justify-content: center !important;
+            /* Centers the tags nicely on the page screen */
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            /* Prevents overflow cutting on mobile screens */
+            gap: 12px !important;
+            margin-bottom: 32px !important;
+        }
+
+        /* Filter Pills Styles */
+        .job-tab {
+            background: #f1f3f5 !important;
+            border: none !important;
+            padding: 10px 22px !important;
+            border-radius: 30px !important;
+            font-size: 0.9rem !important;
+            font-weight: 600 !important;
+            color: #495057 !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease;
+        }
+
+        .job-tab:hover,
+        .job-tab.active {
+            background: #28a745 !important;
+            /* Matches your brand green accent colour */
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        }
+
+        /* Job Row Element Container */
+        .job-list-card {
+            background: #ffffff !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 8px !important;
+            padding: 18px 24px !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            transition: box-shadow 0.2s ease;
+            margin-bottom: 12px;
+        }
+
+        .job-list-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .job-meta-left h3 {
+            font-size: 1.15rem !important;
+            font-weight: 600 !important;
+            margin: 0 0 4px 0 !important;
+            color: #212529 !important;
+        }
+
+        .company-tag {
+            font-size: 0.85rem !important;
+            color: #6c757d !important;
+            margin: 0 !important;
+        }
+
+        /* Badges formatting */
+        .job-meta-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+        }
+
+        .badge {
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            font-size: 0.75rem !important;
+            font-weight: 600 !important;
+        }
+
+        .apply-btn {
+            background: #212529 !important;
+            color: #ffffff !important;
+            padding: 8px 16px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
+            transition: background 0.2s ease;
+        }
+
+        .apply-btn:hover {
+            background: #28a745 !important;
+        }
+
+        /* ==========================================================================
+   4. SYSTEM RESPONSIVE QUERIES
+   ========================================================================== */
+        @media (max-width: 1024px) {
+            .insights-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                /* 2 columns on tablets */
+            }
+
+            .why-choose-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .insights-grid {
+                grid-template-columns: 1fr !important;
+                /* Clean single stacked column layout on mobile view */
+            }
+
+            .why-choose-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .job-list-card {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 14px !important;
+            }
+
+            .job-meta-right {
+                width: 100% !important;
+                justify-content: space-between !important;
+        }
+
+        /* Apply Button inside Insight Cards */
+        .apply-card-btn {
+            margin-top: auto !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            color: var(--primary-green) !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            transition: gap 0.2s ease, color 0.2s ease !important;
+            font-size: 0.95rem !important;
+            margin-top: 16px !important;
+            align-self: flex-start !important;
+        }
+
+        .apply-card-btn:hover {
+            color: var(--dark-green) !important;
+            gap: 12px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- PAGE LOADER -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-content">
+            <svg class="loader-logo" width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="currentColor"
+                stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+                <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
+                <line x1="10" y1="30" x2="90" y2="70" />
+            </svg>
+            <div class="loader-counter">Loading... <span id="loader-count">1</span><span
+                    class="loader-suffix">/10</span></div>
+            <div class="loader-laser-track">
+                <div id="loader-laser" class="loader-laser"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. TOP ANNOUNCEMENT BAR -->
+    <div class="announcement-bar"
+        style="background-color: #0D0D0D; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.15);">
+        <div class="container"
+            style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; text-align: center;">
+
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;">
+
+                <!-- Urgency Badges -->
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <span
+                        style="background-color: #22C55E; color: #FFFFFF; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px;">50%
+                        OFF</span>
+                    <span style="color: #D4AF37; font-weight: 600; font-size: 13px;"><i class="fas fa-fire"
+                            style="margin-right: 4px;"></i>Only 5 Slots Left</span>
+                </div>
+
+                <!-- Main Text -->
+                <p style="margin: 0; font-weight: 500; font-size: 14px; color: #FFFFFF;">
+                    Quickly Register for Startup Advisory Session with Expert |
+                    <span
+                        style="text-decoration: line-through; text-decoration-color: #DC2626; color: #A1A1AA; margin: 0 4px;">₹1,999</span>
+                    <span style="color: #22C55E; font-weight: 700;">₹999</span>
+                </p>
+
+                <!-- Compact Timer -->
+                <div class="countdown-wrapper"
+                    style="margin: 0; padding: 4px 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 8px; border-radius: 6px;">
+                    <span style="font-size: 11px; color: #A1A1AA; font-weight: 600; text-transform: uppercase;">Ends
+                        in:</span>
+
+                    <!-- Forced White Text Color for Dark Background -->
+                    <div class="timer-display"
+                        style="display: flex; gap: 4px; color: #FFFFFF !important; font-weight: 700; font-size: 14px; margin: 0;">
+                        <span class="t-hours" style="color: #FFFFFF !important;">00</span><span
+                            style="color: #FFFFFF !important;">:</span>
+                        <span class="t-mins" style="color: #FFFFFF !important;">00</span><span
+                            style="color: #FFFFFF !important;">:</span>
+                        <span class="t-secs" style="color: #FFFFFF !important;">00</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA Button -->
+            <a href="careers.html" class="btn btn-success btn-small"
+                style="background-color: #22C55E; color: #FFFFFF; height: 34px; line-height: 34px; font-size: 13px; padding: 0 16px; margin: 0; border-radius: 6px; text-decoration: none; font-weight: 600;">Register
+                Now</a>
+
+        </div>
+    </div>
+
+    <!-- 2. STICKY HEADER -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <a href="#" class="logo-container">
+                <svg class="logo-mark" width="32" height="32" viewBox="0 0 100 100" fill="none" stroke="currentColor"
+                    stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+                    <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
+                    <line x1="10" y1="30" x2="90" y2="70" />
+                </svg>
+                <div class="logo-text">SARANGI<span>CONSULTING</span></div>
+            </a>
+
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="industries.html">Industries</a></li>
+                    <li><a href="insights.html">Insights</a></li>
+                    <li><a href="startup-advisory.html">Startup Advisory</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" style="color: var(--primary-green); font-weight: 600;">Login</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="startup-advisory.html" class="btn btn-primary d-none-mobile">Register Advisory Session</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html" class="mobile-link">Home</a></li>
+                <li><a href="about.html" class="mobile-link">About</a></li>
+                <li><a href="services.html" class="mobile-link">Services</a></li>
+                <li><a href="careers.html" class="mobile-link">Careers</a></li>
+                <li><a href="industries.html" class="mobile-link">Industries</a></li>
+                <li><a href="insights.html" class="mobile-link">Insights</a></li>
+                <li><a href="startup-advisory.html" class="mobile-link">Startup Advisory</a></li>
+                <li><a href="contact.html" class="mobile-link">Contact</a></li>
+            </ul>
+            <a href="startup-advisory.html" class="btn btn-primary mobile-btn">Register Advisory Session</a>
+        </div>
+    </header>
+
+    <!-- 13. CAREERS SECTION -->
+    <section class="insights section-padding bg-light page-section" data-page="careers" id="careers">
+        <div class="container">
+            <div class="section-header d-flex justify-between align-center reveal-up">
+                <h2 class="section-title mb-0">Careers</h2>
+            </div>
+
+            <div class="insights-grid mt-4">
+                <article class="insight-card reveal-up" style="transition-delay: 0.1s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784367826/ai_fcf0lf.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">AI & ML</div>
+                        <h4 class="insight-title"><a href="#">Architecting Intelligence: Building Careers</a></h4>
+                        <p class="insight-excerpt"> Build intelligent systems that drive real business transformations.
+                            Join us to merge advanced data engineering with high-impact corporate advisory.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 0.2s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368291/data_to3f0o.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">Data Science</div>
+                        <h4 class="insight-title"><a href="#">The Data-Driven Advantage: Unlocking Insights for Business
+                                Growth</a></h4>
+                        <p class="insight-excerpt">Discover how data-driven decision-making can propel your business
+                            forward in today's competitive landscape.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 0.3s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368118/b_dvv_bhn6he.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">Web Development</div>
+                        <h4 class="insight-title"><a href="#">Engineering the Web for Tomorrow</a></h4>
+                        <p class="insight-excerpt">Explore the latest trends and best practices in web development that
+                            are shaping the future of the internet.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 0.4s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784369183/bus1_d0sctj.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">Business Development</div>
+                        <h4 class="insight-title"><a href="#">Scaling Networks. Driving Growth</a></h4>
+                        <p class="insight-excerpt">Learn how to expand your professional network strategically and drive
+                            sustainable business growth.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 0.5s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368451/app_d2ptbe.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">App Development</div>
+                        <h4 class="insight-title"><a href="#">Building Scalable Mobile Applications</a></h4>
+                        <p class="insight-excerpt">Discover the principles and practices for creating mobile apps that
+                            can grow with your user base and adapt to evolving market demands.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 0.6s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368721/cyb_bqqp1c.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">Cybersecurity</div>
+                        <h4 class="insight-title"><a href="#">Protecting Your Digital Assets</a></h4>
+                        <p class="insight-excerpt">Securing your organization's data and infrastructure from evolving
+                            cyber threats.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 0.7s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784369072/ui_urv4re.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">UI/UX</div>
+                        <h4 class="insight-title"><a href="#">Designing Human-Centered Interfaces</a></h4>
+                        <p class="insight-excerpt">Creating intuitive and engaging user experiences that prioritize
+                            human needs and behaviors.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 0.8s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368840/dvops_yc3nom.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">DevOps</div>
+                        <h4 class="insight-title"><a href="#">Streamlining Development and Deployment Processes</a></h4>
+                        <p class="insight-excerpt">Architecting scalable and reliable systems that can adapt to changing
+                            business needs.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 0.9s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368458/gam_l7suf7.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">Game Development</div>
+                        <h4 class="insight-title"><a href="#">Immersive Worlds. Impeccable Logic</a></h4>
+                        <p class="insight-excerpt">Engineering cutting-edge gaming experiences that push the boundaries
+                            of creativity and technology.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="insight-card reveal-up" style="transition-delay: 1.0s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784367979/digital_l3sqbt.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">Digital Marketing</div>
+                        <h4 class="insight-title"><a href="#">Leveraging Data Analytics for Targeted Campaigns</a></h4>
+                        <p class="insight-excerpt">Deploy data-driven strategies to maximize the impact of your digital
+                            marketing efforts.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="insight-card reveal-up" style="transition-delay: 1.0s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368926/bi_a4f4pq.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">Data Analytics & Business Intelligence</div>
+                        <h4 class="insight-title"><a href="#">Unleashing the Power of Data-Driven Decision Making</a>
+                        </h4>
+                        <p class="insight-excerpt">Harness the potential of data to inform strategic decisions and drive
+                            business growth.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="insight-card reveal-up" style="transition-delay: 1.0s">
+                    <div class="insight-img"
+                        style="background-image: url('https://res.cloudinary.com/hzfwphyn/image/upload/v1784368993/p_gfxlq6.jpg');">
+                    </div>
+                    <div class="insight-content">
+                        <div class="insight-category">Product Management</div>
+                        <h4 class="insight-title"><a href="#">Driving Product Success Through Strategic Leadership</a>
+                        </h4>
+                        <p class="insight-excerpt">Lead the development of innovative products that meet market demands
+                            and deliver exceptional user experiences.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAXPJxoK4w30nldD3vJ-61xjx8aynP0MAL1F-znazshu2aDQ/viewform" target="_blank" rel="noopener noreferrer" class="apply-card-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-section mt-5 py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Why Choose Sarangi Consulting?</h2>
+                <p class="text-muted">Empowering enterprises through strategic consulting, cutting-edge technology, and
+                    future-ready mentorship.</p>
+            </div>
+
+            <div class="why-choose-grid">
+                <!-- Feature 1 -->
+                <div class="why-card">
+                    <div class="why-icon">💡</div>
+                    <h3>Industry-Led Mentorship</h3>
+                    <p>Get real-world experience, strategic insights, and training designed by seasoned enterprise
+                        consulting experts.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="why-card">
+                    <div class="why-icon">🚀</div>
+                    <h3>Scalable Digital Solutions</h3>
+                    <p>From UI/UX architectures to live full-stack deployments, we scale business infrastructures
+                        seamlessly.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="why-card">
+                    <div class="why-icon">📊</div>
+                    <h3>Data-Driven Growth</h3>
+                    <p>We blend deep analytical insights with advanced product frameworks to drive high-impact strategic
+                        success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- 15. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo-container">
+                        <svg class="logo-mark" width="32" height="32" viewBox="0 0 100 100" fill="none"
+                            stroke="var(--primary-green)" stroke-width="12" stroke-linejoin="round"
+                            stroke-linecap="round">
+                            <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
+                            <line x1="10" y1="30" x2="90" y2="70" />
+                        </svg>
+                        <div class="logo-text text-white">SARANGI<span
+                                style="color:var(--primary-green)">CONSULTING</span></div>
+                    </a>
+                    <p class="mt-3 text-grey">A Growth & Management Consulting Firm driving transformation and
+                        operational excellence.</p>
+                    <div class="social-links mt-4">
+                        <a href="https://www.linkedin.com/company/sarangiconsulting/"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/sarangiconsulting?igsh=OGthZmQ3dXhpM2Ru"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/@sarangiconsulting?si=HAdNC5C05WPp3Uha"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Services & Industries</h4>
+                    <ul>
+                        <li><a href="services.html">Consulting Services</a></li>
+                        <li><a href="industries.html">Industries Served</a></li>
+                        <li><a href="startup-advisory.html">Startup Advisory</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Insights</h4>
+                    <ul>
+                        <li><a href="insights.html">Latest Articles</a></li>
+                        <li><a href="#">Whitepapers</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    ©️ 2026 Sarangi Consulting. A Sarangi Group Initiative.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="#" id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: #FFF;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const waBtn = document.getElementById('whatsapp-btn');
+            if (waBtn) {
+                let serviceContext = 'General Inquiry';
+                let waMessage = encodeURIComponent(Hi Sarangi Consulting! I'm interested in learning more about your services (${serviceContext}).);
+                let waNumber = '919999999999';
+
+                waBtn.href = https://wa.me/${waNumber}?text=${waMessage};
+
+                waBtn.addEventListener('click', () => {
+                    fetch('http://localhost:5000/api/whatsapp/click', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            page: window.location.pathname || 'home',
+                            service: serviceContext
+                        })
+                    }).catch(err => console.error('Failed to log WhatsApp click:', err));
+                });
+            }
+        });
+    </script>
+
+</body>
