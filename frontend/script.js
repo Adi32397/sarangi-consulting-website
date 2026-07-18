@@ -1,3 +1,20 @@
+// Initialize theme as early as possible to prevent layout flashes
+(function() {
+    let currentTheme = 'light';
+    try {
+        const saved = localStorage.getItem('themeSettings');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.theme) {
+                currentTheme = parsed.theme;
+            }
+        } else {
+            currentTheme = localStorage.getItem('site-theme') || 'light';
+        }
+    } catch (e) {}
+    document.documentElement.setAttribute('data-theme', currentTheme);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // 1. Mobile Navigation Toggle
@@ -102,43 +119,50 @@ document.addEventListener('DOMContentLoaded', () => {
         statsObserver.observe(statsSection);
     }
 
-        // 5. Page Load Logic
+    // 5. Page Load Logic
     const loader = document.getElementById('page-loader');
-    const counter = document.getElementById('loader-count');
-    const laser = document.getElementById('loader-laser');
     
     // Make all sections visible since we are in MPA mode
     document.querySelectorAll('.page-section').forEach(sec => {
         sec.classList.add('active-page');
     });
 
-    if (loader && counter) {
-        loader.classList.add('active'); // show loader
-        
-        let count = 1;
-        counter.innerText = count;
-        if (laser) laser.style.width = '10%';
-        
-        const countInterval = setInterval(() => {
-            count += 1;
-            counter.innerText = count;
-            if (laser) laser.style.width = (count * 10) + '%';
+    if (loader) {
+        // Clear hidden class and slide-out class if present
+        loader.classList.remove('hidden');
+        loader.classList.remove('slide-out');
+
+        // Dynamically inject the loader sheets if they are not already present
+        if (!loader.querySelector('.loader-sheet')) {
+            const s1 = document.createElement('div');
+            s1.className = 'loader-sheet sheet-1';
+            const s2 = document.createElement('div');
+            s2.className = 'loader-sheet sheet-2';
+            const s3 = document.createElement('div');
+            s3.className = 'loader-sheet sheet-3';
             
-            if (count >= 10) {
-                clearInterval(countInterval);
-                
-                // Hide loader
-                setTimeout(() => {
-                    loader.classList.remove('active');
-                    
-                    // Reset animations then trigger them
-                    document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.remove('active'));
-                    setTimeout(() => {
-                        document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.add('active'));
-                    }, 100);
-                }, 200);
-            }
-        }, 120);
+            // Insert sheets before loader content so they stay in background
+            loader.insertBefore(s3, loader.firstChild);
+            loader.insertBefore(s2, loader.firstChild);
+            loader.insertBefore(s1, loader.firstChild);
+        }
+
+        // Trigger sliding transition after a tiny timeout to ensure browser paints the initial cover state
+        setTimeout(() => {
+            loader.classList.add('slide-out');
+            
+            // Stagger page elements entrance animation as sheets slide away
+            document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.remove('active'));
+            setTimeout(() => {
+                document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.add('active'));
+            }, 300); // Trigger mid-slide
+        }, 100);
+
+        // Fully deactivate the loader and hide it after transitions complete
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            loader.classList.remove('slide-out');
+        }, 1300); // 100ms start delay + 1200ms slide duration window
     } else {
         document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.add('active'));
     }
@@ -415,5 +439,130 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Expose for manual triggering
     window.showAnnouncementBanners = () => renderDynamicBanners(true);
+
+    // --- Dynamic Dark/Light Theme Toggle Button Injection ---
+    const headerActions = document.querySelector('.header-actions');
+    if (headerActions && !document.getElementById('theme-toggle')) {
+        const themeBtn = document.createElement('button');
+        themeBtn.id = 'theme-toggle';
+        themeBtn.className = 'theme-toggle-btn';
+        themeBtn.setAttribute('aria-label', 'Toggle Theme');
+        themeBtn.setAttribute('title', 'Toggle Theme');
+        themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        
+        // Find Register Advisory Session button to insert before
+        const registerBtn = headerActions.querySelector('a.btn-primary');
+        if (registerBtn) {
+            headerActions.insertBefore(themeBtn, registerBtn);
+        } else {
+            // Fallback: insert before mobile menu toggle button
+            const menuToggle = headerActions.querySelector('.mobile-menu-toggle');
+            if (menuToggle) {
+                headerActions.insertBefore(themeBtn, menuToggle);
+            } else {
+                headerActions.appendChild(themeBtn);
+            }
+        }
+        
+        // Retrieve current active theme
+        let currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        updateThemeIcon(themeBtn, currentTheme);
+        
+        // Add click toggle functionality
+        themeBtn.addEventListener('click', () => {
+            const activeTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+            
+            // Set root page attribute
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('site-theme', newTheme);
+            
+            // Also store in themeSettings JSON for dashboard page integration
+            try {
+                const saved = localStorage.getItem('themeSettings');
+                let settings = saved ? JSON.parse(saved) : {};
+                settings.theme = newTheme;
+                localStorage.setItem('themeSettings', JSON.stringify(settings));
+            } catch (e) {
+                console.error('Failed to sync theme settings:', e);
+            }
+            
+            updateThemeIcon(themeBtn, newTheme);
+        });
+    }
+
+    function updateThemeIcon(btn, theme) {
+        const icon = btn.querySelector('i');
+        if (icon) {
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+    }
+
+    // --- Testimonials Slider Drag & Arrow Click Navigation ---
+    const track = document.getElementById('testimonials-track');
+    const prevArrow = document.querySelector('.prev-arrow');
+    const nextArrow = document.querySelector('.next-arrow');
+
+    if (track) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        // Mouse down event
+        track.addEventListener('mousedown', (e) => {
+            isDown = true;
+            track.style.scrollBehavior = 'auto'; // Disable smooth scroll physics while dragging
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+        });
+
+        // Mouse leave event
+        track.addEventListener('mouseleave', () => {
+            if (isDown) {
+                isDown = false;
+                track.style.scrollBehavior = 'smooth';
+            }
+        });
+
+        // Mouse up event
+        track.addEventListener('mouseup', () => {
+            isDown = false;
+            track.style.scrollBehavior = 'smooth';
+        });
+
+        // Mouse move event
+        track.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 1.5; // Drag speed multiplier
+            track.scrollLeft = scrollLeft - walk;
+        });
+
+        // Arrow click navigation
+        if (prevArrow && nextArrow) {
+            prevArrow.addEventListener('click', () => {
+                track.style.scrollBehavior = 'smooth';
+                const card = track.querySelector('.testimonial-card');
+                if (card) {
+                    const scrollAmount = card.offsetWidth; // Continuous gapless columns
+                    track.scrollLeft -= scrollAmount;
+                }
+            });
+
+            nextArrow.addEventListener('click', () => {
+                track.style.scrollBehavior = 'smooth';
+                const card = track.querySelector('.testimonial-card');
+                if (card) {
+                    const scrollAmount = card.offsetWidth; // Continuous gapless columns
+                    track.scrollLeft += scrollAmount;
+                }
+            });
+        }
+    }
 
 });

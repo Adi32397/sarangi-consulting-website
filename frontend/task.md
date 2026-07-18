@@ -1,0 +1,12 @@
+- [x] Implement color-sheet transitions in `style.css`
+- [x] Implement dynamic sheet injection and animation timings in `script.js`
+- [x] Verify loading animation and page reveals locally
+- [x] Implement dark theme overrides and toggle button styles in `style.css`
+- [x] Implement dynamic theme button injection and toggle state syncing in `script.js`
+- [x] Implement reviews slider layout and arrow styles in `style.css`
+- [x] Update reviews section in `about.html` and add 2 new reviews (total 8)
+- [x] Implement drag-and-slide and arrow navigation triggers in `script.js`
+- [x] Make slider full screen width and remove scroll snap-locks for free-form scroll stopping
+- [x] Increase testimonial card width (460px) and review text size (1.2rem)
+- [x] Scope `.quote-icon` styles to `.quote-block` to fix the layout bug on testimonials
+- [x] Adjust testimonials track padding-left to standard 24px so the first card aligns cleanly on the left

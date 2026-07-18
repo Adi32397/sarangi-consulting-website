@@ -19,18 +19,11 @@
      <link rel="stylesheet" href="sara-chatbot.css">
 </head>
 <body>
-    <!-- PAGE LOADER -->
+        <!-- PAGE LOADER -->
     <div id="page-loader" class="page-loader">
-        <div class="loader-content">
-            <svg class="loader-logo" width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
-                <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
-                <line x1="10" y1="30" x2="90" y2="70" />
-            </svg>
-            <div class="loader-counter">Loading... <span id="loader-count">1</span><span class="loader-suffix">/10</span></div>
-            <div class="loader-laser-track">
-                <div id="loader-laser" class="loader-laser"></div>
-            </div>
-        </div>
+        <div class="loader-sheet sheet-1"></div>
+        <div class="loader-sheet sheet-2"></div>
+        <div class="loader-sheet sheet-3"></div>
     </div>
 
     <!-- 1. TOP ANNOUNCEMENT BAR -->
@@ -52,7 +45,7 @@
 
                 <!-- Main Text -->
                 <p style="margin: 0; font-weight: 500; font-size: 14px; color: #FFFFFF;">
-                    Quickly Register for Startup Advisory Session with RC Sarangi |
+                    Quickly Register for Startup Advisory Session with Experts |
                     <span
                         style="text-decoration: line-through; text-decoration-color: #DC2626; color: #A1A1AA; margin: 0 4px;">₹1,999</span>
                     <span style="color: #22C55E; font-weight: 700;">₹999</span>
@@ -104,6 +97,7 @@
                     <li><a href="industries.html">Industries</a></li>
                     <li><a href="insights.html">Insights</a></li>
                     <li><a href="startup-advisory.html">Startup Advisory</a></li>
+                    <li><a href="sarthak.html">Sarthak</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="login.html" style="color: var(--primary-green); font-weight: 600;">Login</a></li>
                     <li style="display: flex; align-items: center;">
@@ -129,6 +123,7 @@
                 <li><a href="industries.html" class="mobile-link">Industries</a></li>
                 <li><a href="insights.html" class="mobile-link">Insights</a></li>
                 <li><a href="startup-advisory.html" class="mobile-link">Startup Advisory</a></li>
+                <li><a href="sarthak.html" class="mobile-link">Sarthak</a></li>
                 <li><a href="contact.html" class="mobile-link">Contact</a></li>
             </ul>
             <a href="startup-advisory.html" class="btn btn-primary mobile-btn">Register Advisory Session</a>
@@ -161,104 +156,168 @@
                 </div>
             </div>
 
-            <!-- Testimonials -->
-            <div class="testimonials-section mt-4" style="margin-top: 80px;">
-                <h3 class="section-title text-center reveal-up">What Our Clients Say</h3>
-                <div class="testimonials-grid mt-4">
-                    <div class="testimonial-card reveal-up" style="transition-delay: 0.1s">
-                        <div class="testimonial-content">
-                            <i class="fas fa-quote-left quote-icon"></i>
-                            <div class="review-stars" style="color: #FFD700;">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p>"Sarangi Consulting completely transformed our operational strategy. Their execution-focused approach helped us scale our business efficiently without breaking the bank."</p>
+            </div> <!-- Close standard page container to let testimonials section bleed full-width -->
+
+            <!-- Testimonials Section - Full screen from left to right -->
+            <div class="testimonials-section mt-5" style="margin-top: 100px; width: 100%; overflow: hidden;">
+                <div class="container">
+                    <div class="testimonials-header reveal-up">
+                        <div class="testimonials-header-left">
+                            <span class="testimonials-subtitle">From Our Clients</span>
+                            <h2 class="section-title">What Our Clients Say</h2>
                         </div>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Rajesh Kumar</h4>
-                                <p>CEO, TechGrow Solutions</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card reveal-up" style="transition-delay: 0.2s">
-                        <div class="testimonial-content">
-                            <i class="fas fa-quote-left quote-icon"></i>
-                            <div class="review-stars" style="color: #FFD700;">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p>"Working with RC Sarangi was a game-changer for our startup. His insights on product-market fit saved us months of trial and error."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Priya Sharma</h4>
-                                <p>Founder, InnovateX</p>
-                            </div>
+                        <div class="testimonials-arrows">
+                            <button class="slider-nav-btn prev-arrow" aria-label="Previous testimonial">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <button class="slider-nav-btn next-arrow" aria-label="Next testimonial">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="testimonial-card reveal-up" style="transition-delay: 0.3s">
-                        <div class="testimonial-content">
-                            <i class="fas fa-quote-left quote-icon"></i>
-                            <div class="review-stars" style="color: #FFD700;">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                
+                <div class="testimonials-slider-container reveal-up">
+                    <div class="testimonials-track" id="testimonials-track">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p>"Sarangi Consulting completely transformed our operational strategy. Their execution-focused approach helped us scale our business efficiently without breaking the bank."</p>
                             </div>
-                            <p>"A brilliant team! Their digital transformation roadmap modernized our legacy systems seamlessly. Highly recommend Sarangi Consulting."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Amit Patel</h4>
-                                <p>Director, Global Logistics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- New Reviews -->
-                    <div class="testimonial-card reveal-up" style="transition-delay: 0.4s">
-                        <div class="testimonial-content">
-                            <i class="fas fa-quote-left quote-icon"></i>
-                            <div class="review-stars" style="color: #FFD700;">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p>"Exceptional strategic planning! Sarangi Consulting helped us pivot our business model during a challenging market shift, leading to record-breaking revenue."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Vikram Singh</h4>
-                                <p>Managing Director, Zenith Corp</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">RK</div>
+                                <div class="author-info">
+                                    <h4>Rajesh Kumar</h4>
+                                    <p>CEO, TechGrow Solutions</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="testimonial-card reveal-up" style="transition-delay: 0.5s">
-                        <div class="testimonial-content">
-                            <i class="fas fa-quote-left quote-icon"></i>
-                            <div class="review-stars" style="color: #FFD700;">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <p>"Working with RC Sarangi was a game-changer for our startup. His insights on product-market fit saved us months of trial and error."</p>
                             </div>
-                            <p>"The level of detail and actionable advice provided by RC Sarangi and his team is unmatched. They truly understand the core metrics of sustainable SME growth."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Neha Gupta</h4>
-                                <p>Co-Founder, Retail Ventures</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">PS</div>
+                                <div class="author-info">
+                                    <h4>Priya Sharma</h4>
+                                    <p>Founder, InnovateX</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="testimonial-card reveal-up" style="transition-delay: 0.6s">
-                        <div class="testimonial-content">
-                            <i class="fas fa-quote-left quote-icon"></i>
-                            <div class="review-stars" style="color: #FFD700;">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p>"A brilliant team! Their digital transformation roadmap modernized our legacy systems seamlessly. Highly recommend Sarangi Consulting."</p>
                             </div>
-                            <p>"Their financial restructuring advice was precise and immensely valuable. We saw an immediate 30% reduction in our operational overhead costs within the first quarter."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">AP</div>
+                                <div class="author-info">
+                                    <h4>Amit Patel</h4>
+                                    <p>Director, Global Logistics</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Arjun Mehta</h4>
-                                <p>CFO, Apex Manufacturing</p>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <p>"Exceptional strategic planning! Sarangi Consulting helped us pivot our business model during a challenging market shift, leading to record-breaking revenue."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">VS</div>
+                                <div class="author-info">
+                                    <h4>Vikram Singh</h4>
+                                    <p>Managing Director, Zenith Corp</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p>"The level of detail and actionable advice provided by RC Sarangi and his team is unmatched. They truly understand the core metrics of sustainable SME growth."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">NG</div>
+                                <div class="author-info">
+                                    <h4>Neha Gupta</h4>
+                                    <p>Co-Founder, Retail Ventures</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p>"Their financial restructuring advice was precise and immensely valuable. We saw an immediate 30% reduction in our operational overhead costs within the first quarter."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">AM</div>
+                                <div class="author-info">
+                                    <h4>Arjun Mehta</h4>
+                                    <p>CFO, Apex Manufacturing</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2 New Reviews to make 8 total -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p>"The financial advisory and growth strategy provided by Sarangi Consulting was instrumental in our seed round. They prepared us for diligence and connected us with key partners."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">SR</div>
+                                <div class="author-info">
+                                    <h4>Siddharth Roy</h4>
+                                    <p>CEO, FinLeap Advisors</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p>"Their change management framework helped us transition our operations smoothly with minimal downtime. The team was supportive and highly professional throughout."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">KR</div>
+                                <div class="author-info">
+                                    <h4>Kiran Rao</h4>
+                                    <p>Operations Lead, GreenSpace Developers</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- 12. FOUNDER MESSAGE -->
