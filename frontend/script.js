@@ -440,68 +440,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Expose for manual triggering
     window.showAnnouncementBanners = () => renderDynamicBanners(true);
 
-    // --- Dynamic Dark/Light Theme Toggle Button Injection ---
-    const headerActions = document.querySelector('.header-actions');
-    if (headerActions && !document.getElementById('theme-toggle')) {
-        const themeBtn = document.createElement('button');
-        themeBtn.id = 'theme-toggle';
-        themeBtn.className = 'theme-toggle-btn';
-        themeBtn.setAttribute('aria-label', 'Toggle Theme');
-        themeBtn.setAttribute('title', 'Toggle Theme');
-        themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-        
-        // Find Register Advisory Session button to insert before
-        const registerBtn = headerActions.querySelector('a.btn-primary');
-        if (registerBtn) {
-            headerActions.insertBefore(themeBtn, registerBtn);
-        } else {
-            // Fallback: insert before mobile menu toggle button
-            const menuToggle = headerActions.querySelector('.mobile-menu-toggle');
-            if (menuToggle) {
-                headerActions.insertBefore(themeBtn, menuToggle);
-            } else {
-                headerActions.appendChild(themeBtn);
-            }
-        }
-        
-        // Retrieve current active theme
-        let currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        updateThemeIcon(themeBtn, currentTheme);
-        
-        // Add click toggle functionality
-        themeBtn.addEventListener('click', () => {
-            const activeTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
-            
-            // Set root page attribute
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('site-theme', newTheme);
-            
-            // Also store in themeSettings JSON for dashboard page integration
-            try {
-                const saved = localStorage.getItem('themeSettings');
-                let settings = saved ? JSON.parse(saved) : {};
-                settings.theme = newTheme;
-                localStorage.setItem('themeSettings', JSON.stringify(settings));
-            } catch (e) {
-                console.error('Failed to sync theme settings:', e);
-            }
-            
-            updateThemeIcon(themeBtn, newTheme);
-        });
-    }
-
-    function updateThemeIcon(btn, theme) {
-        const icon = btn.querySelector('i');
-        if (icon) {
-            if (theme === 'dark') {
-                icon.className = 'fas fa-sun';
-            } else {
-                icon.className = 'fas fa-moon';
-            }
-        }
-    }
-
     // --- Testimonials Slider Drag & Arrow Click Navigation ---
     const track = document.getElementById('testimonials-track');
     const prevArrow = document.querySelector('.prev-arrow');

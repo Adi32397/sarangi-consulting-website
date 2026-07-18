@@ -521,28 +521,6 @@ img {
     flex-shrink: 0;
 }
 
-.theme-toggle-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--exec-black);
-    font-size: 1.15rem;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-}
-
-.theme-toggle-btn:hover {
-    color: var(--primary-green);
-    background-color: var(--light-grey);
-    transform: scale(1.05);
-}
-
 .nav-links a {
     font-size: 14px;
     font-weight: 500;
