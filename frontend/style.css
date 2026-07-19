@@ -30,6 +30,9 @@
 
 /* Dark theme overrides */
 html[data-theme="dark"] {
+    --primary-green: #22c55e; /* Bright vibrant green for dark mode contrast */
+    --secondary-green: #16a34a; /* Medium bright green */
+    --dark-green: #15803d; /* Darker accent green */
     --white: #0b0b0c; /* Dark charcoal/black panel */
     --exec-black: #FFFFFF; /* Pure white text */
     --light-grey: #000000; /* Pure black background */
@@ -50,6 +53,19 @@ html[data-theme="dark"] {
 html[data-theme="dark"] .glass-card {
     background: rgba(15, 15, 15, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .service-card:hover,
+html[data-theme="dark"] .industry-card:hover {
+    border-color: var(--primary-green) !important;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.25), var(--shadow-premium) !important;
+    transition: none !important;
+}
+
+html[data-theme="dark"] .btn-primary:hover,
+html[data-theme="dark"] .btn-success:hover {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.45) !important;
+    transition: none !important;
 }
 
 * {
@@ -172,8 +188,12 @@ img {
     font-size: 15px;
     text-align: center;
     cursor: pointer;
-    transition: var(--transition-smooth);
+    transition: none;
     border: 1px solid transparent;
+}
+
+.btn:hover {
+    transition: none !important;
 }
 
 .btn-small {
@@ -1105,7 +1125,7 @@ html[data-theme="dark"] .author-avatar {
     border-radius: 16px;
     border: 1px solid var(--border-grey);
     text-align: left;
-    transition: all 0.4s ease-out;
+    transition: none;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -1120,6 +1140,7 @@ html[data-theme="dark"] .author-avatar {
     transform: translateY(-8px);
     box-shadow: var(--shadow-premium);
     border-color: var(--primary-green);
+    transition: none !important;
 }
 
 .service-img-container {
@@ -1265,7 +1286,7 @@ html[data-theme="dark"] .author-avatar {
     border-radius: 16px;
     border: 1px solid var(--border-grey);
     text-align: left;
-    transition: all 0.4s ease-out;
+    transition: none;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -1281,6 +1302,7 @@ html[data-theme="dark"] .author-avatar {
     transform: translateY(-6px);
     box-shadow: var(--shadow-premium);
     border-color: var(--primary-green);
+    transition: none !important;
 }
 
 .industry-img-container {
