@@ -17,6 +17,36 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
+    // 0. Theme Toggle Injection and Functionality
+    const headerActions = document.querySelector('.header-actions');
+    if (headerActions) {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.id = 'theme-toggle';
+        toggleBtn.className = 'theme-toggle-btn';
+        toggleBtn.setAttribute('aria-label', 'Toggle Theme');
+        
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        toggleBtn.innerHTML = currentTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        
+        // Insert as first child to appear to the left of the Register button
+        headerActions.insertBefore(toggleBtn, headerActions.firstChild);
+        
+        toggleBtn.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = theme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('site-theme', newTheme);
+            localStorage.setItem('themeSettings', JSON.stringify({ theme: newTheme }));
+            
+            if (window.applyTheme) {
+                window.applyTheme({ theme: newTheme });
+            }
+            
+            toggleBtn.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    }
+    
     // 1. Mobile Navigation Toggle
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const mobileNav = document.getElementById('mobile-nav');

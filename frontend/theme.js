@@ -12,10 +12,10 @@ window.applyTheme = function(theme) {
     }
 
     if (isDark) {
-        root.style.setProperty('--white', '#1e293b');
-        root.style.setProperty('--exec-black', '#f8fafc');
-        root.style.setProperty('--light-grey', '#0f172a');
-        root.style.setProperty('--border-grey', '#334155');
+        root.style.setProperty('--white', '#0b0b0c');
+        root.style.setProperty('--exec-black', '#FFFFFF');
+        root.style.setProperty('--light-grey', '#000000');
+        root.style.setProperty('--border-grey', '#1c1c1e');
     } else {
         root.style.setProperty('--white', '#FFFFFF');
         root.style.setProperty('--exec-black', '#0D0D0D');

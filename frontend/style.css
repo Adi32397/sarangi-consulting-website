@@ -30,18 +30,26 @@
 
 /* Dark theme overrides */
 html[data-theme="dark"] {
-    --white: #0F172A; /* Slate 900 */
-    --exec-black: #F8FAFC; /* Slate 50 */
-    --light-grey: #1E293B; /* Slate 800 */
-    --border-grey: #334155; /* Slate 700 */
-    --text-grey: #94A3B8; /* Slate 400 */
-    --header-bg: rgba(15, 23, 42, 0.95);
-    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --white: #0b0b0c; /* Dark charcoal/black panel */
+    --exec-black: #FFFFFF; /* Pure white text */
+    --light-grey: #000000; /* Pure black background */
+    --border-grey: #1c1c1e; /* Very dark neutral border */
+    --text-grey: #a1a1aa; /* Neutral light grey text */
+    --header-bg: rgba(10, 10, 10, 0.95); /* Semi-transparent black header */
+    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.8);
+    
+    /* Contact Section Overrides */
+    --contact-primary: #000000;
+    --contact-text: #FFFFFF;
+    --contact-text-muted: #a1a1aa;
+    --contact-border: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(18, 18, 18, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 html[data-theme="dark"] .glass-card {
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(15, 15, 15, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 * {
@@ -187,7 +195,7 @@ img {
 
 .btn-primary {
     background-color: var(--primary-green);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .btn-primary:hover {
@@ -198,7 +206,7 @@ img {
 
 .btn-success {
     background-color: var(--success-green);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .btn-success:hover {
@@ -220,13 +228,13 @@ img {
 
 .btn-outline-light {
     background-color: transparent;
-    border-color: var(--white);
-    color: var(--white);
+    border-color: #ffffff;
+    color: #ffffff;
 }
 
 .btn-outline-light:hover {
-    background-color: var(--white);
-    color: var(--exec-black);
+    background-color: #ffffff;
+    color: #0D0D0D;
 }
 
 .btn-link {
@@ -493,8 +501,8 @@ img {
     margin-left: 4px;
 }
 
-.logo-text.text-white {
-    color: var(--white);
+.text-white {
+    color: #ffffff !important;
 }
 
 .nav-links {
@@ -514,11 +522,39 @@ img {
     display: flex;
     align-items: center;
     gap: 16px;
+    justify-self: end;
 }
 
 .header-actions .btn {
     white-space: nowrap;
     flex-shrink: 0;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--exec-black);
+    font-size: 1.2rem;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.theme-toggle-btn:hover {
+    color: var(--primary-green);
+    background-color: rgba(20, 83, 45, 0.05);
+    transform: scale(1.05);
+}
+
+html[data-theme="dark"] .theme-toggle-btn:hover {
+    background-color: rgba(248, 250, 252, 0.05);
 }
 
 .nav-links a {
@@ -598,7 +634,7 @@ img {
     display: flex;
     align-items: center;
     overflow: hidden;
-    background-color: var(--light-grey);
+    background: #020704 url('images/hero-network-bg.png') no-repeat center right / cover;
 }
 
 .hero-bg {
@@ -607,9 +643,10 @@ img {
     right: 0;
     width: 50%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(20, 83, 45, 0.05) 0%, rgba(20, 83, 45, 0) 100%);
-    border-radius: 50% 0 0 50%;
+    background: radial-gradient(circle at 60% 50%, rgba(34, 197, 94, 0.15) 0%, transparent 60%);
+    border-radius: 0;
     z-index: 0;
+    pointer-events: none;
 }
 
 .hero-container {
@@ -626,12 +663,13 @@ img {
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 2px;
-    color: var(--primary-green);
+    color: #22c55e;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
     display: inline-block;
     padding: 6px 12px;
-    background: rgba(20, 83, 45, 0.1);
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.2);
     border-radius: 4px;
 }
 
@@ -641,11 +679,12 @@ img {
     line-height: 1.1;
     margin-bottom: 1.5rem;
     letter-spacing: -1px;
+    color: #FFFFFF;
 }
 
 .hero-subtitle {
     font-size: 1.125rem;
-    color: var(--text-grey);
+    color: rgba(255, 255, 255, 0.75);
     margin-bottom: 2.5rem;
     max-width: 90%;
 }
@@ -657,6 +696,8 @@ img {
 
 .hero-visual {
     position: relative;
+    min-height: 400px;
+    width: 100%;
 }
 
 .main-dashboard {
@@ -719,14 +760,16 @@ img {
 
 .float-tag {
     position: absolute;
-    background: var(--white);
+    background: rgba(15, 23, 42, 0.85);
     padding: 8px 16px;
     border-radius: 30px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--exec-black);
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-grey);
+    color: #FFFFFF;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     animation: float 6s ease-in-out infinite;
 }
 
@@ -1828,8 +1871,8 @@ html[data-theme="dark"] .author-avatar {
    15. FOOTER
    ========================================================================== */
 .footer {
-    background-color: var(--exec-black);
-    color: var(--white);
+    background-color: #0b0b0c;
+    color: #a1a1aa;
     padding: 80px 0 40px;
 }
 
@@ -1841,7 +1884,7 @@ html[data-theme="dark"] .author-avatar {
 }
 
 .footer-links h4 {
-    color: var(--white);
+    color: #ffffff;
     font-size: 1.125rem;
     margin-bottom: 20px;
 }
@@ -1851,7 +1894,7 @@ html[data-theme="dark"] .author-avatar {
 }
 
 .footer-links a {
-    color: var(--text-grey);
+    color: #a1a1aa;
     font-size: 0.9375rem;
 }
 
@@ -1868,7 +1911,7 @@ html[data-theme="dark"] .author-avatar {
     height: 40px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
-    color: var(--white);
+    color: #ffffff;
     margin-right: 12px;
     transition: var(--transition-fast);
 }
@@ -1885,7 +1928,7 @@ html[data-theme="dark"] .author-avatar {
     padding-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.875rem;
-    color: var(--text-grey);
+    color: #a1a1aa;
 }
 
 .legal-links a {
@@ -1893,7 +1936,7 @@ html[data-theme="dark"] .author-avatar {
 }
 
 .legal-links a:hover {
-    color: var(--white);
+    color: #ffffff;
 }
 
 /* ==========================================================================
@@ -1970,7 +2013,7 @@ html[data-theme="dark"] .author-avatar {
     .hero-bg {
         width: 100%;
         height: 50%;
-        border-radius: 0 0 50% 50%;
+        border-radius: 0;
     }
 
     .hero-title {
@@ -2179,7 +2222,7 @@ section.hero.page-section.active-page {
 .contact-stat-item {
     text-align: center;
     padding: 20px 30px;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--glass-bg);
     border: 1px solid var(--contact-border);
     border-radius: 16px;
     backdrop-filter: blur(5px);
@@ -2418,6 +2461,50 @@ section.hero.page-section.active-page {
     font-size: 0.8rem;
     color: var(--contact-accent);
     background: var(--contact-primary);
+}
+
+
+/* Dark Mode overrides for Contact Section */
+html[data-theme="dark"] .glass-form {
+    background: rgba(18, 18, 18, 0.85) !important;
+}
+
+html[data-theme="dark"] .form-control {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .form-control:focus {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-color: var(--primary-green) !important;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15) !important;
+}
+
+html[data-theme="dark"] .floating-group label {
+    color: var(--text-grey);
+}
+
+html[data-theme="dark"] .floating-group input:focus~label,
+html[data-theme="dark"] .floating-group input:not(:placeholder-shown)~label,
+html[data-theme="dark"] .floating-group textarea:focus~label,
+html[data-theme="dark"] .floating-group textarea:not(:placeholder-shown)~label,
+html[data-theme="dark"] .floating-group .form-control:valid~label {
+    background: #121212 !important;
+    color: var(--primary-green) !important;
+}
+
+html[data-theme="dark"] .floating-group input:focus~label,
+html[data-theme="dark"] .floating-group input.has-value~label,
+html[data-theme="dark"] .floating-group textarea:focus~label,
+html[data-theme="dark"] .floating-group textarea.has-value~label {
+    background: #121212 !important;
+    color: var(--primary-green) !important;
+}
+
+html[data-theme="dark"] select.form-control option {
+    background-color: #121212 !important;
+    color: #ffffff !important;
 }
 
 

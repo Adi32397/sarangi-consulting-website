@@ -12,7 +12,7 @@
 <body class="bg-light">
 
     <!-- HEADER (Simplified for Login) -->
-    <header class="header" id="header" style="background: var(--exec-black);">
+    <header class="header" id="header" style="background: #0b0b0c;">
         <div class="container header-container">
             <a href="index.html" class="logo-container">
                 <svg class="logo-mark" width="32" height="32" viewBox="0 0 100 100" fill="none" stroke="var(--primary-green)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
@@ -28,28 +28,28 @@
             </nav>
         </div>
     </header>
-
+ 
     <!-- LOGIN FORM SECTION -->
     <section class="section-padding" style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
         <div class="container" style="max-width: 450px;">
-            <div class="glass-card" style="padding: 40px; text-align: center; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 12px; border: 1px solid #eee;">
-                <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 10px;">Welcome Back</h2>
-                <p style="color: #666; margin-bottom: 30px; font-size: 14px;">Sign in to your dashboard</p>
+            <div class="glass-card" style="padding: 40px; text-align: center; border-radius: 12px;">
+                <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 10px; color: var(--exec-black);">Welcome Back</h2>
+                <p style="color: var(--text-grey); margin-bottom: 30px; font-size: 14px;">Sign in to your dashboard</p>
                 
                 <form id="loginForm" style="text-align: left;" autocomplete="off">
                     <div style="margin-bottom: 20px;">
-                        <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: #333;">Email Address</label>
-                        <input type="email" id="email" required style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px;" placeholder="Email" autocomplete="off">
+                        <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: var(--exec-black);">Email Address</label>
+                        <input type="email" id="email" required style="width: 100%; padding: 12px 15px; border: 1px solid var(--border-grey); border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px; background: var(--white); color: var(--exec-black);" placeholder="Email" autocomplete="off">
                     </div>
                     <div style="margin-bottom: 25px; position: relative;">
-                        <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: #333;">Password</label>
-                        <input type="password" id="password" required style="width: 100%; padding: 12px 15px; padding-right: 40px; border: 1px solid #ddd; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px;" placeholder="Password" autocomplete="new-password">
-                        <span id="togglePassword" style="position: absolute; right: 15px; top: 38px; cursor: pointer; user-select: none;">👁️</span>
+                        <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; color: var(--exec-black);">Password</label>
+                        <input type="password" id="password" required style="width: 100%; padding: 12px 15px; padding-right: 40px; border: 1px solid var(--border-grey); border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 14px; background: var(--white); color: var(--exec-black);" placeholder="Password" autocomplete="new-password">
+                        <span id="togglePassword" style="position: absolute; right: 15px; top: 38px; cursor: pointer; user-select: none; color: var(--exec-black);">👁️</span>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-weight: 600; border-radius: 6px;">Sign In</button>
                 </form>
-
-                <div style="margin-top: 25px; font-size: 13px; color: #666;">
+ 
+                <div style="margin-top: 25px; font-size: 13px; color: var(--text-grey);">
                     Don't have an account? <a href="register.html" style="color: var(--primary-green); font-weight: 600; text-decoration: none;">Sign Up Free</a>
                 </div>
             </div>
