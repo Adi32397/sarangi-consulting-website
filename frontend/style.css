@@ -1938,7 +1938,17 @@ html[data-theme="dark"] .author-avatar {
     background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     margin-right: 12px;
+    font-size: 1rem;
+    line-height: 1;
     transition: var(--transition-fast);
+}
+
+.social-links a i {
+    font-size: 1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .social-links a:hover {
