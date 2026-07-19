@@ -4,465 +4,643 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarthak Program | Sarangi Consulting</title>
-    <meta name="description"
-        content="Sarthak is an early-stage startup investment-readiness and seed funding program providing structured mentorship and seed funding up to ₹30 lakhs.">
-
-    <!-- Typography -->
+    <title>Startup Application | Sarangi Ventures</title>
+    <meta name="description" content="Apply to the Sarangi Ventures Startup Growth Program.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
         rel="stylesheet">
-
-    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=8">
     <link rel="stylesheet" href="sara-chatbot.css">
-
     <style>
-        /* Sarthak Page Specific Custom Styles */
+        /* ===========================================================================
+           STARTUP APPLICATION PAGE - ENHANCED UI/UX
+           ========================================================================== */
+
+        /* --- Typography & Global Enhancements --- */
+        .section-title {
+            background: linear-gradient(135deg, var(--exec-black) 30%, var(--primary-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* --- Sarthak Hero Section --- */
         .sarthak-hero {
-            background: linear-gradient(135deg, #f0fdf4 0%, #e6f4ed 100%);
-            padding: 120px 0 80px;
+            --sarthak-primary: #0b4f3c;
+            --sarthak-primary-dark: #061a17;
+            --sarthak-primary-soft: #eaf5f1;
+            --sarthak-emerald: #12a36d;
+            --sarthak-gold: #d7b36a;
+            --sarthak-muted: #667085;
             position: relative;
-            overflow: hidden;
+            min-height: 100vh;
+            padding: 120px 0 90px;
             display: flex;
             align-items: center;
+            overflow: hidden;
+            background: radial-gradient(circle at 82% 30%, rgba(18,163,109,.14), transparent 32%), linear-gradient(135deg,#f0f8f4 0%,#fbfdfc 52%,#eaf5ef 100%);
+            border-bottom: 1px solid rgba(11,79,60,.1);
+            font-family: "DM Sans", sans-serif;
         }
-
-        .sarthak-hero::before {
-            content: '';
+        .sarthak-hero-grid {
             position: absolute;
-            top: -10%;
-            right: -10%;
-            width: 50%;
-            height: 120%;
-            background: radial-gradient(circle, rgba(20, 83, 45, 0.05) 0%, transparent 70%);
-            z-index: 0;
+            inset: 0;
+            background-image: linear-gradient(rgba(11,79,60,.03) 1px, transparent 1px), linear-gradient(90deg,rgba(11,79,60,.03) 1px,transparent 1px);
+            background-size: 56px 56px;
+            -webkit-mask-image: linear-gradient(to bottom,black,transparent 92%);
+            mask-image: linear-gradient(to bottom,black,transparent 92%);
             pointer-events: none;
         }
+        .sarthak-hero-glow { position:absolute; border-radius:50%; filter:blur(45px); pointer-events:none; }
+        .sarthak-hero-glow-left { width:420px; height:420px; left:-180px; top:140px; background:rgba(18,163,109,.12); }
+        .sarthak-hero-glow-right { width:520px; height:520px; right:-180px; bottom:-100px; background:rgba(215,179,106,.12); }
+        .sarthak-hero-layout { position:relative; z-index:2; display:grid; grid-template-columns:minmax(0,.9fr) minmax(480px,1.1fr); gap:clamp(45px,6vw,90px); align-items:center; }
+        .sarthak-hero-eyebrow { display:inline-flex; align-items:center; gap:11px; color:var(--sarthak-primary); font-size:12px; font-weight:800; letter-spacing:.04em; }
+        .sarthak-hero-eyebrow span { width:8px; height:8px; border-radius:50%; background:var(--sarthak-emerald); box-shadow:0 0 0 7px rgba(18,163,109,.1); }
+        .sarthak-hero-content h1 { max-width:690px; margin-top:28px; color:#111827; font-family:"Manrope",sans-serif; font-size:clamp(58px,6vw,90px); line-height:.97; letter-spacing:-5px; }
+        .sarthak-hero-content h1 span { display:block; margin-top:7px; color:var(--sarthak-primary); }
+        .sarthak-hero-content > p { max-width:600px; margin-top:28px; color:#5f6f68; font-size:17px; line-height:1.8; }
+        .sarthak-hero-actions { margin-top:34px; }
+        .sarthak-hero-button { display:inline-flex; align-items:center; gap:12px; padding:18px 25px; border-radius:13px; background:linear-gradient(135deg,var(--sarthak-primary),#087054); color:#fff; font-weight:800; box-shadow:0 18px 38px rgba(11,79,60,.2); transition:.35s cubic-bezier(.22,.61,.36,1); }
+        .sarthak-hero-button:hover { color:#fff; transform:translateY(-3px); box-shadow:0 24px 45px rgba(11,79,60,.25); }
+        .sarthak-investor-proof {
+            margin-top: 42px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            max-width: 560px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(11, 79, 60, 0.10);
+            border-radius: 20px;
+            box-shadow: 0 18px 45px rgba(6, 26, 23, 0.08);
+            backdrop-filter: blur(12px);
+        }
 
-        .sarthak-hero-container {
+        .sarthak-investor-icon {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 48px;
+            place-items: center;
+            border-radius: 16px;
+            background: var(--sarthak-primary-soft);
+            color: var(--sarthak-primary);
+            font-size: 20px;
+        }
+
+        .sarthak-ecosystem-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sarthak-ecosystem-content > strong {
+            display: block;
+            margin-bottom: 16px;
+            color: var(--sarthak-primary-dark);
+            font-family: "Manrope", sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .sarthak-ecosystem-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px 20px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .sarthak-ecosystem-list li {
+            display: flex;
             align-items: center;
+            gap: 10px;
+            color: #52635b;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .sarthak-ecosystem-list i {
+            flex-shrink: 0;
+            color: var(--sarthak-emerald);
+            font-size: 15px;
+        }
+        .sarthak-hero-visual { position:relative; }
+        .sarthak-hero-image-frame { height:clamp(570px,72vh,700px); overflow:hidden; border-radius:30px; background:#fff; box-shadow:0 35px 80px rgba(6,26,23,.15),0 8px 25px rgba(6,26,23,.08); }
+        .sarthak-hero-image { width:100%; height:100%; object-fit:cover; object-position:center; transition:transform .75s ease; }
+        .sarthak-hero-image-frame:hover .sarthak-hero-image { transform:scale(1.025); }
+        .sarthak-floating-card { position:absolute; left:-38px; bottom:42px; display:flex; align-items:center; gap:13px; padding:16px 18px; border:1px solid rgba(11,79,60,.1); border-radius:17px; background:rgba(255,255,255,.95); box-shadow:0 20px 45px rgba(6,26,23,.14); backdrop-filter:blur(15px); }
+        .sarthak-floating-card > span { width:43px; height:43px; display:grid; place-items:center; border-radius:14px; background:var(--sarthak-primary-soft); color:var(--sarthak-primary); }
+        .sarthak-floating-card div { display:flex; flex-direction:column; }
+        .sarthak-floating-card strong { color:#111827; font-size:13px; }
+        .sarthak-floating-card small { margin-top:4px; color:var(--sarthak-muted); font-size:11px; }
+
+        @media (max-width:900px) {
+            .sarthak-hero-layout { grid-template-columns:1fr; }
+            .sarthak-hero-content { text-align:center; }
+            .sarthak-hero-content h1,.sarthak-hero-content > p,.sarthak-investor-proof { margin-left:auto; margin-right:auto; }
+            .sarthak-hero-actions { display:flex; justify-content:center; }
+            .sarthak-hero-visual { margin-top:20px; }
+            .sarthak-floating-card { left:20px; }
+        }
+
+        @media (max-width:640px) {
+            .sarthak-hero { min-height:auto; padding:90px 0 75px; }
+            .sarthak-hero-content h1 { font-size:48px; letter-spacing:-3px; }
+            .sarthak-hero-content > p { font-size:15px; }
+            .sarthak-hero-button { width:100%; justify-content:center; }
+            .sarthak-investor-proof { padding:20px; text-align:left; }
+            .sarthak-ecosystem-list { grid-template-columns:1fr; gap:10px; }
+            .sarthak-hero-image-frame { height:510px; border-radius:24px; }
+            .sarthak-floating-card { left:12px; right:12px; bottom:15px; }
+        }
+
+        /* --- Intro & Grids --- */
+        .startup-application-intro {
+            display: grid;
+            grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* --- NEW: About Section Green Theme --- */
+        .sarthak-about-section {
+            background-color: var(--sarthak-primary, #0b4f3c);
+        }
+
+        .sarthak-about-section .startup-application-kicker {
+            color: var(--sarthak-gold, #d7b36a);
+        }
+
+        .sarthak-about-section .section-title {
+            background: none;
+            -webkit-text-fill-color: #ffffff;
+            color: #ffffff;
+        }
+
+        .sarthak-about-section .startup-application-intro p {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .startup-application-intro p {
+            color: var(--text-grey);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .startup-application-kicker {
+            display: block;
+            color: var(--primary-green);
+            font-size: .8rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .startup-application-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 40px;
+        }
+
+        .startup-application-card {
+            background: var(--white);
+            border: 1px solid var(--border-grey);
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .startup-application-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(20, 83, 45, 0.3);
+            box-shadow: 0 12px 30px rgba(20, 83, 45, 0.08);
+            z-index: 2;
+        }
+
+        .startup-application-card i {
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin-bottom: 24px;
+            display: inline-block;
+            background: rgba(20, 83, 45, 0.05);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .startup-application-card h3,
+        .startup-application-steps h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--exec-black);
+        }
+
+        .startup-application-card p,
+        .startup-application-steps p {
+            color: var(--text-grey);
+            font-size: .95rem;
+            line-height: 1.6;
+        }
+
+        /* --- HORIZONTAL TIMELINE FLOWCHART --- */
+        .timeline-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 56px;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 110px;
+            left: 50px;
+            right: 50px;
+            height: 4px;
+            background: rgba(20, 83, 45, 0.15);
+            z-index: 0;
+            border-radius: 4px;
+        }
+
+        .timeline-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             position: relative;
             z-index: 1;
         }
 
-        @media (max-width: 991px) {
-            .sarthak-hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 40px;
-            }
-
-            .sarthak-hero-visual {
-                justify-content: center;
-            }
-        }
-
-        .sarthak-breadcrumb {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--primary-green);
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .sarthak-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--exec-black);
-            margin-bottom: 8px;
-            line-height: 1.1;
-        }
-
-        .sarthak-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-grey);
-            margin-bottom: 32px;
-            font-weight: 500;
-        }
-
-        .sarthak-hero-visual {
-            display: flex;
-            justify-content: flex-end;
-            position: relative;
-        }
-
-        .sarthak-img-frame {
-            width: 380px;
-            height: 380px;
+        .timeline-image {
+            width: 220px; 
+            height: 220px; 
             border-radius: 50%;
-            overflow: hidden;
-            border: 8px solid var(--white);
-            box-shadow: var(--shadow-premium);
             background: var(--white);
-            position: relative;
+            padding: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            margin-bottom: 28px;
+            z-index: 2;
+            transition: transform 0.3s ease;
         }
 
-        .sarthak-img-frame img {
+        .timeline-block:hover .timeline-image {
+            transform: scale(1.05);
+        }
+
+        .timeline-image img {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             object-fit: cover;
         }
 
-        /* Float elements decoration */
-        .sarthak-shape-glow {
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 60%);
-            z-index: -1;
-            bottom: -30px;
-            right: -30px;
-        }
-
-        /* Objectives Section */
-        .objective-list {
-            margin-top: 24px;
+        .timeline-content {
+            background: var(--white);
+            border: 1px solid var(--border-grey);
+            border-radius: 16px;
+            padding: 32px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
             display: flex;
             flex-direction: column;
+            align-items: center;
+            height: auto;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .timeline-block:hover .timeline-content {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        .timeline-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-grey);
+            margin-bottom: 0;
+        }
+
+        .ideate-card { border-top: 5px solid #1b5b9f; }
+        .ideate-card h3 { color: #1b5b9f; }
+
+        .validate-card { border-top: 5px solid #5e2e7b; }
+        .validate-card h3 { color: #5e2e7b; }
+
+        .accelerate-card { border-top: 5px solid #fbb017; }
+        .accelerate-card h3 { color: #fbb017; }
+
+        /* --- ANIMATED APPLICATION PROCESS STEPS --- */
+        .startup-application-steps {
+            max-width: 900px;
+            margin: 40px auto 0;
+            display: grid;
             gap: 20px;
+            list-style: none;
+            padding: 0;
+            transition: all 0.3s ease;
         }
 
-        .objective-item {
+        .startup-application-steps li {
             display: flex;
-            gap: 16px;
-            align-items: flex-start;
+            gap: 32px;
+            align-items: center;
+            padding: 32px;
+            border: 1px solid var(--border-grey);
+            border-radius: 16px;
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        box-shadow 0 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        border-color 0.3s ease, 
+                        opacity 0.3s ease;
         }
 
-        .objective-num {
-            background-color: var(--primary-green);
+        /* Hover Default effect */
+        .startup-application-steps li:hover {
+            transform: translateY(-4px);
+            border-color: rgba(11, 79, 60, 0.3);
+        }
+
+        /* Active Highlight Animation (जब किसी स्टेप पर क्लिक किया जाए) */
+        .startup-application-steps li.active-highlight {
+            transform: translateY(-6px) scale(1.02);
+            border-left: 5px solid var(--sarthak-emerald, #12a36d);
+            border-color: var(--sarthak-emerald, #12a36d);
+            box-shadow: 0 15px 35px rgba(11, 79, 60, 0.15);
+            opacity: 1 !important;
+            z-index: 5;
+        }
+
+        /* जब कोई एक स्टेप एक्टिव हो, तो बाकी धुंधले दिखें */
+        .startup-application-steps.has-active li:not(.active-highlight) {
+            opacity: 0.55;
+            transform: scale(0.98);
+        }
+
+        .startup-application-steps li>span {
+            flex: 0 0 56px;
+            height: 56px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #0b4f3c, #114224);
             color: var(--white);
-            width: 32px;
-            height: 32px;
+            font-family: var(--font-stats);
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 50%;
+            box-shadow: 0 0 0 8px rgba(20, 83, 45, 0.1);
+        }
+
+        /* --- ENHANCED FAQ ACCORDION --- */
+        .startup-application-faq {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .startup-application-faq details {
+            background: var(--white);
+            border: 1px solid var(--border-grey);
+            border-radius: 12px;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+        }
+
+        .startup-application-faq details:hover {
+            border-color: rgba(11, 79, 60, 0.4);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .startup-application-faq details[open] {
+            border-color: #0b4f3c;
+            box-shadow: 0 8px 24px rgba(11, 79, 60, 0.1);
+        }
+
+        .startup-application-faq summary {
+            padding: 24px;
+            color: var(--exec-black);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            user-select: none;
+        }
+
+        .startup-application-faq summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .startup-application-faq summary .faq-icon {
+            color: #0b4f3c;
+            background: rgba(11, 79, 60, 0.08);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(20, 83, 45, 0.2);
-        }
-
-        .objective-text {
-            font-size: 1.05rem;
-            color: #374151;
-            line-height: 1.5;
-        }
-
-        .objective-text strong {
-            color: var(--exec-black);
-        }
-
-        /* Component Cards */
-        .component-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .component-card {
-            background: var(--white);
-            padding: 40px 32px;
-            border-radius: 16px;
-            border: 1px solid var(--border-grey);
-            box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
-            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .startup-application-faq details[open] summary .faq-icon {
+            transform: rotate(180deg);
+            background: #0b4f3c;
+            color: var(--white);
+        }
+
+        .startup-application-faq details.closing summary .faq-icon {
+            transform: rotate(0deg);
+            background: rgba(11, 79, 60, 0.08);
+            color: #0b4f3c;
+        }
+
+        .startup-application-faq .faq-content-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .startup-application-faq details[open] .faq-content-wrapper {
+            grid-template-rows: 1fr;
+        }
+
+        .startup-application-faq details.closing .faq-content-wrapper {
+            grid-template-rows: 0fr;
+        }
+
+        .startup-application-faq .faq-content {
             overflow: hidden;
         }
 
-        .component-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary-green);
+        .startup-application-faq .faq-content p {
+            padding: 0 24px 24px 24px;
+            color: var(--text-grey);
+            line-height: 1.6;
+            margin: 0;
         }
 
-        .component-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background-color: var(--primary-green);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-            transform-origin: bottom;
+        /* --- Split QR Section --- */
+        .startup-qr-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background: var(--white);
+            border: 1px solid var(--border-grey);
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
         }
 
-        .component-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .component-icon {
-            font-size: 2.2rem;
-            color: var(--primary-green);
+        .qr-text-content p {
+            color: var(--text-grey);
+            font-size: 1.05rem;
+            line-height: 1.7;
             margin-bottom: 24px;
         }
 
-        .component-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            font-weight: 700;
+        .qr-benefits {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        .component-card p {
-            color: var(--text-grey);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Criteria Section */
-        .criteria-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        .criteria-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: var(--white);
-            padding: 20px 24px;
-            border-radius: 12px;
-            border: 1px solid var(--border-grey);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .criteria-icon {
-            color: var(--success-green);
-            font-size: 1.25rem;
-            background: rgba(34, 197, 94, 0.1);
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .criteria-text {
-            font-weight: 600;
+        .qr-benefits li {
+            margin-bottom: 16px;
             color: var(--exec-black);
-            font-size: 1.05rem;
-        }
-
-        /* Cohort Section */
-        .cohort-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin-top: 40px;
-        }
-
-        .cohort-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border-grey);
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
+            font-weight: 500;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
             gap: 12px;
         }
 
-        .cohort-card:hover {
-            border-color: var(--primary-green);
-            transform: scale(1.03);
-            box-shadow: var(--shadow-md);
+        .qr-benefits li i {
+            color: var(--primary-green);
+            font-size: 1.2rem;
         }
 
-        .cohort-logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: var(--light-grey);
-            border-radius: 50%;
+        .qr-image-content {
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: var(--primary-green);
+            align-items: center;
         }
 
-        .cohort-name {
-            font-weight: 700;
-            font-family: var(--font-heading);
-            color: var(--exec-black);
-            font-size: 1.1rem;
-        }
-
-        /* Contact CTA Banner */
-        .contact-cta {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+        .large-qr-wrapper {
+            background: #fff;
+            padding: 24px;
             border-radius: 20px;
-            padding: 50px 60px;
-            color: var(--white);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-            margin-top: 60px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        @media (max-width: 768px) {
-            .contact-cta {
-                flex-direction: column;
-                text-align: center;
-                padding: 40px 30px;
-            }
-        }
-
-        .contact-cta-info h3 {
-            color: var(--white);
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .contact-cta-info p {
-            color: #a7f3d0;
-            font-size: 1.1rem;
-        }
-
-        .contact-cta-info a {
-            color: var(--white);
-            text-decoration: underline;
-        }
-
-        /* Accordion FAQs */
-        .faq-item {
-            border-bottom: 1px solid var(--border-grey);
-            padding: 24px 0;
-            cursor: pointer;
-        }
-
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--exec-black);
-            transition: all 0.3s ease;
-        }
-
-        .faq-question i {
-            color: var(--primary-green);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            border: 1px solid rgba(20, 83, 45, 0.1);
+            display: inline-block;
             transition: transform 0.4s ease;
         }
 
-        .faq-item:hover .faq-question {
-            color: var(--primary-green);
-            transform: translateY(-3px);
+        .large-qr-wrapper:hover {
+            transform: translateY(-8px);
         }
 
-        .faq-answer {
-            max-height: 0;
+        .large-qr-wrapper img {
+            width: 350px;
+            height: 350px;
+            display: block;
+            image-rendering: pixelated;
+        }
+
+        @media (max-width: 768px) {
+            .startup-application-hero { padding: 80px 0; }
+            .startup-application-hero h1 { font-size: 2.25rem; }
+            .hero-actions { flex-direction: column; gap: 20px; align-items: stretch; }
+            .startup-application-hero .btn { width: 100%; text-align: center; justify-content: center; }
+            .startup-application-intro, .startup-application-grid { grid-template-columns: 1fr; gap: 32px; }
+            .timeline-container { grid-template-columns: 1fr; gap: 40px; }
+            .timeline-container::before { top: 0; bottom: 0; left: 50%; right: auto; width: 4px; height: auto; transform: translateX(-50%); }
+            .startup-application-steps li { flex-direction: column; align-items: flex-start; gap: 20px; padding: 28px; }
+            .startup-application-faq summary { padding: 20px; font-size: 1rem; }
+            .startup-application-faq .faq-content p { padding: 0 20px 20px 20px; }
+            .startup-qr-split { grid-template-columns: 1fr; padding: 40px 24px; text-align: center; gap: 40px; }
+            .qr-benefits li { justify-content: center; }
+        }
+
+        .reveal-up {
             opacity: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        .faq-answer p {
-            margin-top: 16px;
-            margin-bottom: 0;
-            color: var(--text-grey);
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 250px;
+        .reveal-up.is-visible {
             opacity: 1;
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
+            transform: translateY(0);
         }
     </style>
 </head>
 
 <body>
-    <!-- PAGE LOADER -->
     <div id="page-loader" class="page-loader">
         <div class="loader-sheet sheet-1"></div>
         <div class="loader-sheet sheet-2"></div>
         <div class="loader-sheet sheet-3"></div>
     </div>
 
-    <!-- 1. TOP ANNOUNCEMENT BAR -->
     <div class="announcement-bar"
         style="background-color: #0D0D0D; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.15);">
         <div class="container"
             style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; text-align: center;">
-
             <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;">
-
-                <!-- Urgency Badges -->
                 <div style="display: flex; gap: 8px; align-items: center;">
-                    <span
-                        style="background-color: #22C55E; color: #FFFFFF; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px;">50%
-                        OFF</span>
-                    <span style="color: #D4AF37; font-weight: 600; font-size: 13px;"><i class="fas fa-fire"
-                            style="margin-right: 4px;"></i>Only 5 Slots Left</span>
+                    <span style="background-color: #22C55E; color: #FFFFFF; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px;">50% OFF</span>
+                    <span style="color: #D4AF37; font-weight: 600; font-size: 13px;"><i class="fas fa-fire" style="margin-right: 4px;"></i>Only 5 Slots Left</span>
                 </div>
-
-                <!-- Main Text -->
                 <p style="margin: 0; font-weight: 500; font-size: 14px; color: #FFFFFF;">
                     Quickly Register for Startup Advisory Session with Experts |
-                    <span
-                        style="text-decoration: line-through; text-decoration-color: #DC2626; color: #A1A1AA; margin: 0 4px;">₹1,999</span>
+                    <span style="text-decoration: line-through; text-decoration-color: #DC2626; color: #A1A1AA; margin: 0 4px;">₹1,999</span>
                     <span style="color: #22C55E; font-weight: 700;">₹999</span>
                 </p>
-
-                <!-- Compact Timer -->
                 <div class="countdown-wrapper"
                     style="margin: 0; padding: 4px 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 8px; border-radius: 6px;">
-                    <span style="font-size: 11px; color: #A1A1AA; font-weight: 600; text-transform: uppercase;">Ends
-                        in:</span>
-
-                    <!-- Forced White Text Color for Dark Background -->
-                    <div class="timer-display"
-                        style="display: flex; gap: 4px; color: #FFFFFF !important; font-weight: 700; font-size: 14px; margin: 0;">
-                        <span class="t-hours" style="color: #FFFFFF !important;">00</span><span
-                            style="color: #FFFFFF !important;">:</span>
-                        <span class="t-mins" style="color: #FFFFFF !important;">00</span><span
-                            style="color: #FFFFFF !important;">:</span>
+                    <span style="font-size: 11px; color: #A1A1AA; font-weight: 600; text-transform: uppercase;">Ends in:</span>
+                    <div class="timer-display" style="display: flex; gap: 4px; color: #FFFFFF !important; font-weight: 700; font-size: 14px; margin: 0;">
+                        <span class="t-hours" style="color: #FFFFFF !important;">00</span><span style="color: #FFFFFF !important;">:</span>
+                        <span class="t-mins" style="color: #FFFFFF !important;">00</span><span style="color: #FFFFFF !important;">:</span>
                         <span class="t-secs" style="color: #FFFFFF !important;">00</span>
                     </div>
                 </div>
-
             </div>
-
-            <!-- CTA Button -->
             <a href="contact.html" class="btn btn-success btn-small"
-                style="background-color: #22C55E; color: #FFFFFF; height: 34px; line-height: 34px; font-size: 13px; padding: 0 16px; margin: 0; border-radius: 6px; text-decoration: none; font-weight: 600;">Register
-                Now</a>
-
+                style="background-color: #22C55E; color: #FFFFFF; height: 34px; line-height: 34px; font-size: 13px; padding: 0 16px; margin: 0; border-radius: 6px; text-decoration: none; font-weight: 600;">Register Now</a>
         </div>
     </div>
 
-    <!-- 2. STICKY HEADER -->
     <header class="header" id="header">
         <div class="container header-container">
             <a href="#" class="logo-container">
@@ -470,7 +648,7 @@
                     <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
                     <line x1="10" y1="30" x2="90" y2="70" />
                 </svg>
-                <div class="logo-text">SARANGI<span>CONSULTING</span></div>
+                <div class="logo-text">SARANGI<span>VENTURES</span></div>
             </a>
             
             <nav class="desktop-nav">
@@ -499,13 +677,11 @@
             </div>
         </div>
         
-        <!-- Mobile Navigation -->
         <div class="mobile-nav" id="mobile-nav">
             <ul class="mobile-nav-links">
                 <li><a href="index.html" class="mobile-link">Home</a></li>
                 <li><a href="about.html" class="mobile-link">About</a></li>
                 <li><a href="services.html" class="mobile-link">Services</a></li>
-                <li><a href="careers.html" class="mobile-link">Careers</a></li>
                 <li><a href="industries.html" class="mobile-link">Industries</a></li>
                 <li><a href="insights.html" class="mobile-link">Insights</a></li>
                 <li><a href="startup-advisory.html" class="mobile-link">Startup Advisory</a></li>
@@ -516,335 +692,254 @@
         </div>
     </header>
 
-    <!-- 3. HERO SECTION -->
-    <section class="sarthak-hero">
-        <div class="container sarthak-hero-container">
-            <div class="reveal-up">
-                <div class="sarthak-breadcrumb">Home &gt; Sarthak</div>
-                <h1 class="sarthak-title">Sarthak Program</h1>
-                <div class="sarthak-subtitle">(Under Sarangi Seed Equity Support Scheme)</div>
+    <main class="startup-application">
+        <section class="sarthak-hero">
+            <div class="sarthak-hero-grid" aria-hidden="true"></div>
+            <div class="sarthak-hero-glow sarthak-hero-glow-left" aria-hidden="true"></div>
+            <div class="sarthak-hero-glow sarthak-hero-glow-right" aria-hidden="true"></div>
 
-                <div style="margin-top: 30px;">
-                    <a href="https://forms.google.com" target="_blank" rel="noopener noreferrer"
-                        class="btn btn-success btn-large"
-                        style="border-radius: 50px; font-weight: 700; text-transform: uppercase; padding: 16px 40px; font-size: 1rem; box-shadow: 0 8px 24px rgba(34, 197, 94, 0.3);">
-                        APPLY NOW <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="sarthak-hero-visual reveal-left">
-                <div class="sarthak-img-frame">
-                    <img src="sarthak_hero.png" alt="Sarthak Program Growth">
-                </div>
-                <div class="sarthak-shape-glow"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. ABOUT & OBJECTIVES SECTION -->
-    <section class="section-padding bg-light">
-        <div class="container" style="max-width: 1000px;">
-            <div class="reveal-up">
-                <h2 class="section-title">About the Program</h2>
-                <p style="font-size: 1.125rem; line-height: 1.7; color: var(--text-grey); margin-bottom: 40px;">
-                    Sarthak is a targeted investment-readiness and seed funding program launched by Sarangi Consulting,
-                    to empower early-stage, revenue-generating startups. The program provides structured mentorship,
-                    financial planning support, and equity funding of up to ₹30 lakhs to help founders strengthen their
-                    business models, improve investor readiness, and scale sustainably.
-                </p>
-            </div>
-
-            <div class="reveal-up" style="margin-top: 60px;">
-                <h2 class="section-title" style="font-size: 2rem;">Objective</h2>
-                <div class="objective-list">
-                    <div class="objective-item">
-                        <div class="objective-num">1</div>
-                        <div class="objective-text">
-                            <strong>Enable early-stage startups</strong> to become investment-ready through expert-led
-                            mentoring and financial planning.
-                        </div>
+            <div class="container sarthak-hero-layout">
+                <div class="sarthak-hero-content reveal-up">
+                    <div class="sarthak-hero-eyebrow">
+                        <span aria-hidden="true"></span>
+                        A founder ecosystem by Sarangi Ventures
                     </div>
-                    <div class="objective-item">
-                        <div class="objective-num">2</div>
-                        <div class="objective-text">
-                            <strong>Provide equity-based seed funding</strong> of up to ₹30 lakhs to help startups
-                            achieve key growth milestones.
-                        </div>
+
+                    <h1>Pitch Today.<span>Build Tomorrow.</span></h1>
+
+                    <p class="sub-heading" style="font-weight: 700; color: #0b4f3c; margin-top: 15px; font-size: 1.1rem;">SARTHAK — India's Startup Pitch & Investment Platform</p>
+                    
+                    <p>
+                        Present your startup to experienced founders, mentors, and investors.
+                        Selected startups may receive strategic mentorship, investor introductions, and opportunities to accelerate their growth.
+                    </p>
+
+                    <div class="sarthak-hero-actions">
+                        <a class="sarthak-hero-button"
+                            href="https://docs.google.com/forms/d/e/1FAIpQLScOGqCEqDoSQB-UTQcHGBvrp86XpEpXQ-RcLYMB968vjjmS9A/viewform"
+                            target="_blank" rel="noopener noreferrer">
+                            Apply to Pitch
+                            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
                     </div>
-                    <div class="objective-item">
-                        <div class="objective-num">3</div>
-                        <div class="objective-text">
-                            <strong>Facilitate investor access</strong> and support scalable, revenue-generating
-                            startups on their path to institutional funding.
+
+                    <div class="sarthak-investor-proof">
+                        <div class="sarthak-investor-icon" aria-hidden="true">
+                            <i class="fa-solid fa-handshake-angle"></i>
+                        </div>
+
+                        <div class="sarthak-ecosystem-content">
+                            <strong>Trusted Startup Ecosystem</strong>
+
+                            <ul class="sarthak-ecosystem-list">
+                                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>6+ Angel Investors</li>
+                                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Industry Mentors</li>
+                                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Founder Community</li>
+                                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Growth Advisory</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- 5. KEY COMPONENTS SECTION -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="text-center reveal-up">
-                <h2 class="section-title">Key Component</h2>
-                <p class="section-description" style="margin: 0 auto 50px;">
-                    The program is structured to provide holistic support across business fundamentals, capital
-                    injection, and industry connects.
-                </p>
-            </div>
+                <div class="sarthak-hero-visual reveal-up">
+                    <div class="sarthak-hero-image-frame">
+                        <img src="sarthak-images/sarthak-hero.png"
+                            alt="Startup founders collaborating at a strategy whiteboard"
+                            class="sarthak-hero-image">
+                    </div>
 
-            <div class="component-grid">
-                <!-- Mentorship -->
-                <div class="component-card reveal-up">
-                    <div class="component-icon"><i class="fas fa-users"></i></div>
-                    <h3>Mentorship</h3>
-                    <p>1-1 mentoring sessions with top-tier sector experts, venture capitalists, and experienced
-                        Industry Experts to refine product-market fit and strategic operations.</p>
-                </div>
-                <!-- Post-Funding Support -->
-                <div class="component-card reveal-up" style="transition-delay: 0.1s;">
-                    <div class="component-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Post-Funding Support</h3>
-                    <p>Ongoing guidance on systematic fund utilization, strict governance compliance, strategic
-                        milestones tracking, and coaching for follow-on fundraising rounds.</p>
-                </div>
-                <!-- Networking Events -->
-                <div class="component-card reveal-up" style="transition-delay: 0.2s;">
-                    <div class="component-icon"><i class="fas fa-handshake"></i></div>
-                    <h3>Networking Events</h3>
-                    <p>Direct exposure and pitching opportunities with potential angel investors, venture funds,
-                        corporate partners, commercial banks, and a network of fellow entrepreneurs.</p>
+                    <div class="sarthak-floating-card">
+                        <span><i class="fa-solid fa-rocket" aria-hidden="true"></i></span>
+                        <div>
+                            <strong>From idea to scalable venture</strong>
+                            <small>Strategy. Validation. Growth.</small>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+        
+        <section class="section-padding sarthak-about-section">
+            <div class="container startup-application-intro">
+                <div class="reveal-up"><span class="startup-application-kicker">About the program</span>
+                    <h2 class="section-title">Turn Ideas Into Investable Businesses.</h2>
+                </div>
+                <div class="reveal-up">
+                    <p>SARTHAK is India's premier Startup Pitch & Investment Platform, designed to help early-stage 
+                    founders move from ambition to solid execution. We position ambitious founders to become 
+                    <strong>investment-ready</strong> by validating core ideas, refining business models, and building a clear pathway to growth.</p>
+                    
+                    <p class="mt-3">Many early-stage startups first need market validation, expert mentoring, and strategic alignment 
+                    before they attract capital. Through a selective process, we provide the ultimate ecosystem access 
+                    to prepare your venture for experienced mentors and potential investors.</p>
+                </div>
+            </div>
+        </section>
 
-    <!-- 6. CRITERIA SECTION -->
-    <section class="section-padding bg-light">
-        <div class="container" style="max-width: 800px;">
-            <div class="text-center reveal-up">
-                <h2 class="section-title">Criteria</h2>
-                <p class="section-description" style="margin: 0 auto 30px;">
-                    To maintain cohort quality, we select companies meeting these essential eligibility guidelines:
-                </p>
-            </div>
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header text-center reveal-up">
+                    <span class="startup-application-kicker">Our Methodology</span>
+                    <h2 class="section-title">The Growth Timeline</h2>
+                </div>
 
-            <div class="criteria-list reveal-up">
-                <div class="criteria-item">
-                    <div class="criteria-icon"><i class="fas fa-check"></i></div>
-                    <div class="criteria-text">Registered and recognized by DPIIT.</div>
-                </div>
-                <div class="criteria-item">
-                    <div class="criteria-icon"><i class="fas fa-check"></i></div>
-                    <div class="criteria-text">Generating consistent revenue for at least 6 months.</div>
-                </div>
-                <div class="criteria-item">
-                    <div class="criteria-icon"><i class="fas fa-check"></i></div>
-                    <div class="criteria-text">Seeking to raise between ₹15 to ₹30 lakhs for scaling operations.</div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <div class="timeline-container">
+                    <div class="timeline-block reveal-up" style="transition-delay: 0.1s;">
+                        <div class="timeline-image">
+                            <img src="sarthak-images/ideate.jpeg" alt="Ideate Phase">
+                        </div>
+                        <div class="timeline-content ideate-card">
+                            <h3>Ideate</h3>
+                            <p>Dive into the Ideation Phase with activities designed to spark innovation and strategic insights. Engage in intensive brainstorming sessions, conduct thorough market research, analyze competitors, and develop initial concepts.</p>
+                        </div>
+                    </div>
 
-    <!-- 7. COHORT SECTION -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="text-center reveal-up">
-                <h2 class="section-title">Cohort</h2>
-                <p class="section-description" style="margin: 0 auto 50px;">
-                    Meet the pioneering startups and high-growth businesses selected for the Sarthak Program:
-                </p>
-            </div>
+                    <div class="timeline-block reveal-up" style="transition-delay: 0.3s;">
+                        <div class="timeline-image">
+                            <img src="sarthak-images/validate.png" alt="Validate Phase">
+                        </div>
+                        <div class="timeline-content validate-card">
+                            <h3>Validate</h3>
+                            <p>Leverage the valuable resources provided by top incubators and early-stage accelerators, which include comprehensive mentoring and networking opportunities. Test your products and business models directly in the competitive marketplace.</p>
+                        </div>
+                    </div>
 
-            <div class="cohort-grid">
-                <!-- Crop Domain -->
-                <div class="cohort-card reveal-up">
-                    <div class="cohort-logo-placeholder"><i class="fas fa-seedling"></i></div>
-                    <div class="cohort-name">Crop Domain</div>
-                </div>
-                <!-- Sakar Robotics -->
-                <div class="cohort-card reveal-up" style="transition-delay: 0.05s;">
-                    <div class="cohort-logo-placeholder"><i class="fas fa-robot"></i></div>
-                    <div class="cohort-name">Sakar Robotics</div>
-                </div>
-                <!-- Evlogia Eco Care -->
-                <div class="cohort-card reveal-up" style="transition-delay: 0.1s;">
-                    <div class="cohort-logo-placeholder"><i class="fas fa-leaf"></i></div>
-                    <div class="cohort-name">Evlogia Eco Care</div>
-                </div>
-                <!-- Studioagama -->
-                <div class="cohort-card reveal-up" style="transition-delay: 0.15s;">
-                    <div class="cohort-logo-placeholder"><i class="fas fa-cube"></i></div>
-                    <div class="cohort-name">Studioagama</div>
-                </div>
-                <!-- Biogreen Projects -->
-                <div class="cohort-card reveal-up" style="transition-delay: 0.2s;">
-                    <div class="cohort-logo-placeholder"><i class="fas fa-recycle"></i></div>
-                    <div class="cohort-name">Biogreen Projects Pvt Ltd</div>
-                </div>
-                <!-- Yasil Technologies -->
-                <div class="cohort-card reveal-up" style="transition-delay: 0.25s;">
-                    <div class="cohort-logo-placeholder"><i class="fas fa-code"></i></div>
-                    <div class="cohort-name">Yasil Technologies</div>
+                    <div class="timeline-block reveal-up" style="transition-delay: 0.5s;">
+                        <div class="timeline-image">
+                            <img src="sarthak-images/accelerate.jpeg" alt="Accelerate Phase">
+                        </div>
+                        <div class="timeline-content accelerate-card">
+                            <h3>Accelerate</h3>
+                            <p>Access advanced resources and tailored accelerator programs designed to help early-stage startups effectively scale rapidly. Focus on refining your product, building your strong team, and preparing for significant future growth phases.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 8. CONTACT CTA BANNER SECTION -->
-    <section class="container reveal-up" style="margin-bottom: 100px;">
-        <div class="contact-cta">
-            <div class="contact-cta-info">
-                <h3>Contact Us</h3>
-                <p>
-                    Have questions? Email us at <a
-                        href="mailto:sarthak@sarangiconsulting.com">sarthak@sarangiconsulting.com</a> or call <a
-                        href="tel:+919999999999">+91-9999999999</a>
-                </p>
+        <section class="section-padding bg-light">
+            <div class="container">
+                <div class="section-header text-center reveal-up"><span class="startup-application-kicker">Who it is for</span>
+                    <h2 class="section-title">Eligibility</h2>
+                    <p class="section-description mx-auto">We welcome applications from founders building purposeful, scalable businesses.</p>
+                </div>
+                <div class="startup-application-grid">
+                    <article class="startup-application-card reveal-up"><i class="fas fa-rocket" aria-hidden="true"></i>
+                        <h3>Founder-led ventures</h3>
+                        <p>Startups with an active founding team committed to learning and execution.</p>
+                    </article>
+                    <article class="startup-application-card reveal-up"><i class="fas fa-chart-line" aria-hidden="true"></i>
+                        <h3>Growth intent</h3>
+                        <p>Businesses with a clear problem to solve and the ambition to build a repeatable model.</p>
+                    </article>
+                    <article class="startup-application-card reveal-up"><i class="fas fa-compass" aria-hidden="true"></i>
+                        <h3>Readiness to engage</h3>
+                        <p>Teams prepared to share context, act on feedback, and make informed decisions.</p>
+                    </article>
+                </div>
             </div>
-            <div>
-                <a href="https://forms.google.com" target="_blank" rel="noopener noreferrer"
-                    class="btn btn-success btn-large"
-                    style="border-radius: 50px; font-weight: 700; text-transform: uppercase; padding: 14px 36px; box-shadow: 0 4px 15px rgba(255,255,255,0.15);">
-                    APPLY NOW <i class="fas fa-external-link-alt" style="margin-left: 8px;"></i>
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 9. FAQS ACCORDION SECTION -->
-    <section class="section-padding bg-light" style="border-top: 1px solid var(--border-grey);">
-        <div class="container" style="max-width: 900px;">
-            <div class="text-center reveal-up">
-                <h2 class="section-title">FAQs</h2>
-                <p class="section-description" style="margin: 0 auto 50px;">
-                    Find answers to frequently asked questions about the Sarthak Seed Equity Support Scheme.
-                </p>
-            </div>
-
-            <div class="faq-accordion reveal-up">
-                <div class="faq-item">
-                    <div class="faq-question">What is Sarthak? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>Sarthak is an early-stage startup enablement, mentorship, and seed equity funding initiative
-                            launched by Sarangi Consulting to fast-track startups to growth stage and make them
-                            investment-ready.</p>
-                    </div>
+        <section class="section-padding">
+            <div class="container startup-qr-split reveal-up">
+                <div class="qr-text-content">
+                    <span class="startup-application-kicker">Fast Track</span>
+                    <h2 class="section-title">Apply instantly from your mobile</h2>
+                    <p>Ready to take the next step? Skip the desktop wait and start your application directly on your phone. The form takes less than 10 minutes to complete.</p>
+                    <ul class="qr-benefits">
+                        <li><i class="fas fa-check-circle"></i> Quick & mobile-optimized form</li>
+                        <li><i class="fas fa-check-circle"></i> Save your progress anytime</li>
+                        <li><i class="fas fa-check-circle"></i> Direct submission to our team</li>
+                    </ul>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">Who can apply for Sarthak? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>Early-stage startups and businesses registered under DPIIT that generate consistent revenues
-                            for at least 6 months and are seeking systematic capital scale-up can apply.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">What kind of funding is offered? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>Sarthak offers equity-based seed funding ranging from ₹15 lakhs up to ₹30 lakhs, tailored to
-                            your growth milestone requirements and valuations.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">What support does the program provide apart from funding? <i
-                            class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>In addition to funding, you will receive 1-1 expert mentorship, post-funding compliance and
-                            milestone support, strategic financial modeling, and exclusive investor networking access.
-                        </p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Is there a fee to apply for the program? <i
-                            class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>No, there is absolutely no application fee or program fee associated with the Sarthak
-                            Program.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">How long is the program? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>The core incubation and investment-readiness curriculum lasts for 12 weeks, followed by
-                            ongoing post-investment monitoring and advisory support.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">What sectors are eligible? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>We are sector-agnostic. We support innovative startups across technology, robotics,
-                            agriculture, eco-care, healthcare, consumer products, and more.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Will I need to give equity? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>Yes, seed funding is structured as a standard equity-based investment. The specific equity
-                            percent is negotiated based on mutual valuation agreement.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">How do I apply? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>Simply click the "APPLY NOW" button at the top or bottom of this page, fill out the Google
-                            Form with your business metrics and pitch deck, and submit.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">What is the selection process? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>The process involves initial screening of pitch details, followed by an interview round, due
-                            diligence, and final presentation to the Sarangi investment committee.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">When will funding be disbursed? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>Funding is typically disbursed within 4 to 6 weeks post-selection, subject to completing the
-                            due diligence process and signing term sheets.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Who are the mentors and investors involved? <i
-                            class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        <p>You will connect with a curated pool of industry leaders, venture capital advisors, active
-                            angel investors, and experienced growth consultants from the Sarangi Consulting network.</p>
+                <div class="qr-image-content">
+                    <div class="large-qr-wrapper">
+                        <img src="sarthak-images/Form QR Code.png" alt="Scan this QR code to open the application form">
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 15. FOOTER -->
+        <section class="section-padding bg-light">
+            <div class="container">
+                <div class="section-header text-center reveal-up"><span class="startup-application-kicker">What happens next</span>
+                    <h2 class="section-title">Application process</h2>
+                </div>
+                <ol class="startup-application-steps" id="processStepsContainer">
+                    <li class="reveal-up"><span>01</span>
+                        <div>
+                            <h3>Submit your application</h3>
+                            <p>Tell us about your team, venture, market, and growth priorities.</p>
+                        </div>
+                    </li>
+                    <li class="reveal-up"><span>02</span>
+                        <div>
+                            <h3>Review for fit</h3>
+                            <p>Our team assesses your stage, needs, and readiness for engagement.</p>
+                        </div>
+                    </li>
+                    <li class="reveal-up"><span>03</span>
+                        <div>
+                            <h3>Founder conversation</h3>
+                            <p>Selected applicants are invited to a focused discovery conversation.</p>
+                        </div>
+                    </li>
+                    <li class="reveal-up"><span>04</span>
+                        <div>
+                            <h3>Program roadmap</h3>
+                            <p>Aligned ventures receive next steps and a tailored consulting path.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="section-padding" aria-labelledby="faq-title">
+            <div class="container startup-application-faq">
+                <div class="section-header text-center reveal-up"><span class="startup-application-kicker">Common questions</span>
+                    <h2 class="section-title" id="faq-title">FAQ</h2>
+                </div>
+
+                <details class="reveal-up faq-item">
+                    <summary>Which startup stages can apply? <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i></summary>
+                    <div class="faq-content-wrapper">
+                        <div class="faq-content">
+                            <p>We consider early-stage and growth-stage startups. Strong clarity on the problem, customer, and current priorities is most important.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="reveal-up faq-item">
+                    <summary>How long does the review take? <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i></summary>
+                    <div class="faq-content-wrapper">
+                        <div class="faq-content">
+                            <p>We aim to review complete applications promptly. Shortlisted founders will be contacted with next steps.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="index.html" class="logo-container">
-                        <svg class="logo-mark" width="32" height="32" viewBox="0 0 100 100" fill="none"
-                            stroke="var(--primary-green)" stroke-width="12" stroke-linejoin="round"
-                            stroke-linecap="round">
+                    <a href="#" class="logo-container">
+                        <svg class="logo-mark" width="32" height="32" viewBox="0 0 100 100" fill="none" stroke="var(--primary-green)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
                             <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
                             <line x1="10" y1="30" x2="90" y2="70" />
                         </svg>
-                        <div class="logo-text text-white">SARANGI<span
-                                style="color:var(--primary-green)">CONSULTING</span></div>
+                        <div class="logo-text text-white">SARANGI<span style="color:var(--primary-green)">VENTURES</span></div>
                     </a>
-                    <p class="mt-3 text-grey">A Growth & Management Consulting Firm driving transformation and
-                        operational excellence.</p>
+                    <p class="mt-3 text-grey">A Growth & Management Consulting Firm driving transformation and operational excellence.</p>
                     <div class="social-links mt-4">
-                        <a href="https://www.linkedin.com/company/sarangiconsulting/"><i
-                                class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.instagram.com/sarangiconsulting?igsh=OGthZmQ3dXhpM2Ru"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="https://youtube.com/@sarangiconsulting?si=HAdNC5C05WPp3Uha"><i
-                                class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/company/sarangiconsulting/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/sarangiconsulting?igsh=OGthZmQ3dXhpM2Ru"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/@sarangiconsulting?si=HAdNC5C05WPp3Uha"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-
+                
                 <div class="footer-links">
                     <h4>Company</h4>
                     <ul>
@@ -854,7 +949,7 @@
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
-
+                
                 <div class="footer-links">
                     <h4>Services & Industries</h4>
                     <ul>
@@ -864,7 +959,7 @@
                         <li><a href="#">Case Studies</a></li>
                     </ul>
                 </div>
-
+                
                 <div class="footer-links">
                     <h4>Insights</h4>
                     <ul>
@@ -875,10 +970,10 @@
                     </ul>
                 </div>
             </div>
-
+            
             <div class="footer-bottom">
                 <div class="copyright">
-                    © 2026 Sarangi Consulting. A Sarangi Group Initiative.
+                    © 2026 Sarangi Ventures. A Sarangi Group Initiative.
                 </div>
                 <div class="legal-links">
                     <a href="#">Privacy Policy</a>
@@ -888,7 +983,70 @@
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            /* --- 1. FAQ ACCORDION LOGIC --- */
+            const faqs = document.querySelectorAll(".faq-item");
+
+            faqs.forEach(faq => {
+                const summary = faq.querySelector("summary");
+
+                summary.addEventListener("click", (e) => {
+                    e.preventDefault(); 
+
+                    if (faq.hasAttribute("open")) {
+                        faq.classList.add("closing");
+                        setTimeout(() => {
+                            faq.removeAttribute("open");
+                            faq.classList.remove("closing");
+                        }, 300); 
+
+                    } else {
+                        faqs.forEach(otherFaq => {
+                            if (otherFaq !== faq && otherFaq.hasAttribute("open")) {
+                                otherFaq.classList.add("closing");
+                                setTimeout(() => {
+                                    otherFaq.removeAttribute("open");
+                                    otherFaq.classList.remove("closing");
+                                }, 300);
+                            }
+                        });
+                        faq.setAttribute("open", "");
+                    }
+                });
+            });
+
+            /* --- 2. APPLICATION PROCESS HIGHLIGHT CLICK ANIMATION --- */
+            const stepsContainer = document.getElementById("processStepsContainer");
+            const steps = stepsContainer.querySelectorAll("li");
+
+            steps.forEach(step => {
+                step.addEventListener("click", () => {
+                    if (step.classList.contains("active-highlight")) {
+                        step.classList.remove("active-highlight");
+                        stepsContainer.classList.remove("has-active");
+                    } else {
+                        steps.forEach(s => s.classList.remove("active-highlight"));
+                        step.classList.add("active-highlight");
+                        stepsContainer.classList.add("has-active");
+                    }
+                });
+            });
+
+            /* --- 3. REVEAL SCROLL OBSERVER --- */
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+        });
+    </script>
+
     <a href="#" id="whatsapp-btn" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -913,7 +1071,6 @@
             transition: transform 0.3s ease;
             text-decoration: none;
         }
-
         .whatsapp-float:hover {
             transform: scale(1.1);
             color: #FFF;
@@ -923,52 +1080,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const waBtn = document.getElementById('whatsapp-btn');
-            let serviceContext = 'Sarthak Program Inquiry';
-            let waMessage = encodeURIComponent(`Hi Sarangi Consulting! I'm interested in learning more about your Sarthak Program.`);
-            let waNumber = '919999999999';
+            let serviceContext = 'General Inquiry';
+            let waMessage = encodeURIComponent(`Hi Sarangi Ventures! I'm interested in learning more about your services (${serviceContext}).`);
+            let waNumber = '919999999999'; 
+            
             waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
 
-            // Lead tracking API call
             waBtn.addEventListener('click', () => {
                 fetch('http://localhost:5000/api/whatsapp/click', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        page: 'sarthak',
+                        page: window.location.pathname || 'home',
                         service: serviceContext
                     })
                 }).catch(err => console.error('Failed to log WhatsApp click:', err));
             });
         });
     </script>
-
-    <!-- Scripts -->
+    
     <script src="script.js?v=7"></script>
     <script src="sara-chatbot.js"></script>
-
-    <!-- FAQ Accordion Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                question.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const isActive = item.classList.contains('active');
-
-                    // Close all FAQs first
-                    faqItems.forEach(otherItem => {
-                        otherItem.classList.remove('active');
-                    });
-
-                    // Toggle current click
-                    if (!isActive) {
-                        item.classList.add('active');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
