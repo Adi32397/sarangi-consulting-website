@@ -12,6 +12,11 @@ const { initDocumentRequest } = require('./DocumentRequest');
 const { initUploadedDocument } = require('./UploadedDocument');
 const { getSequelize } = require('../config/database');
 
+let EmployeeModel;
+let InternModel;
+let DocumentRequestModel;
+let UploadedDocumentModel;
+
 const syncDatabase = async () => {
     // 1. Initialize models
     const User = initUser();
@@ -21,12 +26,13 @@ const syncDatabase = async () => {
     const Setting = initSetting();
     const ActivityLog = initActivityLog();
     const Notification = initNotification();
-    const Employee = initEmployee();
-    const InternModel = initIntern();
+    
+    EmployeeModel = initEmployee();
+    InternModel = initIntern();
+    DocumentRequestModel = initDocumentRequest();
+    UploadedDocumentModel = initUploadedDocument();
+    
     const PricingCard = initPricingCard();
-    const DocumentRequest = initDocumentRequest();
-    const UploadedDocument = initUploadedDocument();
-
 
     // 2. Define relationships (if any, in the future)
     // Removed Lead-User relationship to store consultant names directly
@@ -47,8 +53,8 @@ module.exports = {
     ActivityLog: () => getActivityLog(),
     Notification: () => getNotification(),
     PricingCard: () => getPricingCard(),
-    Employee: () => Employee,
+    Employee: () => EmployeeModel,
     Intern: () => InternModel,
-    DocumentRequest: () => DocumentRequest,
-    UploadedDocument: () => UploadedDocument,
+    DocumentRequest: () => DocumentRequestModel,
+    UploadedDocument: () => UploadedDocumentModel,
 };
