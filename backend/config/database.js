@@ -11,6 +11,9 @@ const connectDB = async () => {
             port: process.env.DB_PORT,
             user: process.env.DB_USER,
             password: process.env.DB_PASSWORD,
+            ssl: {
+                rejectUnauthorized: false
+            }
         });
         
         await connection.query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB_NAME}\`;`);
@@ -25,6 +28,12 @@ const connectDB = async () => {
                 host: process.env.DB_HOST,
                 port: process.env.DB_PORT,
                 dialect: 'mysql',
+                dialectOptions: {
+                    ssl: {
+                        require: true,
+                        rejectUnauthorized: false
+                    }
+                },
                 logging: false, // Set to console.log to see SQL queries
                 pool: {
                     max: 5,
