@@ -72,6 +72,7 @@
         .notification-time { font-size: 11px; color: #94a3b8; margin-top: 4px; }
         .notification-header { padding: 16px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 12px 12px 0 0; }
     </style>
+    <script src="api-config.js"></script>
 </head>
 <body>
 
@@ -259,7 +260,7 @@
 
         try {
             // Fetch comprehensive dashboard stats
-            const res = await fetch('http://localhost:5000/api/dashboard/stats', { headers });
+            const res = await fetch(`${API_BASE_URL}/api/dashboard/stats`, { headers });
             const data = await res.json();
 
             if (data.success) {
@@ -280,7 +281,7 @@
 
         // Fetch Banners (for table)
         try {
-            const bannersRes = await fetch('http://localhost:5000/api/banners', { headers });
+            const bannersRes = await fetch(`${API_BASE_URL}/api/banners`, { headers });
             const bannersTbody = document.getElementById('banners-tbody');
             if(bannersRes.ok) {
                 const json = await bannersRes.json();
@@ -301,7 +302,7 @@
 
         // Fetch Bookings (for table)
         try {
-            const bookingsRes = await fetch('http://localhost:5000/api/bookings', { headers });
+            const bookingsRes = await fetch(`${API_BASE_URL}/api/bookings`, { headers });
             const bookingsTbody = document.getElementById('bookings-tbody');
             if(bookingsRes.ok) {
                 const json = await bookingsRes.json();
@@ -328,7 +329,7 @@
     async function fetchNotifications() {
         const token = localStorage.getItem('token') || '';
         try {
-            const res = await fetch('http://localhost:5000/api/notifications', {
+            const res = await fetch(`${API_BASE_URL}/api/notifications`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const json = await res.json();
@@ -374,7 +375,7 @@
     async function markAllAsRead(e) {
         e.stopPropagation();
         const token = localStorage.getItem('token') || '';
-        await fetch('http://localhost:5000/api/notifications/read', {
+        await fetch(`${API_BASE_URL}/api/notifications/read`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({})
@@ -385,7 +386,7 @@
     async function markAsRead(id, e) {
         e.stopPropagation();
         const token = localStorage.getItem('token') || '';
-        await fetch('http://localhost:5000/api/notifications/read', {
+        await fetch(`${API_BASE_URL}/api/notifications/read`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({ id })
