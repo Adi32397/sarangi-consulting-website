@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const res = await fetch(`${API_BASE_URL}/api/contact', {
+                const res = await fetch(`${API_BASE_URL}/api/contact`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. Dynamic Banner Rendering
     async function renderDynamicBanners(isManual = false) {
         try {
-            const res = await fetch(`${API_BASE_URL}/api/banners?status=Active');
+            const res = await fetch(`${API_BASE_URL}/api/banners?status=Active`);
             const data = await res.json();
             
             if (data.success && data.data && data.data.length > 0) {
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const banner = pageBanners.shift();
                         
                         // Construct Banner HTML as a Popup Modal
-                        const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `${API_BASE_URL}${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
+                        const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `${API_BASE_URL}${banner.image.startsWith(`/') ? '' : '/'}${banner.image}`;
                         
                         // Remove existing popup if it exists
                         const existingPopup = document.getElementById('dynamic-banner-popup');
