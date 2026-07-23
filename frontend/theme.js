@@ -12,15 +12,21 @@ window.applyTheme = function(theme) {
     }
 
     if (isDark) {
-        root.style.setProperty('--white', '#0b0b0c');
-        root.style.setProperty('--exec-black', '#FFFFFF');
-        root.style.setProperty('--light-grey', '#000000');
-        root.style.setProperty('--border-grey', '#1c1c1e');
+        root.setAttribute('data-theme', 'dark');
+        
+        // Cleanup old inline styles if they exist from previous versions
+        root.style.removeProperty('--white');
+        root.style.removeProperty('--exec-black');
+        root.style.removeProperty('--light-grey');
+        root.style.removeProperty('--border-grey');
     } else {
-        root.style.setProperty('--white', '#FFFFFF');
-        root.style.setProperty('--exec-black', '#0D0D0D');
-        root.style.setProperty('--light-grey', '#F5F7F8');
-        root.style.setProperty('--border-grey', '#E5E7EB');
+        root.removeAttribute('data-theme');
+        
+        // Cleanup old inline styles
+        root.style.removeProperty('--white');
+        root.style.removeProperty('--exec-black');
+        root.style.removeProperty('--light-grey');
+        root.style.removeProperty('--border-grey');
     }
 
     // Colors
@@ -87,6 +93,44 @@ window.applyTheme = function(theme) {
     }
     
     styleTag.innerHTML = cssRules;
+
+    // Update Chart.js colors if Chart is loaded
+    if (typeof Chart !== 'undefined') {
+        const textColor = isDark ? '#D1D5DB' : '#64748b';
+        const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : '#e2e8f0';
+        
+        Chart.defaults.color = textColor;
+        Chart.defaults.borderColor = gridColor;
+        
+        // Update all existing charts
+        for (let id in Chart.instances) {
+            let chart = Chart.instances[id];
+            
+            // Update scales (axes and grid)
+            if (chart.options.scales) {
+                for (let axis in chart.options.scales) {
+                    if (chart.options.scales[axis].ticks) {
+                        chart.options.scales[axis].ticks.color = textColor;
+                    }
+                    if (chart.options.scales[axis].grid) {
+                        chart.options.scales[axis].grid.color = gridColor;
+                    }
+                }
+            }
+            
+            // Update legend
+            if (chart.options.plugins && chart.options.plugins.legend && chart.options.plugins.legend.labels) {
+                chart.options.plugins.legend.labels.color = textColor;
+            }
+            
+            // Update title
+            if (chart.options.plugins && chart.options.plugins.title) {
+                chart.options.plugins.title.color = textColor;
+            }
+            
+            chart.update();
+        }
+    }
 };
 
 // Apply on load

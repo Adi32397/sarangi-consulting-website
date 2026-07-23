@@ -28,45 +28,283 @@
     --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark theme overrides */
+/* Dark theme overrides specifically designed for the Admin Dashboard */
 html[data-theme="dark"] {
-    --primary-green: #22c55e; /* Bright vibrant green for dark mode contrast */
-    --secondary-green: #16a34a; /* Medium bright green */
-    --dark-green: #15803d; /* Darker accent green */
-    --white: #0b0b0c; /* Dark charcoal/black panel */
-    --exec-black: #FFFFFF; /* Pure white text */
-    --light-grey: #000000; /* Pure black background */
-    --border-grey: #1c1c1e; /* Very dark neutral border */
-    --text-grey: #a1a1aa; /* Neutral light grey text */
-    --header-bg: rgba(10, 10, 10, 0.95); /* Semi-transparent black header */
-    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.8);
+    /* Map base variables to dark deep green palette */
+    --white: #0a2918; /* Card Background - deep green */
+    --exec-black: #FFFFFF; /* Primary Text */
+    --light-grey: #061a0f; /* Page Background - very dark forest green */
+    --border-grey: #0f3d24; /* Borders - dark green */
+    --text-grey: #D1D5DB; /* Secondary Text */
     
-    /* Contact Section Overrides */
-    --contact-primary: #000000;
-    --contact-text: #FFFFFF;
-    --contact-text-muted: #a1a1aa;
-    --contact-border: rgba(255, 255, 255, 0.08);
-    --glass-bg: rgba(18, 18, 18, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    /* Specific dashboard structural colors */
+    --sidebar-bg: #082214;
+    --navbar-bg: #082214;
+    --hover-bg: #0f3d24;
+    --input-bg: #0c2b19;
+    --input-border: #14532D;
+    --muted-text: #9CA3AF;
+    
+    --header-bg: rgba(8, 34, 20, 0.95);
+    --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] body {
+    background-color: var(--light-grey);
+}
+
+/* Global Component Overrides for Dark Mode */
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .dashboard-card,
+html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .glass-card,
+html[data-theme="dark"] .chart-container,
+html[data-theme="dark"] .table-container {
+    background: var(--white) !important;
+    border-color: var(--border-grey) !important;
+    color: var(--exec-black) !important;
 }
 
 html[data-theme="dark"] .glass-card {
-    background: rgba(15, 15, 15, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 41, 24, 0.8) !important;
+    border: 1px solid rgba(20, 83, 45, 0.5) !important;
 }
 
-html[data-theme="dark"] .service-card:hover,
-html[data-theme="dark"] .industry-card:hover,
-html[data-theme="dark"] .insight-card:hover {
+html[data-theme="dark"] .sidebar {
+    background: var(--sidebar-bg) !important;
+}
+
+html[data-theme="dark"] .main-content {
+    background: var(--light-grey) !important;
+}
+
+html[data-theme="dark"] .top-header,
+html[data-theme="dark"] header {
+    background: var(--navbar-bg) !important;
+    border-bottom: 1px solid var(--border-grey) !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    color: var(--exec-black) !important;
+}
+
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus {
     border-color: var(--primary-green) !important;
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.25), var(--shadow-premium) !important;
-    transition: none !important;
+    color: var(--exec-black) !important;
 }
 
-html[data-theme="dark"] .btn-primary:hover,
-html[data-theme="dark"] .btn-success:hover {
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.45) !important;
-    transition: none !important;
+/* Comprehensive Text Overrides for Dark Mode */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6,
+html[data-theme="dark"] .section-title,
+html[data-theme="dark"] .form-section-title,
+html[data-theme="dark"] .widget-title,
+html[data-theme="dark"] .stat-value,
+html[data-theme="dark"] .pricing-card h3,
+html[data-theme="dark"] .text-dark,
+html[data-theme="dark"] .chart-title {
+    color: var(--exec-black) !important;
+    border-color: var(--border-grey);
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] label,
+html[data-theme="dark"] .text-muted,
+html[data-theme="dark"] .text-grey,
+html[data-theme="dark"] .desc,
+html[data-theme="dark"] .setting-tab,
+html[data-theme="dark"] .stat-title,
+html[data-theme="dark"] .plan-info strong,
+html[data-theme="dark"] .form-group label,
+html[data-theme="dark"] .settings-form label,
+html[data-theme="dark"] .info-label,
+html[data-theme="dark"] .info-value,
+html[data-theme="dark"] .contact-info span,
+html[data-theme="dark"] .drag-drop-zone p,
+html[data-theme="dark"] .toggle-row span,
+html[data-theme="dark"] .theme-option,
+html[data-theme="dark"] .pagination-info,
+html[data-theme="dark"] .btn-page,
+html[data-theme="dark"] table td,
+html[data-theme="dark"] table td a,
+html[data-theme="dark"] table td span {
+    color: var(--text-grey) !important;
+}
+
+html[data-theme="dark"] .setting-tab:hover {
+    background: var(--hover-bg) !important;
+    color: var(--exec-black) !important;
+}
+
+/* Public Website Specific Overrides for Dark Mode */
+html[data-theme="dark"] .service-card,
+html[data-theme="dark"] .feature-card,
+html[data-theme="dark"] .case-card,
+html[data-theme="dark"] .pricing-card,
+html[data-theme="dark"] .process-step,
+html[data-theme="dark"] .testimonial-card,
+html[data-theme="dark"] .contact-card,
+html[data-theme="dark"] .contact-info-panel,
+html[data-theme="dark"] .contact-form-panel,
+html[data-theme="dark"] .glass-form,
+html[data-theme="dark"] .contact-stat-item,
+html[data-theme="dark"] .info-cards .info-card,
+html[data-theme="dark"] .team-member,
+html[data-theme="dark"] .insight-card,
+html[data-theme="dark"] .service-detail-lists,
+html[data-theme="dark"] .process-flow,
+html[data-theme="dark"] .why-card {
+    background: var(--white) !important;
+    border-color: var(--border-grey) !important;
+}
+
+html[data-theme="dark"] .service-detail-content,
+html[data-theme="dark"] .why-choose-section {
+    background-color: var(--bg-grey) !important;
+}
+
+html[data-theme="dark"] .service-list-col ul li {
+    background-color: transparent !important;
+    border-left-color: var(--primary-green) !important;
+}
+
+/* Public Website Text Overrides */
+html[data-theme="dark"] .service-card p,
+html[data-theme="dark"] .feature-card p,
+html[data-theme="dark"] .case-card p,
+html[data-theme="dark"] .testimonial-card p,
+html[data-theme="dark"] .contact-info-panel p,
+html[data-theme="dark"] .contact-stat-item .stat-label,
+html[data-theme="dark"] .insight-card p,
+html[data-theme="dark"] .radio-group-label,
+html[data-theme="dark"] .custom-radio,
+html[data-theme="dark"] .file-upload-label span,
+html[data-theme="dark"] .file-upload-label i,
+html[data-theme="dark"] .custom-checkbox,
+html[data-theme="dark"] .service-detail-content p,
+html[data-theme="dark"] .service-detail-content li,
+html[data-theme="dark"] .service-detail-content span,
+html[data-theme="dark"] .why-card p,
+html[data-theme="dark"] .why-choose-section .text-muted {
+    color: var(--text-grey) !important;
+}
+
+html[data-theme="dark"] .floating-group label {
+    color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .floating-group input:focus~label,
+html[data-theme="dark"] .floating-group input:not(:placeholder-shown)~label,
+html[data-theme="dark"] .floating-group textarea:focus~label,
+html[data-theme="dark"] .floating-group textarea:not(:placeholder-shown)~label,
+html[data-theme="dark"] .floating-group .form-control:valid~label,
+html[data-theme="dark"] .floating-group input.has-value~label,
+html[data-theme="dark"] .floating-group textarea.has-value~label {
+    background: var(--white) !important;
+    color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .service-card h3,
+html[data-theme="dark"] .feature-card h3,
+html[data-theme="dark"] .case-card h3,
+html[data-theme="dark"] .testimonial-card h4,
+html[data-theme="dark"] .contact-info-panel h3,
+html[data-theme="dark"] .contact-info-panel h4,
+html[data-theme="dark"] .contact-form-panel .form-title,
+html[data-theme="dark"] .contact-stat-item .stat-num,
+html[data-theme="dark"] .insight-card h3,
+html[data-theme="dark"] .service-detail-content h4,
+html[data-theme="dark"] .service-detail-content strong,
+html[data-theme="dark"] .why-choose-section .section-title,
+html[data-theme="dark"] .why-card h3 {
+    color: var(--exec-black) !important;
+}
+
+/* Specific Section Overrides */
+html[data-theme="dark"] .final-cta {
+    background: #0D0D0D !important;
+}
+html[data-theme="dark"] .final-cta .section-title,
+html[data-theme="dark"] .final-cta .cta-subtitle {
+    color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .explore-btn {
+    color: #22C55E !important;
+}
+
+/* Footer Fixes for Dark Mode (Keep Original Dark Colors) */
+html[data-theme="dark"] .footer {
+    background-color: #0D0D0D !important;
+}
+
+html[data-theme="dark"] .footer-links h4,
+html[data-theme="dark"] .footer .logo-text,
+html[data-theme="dark"] .footer .copyright,
+html[data-theme="dark"] .footer .social-links a i,
+html[data-theme="dark"] .footer .social-links a {
+    color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .footer p,
+html[data-theme="dark"] .footer .text-grey,
+html[data-theme="dark"] .footer-links a,
+html[data-theme="dark"] .footer .legal-links a {
+    color: #9CA3AF !important;
+}
+html[data-theme="dark"] .footer-links a:hover,
+html[data-theme="dark"] .footer .legal-links a:hover,
+html[data-theme="dark"] .footer .social-links a:hover i {
+    color: var(--primary-green) !important;
+}
+html[data-theme="dark"] .setting-tab.active {
+    color: var(--primary-green) !important;
+}
+
+html[data-theme="dark"] table th {
+    background: var(--hover-bg) !important;
+    color: var(--text-grey) !important;
+    border-bottom: 2px solid var(--border-grey) !important;
+}
+
+html[data-theme="dark"] table td {
+    border-color: var(--border-grey) !important;
+}
+
+html[data-theme="dark"] tbody tr:hover td {
+    background: var(--hover-bg) !important;
+}
+
+html[data-theme="dark"] .nav-item {
+    color: var(--text-grey);
+}
+
+html[data-theme="dark"] .nav-item:hover {
+    background: var(--hover-bg);
+    color: var(--exec-black);
+}
+
+html[data-theme="dark"] .nav-item.active {
+    background: rgba(11, 107, 58, 0.1) !important;
+    color: var(--primary-green) !important;
+    border-right: 4px solid var(--primary-green);
+}
+
+html[data-theme="dark"] .text-muted,
+html[data-theme="dark"] .text-grey {
+    color: var(--text-grey) !important;
 }
 
 * {
@@ -189,12 +427,8 @@ img {
     font-size: 15px;
     text-align: center;
     cursor: pointer;
-    transition: none;
+    transition: var(--transition-smooth);
     border: 1px solid transparent;
-}
-
-.btn:hover {
-    transition: none !important;
 }
 
 .btn-small {
@@ -216,7 +450,7 @@ img {
 
 .btn-primary {
     background-color: var(--primary-green);
-    color: #ffffff;
+    color: var(--white);
 }
 
 .btn-primary:hover {
@@ -227,7 +461,7 @@ img {
 
 .btn-success {
     background-color: var(--success-green);
-    color: #ffffff;
+    color: var(--white);
 }
 
 .btn-success:hover {
@@ -249,13 +483,13 @@ img {
 
 .btn-outline-light {
     background-color: transparent;
-    border-color: #ffffff;
-    color: #ffffff;
+    border-color: var(--white);
+    color: var(--white);
 }
 
 .btn-outline-light:hover {
-    background-color: #ffffff;
-    color: #0D0D0D;
+    background-color: var(--white);
+    color: var(--exec-black);
 }
 
 .btn-link {
@@ -522,8 +756,8 @@ img {
     margin-left: 4px;
 }
 
-.text-white {
-    color: #ffffff !important;
+.logo-text.text-white {
+    color: var(--white);
 }
 
 .nav-links {
@@ -543,7 +777,6 @@ img {
     display: flex;
     align-items: center;
     gap: 16px;
-    justify-self: end;
 }
 
 .header-actions .btn {
@@ -551,31 +784,26 @@ img {
     flex-shrink: 0;
 }
 
-/* Theme Toggle Button */
 .theme-toggle-btn {
     background: none;
     border: none;
     cursor: pointer;
     color: var(--exec-black);
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: var(--transition-fast);
+    transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
 }
 
 .theme-toggle-btn:hover {
     color: var(--primary-green);
-    background-color: rgba(20, 83, 45, 0.05);
+    background-color: var(--light-grey);
     transform: scale(1.05);
-}
-
-html[data-theme="dark"] .theme-toggle-btn:hover {
-    background-color: rgba(248, 250, 252, 0.05);
 }
 
 .nav-links a {
@@ -655,7 +883,7 @@ html[data-theme="dark"] .theme-toggle-btn:hover {
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: #020704 url('images/hero-network-bg.png') no-repeat center right / cover;
+    background-color: var(--light-grey);
 }
 
 .hero-bg {
@@ -664,10 +892,9 @@ html[data-theme="dark"] .theme-toggle-btn:hover {
     right: 0;
     width: 50%;
     height: 100%;
-    background: radial-gradient(circle at 60% 50%, rgba(34, 197, 94, 0.15) 0%, transparent 60%);
-    border-radius: 0;
+    background: linear-gradient(135deg, rgba(20, 83, 45, 0.05) 0%, rgba(20, 83, 45, 0) 100%);
+    border-radius: 50% 0 0 50%;
     z-index: 0;
-    pointer-events: none;
 }
 
 .hero-container {
@@ -684,13 +911,12 @@ html[data-theme="dark"] .theme-toggle-btn:hover {
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #22c55e;
+    color: var(--primary-green);
     text-transform: uppercase;
     margin-bottom: 1.5rem;
     display: inline-block;
     padding: 6px 12px;
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.2);
+    background: rgba(20, 83, 45, 0.1);
     border-radius: 4px;
 }
 
@@ -700,12 +926,11 @@ html[data-theme="dark"] .theme-toggle-btn:hover {
     line-height: 1.1;
     margin-bottom: 1.5rem;
     letter-spacing: -1px;
-    color: #FFFFFF;
 }
 
 .hero-subtitle {
     font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--text-grey);
     margin-bottom: 2.5rem;
     max-width: 90%;
 }
@@ -717,8 +942,6 @@ html[data-theme="dark"] .theme-toggle-btn:hover {
 
 .hero-visual {
     position: relative;
-    min-height: 400px;
-    width: 100%;
 }
 
 .main-dashboard {
@@ -781,16 +1004,14 @@ html[data-theme="dark"] .theme-toggle-btn:hover {
 
 .float-tag {
     position: absolute;
-    background: rgba(15, 23, 42, 0.85);
+    background: var(--white);
     padding: 8px 16px;
     border-radius: 30px;
     font-size: 12px;
     font-weight: 600;
-    color: #FFFFFF;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    color: var(--exec-black);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-grey);
     animation: float 6s ease-in-out infinite;
 }
 
@@ -1126,7 +1347,7 @@ html[data-theme="dark"] .author-avatar {
     border-radius: 16px;
     border: 1px solid var(--border-grey);
     text-align: left;
-    transition: none;
+    transition: all 0.4s ease-out;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -1141,7 +1362,6 @@ html[data-theme="dark"] .author-avatar {
     transform: translateY(-8px);
     box-shadow: var(--shadow-premium);
     border-color: var(--primary-green);
-    transition: none !important;
 }
 
 .service-img-container {
@@ -1287,7 +1507,7 @@ html[data-theme="dark"] .author-avatar {
     border-radius: 16px;
     border: 1px solid var(--border-grey);
     text-align: left;
-    transition: none;
+    transition: all 0.4s ease-out;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -1303,7 +1523,6 @@ html[data-theme="dark"] .author-avatar {
     transform: translateY(-6px);
     box-shadow: var(--shadow-premium);
     border-color: var(--primary-green);
-    transition: none !important;
 }
 
 .industry-img-container {
@@ -1784,7 +2003,7 @@ html[data-theme="dark"] .author-avatar {
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-grey);
-    transition: none;
+    transition: var(--transition-smooth);
 
     display: flex;
     flex-direction: column;
@@ -1794,8 +2013,6 @@ html[data-theme="dark"] .author-avatar {
 .insight-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
-    border-color: var(--primary-green);
-    transition: none !important;
 }
 
 .insight-img {
@@ -1896,8 +2113,8 @@ html[data-theme="dark"] .author-avatar {
    15. FOOTER
    ========================================================================== */
 .footer {
-    background-color: #0b0b0c;
-    color: #a1a1aa;
+    background-color: var(--exec-black);
+    color: var(--white);
     padding: 80px 0 40px;
 }
 
@@ -1909,7 +2126,7 @@ html[data-theme="dark"] .author-avatar {
 }
 
 .footer-links h4 {
-    color: #ffffff;
+    color: var(--white);
     font-size: 1.125rem;
     margin-bottom: 20px;
 }
@@ -1919,7 +2136,7 @@ html[data-theme="dark"] .author-avatar {
 }
 
 .footer-links a {
-    color: #a1a1aa;
+    color: var(--text-grey);
     font-size: 0.9375rem;
 }
 
@@ -1936,19 +2153,9 @@ html[data-theme="dark"] .author-avatar {
     height: 40px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+    color: var(--white);
     margin-right: 12px;
-    font-size: 1rem;
-    line-height: 1;
     transition: var(--transition-fast);
-}
-
-.social-links a i {
-    font-size: 1rem;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .social-links a:hover {
@@ -1963,7 +2170,7 @@ html[data-theme="dark"] .author-avatar {
     padding-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.875rem;
-    color: #a1a1aa;
+    color: var(--text-grey);
 }
 
 .legal-links a {
@@ -1971,7 +2178,7 @@ html[data-theme="dark"] .author-avatar {
 }
 
 .legal-links a:hover {
-    color: #ffffff;
+    color: var(--white);
 }
 
 /* ==========================================================================
@@ -2048,7 +2255,7 @@ html[data-theme="dark"] .author-avatar {
     .hero-bg {
         width: 100%;
         height: 50%;
-        border-radius: 0;
+        border-radius: 0 0 50% 50%;
     }
 
     .hero-title {
@@ -2257,7 +2464,7 @@ section.hero.page-section.active-page {
 .contact-stat-item {
     text-align: center;
     padding: 20px 30px;
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.8);
     border: 1px solid var(--contact-border);
     border-radius: 16px;
     backdrop-filter: blur(5px);
@@ -2496,50 +2703,6 @@ section.hero.page-section.active-page {
     font-size: 0.8rem;
     color: var(--contact-accent);
     background: var(--contact-primary);
-}
-
-
-/* Dark Mode overrides for Contact Section */
-html[data-theme="dark"] .glass-form {
-    background: rgba(18, 18, 18, 0.85) !important;
-}
-
-html[data-theme="dark"] .form-control {
-    background: rgba(0, 0, 0, 0.2) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
-}
-
-html[data-theme="dark"] .form-control:focus {
-    background: rgba(0, 0, 0, 0.3) !important;
-    border-color: var(--primary-green) !important;
-    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15) !important;
-}
-
-html[data-theme="dark"] .floating-group label {
-    color: var(--text-grey);
-}
-
-html[data-theme="dark"] .floating-group input:focus~label,
-html[data-theme="dark"] .floating-group input:not(:placeholder-shown)~label,
-html[data-theme="dark"] .floating-group textarea:focus~label,
-html[data-theme="dark"] .floating-group textarea:not(:placeholder-shown)~label,
-html[data-theme="dark"] .floating-group .form-control:valid~label {
-    background: #121212 !important;
-    color: var(--primary-green) !important;
-}
-
-html[data-theme="dark"] .floating-group input:focus~label,
-html[data-theme="dark"] .floating-group input.has-value~label,
-html[data-theme="dark"] .floating-group textarea:focus~label,
-html[data-theme="dark"] .floating-group textarea.has-value~label {
-    background: #121212 !important;
-    color: var(--primary-green) !important;
-}
-
-html[data-theme="dark"] select.form-control option {
-    background-color: #121212 !important;
-    color: #ffffff !important;
 }
 
 
@@ -3847,75 +4010,4 @@ body { overflow-x: hidden; }
     .startup-application-steps li span {
         margin-bottom: 16px;
     }
-}
-
-/* ==========================================================================
-   20. SERVICE DETAIL PAGES DARK THEME OVERRIDES
-   ========================================================================== */
-html[data-theme="dark"] .service-detail-content {
-    background-color: #000000 !important;
-}
-
-html[data-theme="dark"] .service-detail-lists,
-html[data-theme="dark"] .process-flow {
-    background: #0b0b0c !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: var(--shadow-premium) !important;
-}
-
-html[data-theme="dark"] .service-list-col strong,
-html[data-theme="dark"] .process-step h4,
-html[data-theme="dark"] .service-detail-content h3 {
-    color: #ffffff !important;
-}
-
-html[data-theme="dark"] .service-list-col li,
-html[data-theme="dark"] .process-step p,
-html[data-theme="dark"] .service-list-col span {
-    color: var(--text-grey) !important;
-}
-
-html[data-theme="dark"] .service-list-col li strong,
-html[data-theme="dark"] .process-step strong {
-    color: #ffffff !important;
-}
-
-html[data-theme="dark"] .service-list-col li[style*="background"] {
-    background: rgba(255, 255, 255, 0.03) !important;
-}
-
-html[data-theme="dark"] .service-list-col li[style*="background"] span[style*="color"] {
-    color: var(--text-grey) !important;
-}
-
-html[data-theme="dark"] .service-list-col li[style*="background"] strong {
-    color: #ffffff !important;
-}
-
-html[data-theme="dark"] .service-list-col li[style*="0b132b"] {
-    border-left-color: var(--primary-green) !important;
-}
-
-html[data-theme="dark"] .service-list-col {
-    border-top-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-html[data-theme="dark"] .step-num {
-    background: #121212 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
-}
-
-html[data-theme="dark"] .btn-outline {
-    color: #ffffff !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    background: transparent !important;
-}
-
-html[data-theme="dark"] .btn-outline:hover {
-    background: var(--primary-green) !important;
-    color: #ffffff !important;
-    border-color: var(--primary-green) !important;
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.45) !important;
-    transition: none !important;
 }
