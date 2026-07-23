@@ -28,26 +28,36 @@
     --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark theme overrides specifically designed for the Admin Dashboard */
+/* Dark theme overrides (Charcoal Black Theme for Frontend & Dashboard) */
 html[data-theme="dark"] {
-    /* Map base variables to dark deep green palette */
-    --white: #0a2918; /* Card Background - deep green */
-    --exec-black: #FFFFFF; /* Primary Text */
-    --light-grey: #061a0f; /* Page Background - very dark forest green */
-    --border-grey: #0f3d24; /* Borders - dark green */
-    --text-grey: #D1D5DB; /* Secondary Text */
+    --primary-green: #22c55e;
+    --secondary-green: #16a34a;
+    --dark-green: #15803d;
+    --white: #0b0b0c;
+    --exec-black: #FFFFFF;
+    --light-grey: #000000;
+    --border-grey: #1c1c1e;
+    --text-grey: #a1a1aa;
     
-    /* Specific dashboard structural colors */
-    --sidebar-bg: #082214;
-    --navbar-bg: #082214;
-    --hover-bg: #0f3d24;
-    --input-bg: #0c2b19;
-    --input-border: #14532D;
-    --muted-text: #9CA3AF;
+    /* Specific dashboard structural colors mapped to charcoal */
+    --sidebar-bg: #0b0b0c;
+    --navbar-bg: #0b0b0c;
+    --hover-bg: #1c1c1e;
+    --input-bg: #1c1c1e;
+    --input-border: #333333;
+    --muted-text: #a1a1aa;
     
-    --header-bg: rgba(8, 34, 20, 0.95);
-    --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --header-bg: rgba(10, 10, 10, 0.95);
+    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.8);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    
+    /* Contact Section Overrides */
+    --contact-primary: #000000;
+    --contact-text: #FFFFFF;
+    --contact-text-muted: #a1a1aa;
+    --contact-border: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(18, 18, 18, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 html[data-theme="dark"] body {
