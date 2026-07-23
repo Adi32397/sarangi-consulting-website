@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const banner = pageBanners.shift();
                         
                         // Construct Banner HTML as a Popup Modal
-                        const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `${API_BASE_URL}${banner.image.startsWith(`/') ? '' : '/'}${banner.image}`;
+                        const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `${API_BASE_URL}${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
                         
                         // Remove existing popup if it exists
                         const existingPopup = document.getElementById('dynamic-banner-popup');
