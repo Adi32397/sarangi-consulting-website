@@ -57,6 +57,14 @@ const initUser = () => {
             type: DataTypes.ENUM('active', 'inactive'),
             defaultValue: 'active'
         },
+        department: {
+            type: DataTypes.STRING,
+            defaultValue: ''
+        },
+        bio: {
+            type: DataTypes.TEXT,
+            defaultValue: ''
+        },
         lastLogin: {
             type: DataTypes.DATE,
             defaultValue: null

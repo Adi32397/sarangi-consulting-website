@@ -2,6 +2,7 @@ const { Lead, User } = require('../models');
 const { Op } = require('sequelize');
 const { getSequelize } = require('../config/database');
 const { logActivity } = require('../utils/logger');
+const notificationService = require('../utils/notificationService');
 
 // @desc    Create new lead
 // @route   POST /api/leads
@@ -10,6 +11,21 @@ exports.createLead = async (req, res, next) => {
         const LeadModel = Lead();
         const lead = await LeadModel.create(req.body);
         await logActivity(req, 'Leads', `Created lead for ${lead.customerName}`, { title: 'New Lead', type: 'success' });
+        
+        // Dispatch Notifications
+        await notificationService.dispatch('NEW_LEAD', {
+            name: lead.customerName,
+            email: lead.email,
+            phone: lead.phone,
+            message: lead.message || lead.requirements || ''
+        });
+
+        await notificationService.dispatch('CLIENT_CONFIRMATION', {
+            email: lead.email,
+            subject: 'Thank you for reaching out to Sarangi Consulting',
+            message: `Hi ${lead.customerName},\n\nWe have successfully received your inquiry. Our team will review your request and get back to you shortly.\n\nBest Regards,\nSarangi Consulting Team`
+        });
+
         res.status(201).json({ success: true, data: lead });
     } catch (error) {
         next(error);

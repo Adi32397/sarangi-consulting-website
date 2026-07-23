@@ -7,6 +7,7 @@ const {
     resetPassword,
     changePassword,
     getProfile,
+    updateProfile,
     refreshToken,
     getAllUsers
 } = require('../controllers/auth.controller');
@@ -24,7 +25,7 @@ const router = express.Router();
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // 5 attempts
+    max: 50, // 50 attempts
     message: { success: false, message: 'Too many login attempts, please try again after 15 minutes' }
 });
 
@@ -39,6 +40,7 @@ router.post('/forgot-password', forgotPasswordValidation, forgotPassword);
 router.post('/reset-password', resetPasswordValidation, resetPassword);
 router.post('/change-password', protect, changePasswordValidation, changePassword);
 router.get('/profile', protect, getProfile);
+router.put('/profile', protect, updateProfile);
 router.get('/refresh-token', protect, refreshToken);
 router.get('/users', protect, getAllUsers);
 

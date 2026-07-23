@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 const { getSequelize } = require('../config/database');
 const { logActivity } = require('../utils/logger');
 const PDFDocument = require('pdfkit');
+const notificationService = require('../utils/notificationService');
 
 // @desc    Create new booking
 // @route   POST /api/bookings
@@ -11,6 +12,22 @@ exports.createBooking = async (req, res, next) => {
         const BookingModel = Booking();
         const booking = await BookingModel.create(req.body);
         await logActivity(req, 'Bookings', `Created booking for ${booking.client_name}`, { title: 'New Booking', type: 'success' });
+        
+        // Dispatch Notifications
+        await notificationService.dispatch('NEW_BOOKING', {
+            clientName: booking.client_name,
+            clientEmail: booking.email,
+            serviceType: booking.consultation_type,
+            date: booking.booking_date,
+            time: booking.booking_time
+        });
+
+        await notificationService.dispatch('CLIENT_CONFIRMATION', {
+            email: booking.email,
+            subject: 'Booking Confirmation - Sarangi Consulting',
+            message: `Hi ${booking.client_name},\n\nYour booking for ${booking.consultation_type} has been successfully scheduled for ${booking.booking_date} at ${booking.booking_time}.\n\nThank you for choosing Sarangi Consulting.`
+        });
+
         res.status(201).json({ success: true, data: booking });
     } catch (error) {
         next(error);

@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { Setting, ActivityLog, Notification } = require('../models');
 const { getSequelize } = require('../config/database');
+const nodemailer = require('nodemailer');
+const { encrypt, decrypt } = require('../utils/crypto');
 
 // @desc    Get all settings grouped by key
 // @route   GET /api/settings
@@ -210,4 +212,22 @@ exports.getSystemHealthAndAnalytics = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+};
+
+// @desc    Get SMTP Configuration
+// @route   GET /api/settings/smtp
+exports.getSmtpConfig = async (req, res, next) => {
+    res.status(200).json({ success: true, data: null });
+};
+
+// @desc    Save or Update SMTP Configuration
+// @route   POST /api/settings/smtp
+exports.updateSmtpConfig = async (req, res, next) => {
+    res.status(400).json({ success: false, message: 'SMTP configuration via database is disabled.' });
+};
+
+// @desc    Test Email Configuration
+// @route   POST /api/settings/smtp/test
+exports.testEmail = async (req, res, next) => {
+    res.status(400).json({ success: false, message: 'SMTP is not configured.' });
 };
