@@ -21,6 +21,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="style.css?v=8">
     <link rel="stylesheet" href="sara-chatbot.css">
+    <script src="api-config.js"></script>
 </head>
 
 <body>
@@ -888,7 +889,7 @@
 
             // Fetch and Render Dynamic Pricing Cards
             try {
-                const res = await fetch('http://localhost:5000/api/pricing-cards');
+                const res = await fetch(`${API_BASE_URL}/api/pricing-cards');
                 const data = await res.json();
 
                 // FIX 1: Define the container element
@@ -1009,7 +1010,7 @@
                 waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
 
                 waBtn.addEventListener('click', () => {
-                    fetch('http://localhost:5000/api/whatsapp/click', {
+                    fetch(`${API_BASE_URL}/api/whatsapp/click', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

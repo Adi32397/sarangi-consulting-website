@@ -3,7 +3,7 @@
 ================================================== */
 
 let liveBanners = [];
-const API_URL = 'http://localhost:5000/api/banners';
+const API_URL = `${API_BASE_URL}/api/banners`;
 
 // Helper: Format Date
 const formatDate = (dateStr) => {
@@ -112,7 +112,7 @@ const renderBannersTable = () => {
         
         let imageSrc = banner.image;
         if(imageSrc && imageSrc.startsWith('/')) {
-            imageSrc = `http://localhost:5000${imageSrc}`;
+            imageSrc = `${API_BASE_URL}${imageSrc}`;
         }
         
         tr.innerHTML = `
@@ -183,7 +183,7 @@ const renderActiveCampaigns = () => {
     activeCampaigns.forEach(camp => {
         let imageSrc = camp.image;
         if(imageSrc && imageSrc.startsWith('/')) {
-            imageSrc = `http://localhost:5000${imageSrc}`;
+            imageSrc = `${API_BASE_URL}${imageSrc}`;
         }
         
         list.innerHTML += `
@@ -272,7 +272,7 @@ window.viewBanner = (id) => {
     if (banner) {
         let imageSrc = banner.image;
         if(imageSrc && imageSrc.startsWith('/')) {
-            imageSrc = `http://localhost:5000${imageSrc}`;
+            imageSrc = `${API_BASE_URL}${imageSrc}`;
         }
         
         document.getElementById('viewBannerTitle').innerText = banner.title;
@@ -313,7 +313,7 @@ window.previewBanner = () => {
     
     let imageSrc = mockBanner.image;
     if(imageSrc && imageSrc.startsWith('/')) {
-        imageSrc = `http://localhost:5000${imageSrc}`;
+        imageSrc = `${API_BASE_URL}${imageSrc}`;
     }
     
     document.getElementById('viewBannerTitle').innerText = mockBanner.title;

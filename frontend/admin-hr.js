@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!token) return;
 
     try {
-        const res = await fetch('http://localhost:5000/api/admin/hr-records', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/hr-records`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const json = await res.json();
@@ -127,7 +127,7 @@ if (addEmployeeBtn) {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5000/api/admin/employees', {
+            const res = await fetch(`${API_BASE_URL}/api/admin/employees`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(payload)
@@ -167,7 +167,7 @@ if (addInternBtn) {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5000/api/admin/interns', {
+            const res = await fetch(`${API_BASE_URL}/api/admin/interns`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(payload)

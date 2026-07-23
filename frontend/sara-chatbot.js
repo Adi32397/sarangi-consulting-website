@@ -1,5 +1,5 @@
 (function () {
-    const API_URL = "http://localhost:5000/api/chatbot";
+    const API_URL = `${API_BASE_URL}/api/chatbot`;
 
     const chatbotHTML = `
         <button class="sara-launcher" id="saraLauncher" aria-label="Open SARA Chat">

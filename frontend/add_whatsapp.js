@@ -47,7 +47,7 @@ const whatsappSnippet = `
                 waBtn.href = \`https://wa.me/\${waNumber}?text=\${waMessage}\`;
 
                 waBtn.addEventListener('click', () => {
-                    fetch('http://localhost:5000/api/whatsapp/click', {
+                    fetch(`${API_BASE_URL}/api/whatsapp/click`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

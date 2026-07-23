@@ -3,7 +3,7 @@
 ================================================== */
 
 let liveCards = [];
-const API_URL = 'http://localhost:5000/api/pricing-cards';
+const API_URL = `${API_BASE_URL}/api/pricing-cards`;
 
 // Fetch Cards on Load
 document.addEventListener('DOMContentLoaded', () => {

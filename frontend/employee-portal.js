@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000";
+const API_BASE = API_BASE_URL;
 
 // Only run this if we are on the employee dashboard
 if (window.location.pathname.includes("employee-dashboard.html")) {

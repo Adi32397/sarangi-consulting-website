@@ -15,7 +15,7 @@ function getPaymentBadge(payment) {
 }
 
 // Fetch API Setup
-const API_URL = 'http://localhost:5000/api/bookings';
+const API_URL = `${API_BASE_URL}/api/bookings`;
 
 async function fetchBookings() {
     const token = localStorage.getItem('token') || '';
@@ -863,7 +863,7 @@ async function bulkDelete() {
 async function fetchConsultants() {
     const token = localStorage.getItem('token') || '';
     try {
-        const res = await fetch(`http://localhost:5000/api/auth/users`, {
+        const res = await fetch(`${API_BASE_URL}/api/auth/users`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const json = await res.json();

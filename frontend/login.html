@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=8">
      <link rel="stylesheet" href="sara-chatbot.css">
+    <script src="api-config.js"></script>
 </head>
 <body class="bg-light">
 
@@ -59,7 +60,7 @@
     <!-- Scripts -->
     <script src="script.js"></script>
     <script>
-        const API_BASE = 'http://localhost:5000';
+        const API_BASE = `${API_BASE_URL}';
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value.trim();
@@ -135,7 +136,7 @@
                 waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
 
                 waBtn.addEventListener('click', () => {
-                    fetch('http://localhost:5000/api/whatsapp/click', {
+                    fetch(`${API_BASE_URL}/api/whatsapp/click', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

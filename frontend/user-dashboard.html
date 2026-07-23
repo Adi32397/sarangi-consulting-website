@@ -272,6 +272,7 @@
             }
         }
     </style>
+    <script src="api-config.js"></script>
 </head>
 <body>
 
@@ -549,7 +550,7 @@
         }
 
         try {
-            const API_BASE = 'http://localhost:5000';
+            const API_BASE = `${API_BASE_URL}';
             const res = await fetch(`${API_BASE}/api/auth/profile`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -648,7 +649,7 @@
     // Fetch User Bookings
     async function fetchUserBookings(email, token) {
         try {
-            const API_BASE = 'http://localhost:5000';
+            const API_BASE = `${API_BASE_URL}';
             const res = await fetch(`${API_BASE}/api/bookings?search=${encodeURIComponent(email)}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -1181,7 +1182,7 @@
             };
 
             try {
-                const res = await fetch('http://localhost:5000/api/contact', {
+                const res = await fetch(`${API_BASE_URL}/api/contact', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)

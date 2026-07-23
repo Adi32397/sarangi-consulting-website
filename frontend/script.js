@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const res = await fetch('http://localhost:5000/api/contact', {
+                const res = await fetch(`${API_BASE_URL}/api/contact', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. Dynamic Banner Rendering
     async function renderDynamicBanners(isManual = false) {
         try {
-            const res = await fetch('http://localhost:5000/api/banners?status=Active');
+            const res = await fetch(`${API_BASE_URL}/api/banners?status=Active');
             const data = await res.json();
             
             if (data.success && data.data && data.data.length > 0) {
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const banner = pageBanners.shift();
                         
                         // Construct Banner HTML as a Popup Modal
-                        const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `http://localhost:5000${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
+                        const bannerImgSrc = banner.image.startsWith('http') ? banner.image : `${API_BASE_URL}${banner.image.startsWith('/') ? '' : '/'}${banner.image}`;
                         
                         // Remove existing popup if it exists
                         const existingPopup = document.getElementById('dynamic-banner-popup');
@@ -417,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         document.body.insertAdjacentHTML('beforeend', bannerHtml);
                         
                         // Track View
-                        fetch(`http://localhost:5000/api/banners/${banner.id}/view`, { method: 'PUT' }).catch(console.error);
+                        fetch(`${API_BASE_URL}/api/banners/${banner.id}/view`, { method: 'PUT' }).catch(console.error);
                         
                         // Handle Close Button
                         const closeBtn = document.getElementById('dynamic-banner-close');
@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     e.preventDefault();
                                 }
                                 
-                                fetch(`http://localhost:5000/api/banners/${banner.id}/click`, { method: 'PUT' })
+                                fetch(`${API_BASE_URL}/api/banners/${banner.id}/click`, { method: 'PUT' })
                                     .catch(console.error)
                                     .finally(() => {
                                         if (banner.button_url) {

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     
     <link rel="stylesheet" href="style.css?v=8">
+    <script src="api-config.js"></script>
 </head>
     <!-- PAGE LOADER -->
     <div id="page-loader" class="page-loader">
@@ -355,7 +356,7 @@
                 waBtn.href = `https://wa.me/${waNumber}?text=${waMessage}`;
 
                 waBtn.addEventListener('click', () => {
-                    fetch('http://localhost:5000/api/whatsapp/click', {
+                    fetch(`${API_BASE_URL}/api/whatsapp/click', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

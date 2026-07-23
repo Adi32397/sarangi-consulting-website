@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000";
+const API_BASE = API_BASE_URL;
 
 if (window.location.pathname.includes("intern-dashboard.html")) {
     const token = localStorage.getItem("token");
